@@ -1,3 +1,16 @@
+import GlobalLayout from "../components/layouts/GlobalLayout";
+import Hero from "../components/widgets/Hero";
+import Testimonials from "../components/widgets/Testimonials";
+import dynamic from 'next/dynamic'
+import { useEffect, useState } from "react";
+const TaxiDeals = dynamic(() => import('../components/widgets/TaxiDeals'), { loading: () => <div>Loading...</div> });
+const CarsSlider = dynamic(() => import('../components/widgets/CarsSlider'),);
+import SeaportTransfers from "../components/widgets/SeaportTransfers";
+import { parse } from 'url';
+import Tours from "./tours";
+import { fetchContent } from "../helpers/fetchContent";
+import { checkLanguageAttributeOntheUrl } from "../helpers/checkLanguageAttributeOntheUrl";
+import env from "../resources/env";
 
 const structuredSchema = {
   "@context": "http://schema.org/",
@@ -83,20 +96,53 @@ const breadcumbSchema = {
   ]
 }
 
-let a = {
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-    "@type": "ListItem",
-    "position": 1,
-    "item": { "@id": "https://www.airport-pickups-london.com/", "name": "Home" }
-  },
-  {
-    "@type": "ListItem",
-    "position": 2,
-    "item": { "@id": "https://www.airport-pickups-london.com/Terms.asp", "name": " Booking Terms and Conditions" }
-  }]
+
+export default function Home(props) {
+  let { metaTitle, keywords, metaDescription, pageContent } = props
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const handleScroll = () => {
+    if (!hasScrolled) setHasScrolled(true);
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasScrolled]);
+
+  // const fetchC = async (par) => {
+  //   await fetch("http://ip-api.com/json").then((response) => {
+  //     return response.json()
+  //   }).then((data) => {
+
+  //   })
+  // }
+  // useEffect(() => {
+  //   fetchC()
+  // }, [])
+
+      // birileri buyur harfler yazarsa sen onu kucuge cevir * bunu arasdir  / 
+
+  return (
+    <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true} >
+      <Hero />
+      <TaxiDeals />
+      <SeaportTransfers bggray={true} />
+      <Tours insideGlobalLayout={false} />
+      {hasScrolled && <CarsSlider bggray={true} />}
+      <Testimonials bggray={false} pageContent={pageContent} />
+    </GlobalLayout>
+  )
 }
-export default function Home() {
-  return (<div>salam</div>)
-}
+// export async function getServerSideProps({ req, res }) {
+//   res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
+//   let firstLoadLangauge = checkLanguageAttributeOntheUrl(req?.url)
+//   let { pathname } = parse(req?.url, true)
+//   let pathnameUrlWHenChangeByTopbar = pathname
+//   const { cookie } = req.headers;
+//   let { metaTitle, keywords, pageContent, metaDescription, lang } = await fetchContent("/", cookie, firstLoadLangauge, pathnameUrlWHenChangeByTopbar)
+//   let schemas = [structuredSchema, breadcumbSchema];
+//   let mainCanonical = lang === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${lang}${pathname}`
+
+//   return {
+//     props: { metaTitle, keywords, pageContent, metaDescription, schemas, mainCanonical },
+//   }
+// }
