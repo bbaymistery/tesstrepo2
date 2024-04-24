@@ -1,0 +1,40 @@
+@import '../../../styles/variables';
+@import '../../../styles/_fonts';
+.index[bggray="true"] {
+    background-color: $light-2;
+}
+
+.index[bggray="false"] {
+    background-color: white !important;
+}
+.index {
+    height: 100%;
+        position: relative;
+        padding-top: 2rem;
+        border: 1px solid $border;
+
+
+
+    &_section {
+
+        &_container {
+            .title {
+                text-align: center;
+
+                h1 {
+                    font-size: 30px;
+                    font-weight: 500;
+                }
+
+                p {
+                    color: $light-1;
+                    margin-top: 10px;
+                }
+
+                margin-bottom: 2rem;
+            }
+
+           
+        }
+    }
+}

@@ -1,0 +1,42 @@
+@import '../../../styles/fonts';
+@import '../../../styles/variables';
+
+.description {
+    padding: 40px 20px;
+    background-color: #fff;
+    margin-top: 40px;
+    border-radius: 4px;
+
+    div {
+        img {
+            @media (max-width: 1280px) {
+                display: none;
+            }
+        }
+    }
+
+    h2 {
+        color: $dark-1;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+
+    h3 {
+        color: $dark-1;
+        font-weight: 500;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        font-size: 17px;
+    }
+
+    a {
+        color: $dark-1;
+        font-weight: 500;
+    }
+
+    p {
+        padding: 10px 0px;
+
+    }
+}

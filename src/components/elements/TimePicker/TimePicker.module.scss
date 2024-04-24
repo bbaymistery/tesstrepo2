@@ -1,0 +1,70 @@
+@import '../../../styles/variables';
+@import '../../../styles/fonts';
+
+.search_menu {
+    min-height: 50px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 10px;
+    border-left: 1px solid $border;
+    border-right: 1px solid $border;
+    border-radius: 4px;
+    max-width: 100%;
+    width: 100%;
+
+    @media (max-width:580px) {
+        border: none;
+        padding-left: 0px;
+        padding-right: 5px;
+    }
+
+    .select_time_div {
+        display: flex;
+        padding-right: 4px;
+        color: $input_text_color;
+        font-weight: 500;
+        height: 28px;
+        gap: 16px;
+
+        @media(max-width:990px) {
+            max-width: 100% !important;
+        }
+
+
+        .booking_form_hour_minute_wrapper {
+            max-width: 100%;
+            width: 100%;
+            position: relative;
+
+            select {
+                border: none;
+                width: 100%;
+                font-size: 15px;
+                background-color: white !important;
+
+                &:focus {
+                    outline: 0px !important;
+                }
+            }
+
+            i {
+                display: none;
+            }
+
+            .left {
+                display: none;
+            }
+        }
+    }
+
+    p {
+        font-size: 15px;
+        font-weight: 500 !important;
+        text-transform: capitalize;
+        color: $dark-1;
+        padding-right: 8px;
+        padding-bottom: 10px;
+    }
+}

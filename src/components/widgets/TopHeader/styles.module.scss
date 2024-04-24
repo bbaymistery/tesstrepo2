@@ -1,0 +1,167 @@
+@import '../../../styles/variables';
+@import '../../../styles/_fonts';
+
+.header {
+    position: fixed;
+    z-index: 1000;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 90px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+    background-color: $primary;
+    margin: 0px !important;
+    user-select: none;
+
+    @media(max-width:1280px) {
+        height: 65px;
+    }
+
+    .header_container {
+        padding: 0px 30px;
+        width: 100%;
+
+        @media(max-width:1367px) {
+            padding: 0px 20px;
+        }
+
+        @media(max-width:450px) {
+            padding: 0px 10px;
+        }
+
+        .header_flex_div {
+            display: flex;
+            justify-content: space-between;
+
+            .left_items {
+                @media(max-width:1280px) {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .left_items_flex_div {
+                    display: flex;
+                    align-items: center;
+
+                    @media(max-width:1280px) {
+                        flex-direction: column;
+                    }
+
+                    .logo_tag {
+                        margin-right: 15px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        @media(max-width:450px) {
+                            margin-right: 0px;
+                        }
+
+                        span {
+                            font-size: 25px;
+                            color: #fff;
+                            font-weight: bold;
+                            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                            margin-left: 10px;
+
+                            @media(max-width:1430px) {
+                                font-size: 22px;
+                            }
+
+                            @media(max-width:1367px) {
+                                font-size: 19px;
+                            }
+                        }
+
+                    }
+
+                    // it is for desktop
+                    //it is for mobile
+                }
+
+
+            }
+
+            .right_items {
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+
+                @media(max-width:1200px) {
+                    gap: 16px;
+                }
+
+                .language_dropdown {
+                    cursor: pointer;
+                    position: relative;
+
+                    .top {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 25px 0px;
+
+                        .img_div {
+                            background-color: rgb(216 222 228 / 14%);
+                            padding: 0px 5px;
+                        }
+
+                        span {
+                            margin-left: 10px;
+                            color: white;
+                            // font-family: $font-jost;
+
+                            i {
+                                font-size: 11px;
+                                margin-left: 10px;
+                            }
+                        }
+
+                        .lang_text {
+                            @media(max-width:1280px) {
+                                display: none;
+                            }
+                        }
+
+                        //allllangs
+                    }
+
+
+                }
+
+
+                // hamburger menu
+                .menu {
+                    width: 22px;
+                    height: 16px;
+                    cursor: pointer;
+                    display: none;
+                    align-items: center;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    position: relative;
+
+                    @media (max-width: 1280px) {
+                        display: flex;
+                    }
+
+                    @media (max-width: 450px) {
+                        margin-right: 15px;
+                    }
+
+
+                    i {
+                        font-size: 25px;
+                        color: white;
+                        margin-top: -5px;
+                    }
+                }
+
+
+            }
+        }
+    }
+}

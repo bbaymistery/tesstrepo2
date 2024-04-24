@@ -1,0 +1,185 @@
+@import '../../styles/fonts';
+@import '../../styles/variables';
+
+.driverswanted {
+    height: 100%;
+    position: relative;
+    border: 1px solid $border;
+    border-left: 0px;
+    border-right: 0px;
+    background-color: #ffffff;
+
+    &_section {
+        &_container {
+            .content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+
+                @media (max-width: 1050px) {
+                    flex-direction: column;
+                }
+
+                .left {
+                    flex: 1;
+
+                 
+
+                    h1 {
+                        margin-bottom: .55rem;
+                        margin-top: 0.75rem;
+                        text-transform: capitalize !important;
+                        @media (max-width: 768px) {
+                                font-size: 30px;
+                            }
+                    }
+
+                    ul {
+                        li {
+                            padding-bottom: 0.2rem;
+
+                            strong {
+                                font-weight: 500 !important;
+                            }
+                        }
+                    }
+
+                    p {
+                        color: $light-1;
+                        margin-bottom: 1rem;
+
+                        a {
+                            color: $primary;
+                            font-weight: 500;
+                        }
+
+                        span {
+                            color: $primary;
+                            font-weight: 500;
+                        }
+
+                    }
+
+                    .ios_android_div {
+                        display: flex;
+                        flex-direction: column;
+
+                        p {
+                            font-size: 18px;
+                            color: $black-2;
+                        }
+
+                        a {
+                            cursor: pointer;
+
+                            div {
+                                background-color: #192a53;
+                                border-radius: 10px;
+                                width: 280px;
+                                padding: 16px;
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: flex-start;
+                                align-items: center;
+                                margin: 10px 0;
+
+                                img {
+                                    width: 60px;
+                                    height: 50px;
+                                    margin: 0 16px 0 0;
+                                }
+
+                                p {
+                                    font-size: 28px;
+                                    font-family: monospace;
+                                    color: white;
+                                    margin: 0;
+                                    text-align: center;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .right {
+                    flex: 1;
+                    display: flex;
+                    position: sticky;
+                    top: 50px;
+                    align-self: flex-start;
+                    justify-content: center;
+
+                    @media (max-width: 1050px) {
+                        align-self: center;
+                    }
+
+                    .img_div {
+                        width: 450px;
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: row;
+                        align-items: center;
+
+                        @media (max-width: 1050px) {
+                            width: 300px;
+                        }
+  @media (max-width: 768px) {
+                                width: 250px;
+  }
+                        img {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+
+            .destinations {
+                padding-bottom: 40px;
+                border-bottom: 1px solid $border;
+                margin-top: 6rem;
+
+                .destinations_content {
+                    display: grid;
+                    gap: 1rem;
+                    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+                    @media(max-width:768px) {
+                        grid-template-columns: 1fr 1fr;
+                        gap: 2rem;
+
+                        .column {
+                            .numbers {
+                                font-size: 30px !important;
+                            }
+                        }
+                    }
+
+                    .column {
+                        flex: 1;
+
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+
+                        .numbers {
+                            font-size: 40px;
+                            font-weight: 500;
+
+                        }
+
+                        .text {
+                            margin-top: 10px;
+                            color: $light-1;
+                            font-size: 15px;
+                        }
+                    }
+                }
+            }
+
+
+        }
+    }
+}

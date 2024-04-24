@@ -1,0 +1,90 @@
+@import '../../../styles/variables';
+
+.accordion {
+    width: 100%;
+    margin-bottom: .1rem;
+    padding: 0px 20px;
+    background-color: #fff;
+    box-shadow: 0 0 40px rgba(82, 85, 90, 0.1);
+    border-bottom: 1px solid $border;
+
+    &_heading {
+        padding: 14px 0;
+
+        &_content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .head_title {
+                color: $dark-1;
+                cursor: pointer;
+                z-index: 99;
+                text-align: left;
+                font-size: 18px !important;
+            }
+
+            .headClick {
+                cursor: pointer;
+                transition: all 0.9s;
+                z-index: 99;
+                transform: rotate(0deg);
+                transition: max-height 0.3s ease-out;
+            }
+
+
+            .turnUp {
+                transform: rotate(180deg);
+            }
+
+        }
+    }
+
+
+    .accordion_toggle {
+        height: 0px;
+        font-size: 15px;
+        opacity: 0;
+        transition: opacity 0.3s linear,
+            height 0.3s 0.3s linear;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+        text-align: left;
+        color: $dark-1;
+
+        .number {
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 16px;
+
+            table {
+                margin: 0 auto;
+                margin-top: 10px;
+
+                tr {
+                    th {
+                        font-weight: 700;
+                        width: 200px;
+                        text-align: center;
+                        border: 1px solid #ddd;
+                    }
+
+                    td {
+                        border: 1px solid #ddd;
+                        text-align: center;
+                        padding: 2px;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .animated {
+        opacity: 1;
+        transition: height 0.3s linear, opacity 0.3s 0.3s linear;
+    }
+
+}

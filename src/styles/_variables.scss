@@ -1,0 +1,61 @@
+//*Transitions
+$tr-ease: 0.3s ease-in-out;
+$tr-linear: 0.3s linear;
+$tr-cubic: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+//*colors
+
+
+$gray-1: #424242;
+$gray-2: #3b3b3b;
+$gray-3: #777;
+
+
+
+$black-1: #070707;
+$black-2: #1c1c1c;
+
+
+$dark-1: #051036;
+$dark-2: #0D2857;
+$dark-4: #163C8C;
+
+$border: #DDDDDD;
+$border2: #6e7f8c;
+$primary: #13357B;
+
+$light-1: #697488;
+$light-2: #F5F5F5;
+$light-3: #FBFCFF;
+$blue-1: #3554D1;
+$blue-2: #E5F0FD;
+$yellow1: #F8D448;
+
+$input_text_color: #62666cd7;
+$label_text_color: rgba(105, 116, 136, 0.579);
+
+$checkbox-size: 14px;
+$checkbox-border: #cecece;
+$checkbox-selected: lighten($dark-1, 5%); // Primary colour
+$disabled: hsla(215, 9%, 55%, 0.15);
+
+
+
+// $green-1: #EBFCEA;
+// $green-2: #008009;
+// $yellow-1: #F8D448;
+// $yellow-2: #E1C03F;
+// $yellow-3: #FFC700;
+// $yellow-4: #FFF8DD;
+// $brown-1: #923E01;
+// $purple-1: #7E53F9;
+// $red-1: #D93025;
+// $red-2: #F1416C;
+// $red-3: #FFF5F8;
+// $info-1: #CDE9F6;
+// $info-2: #4780AA;
+// $warning-1: #F7F3D7;
+// $warning-2: #927238;
+// $error-1: #ECC8C5;
+// $error-2: #AB3331;
+// $success-1: #DEF2D7;
+// $success-2: #5B7052;
