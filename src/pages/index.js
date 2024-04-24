@@ -3,6 +3,7 @@ import { checkLanguageAttributeOntheUrl } from "../helpers/checkLanguageAttribut
 import env from "../resources/env";
 import dynamic from 'next/dynamic'
 import { parse } from 'url';
+import { fetchContent } from "../helpers/fetchContent";
 
 const structuredSchema = {
   "@context": "http://schema.org/",
