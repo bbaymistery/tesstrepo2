@@ -1,10 +1,4 @@
 
-import { checkLanguageAttributeOntheUrl } from "../helpers/checkLanguageAttributeOntheUrl";
-import env from "../resources/env";
-import dynamic from 'next/dynamic'
-import { parse } from 'url';
-import { fetchContent } from "../helpers/fetchContent";
-
 const structuredSchema = {
   "@context": "http://schema.org/",
   "@type": "LocalBusiness",
@@ -105,18 +99,4 @@ let a = {
 }
 export default function Home() {
   return (<div>salam</div>)
-}
-export async function getServerSideProps({ req, res }) {
-  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
-  let firstLoadLangauge = checkLanguageAttributeOntheUrl(req?.url)
-  let { pathname } = parse(req?.url, true)
-  let pathnameUrlWHenChangeByTopbar = pathname
-  const { cookie } = req.headers;
-  let { metaTitle, keywords, pageContent, metaDescription, lang } = await fetchContent("/", cookie, firstLoadLangauge, pathnameUrlWHenChangeByTopbar)
-  let schemas = [structuredSchema, breadcumbSchema];
-  let mainCanonical = lang === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${lang}${pathname}`
-
-  return {
-    props: { metaTitle, keywords, pageContent, metaDescription, schemas, mainCanonical },
-  }
 }
