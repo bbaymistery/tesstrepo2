@@ -133,9 +133,16 @@ export default function Home(props) {
   )
 }
 export async function getServerSideProps({ req, res }) {
-  console.log({ pathname: "s" });
+  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
+  let firstLoadLangauge = checkLanguageAttributeOntheUrl(req?.url)
+  let { pathname } = parse(req?.url, true)
+  let pathnameUrlWHenChangeByTopbar = pathname
+  const { cookie } = req.headers;
+  let { metaTitle, keywords, pageContent, metaDescription, lang } = await fetchContent("/", cookie, firstLoadLangauge, pathnameUrlWHenChangeByTopbar)
+  let schemas = [structuredSchema, breadcumbSchema];
+  let mainCanonical = lang === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${lang}${pathname}`
 
   return {
-    props: {},
+    props: { metaTitle, keywords, pageContent, metaDescription, schemas, mainCanonical },
   }
 }
