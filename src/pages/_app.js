@@ -1,23 +1,20 @@
-import "../styles/global.scss";
-import { createWrapper } from 'next-redux-wrapper';
-import { Provider, useDispatch } from 'react-redux';
-import store from '../store/store';
-import { checkLanguageAttributeOntheUrl } from '../helpers/checkLanguageAttributeOntheUrl';
+import { mobileAndTabletCheck } from '../helpers/mobileAndTabletCheck';
+import { createWrapper } from "next-redux-wrapper";
+import { Provider, useDispatch, } from "react-redux";
+import React, { useCallback, useEffect } from "react";
+import store from "../store/store";
 import env from '../resources/env';
+import "../styles/global.scss";
+import Error404 from './404/index'
 import { useRouter } from 'next/router';
 import { extractLanguage } from '../helpers/extractLanguage';
-import { useCallback, useEffect } from 'react';
-import { mobileAndTabletCheck } from '../helpers/mobileAndTabletCheck';
-import { setCookie } from "../helpers/cokieesFunc";
-import { DM_Sans } from "next/font/google";
-const dmsans = DM_Sans({
-  weight: ["400", "500", "700"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  display: "swap",
-});
-function MyApp({ Component, pageProps }) {
+import { checkLanguageAttributeOntheUrl } from '../helpers/checkLanguageAttributeOntheUrl';
+import localFont from '@next/font/local';
+import { setCookie } from '../helpers/cokieesFunc';
+const myFont = localFont({ src: '../../public/googleFonts/92zatBhPNqw73oTd4g.woff2' })
+export const MyApp = ({ Component, pageProps }) => {
   const router = useRouter()
+
 
   //localhost:3500//test
   // Check if 'asPath' contains two or more consecutive slashes
@@ -49,21 +46,17 @@ function MyApp({ Component, pageProps }) {
       localStorage.setItem("language", JSON.stringify(language));
       localStorage.setItem("direction", JSON.stringify(direction));
       localStorage.setItem("langIndex", JSON.stringify(index));
-      // in order to hydate redux store i need to save to localstorage new version of appData(based on langugae) so i use
-      // if (hydrate) {
-      //   dispatch({ type: "SET_NEW_APPDATA", data: appData, initialStateReducer: store.getState().initialReducer })
-      //   console.log("hydrate");
+      //in order to hydate redux store i need to save to localstorage new version of appData(based on langugae) so i use
+      if (hydrate) {
+        dispatch({ type: "SET_NEW_APPDATA", data: appData, initialStateReducer: store.getState().initialReducer })
+      } else {
+        const appDataUrl = `${env.apiDomain}/app/${language}`; // Use the preferred language if available, otherwise default to English
+        const response = await fetch(appDataUrl);
+        const appDatass = await response.json();
 
-      // } else {
-      const appDataUrl = `${env.apiDomain}/app/${language}`; // Use the preferred language if available, otherwise default to English
-      const response = await fetch(appDataUrl);
-      const appDatass = await response.json();
-
-      // Dispatch values to Redux store
-      dispatch({ type: "SET_NEW_APPDATA", data: appDatass, initialStateReducer: store.getState().initialReducer })
-      console.log("not hydrate");
-
-      // }
+        // Dispatch values to Redux store
+        dispatch({ type: "SET_NEW_APPDATA", data: appDatass, initialStateReducer: store.getState().initialReducer })
+      }
     }
   }, [dispatch, appData,])
   useEffect(() => {
@@ -119,6 +112,9 @@ function MyApp({ Component, pageProps }) {
       // Dynamically inject the termsReducer when this component mounts
 
     };
+
+
+
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
@@ -133,19 +129,22 @@ function MyApp({ Component, pageProps }) {
   }, [langAtrribute])
 
 
-  return (
-    <Provider store={store}>
-      <main className={dmsans.className}>
-        <Component {...pageProps} />
-      </main>
-    </Provider>
-  );
+
+  return (<Provider store={store}>
+    <main style={{ fontFamily: myFont.style.fontFamily }}>
+      <Component {...pageProps} />
+    </main>
+  </Provider>);
 }
 const makestore = () => store;
 const wrapper = createWrapper(makestore);
 
 
+
 MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component, ctx }) => {
+
+
+
   const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
   //language congiguration based on the url (http://localhost:3500/it/gatwick-taxi-prices  if he pres enter we get lang)
   let lang = checkLanguageAttributeOntheUrl(ctx?.req?.url)
@@ -176,19 +175,3 @@ MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component
 
 });
 export default wrapper.withRedux(MyApp);
-/*
- if (hydrate) {
-        dispatch({ type: "SET_NEW_APPDATA", data: appData, initialStateReducer: store.getState().initialReducer })
-        console.log("hydrate");
-
-      } else {
-      const appDataUrl = `${env.apiDomain}/app/${language}`; // Use the preferred language if available, otherwise default to English
-      const response = await fetch(appDataUrl);
-      const appDatass = await response.json();
-
-      // Dispatch values to Redux store
-      dispatch({ type: "SET_NEW_APPDATA", data: appDatass, initialStateReducer: store.getState().initialReducer })
-      console.log("not hydrate");
-
-      }
-*/
