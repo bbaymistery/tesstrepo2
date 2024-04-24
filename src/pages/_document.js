@@ -16,36 +16,36 @@ class CustomDocument extends Document {
 
         return { ...initialProps, pageProps, }
     }
-    // createMetaTagElements(metaTags) {
-    //     if (metaTags.length > 0) {
-    //         return metaTags.map((tagString, index) => {
-    //             const matches = tagString.match(/<meta [^>]+>/g);
-    //             if (matches) {
-    //                 return matches.map((metaTag, idx) => {
-    //                     const props = {};
-    //                     metaTag.replace(/(\w+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/g, (m, key, value) => {
-    //                         props[key] = value;
-    //                         return m;
-    //                     });
-    //                     return <meta {...props} key={`meta-${index}-${idx}`} />;
-    //                 });
-    //             }
-    //             // For link tags
-    //             const linkMatches = tagString.match(/<link [^>]+>/g);
-    //             if (linkMatches) {
-    //                 return linkMatches.map((linkTag, idx) => {
-    //                     const props = {};
-    //                     linkTag.replace(/(\w+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/g, (m, key, value) => {
-    //                         props[key] = value;
-    //                         return m;
-    //                     });
-    //                     return <link {...props} key={`link-${index}-${idx}`} />;
-    //                 });
-    //             }
-    //             return null;
-    //         });
-    //     }
-    // }
+    createMetaTagElements(metaTags) {
+        if (metaTags.length > 0) {
+            return metaTags.map((tagString, index) => {
+                const matches = tagString.match(/<meta [^>]+>/g);
+                if (matches) {
+                    return matches.map((metaTag, idx) => {
+                        const props = {};
+                        metaTag.replace(/(\w+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/g, (m, key, value) => {
+                            props[key] = value;
+                            return m;
+                        });
+                        return <meta {...props} key={`meta-${index}-${idx}`} />;
+                    });
+                }
+                // For link tags
+                const linkMatches = tagString.match(/<link [^>]+>/g);
+                if (linkMatches) {
+                    return linkMatches.map((linkTag, idx) => {
+                        const props = {};
+                        linkTag.replace(/(\w+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/g, (m, key, value) => {
+                            props[key] = value;
+                            return m;
+                        });
+                        return <link {...props} key={`link-${index}-${idx}`} />;
+                    });
+                }
+                return null;
+            });
+        }
+    }
     render() {
         //here i am destructing props which i passed  with MyApp.getInitialProps
         let { schemaOfTaxiDeals, schemas, canonicalAlternates, mainCanonical = "", metaTags = [] } = this?.props?.__NEXT_DATA__?.props?.pageProps//this comes from.[...pathname]
@@ -64,7 +64,7 @@ class CustomDocument extends Document {
                     }))}
                     {alternates?.length > 0 && alternates.map((alternate, index) => <link rel="alternate" key={index} hrefLang={alternate.hrefLang} href={alternate.href} />)}
                     {mainCanonical?.length > 0 && <link rel="canonical" href={mainCanonical} />}
-                    {/* {this.createMetaTagElements(metaTags)} */}
+                    {this.createMetaTagElements(metaTags)}
                 </Head>
                 <body>
                     <Main />

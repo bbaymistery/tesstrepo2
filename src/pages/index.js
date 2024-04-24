@@ -1,13 +1,7 @@
-import GlobalLayout from "../components/layouts/GlobalLayout";
-import Hero from "../components/widgets/Hero";
-import Testimonials from "../components/widgets/Testimonials";
-import dynamic from 'next/dynamic'
+
 import { useEffect, useState } from "react";
-const TaxiDeals = dynamic(() => import('../components/widgets/TaxiDeals'), { loading: () => <div>Loading...</div> });
-const CarsSlider = dynamic(() => import('../components/widgets/CarsSlider'),);
-import SeaportTransfers from "../components/widgets/SeaportTransfers";
 import { parse } from 'url';
-import Tours from "./tours";
+
 import { fetchContent } from "../helpers/fetchContent";
 import { checkLanguageAttributeOntheUrl } from "../helpers/checkLanguageAttributeOntheUrl";
 import env from "../resources/env";
@@ -133,17 +127,10 @@ export default function Home(props) {
   //   fetchC()
   // }, [])
 
-      // birileri buyur harfler yazarsa sen onu kucuge cevir * bunu arasdir  / 
+  // birileri buyur harfler yazarsa sen onu kucuge cevir * bunu arasdir  / 
 
   return (
-    <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true} >
-      <Hero />
-      <TaxiDeals />
-      <SeaportTransfers bggray={true} />
-      <Tours insideGlobalLayout={false} />
-      {hasScrolled && <CarsSlider bggray={true} />}
-      <Testimonials bggray={false} pageContent={pageContent} />
-    </GlobalLayout>
+    <div>salam</div>
   )
 }
 export async function getServerSideProps({ req, res }) {
