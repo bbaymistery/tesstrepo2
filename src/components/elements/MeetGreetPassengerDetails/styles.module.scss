@@ -1,0 +1,206 @@
+    @import '../../../styles/variables';
+    @import '../../../styles/fonts';
+
+    .journey_summary_panel {
+        position: relative;
+
+        .content {
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 20px;
+            border: 5px solid lighten($border, 7%);
+            border: 1px solid $border;
+            border-radius: 4px;
+            font-size: 15px;
+            position: sticky;
+            top: 51px;
+
+
+            .journey_card[direction="true"] {
+                flex-direction: row-reverse;
+
+                .passsenger_details_div {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+
+                    div:nth-child(2) {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        width: 100%;
+
+                        @media (max-width: 600px) {
+                            align-items: flex-start;
+                        }
+
+                        li {
+                            text-align: left !important;
+
+                            @media (max-width: 600px) {
+                                text-align: right !important;
+                            }
+                        }
+                    }
+
+                    div:nth-child(4) {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        width: 100%;
+
+                        @media (max-width: 600px) {
+                            align-items: flex-start;
+                        }
+
+                        li {
+                            text-align: left !important;
+
+                            @media (max-width: 600px) {
+                                text-align: right !important;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .journey_card {
+                @media (max-width: 990px) {
+                    flex-direction: column;
+                    gap: 0rem;
+                }
+
+                .journey_card_title {
+                    margin-bottom: 16px;
+                    font-weight: 500;
+                    font-size: 20px;
+                    margin-top: 30px;
+                }
+
+                .passsenger_details_div {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+
+
+                    @media (max-width: 600px) {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .noborder {
+                        @media (max-width: 600px) {
+                            border-bottom: none !important;
+                        }
+                    }
+
+                    div:nth-child(2) {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        width: 100%;
+
+                        @media (max-width: 600px) {
+                            align-items: flex-start;
+                        }
+
+                        li {
+                            text-align: right !important;
+
+                            @media (max-width: 600px) {
+                                text-align: left !important;
+                            }
+                        }
+                    }
+
+                    div:nth-child(4) {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        width: 100%;
+
+                        @media (max-width: 600px) {
+                            align-items: flex-start;
+                        }
+
+                        li {
+                            text-align: right !important;
+
+                            @media (max-width: 600px) {
+                                text-align: left !important;
+                            }
+                        }
+                    }
+
+                    div {
+                        flex: 1;
+
+                        .first_child {
+                            border: none;
+                            margin-bottom: 15px;
+                            margin-bottom: 0px;
+                        }
+
+                        h5 {
+                            font-weight: 500;
+                            line-height: 1.2;
+                            font-family: $font-jost;
+                            color: $input_text_color;
+                            margin-bottom: 2px;
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 3px;
+                            text-transform: uppercase;
+
+                        }
+
+
+                        .space {
+                            margin-bottom: 5px;
+                        }
+
+                        li[direction="true"] {
+                            text-align: right;
+                        }
+
+                        li[direction="false"] {
+                            text-align: left;
+                        }
+
+                        li {
+                            margin-bottom: 0px;
+                            font-weight: 500;
+                            list-style: none;
+                            border-bottom: 1px solid $border;
+                            font-size: 15px;
+                            width: 100%;
+
+
+
+                            &:last-child {
+                                margin-bottom: 0px;
+                                border-bottom: 0px;
+
+                                @media (max-width: 990px) {
+                                    border-bottom: 1px solid darken($border, 20%);
+                                }
+                            }
+                        }
+
+
+                        li:nth-child(1) {
+                            display: none;
+                        }
+                    }
+
+                }
+
+                .pa:not(:last-child) {
+                    border-bottom: 1px solid $border !important;
+                    margin-bottom: 1rem;
+
+
+                }
+            }
+        }
+
+
+
+    }

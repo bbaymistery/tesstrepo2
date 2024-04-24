@@ -1,3 +1,4 @@
+@import '../../../styles/fonts';
 @import '../../../styles/variables';
 
 //if less than 990 it will available
@@ -15,10 +16,11 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    top: 30px;
+    top: 44px;
     width: 405px;
     opacity: 0;
     animation: .2s appear forwards;
+
     z-index: 9999;
 
     @media (max-width:768px) {
@@ -37,7 +39,7 @@
         background-color: #fff;
         font-size: 13px;
         max-height: 370px;
-        border: 1px solid $--color-light-4;
+        border: 1px solid #efefef;
 
         @media (max-width:1020px) {
             min-width: 75%;
@@ -55,13 +57,12 @@
 
 
         &::-webkit-scrollbar {
-            width: 2px;
-            background-color: $--color-light-2;
+            width: 15px;
+            background-color: #F5F5F5;
         }
 
         &::-webkit-scrollbar-thumb {
             background-color: rgba(0, 0, 0, 0.2);
-            border-radius: 50px;
         }
 
         div {
@@ -71,17 +72,18 @@
                 padding: 4px 17px;
                 color: #000;
                 flex-direction: row;
-                background-color: $--color-light-1;
+                background-color: rgba(53, 84, 209, 0.1) !important;
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
-                border-bottom: 1px solid $--color-light-1;
+                border-bottom: 1px solid #f5f5f5;
                 text-transform: uppercase;
                 cursor: not-allowed;
                 user-select: none;
 
                 &:hover {
-                    background-color: #F5F5F5 !important;
+                    background: #d3dae7;
+                    background-color: rgba(53, 84, 209, 0.15) !important;
                 }
 
                 img {
@@ -116,19 +118,24 @@
             }
 
             li {
+                &:not(:last-child) {
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                }
 
                 padding: 4px 4px;
                 padding-left: 10px;
                 position: relative;
                 display: flex;
-                align-items: center;
+                align-items:center;
                 cursor: pointer;
                 transition: .5s ease;
-                border-bottom: 1px solid $--color-light-4;
+                border-bottom: 1px solid rgba(220, 220, 220, 0.3);
 
 
                 &:hover {
-                    background-color: #F5F5F5 !important;
+                    background-color: rgba(53, 84, 209, 0.05) !important;
+
+
                 }
 
                 img {
@@ -147,18 +154,21 @@
                 p {
                     display: block;
                     text-decoration: none;
-                    color: $--color-dark-1 !important;
+                    color: $light-1 !important;
+                    font-weight: 400;
                     transition: all 0.3s ease;
                     width: 100%;
                     font-size: 14px;
+                    // font-family: $font-jost;
                     padding-bottom: 0px !important;
+
+                    &:hover {
+                        // color: rgb(51, 51, 242);
+                        color: darken($light-1, 25%);
+                    }
 
                     @media (max-width:450px) {
                         font-size: 13px;
-                    }
-
-                    &:hover {
-                        color: $--color-accent-1 !important;
                     }
                 }
 
@@ -185,12 +195,14 @@
             }
 
             p {
-                color: $--color-light-2;
+                color: rgb(115, 115, 115);
                 padding-left: 10px;
-                font-size: 13px;
+                font-weight: 400 !important;
+                // font-family: $font-jost;
+                font-size: 13px !important;
 
                 a {
-                    color: $--color-blue-1;
+                    color: rgb(51, 51, 242);
                 }
             }
         }

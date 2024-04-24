@@ -15,11 +15,11 @@ const DesktopMenu = ({ language, journeyType,appData }) => {
                         // as={`${path==='/'?"/":""}`}
                         <li key={innerText} className={`${styles.li_item} ${type === "list" ? styles.has_children : ""}`}>
                             {index === 0 ?
-                                <a   href={language === 'en' ? '/' : `/${language}`} title={appData?.words[title]} className={`${path.length ? styles.nocursor : ""} ${router.pathname===path ?styles.active:""}`} >
+                                <a href={language === 'en' ? '/' : `/${language}`} title={appData?.words[title]} className={`${path.length ? styles.nocursor : ""}`} >
                                     <span>{appData?.words[strInnerText]}</span>
                                 </a>
                                 :
-                                <a  href={`${language === 'en' ? `${path}` : `/${language}${path}`}`} title={appData?.words[title]} className={`${path.length ? styles.nocursor : ""}  ${router.pathname===path ?styles.active:""}`}>
+                                <a href={`${language === 'en' ? `${path}` : `/${language}${path}`}`} title={appData?.words[title]} className={`${path.length ? styles.nocursor : ""}`}>
                                     <span>{appData?.words[strInnerText]}</span>
                                     {type === "list" ? <i className="fa-solid fa-angle-down"></i> : ""}
                                 </a>

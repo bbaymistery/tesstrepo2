@@ -12,8 +12,6 @@ const initialReducer = (state = {}, action) => {
         case HYDRATE:
             if (typeof window !== 'undefined') {
                 if (localStorage.getItem("appData")) {
-                    console.log("hidrate");
-                    
                     action.payload.initialReducer = { ...action.payload.initialReducer, appData: { ...JSON.parse(localStorage.getItem("appData")) } };
                 }
             }

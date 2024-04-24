@@ -13,12 +13,12 @@ import React, { useCallback, useEffect, } from 'react'
 import Image from 'next/image';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import dynamic from 'next/dynamic'
-import { BUTTON_TYPES } from '../../elements/Button/ButtonTypes';
-import Button from '../../elements/Button/Button';
+import { titleStringOfHastaxiDeals } from '../../../helpers/titleStringOfHasTaxiDeals';
 const SelectedPointsOnHomePage = dynamic(() => import('../../elements/SelectedPointsOnHomePage'))
 const HandleSearchResults = dynamic(() => import('../../elements/HandleSearchResults'))
 const WaveLoading = dynamic(() => import('../../elements/LoadingWave'))
-const SearchInputLoading = dynamic(() => import('../../elements/SearchInputLoading'))
+const Loading = dynamic(() => import('../../elements/Loading'))
+const Features = dynamic(() => import('../Features'))
 
 const pushToQuotationsResultPage = (params = {}) => {
     let { dispatch, router, log, journeyType, language } = params
@@ -307,17 +307,18 @@ const Hero = (props) => {
     let { width } = size
 
     return (
-        <div className={`${styles.hero} ${direction} page`} >
+        <div className={`${styles.hero} ${direction} page`} islinknamecomponent={String(islinknamecomponent)}>
             {/* {typeof window !== 'undefined' ?  */}
-            <Image priority className={styles.landing_image} fill  style={{ objectFit: "cover",objectPosition:"CENTER" }} src={"/images/hero.webp"} alt="Heathrow Gatwick Transfers Hero Image" sizes="100vw" />
             <div className={`${styles.hero_section} page_section`}>
                 <div className={`${styles.hero_section_container} page_section_container`}>
                     <div className={styles.points_content}>
-                        <h1 className={styles.main_title}>Your world of joy</h1>
-                        <p className={styles.subtitle}>From local escapes to far-flung adventures, find what makes you happy anytime, anywhere</p>
                         <div className={styles.main_search}>
+                            <div className={`${!islinknamecomponent ? styles.title_div_islinnkname : styles.title_div}`}>
+                                <h1 style={{ textTransform: "capitalize" }} className={`${styles.title} ${direction} `}>
+                                    {islinknamecomponent ? <span>{appData?.words[`${titleStringOfHastaxiDeals(hasTaxiDeals)}`]}</span> : <span>{appData?.words["searchEngineTitle"]}</span>}
+                                </h1>
+                            </div>
                             <br />
-
                             <RadioButton setInternalState={setInternalState} internalState={internalState} />
                             <br />
                             {reservations.map((obj, index) => {
@@ -337,9 +338,7 @@ const Hero = (props) => {
                                                 {/* Pick Points text */}
                                                 {selectedPickupPoints.length > 0 ? <p className={`${styles.point_title} ${direction}`} >{appData?.words["strPickupPoints"]}</p> : <React.Fragment></React.Fragment>}
                                                 {/* selectedPoints */}
-                                                {selectedPickupPoints.length > 0 ?
-                                                     <SelectedPointsOnHomePage index={index} destination="pickup" points={selectedPickupPoints} language={language} /> 
-                                                    : <React.Fragment></React.Fragment>}
+                                                {selectedPickupPoints.length > 0 ? <SelectedPointsOnHomePage index={index} destination="pickup" points={selectedPickupPoints} language={language} /> : <React.Fragment></React.Fragment>}
                                                 {/* add extra pooint div */}
                                                 {internalState[`show-pickup-extra-point-${index}`] && selectedPickupPoints.length > 0 ?
                                                     <div className={`${styles.add_point_div} ${direction}`} onClick={() => handleAddNewInput({ index, destination: "pickup" })}  >
@@ -368,7 +367,7 @@ const Hero = (props) => {
                                                         {/* loading icon inside input */}
                                                         {internalState[`pickup-search-loading-${index}`] ?
                                                             <div className={styles.loading_div} direction={String(direction === "rtl")} popupp={String(internalState[`pickup-search-focus-${index}`])}      >
-                                                                <SearchInputLoading position='absolute' />
+                                                                <Loading />
                                                             </div> : <React.Fragment></React.Fragment>}
                                                         {/* error icon inside input */}
                                                         {reservationError?.selectedPickupPoints?.length > 0 && !internalState[`pickup-search-value-${index}`] && selectedPickupPoints.length === 0 ?
@@ -382,8 +381,7 @@ const Hero = (props) => {
                                                         {/* if !internalState[`pickup-search-value-${index}`] then our handleSearchResults will be belong to styles.book.input */}
                                                         {!Array.isArray(internalState[`collecting-pickup-points-${index}`]) ?
                                                             //setInternalState>>>after adding item we set input field  to empty and add extradiv to true
-                                                            <HandleSearchResults language={language} index={index} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${index}`]} />
-                                                            : <React.Fragment></React.Fragment>}
+                                                            <HandleSearchResults language={language} index={index} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${index}`]} /> : <React.Fragment></React.Fragment>}
 
                                                     </div>
 
@@ -396,9 +394,7 @@ const Hero = (props) => {
                                                 {/* Pick Points text */}
                                                 {selectedDropoffPoints.length > 0 ? <p className={`${styles.point_title} ${direction}`} >{appData?.words["strDropoffPoints"]}</p> : <React.Fragment></React.Fragment>}
                                                 {/* selectedPoints */}
-                                                {selectedDropoffPoints.length > 0 ?
-                                                    <SelectedPointsOnHomePage index={index} destination="dropoff" points={selectedDropoffPoints} language={language} /> 
-                                                    : <React.Fragment></React.Fragment>}
+                                                {selectedDropoffPoints.length > 0 ? <SelectedPointsOnHomePage index={index} destination="dropoff" points={selectedDropoffPoints} language={language} /> : <React.Fragment></React.Fragment>}
                                                 {/* add extra pooint div */}
                                                 {internalState[`show-dropoff-extra-point-${index}`] && selectedDropoffPoints.length > 0 ?
                                                     <div className={styles.add_point_div} onClick={() => handleAddNewInput({ index, destination: "dropoff" })}  >
@@ -425,12 +421,7 @@ const Hero = (props) => {
                                                                 className={`${direction} ${reservationError?.selectedDropoffPoints?.length > 0 && !internalState[`dropoff-search-value-${index}`] && selectedDropoffPoints.length === 0 ? styles.error_input : ""}`}
                                                             /> : <React.Fragment></React.Fragment>}
                                                         {/* loading icon inside input */}
-                                                        {internalState[`dropoff-search-loading-${index}`] ?
-                                                            <div className={styles.loading_div} popupp={String(internalState[`dropoff-search-focus-${index}`])} direction={String(direction === "rtl")}>
-                                                                <SearchInputLoading position='absolute' />
-                                                            </div>
-
-                                                            : <React.Fragment></React.Fragment>}
+                                                        {internalState[`dropoff-search-loading-${index}`] ? <div className={styles.loading_div} popupp={String(internalState[`dropoff-search-focus-${index}`])} direction={String(direction === "rtl")}>  <Loading />  </div> : <React.Fragment></React.Fragment>}
 
                                                         {/* error icon inside input */}
                                                         {reservationError?.selectedDropoffPoints?.length > 0 && !internalState[`dropoff-search-value-${index}`] && selectedDropoffPoints.length === 0 ?
@@ -444,8 +435,7 @@ const Hero = (props) => {
                                                             : <React.Fragment></React.Fragment>}
                                                         {/* results when we get points */}
                                                         {!Array.isArray(internalState[`collecting-dropoff-points-${index}`]) ?
-                                                            <HandleSearchResults language={language} index={index} destination="dropoff" setInternalState={setInternalState} collectingPoints={internalState[`collecting-dropoff-points-${index}`]} />
-                                                            : <React.Fragment></React.Fragment>}
+                                                            <HandleSearchResults language={language} index={index} destination="dropoff" setInternalState={setInternalState} collectingPoints={internalState[`collecting-dropoff-points-${index}`]} /> : <React.Fragment></React.Fragment>}
                                                     </div>
                                                 </OutsideClickAlert>
                                             </div>
@@ -461,10 +451,8 @@ const Hero = (props) => {
                                                         min={index === 0 ? currentDate() : reservations[0].transferDetails.transferDateTimeString.split(" ")[0]}
                                                         onChange={(e) => onChangeSetDateTimeHandler({ value: e.target.value, hourOrMinute: "date", journeyType: index })}
                                                     />
-
                                                 </div>
                                                 <i className={`fa-solid fa-calendar-days ${styles.date_picker_icon} ${islinknamecomponent ? styles.date_picker_icon_on_linkame : ""}`}></i>
-
                                             </div>
                                             <div className={` ${styles.search_menu} ${styles.hours_minutes} ${styles.fourth_column}`}>
                                                 <p className={direction}>{selectedPickupPoints[0]?.pcatId === 1 ? appData?.words["seLandingTime"] : appData?.words["sePickUpTime"]}</p>
@@ -496,14 +484,11 @@ const Hero = (props) => {
                                                             <WaveLoading />
                                                         </div>
                                                         :
-                                                        <Button 
-                                                        onBtnClick={(e) => getQuotations(e)} 
-                                                        type={BUTTON_TYPES.PRIMARY}
-                                                         style={{ fontSize: "14px", padding: `${"10px"}` }} 
-                                                         btnText={appData?.words["seGetQuotation"]} 
-                                                         icon={<i className="fa-solid fa-magnifying-glass"></i>}
-                                                          iconPos="LEFT" />
-                                                    }
+                                                        <button onClick={(e) => getQuotations(e)} className={`btn btn_primary`}>
+
+                                                            <i className="fa-solid fa-magnifying-glass"></i>
+                                                            <span>{appData?.words["seGetQuotation"]}</span>
+                                                        </button>}
                                                 </div>
                                                 : <React.Fragment></React.Fragment>}
 
@@ -512,7 +497,6 @@ const Hero = (props) => {
                                                 <div className={`${styles.btn_div} ${styles.fifth_column} ${styles.hide_mobile} `}  >
                                                     {internalState[`quotation-loading`] ?
                                                         <div className={`btn btn_primary  disabled_button ${styles.waveloadingdiv}`}>
-                                                            <WaveLoading />
                                                         </div>
                                                         :
                                                         <button className={`btn btn_primary`} onClick={(e) => getQuotations(e)}>
@@ -520,10 +504,13 @@ const Hero = (props) => {
                                                 </div>
                                                 : <React.Fragment></React.Fragment>}
                                         </div>
-                                        {internalState[`error-booking-message-${index}`] ?
-                                            <div className={styles.errorBookedMessage}>
-                                                <p>{internalState[`error-booking-message-${index}`]}</p>
-                                            </div> : <></>}
+                                        {
+                                            internalState[`error-booking-message-${index}`] ?
+                                                <div className={styles.errorBookedMessage}>
+                                                    <p>{internalState[`error-booking-message-${index}`]}</p>
+                                                </div>
+                                                : <></>
+                                        }
                                     </div>
 
                                 )
@@ -531,9 +518,39 @@ const Hero = (props) => {
 
 
                         </div>
+
+
                     </div>
                 </div>
             </div>
+
+            {islinknamecomponent && width > 768 ? <Features bggray={true} /> : <></>}
+
+            <div className={`${styles.advertisiment_images_section} ${!islinknamecomponent ? styles.advertisiment_images_section_islinkname : ""} page_section`}>
+                <div className={`${styles.advertisiment_images_section_container} page_section_container`}>
+                    <div className={styles.advertisiment_images}>
+                        <a rel="noreferrer" href="https://www.tripadvisor.co.uk/Attraction_Review-g186338-d11966434-Reviews-Airport_Pickups_London-London_England.html" target={"_blank"} >
+                            <div className={`${styles.review_trip_advisor} ${width < 768 ? "" : "bottom_to_top_animation2"}`} style={{ animationDelay: '.5s', animationDuration: '1s' }}>
+                                <Image fill priority style={{ objectFit: 'contain' }} sizes="(max-width: 768px) 100vw" src="/images/others/advisorTrip.webp" alt="Airport Pickups London Tripadvisor" />
+                            </div>
+                        </a>
+
+                        <a rel="noreferrer" href="https://www.trustpilot.com/review/airport-pickups-london.com" target={"_blank"} >
+                            <div className={`${styles.review_trip_advisor} ${width < 768 ? "" : "bottom_to_top_animation2"}`} style={{ animationDelay: '0.75s', animationDuration: '1s' }}>
+                                <Image fill priority style={{ objectFit: 'contain' }} sizes="(max-width: 768px) 100vw" src="/images/others/Excellent.webp" alt=" Airport Pickups London Trustpilot " />
+                            </div>
+                        </a>
+
+                        <a rel="noreferrer" href="https://www.reviews.co.uk/company-reviews/store/airport-pickups-london-com" target={"_blank"} >
+                            <div className={`${styles.review_trip_advisor} ${width < 768 ? "" : "bottom_to_top_animation2"}`} style={{ animationDelay: '1s', animationDuration: '1s' }}>
+                                <Image fill priority style={{ objectFit: 'contain' }} sizes="(max-width: 768px) 100vw" src="/images/others/Reviews.webp" alt="Airport Pickups London Review" />
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
         </div >
     )
 }

@@ -1,11 +1,16 @@
     @import '../../../styles/variables';
+    @import '../../../styles/_fonts';
 
     .header_content_menu_mobile {
         display: none;
 
-        @media(max-width:1200px) {
+        @media(max-width:1280px) {
             display: block;
             position: absolute;
+            top: 100px;
+            display: block;
+            position: absolute;
+            // top: 90px;
             top: 60px;
             left: 0;
             right: 0;
@@ -16,31 +21,30 @@
 
         .menu_content_ul {
             height: 100vh;
+            overflow-y: scroll;
         }
 
         ul {
-            padding: 10px 35px;
+            padding: 10px;
 
             li {
-                border-bottom: 1px solid $--color-light-4;
-
                 &:hover {
-                    a {
-                        transition: 0.2s linear;
-                        color: $--color-accent-1;
-                    }
+                    color: lighten($primary, 15%);
+                    background-color: rgba(53, 84, 209, 0.05);
+                    transition: 0.4s ease;
                 }
 
                 a {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    padding: 8px 8px;
-                    color: $--color-dark-1;
+                    padding: 6px 8px;
+
                     span {
                         font-size: 18px;
                         text-transform: capitalize;
                         font-weight: 500;
+                        // font-family: $font-jost;
                     }
                 }
             }
@@ -64,7 +68,7 @@
                             &:hover {
                                 a {
                                     span {
-                                        color: $--color-blue-1;
+                                        color: $blue-1;
                                     }
                                 }
                             }
@@ -81,7 +85,7 @@
                             a {
                                 span {
                                     // background-color: red;
-                                    color: $--color-blue-2;
+                                    color: $dark-1;
                                 }
                             }
                         }
@@ -96,6 +100,7 @@
             li {
                 .nocursor {
                     pointer-events: none;
+
                     span {
                         cursor: auto !important;
                     }
@@ -104,9 +109,10 @@
                 .first_child_a {
                     background-color: rgba(53, 84, 209, 0.09);
                     padding: 8px;
-                    color: $--color-blue-1;
+                    color: $blue-1;
                 }
 
+                a {}
             }
         }
     }

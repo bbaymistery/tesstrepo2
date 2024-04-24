@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import logoImage from '../../../../public/logos/logo-1.svg'
+import logoImage from '../../../../public/logos/square_dark_blue.webp'
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import env from "../../../resources/env";
@@ -11,9 +11,10 @@ import OutsideClickAlert from "../../elements/OutsideClickAlert";
 import { useWindowSize } from "../../../hooks/useWindowSize";
 import dynamic from 'next/dynamic'
 import { setCookie } from "../../../helpers/cokieesFunc";
+const TopHeaderWhiteLeftButtons = dynamic(() => import('../../elements/TopHeaderWhiteLeftButtons'),);
 const DropDownAllLanguages = dynamic(() => import('../../elements/DropDownAllLanguages'),);
-const DesktopMenu = dynamic(() => import('../../elements/DesktopMenu'),);
 const MobileMenu = dynamic(() => import('../../elements/MobileMenu'),);
+const DesktopMenu = dynamic(() => import('../../elements/DesktopMenu'),);
 const Header = () => {
 
   const router = useRouter()
@@ -22,7 +23,6 @@ const Header = () => {
   const { params: { language, langIndex: reducerLangIndex, journeyType } } = useSelector(state => state.pickUpDropOffActions)
   const [langFlag, setLangFlag] = useState(language)
   const [langIndex, setLangIndex] = useState(reducerLangIndex)
-
 
   const [openMenu, setOpenMenu] = useState(false) //mobile
   const [languageStatus, setLanguageStatus] = useState(false)
@@ -78,9 +78,41 @@ const Header = () => {
     setLanguageStatus(!languageStatus)
   }
 
-  const toggleMenu = () => setOpenMenu(!openMenu)
+  const toggleMenu = () => {
+    // menuRef.current.classList.toggle(`${styles.menuActive}`);
+    // mobileMenu?.current?.classList.toggle(`${styles.active_header_content_menu_mobile}`);
 
+    setOpenMenu(!openMenu)
+    // let positionOfBody = getComputedStyle(document.body).position
+    // if (positionOfBody === "relative") {
+    //   document.body.style.position = "fixed"
+    // } else {
+    //   document.body.style.position = "relative"
+    // }
 
+    const navLinks = document.querySelectorAll('#navLink');
+
+    // setTimeout(() => {
+    //   //Animate Links
+    //   navLinks.forEach((link, index) => {
+    //     if (link.style.animation) {
+    //       link.style.animation = ''
+    //     } else {
+    //       link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 1.3}s`;
+    //     }
+    //   });
+    // }, 1000);
+  }
+  //!bu fonksyonu yazmayada bilersen Asagidaki degisdirildi yazilan yeri oxu A tagi icinde yazila biler
+  // const gotoHomePage = (index) => {
+  //   if (index === 0) {
+  //     if (language === 'en') {
+  //       router.push(`/`).then(() => { window.location.reload() });
+  //     } else {
+  //       router.push(`/${language}`).then(() => { window.location.reload() });
+  //     }
+  //   }
+  // }
   //for language dropdown
   const outsideClickDropDown = useCallback((e) => {
     setLanguageStatus(!languageStatus);
@@ -88,7 +120,13 @@ const Header = () => {
 
   //when we click lang text it opens dropdown
   const setOpenLanguageDropdown = (e) => {
+
+    // prevent to open dropdown
+    if (router.asPath === "/drivers-wanted") return
+
+
     setLanguageStatus(!languageStatus)
+
   }
 
   const handleClickNavLinkMobileMenuList = useCallback((params = {}) => {
@@ -125,8 +163,6 @@ const Header = () => {
     }
   }, [language])
 
-  
-
   return (
     <header className={styles.header} id="navbar_container" >
       <div className={styles.header_container}>
@@ -135,8 +171,9 @@ const Header = () => {
             <div className={styles.left_items_flex_div}>
               <a href={language === 'en' ? '/' : `/${language}`} className={`${styles.logo_tag}`}  >
                 <Image src={logoImage} alt="Airport-pickups-london Logo" width={30} height={30} priority />
+                <span>Airport Pickups London</span>
               </a>
-              <DesktopMenu  appData={appData} journeyType={journeyType} language={language} /> 
+              {width > 1200 ? <DesktopMenu appData={appData} journeyType={journeyType} language={language} /> : <></>}
               {/* mobile  */}
               {openMenu ?
                 <MobileMenu openMenu={openMenu} handleClickNavLinkMobileMenuNotList={handleClickNavLinkMobileMenuNotList} language={language} handleClickNavLinkMobileMenuList={handleClickNavLinkMobileMenuList} appData={appData} />
@@ -162,9 +199,9 @@ const Header = () => {
               </div>
             </div>
 
-            <div onClick={toggleMenu} className={`${styles.menu}`} id="menu">
+            {width > 1200 ? <TopHeaderWhiteLeftButtons language={language} appData={appData} /> : <></>}
+            <div onClick={toggleMenu} className={`${styles.menu}`} id="menu"   >
               {!openMenu ? <i className="fa-solid fa-bars"></i> : <i className="fa-solid fa-xmark"></i>}
-
             </div>
           </div>
         </div>

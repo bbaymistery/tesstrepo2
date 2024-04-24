@@ -27,11 +27,11 @@ const RadioButton = ({ setInternalState, internalState }) => {
   return (
     <span className={`${styles.radio_button_div} ${direction}`}>
       <input type="radio" id="check11" onChange={() => handleInputRadioChange(0)} checked={parseInt(journeyType) === 0 ? true : false} />
-      <label className={styles.custom_radio} htmlFor="check11" onClick={() => handleInputRadioChange(0)} >{appData.words["seOneWayOption"]}</label>
+      <label htmlFor="check11" onClick={() => handleInputRadioChange(0)} >{appData.words["seOneWayOption"]}</label>
       &nbsp;&nbsp;
       &nbsp;&nbsp;
       <input type="radio" id="check22" onChange={() => handleInputRadioChange(1)} checked={parseInt(journeyType) === 1 ? true : false} />
-      <label className={styles.custom_radio} htmlFor="check22" onClick={() => handleInputRadioChange(1)} >{appData.words["seReturnOption"]}</label>
+      <label htmlFor="check22" onClick={() => handleInputRadioChange(1)} >{appData.words["seReturnOption"]}</label>
     </span>
   );
 };

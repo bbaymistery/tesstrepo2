@@ -5,11 +5,11 @@ import env from '../../../resources/env';
 import styles from "./styles.module.scss"
 const SelectedPointsOnHomePage = (params = {}) => {
     //hasOneItem related to taxi deals
-    let { points, index, destination, getQuotations = () => { }, hasOneItem = false } = params
+    let { points, index, destination, getQuotations = () => { }, isTaxiDeal = false, hasOneItem = false } = params
     const dispatch = useDispatch()
     const router = useRouter()
     const state = useSelector((state) => state.pickUpDropOffActions);
-    let { params: { direction, language }, reservations } = state
+    let { params: { direction, journeyType, language }, reservations } = state
     const { appData } = useSelector(state => state.initialReducer)
     const imageObjects = appData?.pointTypeCategories?.reduce(
         (obj, item) => ({
@@ -28,7 +28,7 @@ const SelectedPointsOnHomePage = (params = {}) => {
 
     }
 
-    return (<div className={`${styles.selected_points} `}>
+    return (<div className={`${styles.selected_points} ${isTaxiDeal ? styles.isTaxiDeal_selected_points : ""} ${hasOneItem?styles.hasoneitem_taxideals:""}`}>
         {points.map((point, index) => {
 
             return (
@@ -40,8 +40,8 @@ const SelectedPointsOnHomePage = (params = {}) => {
                             <i className="fa fa-times sef-loc-delete" aria-hidden="true"  ></i>
                         </span> : <></>}
                     {<span hideme={String(router.pathname === "/quotation-result")} className={`${styles.icons_check_span} ${styles.icons}`}>
-                        <i className={`fa-solid fa-check ${styles.check_button}`} aria-hidden="true"></i>
-                    </span>}
+                            <i className={`fa-solid fa-check ${styles.check_button}`} aria-hidden="true"></i>
+                        </span> }
 
                 </div>)
         })}
@@ -49,3 +49,4 @@ const SelectedPointsOnHomePage = (params = {}) => {
 }
 
 export default SelectedPointsOnHomePage
+

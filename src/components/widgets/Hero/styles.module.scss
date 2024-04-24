@@ -1,102 +1,109 @@
+@import '../../../styles/fonts';
 @import '../../../styles/variables';
 
+.hero[islinknamecomponent="true"] {
+    padding-bottom: 0px;
+    padding-top: 0px;
+
+    @media(max-width:1280px) {
+        margin-top: 25px;
+        padding-top: 45px;
+    }
+
+    @media(max-width:700px) {
+        padding-bottom: 30px;
+    }
+}
+
+.hero[islinknamecomponent="false"] {
+    padding-bottom: 0px;
+
+    @media(max-width:1280px) {
+        margin-top: 25px;
+    }
+
+    @media(max-width:1100px) {
+        padding-bottom: 0px;
+    }
+
+}
+
 .hero {
+    background-position: center top;
+    background-size: 100% auto;
+    background-color: $light-2;
+    width: 100%;
     position: relative;
-    padding-bottom: 320px;
-    padding-top: 100px;
+
+
 
     &_section {
+        padding-top: 30px;
+
         &_container {
             .points_content {
+                .title {
+                    color: $dark-1;
+                    font-size: 34px;
+                    margin-bottom: 0px;
+                    margin-left: 3px;
+                    display: flex;
+                    justify-content: space-between;
 
-                .main_title,
-                .subtitle {
-                    text-align: center;
-                    position: relative;
-                    color: $--color-dark-1 ;
+                    @media (max-width:768px) {
+                        flex-direction: column;
+                        align-items: center;
+                    }
+
+                    @media (max-width:500px) {
+                        font-size: 23px;
+                    }
                 }
 
                 .main_search {
-                    padding-top: 0px;
-                    padding-bottom: 20px;
-                    padding-left: 20px;
-                    padding-right: 20px;
+                    padding: 20px 20px;
                     background-color: #fff;
-                    border-radius: 12px;
+                    border-radius: 16px;
                     margin-top: 20px;
                     position: relative;
-                    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+
+
+                    .title_div {
+                        display: flex;
+                        align-items: center;
+
+                        @media (max-width:990px) {
+                            flex-direction: column-reverse;
+                            align-items: baseline;
+                        }
+                    }
 
                     // radio button component
                     .radio_button_div {
                         user-select: none;
                         cursor: pointer;
                         display: block;
-                        position: relative;
 
-                        [type="radio"]:checked,
-                        [type="radio"]:not(:checked) {
-                            position: absolute;
-                            left: -9999px;
-                        }
-
-                        [type="radio"]:checked+label,
-                        [type="radio"]:not(:checked)+label {
-                            position: relative;
-                            padding-left: 28px;
+                        input,
+                        label {
                             cursor: pointer;
-                            line-height: 20px;
-                            display: inline-block;
-                            color: $--color-light-2;
+                            margin-left: 6px;
+                            color: rgb(115, 115, 115);
+                            font-size: 20px;
+                            // font-family: $font-jost;
                             text-transform: capitalize;
-                        }
-
-                        [type="radio"]:checked+label:before,
-                        [type="radio"]:not(:checked)+label:before {
-                            content: '';
-                            position: absolute;
-                            left: 0;
-                            top: 0;
-                            width: 16px;
-                            height: 16px;
-                            border: 1px solid $--color-light-4;
-                            border-radius: 100%;
-                            background: #fff;
-                        }
-
-                        [type="radio"]:checked+label:after,
-                        [type="radio"]:not(:checked)+label:after {
-                            content: '';
-                            width: 10px;
-                            height: 10px;
-                            background: $--color-accent-1;
-                            position: absolute;
-                            top: 3px;
-                            left: 3px;
-                            border-radius: 100%;
-                            -webkit-transition: all 0.2s ease;
-                            transition: all 0.2s ease;
-                        }
-
-                        [type="radio"]:not(:checked)+label:after {
-                            opacity: 0;
-                            -webkit-transform: scale(0);
-                            transform: scale(0);
-                        }
-
-                        [type="radio"]:checked+label:after {
-                            opacity: 1;
-                            -webkit-transform: scale(1);
-                            transform: scale(1);
                         }
                     }
 
                     .return_journey_title {
-                        color: $--color-light-2;
+                        color: #818181;
                         margin: 59px 0px 24px 4px !important;
                         width: 100%;
                         font-size: 24px;
                         text-transform: capitalize;
+                        // font-family: $font-jost;
 
                         @media(max-width:990px) {
                             margin: 24px 0px 24px 4px !important;
@@ -105,17 +112,20 @@
                     }
 
                     .tr_journey_title {
-                        color: $--color-light-2;
+                        color: #818181;
                         margin: 9px 0px 24px 4px !important;
                         width: 100%;
                         font-size: 24px;
                         text-transform: capitalize;
+                        // font-family: $font-jost;
                     }
 
                     .points[direction="true"] {
                         p {
                             padding-bottom: 5px !important;
                         }
+
+
                     }
 
                     .points {
@@ -126,6 +136,7 @@
                         gap: 1rem;
 
                         @media (max-width:990px) {
+
                             flex-direction: column;
                         }
 
@@ -199,11 +210,13 @@
                             }
 
                             &::after {
+
                                 content: "";
                                 right: -2px;
                                 background-color: #efefef;
                                 height: 46px;
                                 width: 2px;
+                                color: red;
                                 top: 19px;
                                 position: absolute;
 
@@ -215,7 +228,7 @@
                             p {
                                 font-size: 15px;
                                 font-weight: 500;
-                                color: $--color-dark-1;
+                                color: $dark-1;
                                 text-transform: capitalize;
                                 padding-right: 8px;
                                 padding-bottom: 10px;
@@ -239,6 +252,7 @@
                                 .popup_header[f="true"] {
                                     display: flex;
                                     align-items: center;
+                                    // padding-left: 14px;
                                     padding-top: 12px;
                                     padding-bottom: 10px;
                                     padding-left: 3px;
@@ -253,6 +267,7 @@
 
                                     p {
                                         font-size: 19px;
+                                        // font-family: $font-jost;
                                         font-weight: 500;
                                         color: #000;
                                     }
@@ -371,18 +386,18 @@
                                     padding: 1px 2px;
                                     outline-offset: -2px;
                                     -webkit-appearance: textfield;
-                                    border-bottom: 1px solid $--color-light-5;
+                                    border-bottom: 1px solid $border;
 
                                     @media (max-width:990px) {
                                         padding: 1px 0px;
                                         border-bottom: none;
-                                        border-bottom: 1px solid $--color-light-5;
+                                        border-bottom: 1px solid $border;
 
                                     }
 
                                     &::placeholder {
                                         text-transform: capitalize;
-                                        color: $--color-light-2;
+                                        color: #5d646d;
                                         font-weight: 300;
 
                                     }
@@ -471,23 +486,23 @@
                                 .add_point_icon {
                                     font-size: 13px;
                                     margin-right: 0.6rem;
-                                    color: $--color-light-2;
+                                    color: #818181;
                                     margin-bottom: 9px;
                                 }
 
                                 .add_point_text {
-                                    color: $--color-light-2;
+                                    color: #818181;
                                 }
 
                                 &:hover {
                                     cursor: pointer;
 
                                     .add_point_icon {
-                                        color: darken($--color-light-2, 25%);
+                                        color: darken(#818181, 25%);
                                     }
 
                                     .add_point_text {
-                                        color: darken($--color-light-2, 25%);
+                                        color: darken(#818181, 25%);
                                     }
                                 }
                             }
@@ -528,7 +543,7 @@
                                     min-height: 28px !important;
                                     height: 28px !important;
                                     border: 0px;
-                                    border-bottom: 1px solid $--color-light-5;
+                                    border-bottom: 1px solid $border;
                                     outline: none;
                                     padding: 1px 2px;
                                     outline-offset: -2px;
@@ -539,6 +554,7 @@
                                     }
 
                                     font-weight: 500;
+                                    // font-family: $font-jost;
                                     font-size: 15px;
 
                                     &:before {
@@ -587,7 +603,6 @@
                                     background: transparent;
                                     user-select: none;
                                     z-index: 1;
-
                                 }
 
                                 /* adjust increase/decrease button */
@@ -621,22 +636,21 @@
                                 input[type="date"]::-webkit-datetime-edit-year-field {
                                     position: absolute !important;
                                     padding: 0px 7px;
-                                    color: rgba($--color-dark-1, 1);
+                                    color: rgba(#130b37, 1);
                                     left: 54px;
                                 }
 
                                 input[type="date"]::-webkit-datetime-edit-month-field {
                                     position: absolute !important;
                                     padding: 0px 7px;
-                                    color: rgba($--color-dark-1, 1);
+                                    color: rgba(#130b37, 1);
                                     left: 22px;
                                 }
 
 
                                 input[type="date"]::-webkit-datetime-edit-day-field {
                                     position: absolute !important;
-                                    color: rgba($--color-dark-1, 1);
-
+                                    color: rgba(#130b37, 1);
                                     padding: 0px 0px;
                                     left: 0px;
 
@@ -645,7 +659,7 @@
                                 input::-webkit-datetime-edit-day-field:focus,
                                 input::-webkit-datetime-edit-month-field:focus,
                                 input::-webkit-datetime-edit-year-field:focus {
-                                    background-color: $--color-accent-1;
+                                    background-color: rgb(12, 155, 243);
                                     color: white;
                                     outline: none;
                                 }
@@ -697,15 +711,15 @@
                             }
 
                             .date_picker_icon {
-                                top: 60px;
+
+                                top: 63px;
                                 transform: translateY(-100%);
                                 right: 13px;
                                 font-size: 14px;
                                 user-select: none;
-                                color: $--color-accent-1;
+                                color: rgba(#130b37, .7);
                                 position: absolute;
                                 z-index: 0;
-                                font-style: normal !important;
 
                                 @media(max-width:990px) {
                                     right: 5px;
@@ -725,10 +739,10 @@
 
                             .select_time_div {
                                 display: flex;
-                                color: $--color-light-2;
+                                color: #5d646d;
                                 width: 194px;
                                 padding-right: 10px;
-                                color: rgba($--color-dark-1, 1);
+                                color: rgba(#130b37, 1);
                                 font-weight: 500;
 
                                 @media(max-width:1400px) {
@@ -749,7 +763,7 @@
                                     width: 100%;
                                     position: relative;
                                     border: 0px;
-                                    border-bottom: 1px solid $--color-light-5;
+                                    border-bottom: 1px solid $border;
 
                                     @media(max-width:990px) {
                                         max-width: 100%;
@@ -774,9 +788,9 @@
                                     i {
                                         position: absolute;
                                         right: 7px;
+                                        top: 7px;
                                         font-size: 13px;
-                                        color: $--color-accent-1;
-                                        font-style: normal;
+                                        color: #bbbbbb;
                                         z-index: 0;
                                         pointer-events: none;
 
@@ -788,8 +802,9 @@
                                     .left {
                                         position: absolute;
                                         right: 35px !important;
+                                        top: 8px !important;
                                         font-size: 13px;
-                                        color: $--color-light-2;
+                                        color: #bbbbbb;
                                         z-index: 0;
                                         pointer-events: none;
 
@@ -804,21 +819,33 @@
 
                         .btn_div {
                             margin-top: 17px;
-                            min-width: 166px;
-
-                            @media(max-width:1400px) {
-                                min-width: 144px;
-                            }
-
-                            @media(max-width:990px) {
-                                max-width: 100%;
-
-                                button {
-                                    width: 100%;
-                                }
-                            }
 
                             button {
+                                display: flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                                text-transform: capitalize;
+                                justify-content: center;
+                                padding: 15px;
+                                border-radius: 4px;
+                                background-color: $blue-1;
+                                letter-spacing: 0.5px;
+                                transition: all 0.5s linear;
+                                min-width: 166px;
+                                width: 100%;
+
+                                @media(max-width:1400px) {
+                                    min-width: 144px;
+                                }
+
+                                @media(max-width:990px) {
+                                    max-width: 100%;
+                                }
+
+                                &:hover {
+                                    background-color: darken($blue-1, 15%);
+                                }
+
                                 i {
                                     @media (max-width:1400px) {
                                         display: none;
@@ -834,7 +861,7 @@
                                 min-width: 166px;
                                 height: 50px;
                                 border-radius: 4px;
-                                border: 1px solid $--color-accent-1;
+                                background-color: $blue-1;
                                 cursor: not-allowed;
 
                                 @media(max-width:1400px) {
@@ -848,6 +875,9 @@
                         }
                     }
 
+                    .points.rtl {
+                        flex-direction: row-reverse;
+                    }
 
                     .errorBookedMessage {
                         color: red;
@@ -859,7 +889,132 @@
         }
     }
 
+    .advertisiment_images_section_islinkname {
+        .advertisiment_images_section_container {
+            .advertisiment_images {
+                margin-top: 3rem;
+            }
+        }
+    }
 
+    .advertisiment_images_section {
+
+
+        .advertisiment_images_section_container {
+            padding-right: 0px;
+            margin-top: -20px;
+            padding-bottom: 30px;
+            padding-left: 0px;
+            overflow: hidden;
+
+
+
+            @media (max-width:653px) {
+                padding-bottom: 0px;
+            }
+
+            @media (max-width:424px) {
+                padding-left: 0px;
+            }
+
+            .advertisiment_images {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                @media (max-width:990px) {
+                    margin-left: 0px !important;
+                }
+
+                a {
+                    margin-left: 15px;
+
+                    @media (max-width:1280px) {
+                        margin-left: 0px !important;
+                    }
+                }
+
+
+                @media (max-width:1200px) {
+                    margin-left: 15px;
+
+                    a {
+                        div {
+                            img {
+                                width: 260px !important;
+                            }
+                        }
+                    }
+                }
+
+
+                @media (max-width:990px) {
+                    flex-wrap: wrap;
+                    margin-top: 2rem;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column-reverse;
+
+                    a {
+
+                        div {
+                            img {
+                                width: 300px !important;
+                            }
+                        }
+                    }
+
+                    a:nth-child(1) {
+                        margin-left: 18px;
+
+                        @media (max-width:990px) {
+                            margin-left: 0px !important;
+                            order: 1;
+                            margin-top: -30px;
+                        }
+
+
+                    }
+
+                    a:nth-child(2) {
+                        @media (max-width:990px) {
+                            margin-right: 30px;
+                            margin-top: -30px;
+                        }
+                    }
+
+                    a:nth-child(3) {
+                        @media (max-width:990px) {
+                            margin-right: 30px !important;
+                            margin-top: -35px;
+                        }
+                    }
+                }
+
+                a {
+                    position: relative;
+
+                    .review_trip_advisor {
+                        position: relative;
+                        width: 330px;
+                        height: 141px;
+
+                        @media (max-width:767px) {
+                            width: 300px;
+                        }
+
+                        @media (max-width:424px) {
+                            width: 275px;
+                        }
+
+                        img {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 

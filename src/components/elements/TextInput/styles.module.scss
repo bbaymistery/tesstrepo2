@@ -1,0 +1,83 @@
+@import '../../../styles/variables';
+@import '../../../styles/fonts';
+
+.form_input {
+    position: relative;
+    display: flex;
+    width: 100%;
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+
+    .form_input_error {
+        position: absolute;
+        top: -21px;
+        color: red !important;
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: lowercase !important;
+
+        &[direction="false"] {
+            right: 5px;
+        }
+
+        &[direction="true"] {
+            left: 5px;
+        }
+    }
+
+    .label {
+        position: absolute;
+        pointer-events: none;
+        top: 13px;
+        font-size: 13px;
+        padding: 0px 15px;
+        transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+        // font-family: $font-jost;
+        color: $label_text_color;
+        text-transform: capitalize;
+    }
+
+    .input {
+        width: 100%;
+        min-height: 54px;
+        border: 1px solid $border;
+        border-radius: 4px;
+        padding: 17px 15px 0px 15px;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+        font-size: 14px;
+        font-weight: 500;
+        // font-family: $font-jost;
+        color: $input_text_color;
+
+        @media (max-width: 520px) {
+            font-size: 13px;
+        }
+
+        &:focus~.label,
+        &:valid~.label {
+            margin-top: -10px;
+            transition: all 0.5s ease;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &[err="true"] {
+            border-color: red;
+        }
+
+        &[type=number]::-webkit-inner-spin-button,
+        &[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+
+    &.isTaxiDeal .input {
+        border: 5px solid lighten($border, 7%);
+    }
+
+    .p {
+        display: none;
+    }
+}

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useWindowSize } from '../../../hooks/useWindowSize';
@@ -69,6 +70,7 @@ const HandleSearchResults = (params = {}) => {
         //take this  f12(collectingPoints); >>//{0: Array(30), 1: Array(4)} to turn this   //f12(newOrderedItems); // [Array(4), Array(30)]
         newOrderedItems = moveZeroosToTheEndMakeAnArray({ keyss, collectingPoints });
     }
+    const router = useRouter()
     const dispatch = useDispatch()
     const state = useSelector(state => state.pickUpDropOffActions)
     let { params: { direction }, reservations } = state
@@ -188,3 +190,4 @@ const HandleSearchResults = (params = {}) => {
 }
 
 export default HandleSearchResults
+
