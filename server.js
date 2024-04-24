@@ -12,12 +12,7 @@ app.prepare().then(() => {
     // This tells it to parse the query portion of the URL.
     const parsedUrl = parse(req.url, true);
     const { pathname, query } = parsedUrl;
-    // // Log the original pathname
-    // console.log('Original Pathname:', parsedUrl.pathname);
-    //     // Convert the pathname to lowercase
-    //     parsedUrl.pathname = parsedUrl.pathname.toLowerCase();
-    //     parsedUrl.path = parsedUrl.path.toLowerCase();
-    //  console.log('Converted Pathname:', parsedUrl.pathname);
+
     if (pathname === "/a") {
       app.render(req, res, "/a", query);
     } else if (pathname === "/b") {

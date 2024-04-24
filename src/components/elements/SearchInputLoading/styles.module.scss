@@ -1,0 +1,61 @@
+@import '../../../styles/variables';
+
+.lds_ellipsis {
+    display: inline-block;
+    position: relative;
+    
+    /* Control the width as per your requirement */
+    /* Adjust height to ensure visibility of wave movement */
+}
+
+.lds_ellipsis div {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    animation-timing-function: ease-in-out;
+    position: absolute;
+    top: 33px;
+
+
+}
+
+.lds_ellipsis div:nth-child(1) {
+    left: 30px;
+    animation: lds_wave .85s infinite;
+    background-color: lighten($--color-accent-1, 35%) !important;
+
+}
+
+.lds_ellipsis div:nth-child(2) {
+    left: 40px;
+    animation: lds_wave 1.2s 0.1s infinite;
+    background-color: lighten($--color-accent-1, 25%) !important;
+
+}
+
+.lds_ellipsis div:nth-child(3) {
+    left: 50px;
+    animation: lds_wave .85s 0.2s infinite;
+    background-color: lighten($--color-accent-1, 15%) !important;
+
+}
+
+.lds_ellipsis div:nth-child(4) {
+    left: 60px;
+    animation: lds_wave .85s 0.4s infinite;
+    background-color: lighten($--color-accent-1, 10%) !important;
+
+}
+
+@keyframes lds_wave {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}

@@ -1,0 +1,110 @@
+@import '../../../styles/variables';
+
+
+.header {
+    position: fixed;
+    z-index: 1000;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    // border-bottom: 1px solid gray;
+background-color: white;
+    .header_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .header_flex_div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1320px;
+            width: 100%;
+            padding: 0px 20px;
+
+            .left_items {
+                width: 100%;
+
+                .left_items_flex_div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .logo_tag {
+                        display: flex;
+                        align-items: center;
+                        text-decoration: none !important;
+
+                        img {
+                            width: 200px !important;
+                        }
+                    }
+
+                }
+            }
+
+            .right_items {
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+
+
+                .language_dropdown {
+                    cursor: pointer;
+                    position: relative;
+
+                    .top {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 25px 0px;
+
+                        .img_div {
+                            background-color: rgb(148 149 151 / 14%);
+                            padding: 0px 5px;
+                        }
+
+                        span {
+                            margin-left: 10px;
+                            color: white;
+
+                            i {
+                                font-size: 11px;
+                                margin-left: 10px;
+                            }
+                        }
+
+                        .lang_text {
+                            @media(max-width:1280px) {
+                                display: none;
+                            }
+                        }
+
+                    }
+
+
+                }
+
+
+                // hamburger menu
+                .menu {
+                    cursor: pointer;
+                    display: none;
+
+                    @media (max-width: 1000px) {
+                        display: flex;
+                    }
+
+                    i {
+                        font-size: 20px;
+                        margin-top: -5px;
+                        font-style: normal;
+                        cursor: pointer;
+                    }
+                }
+
+
+            }
+        }
+    }
+}

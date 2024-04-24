@@ -1,0 +1,112 @@
+    @import '../../../styles/variables';
+
+    .header_content_menu_mobile {
+        display: none;
+
+        @media(max-width:1200px) {
+            display: block;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            opacity: 0;
+            visibility: hidden;
+            height: 100vh;
+        }
+
+        .menu_content_ul {
+            height: 100vh;
+        }
+
+        ul {
+            padding: 10px 35px;
+
+            li {
+                border-bottom: 1px solid $--color-light-4;
+
+                &:hover {
+                    a {
+                        transition: 0.2s linear;
+                        color: $--color-accent-1;
+                    }
+                }
+
+                a {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 8px;
+                    color: $--color-dark-1;
+                    span {
+                        font-size: 18px;
+                        text-transform: capitalize;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+
+    .header_content_menu_mobile.active_header_content_menu_mobile {
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        background: white;
+
+        ul {
+
+            .has_children {
+
+                // airports uzerine gelende arxa fonu beyaz olsun ve ul icindeki span rengi gara olsu
+                &:hover {
+                    ul {
+                        li {
+                            &:hover {
+                                a {
+                                    span {
+                                        color: $--color-blue-1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // airports uzerine gelende arxa fonu beyaz olsun ve ul icindeki span rengi gara olsu
+                &:hover {
+                    background-color: white !important;
+
+                    ul {
+                        li {
+                            a {
+                                span {
+                                    // background-color: red;
+                                    color: $--color-blue-2;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .hoverUl {
+                    padding-top: 0px;
+                }
+            }
+
+            li {
+                .nocursor {
+                    pointer-events: none;
+                    span {
+                        cursor: auto !important;
+                    }
+                }
+
+                .first_child_a {
+                    background-color: rgba(53, 84, 209, 0.09);
+                    padding: 8px;
+                    color: $--color-blue-1;
+                }
+
+            }
+        }
+    }

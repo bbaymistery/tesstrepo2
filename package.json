@@ -1,17 +1,25 @@
 {
-  "name": "my-next-app",
+  "name": "istanbulapl",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3500",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "live": "SET NODE_ENV=production && node server.js"
   },
   "dependencies": {
-    "@next/font": "14.2.2",
-    "next": "14.2.2",
+    "@react-google-maps/api": "^2.19.3",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
+    "next": "14.2.1",
+    "next-redux-wrapper": "^8.1.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "sass": "^1.75.0",
+    "sharp": "^0.33.3"
   }
 }
