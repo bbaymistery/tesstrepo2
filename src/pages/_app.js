@@ -28,7 +28,7 @@ export const MyApp = ({ Component, pageProps }) => {
 
   //based on hasnLAnguage attribute we r upding appData content
   const languages = appData?.languages
-  const hasLanguageCode = languages.map(lang => `/${lang.value}/`).some(code => router.asPath.includes(code))
+  const hasLanguageCode = languages?.map(lang => `/${lang.value}/`).some(code => router.asPath.includes(code))
   let langAtrribute = "en"
   if (hasLanguageCode) langAtrribute = extractLanguage(router.asPath)//if it is tr then we assingg langAtribute to tr
 
@@ -141,37 +141,37 @@ const wrapper = createWrapper(makestore);
 
 
 
-MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component, ctx }) => {
+// MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component, ctx }) => {
 
 
 
-  const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
-  //language congiguration based on the url (http://localhost:3500/it/gatwick-taxi-prices  if he pres enter we get lang)
-  let lang = checkLanguageAttributeOntheUrl(ctx?.req?.url)
-  let appDataInitial = store.getState().initialReducer?.appData
-  let paymentTypesInitial = store.getState().initialReducer?.paymentTypes
+//   const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
+//   //language congiguration based on the url (http://localhost:3500/it/gatwick-taxi-prices  if he pres enter we get lang)
+//   let lang = checkLanguageAttributeOntheUrl(ctx?.req?.url)
+//   let appDataInitial = store.getState().initialReducer?.appData
+//   let paymentTypesInitial = store.getState().initialReducer?.paymentTypes
 
-  // Fetch app data and payment types only if not already fetched
-  if (!appDataInitial || !paymentTypesInitial) {
+//   // Fetch app data and payment types only if not already fetched
+//   if (!appDataInitial || !paymentTypesInitial) {
 
-    // Fetch app data and payment types
-    const paymentUrl = `${env.apiDomain}/api/v1/payment-types`;
-    const appDataUrl = `${env.apiDomain}/app/${lang?.length === 2 ? lang : 'en'}`; // Use the preferred language if available, otherwise default to English
-    const urls = [paymentUrl, appDataUrl];
+//     // Fetch app data and payment types
+//     const paymentUrl = `${env.apiDomain}/api/v1/payment-types`;
+//     const appDataUrl = `${env.apiDomain}/app/${lang?.length === 2 ? lang : 'en'}`; // Use the preferred language if available, otherwise default to English
+//     const urls = [paymentUrl, appDataUrl];
 
-    let response = await Promise.all(urls.map(async url => {
-      let resp = await fetch(url);
-      return resp.json();
-    }));
+//     let response = await Promise.all(urls.map(async url => {
+//       let resp = await fetch(url);
+//       return resp.json();
+//     }));
 
-    appDataInitial = response[1];
-    paymentTypesInitial = response[0].data;
+//     appDataInitial = response[1];
+//     paymentTypesInitial = response[0].data;
 
-    // Dispatch values to Redux store
-    store.dispatch({ type: "GET_APP_DATA", data: { appData: appDataInitial, paymentTypes: paymentTypesInitial, }, });
-  }
+//     // Dispatch values to Redux store
+//     store.dispatch({ type: "GET_APP_DATA", data: { appData: appDataInitial, paymentTypes: paymentTypesInitial, }, });
+//   }
 
-  return { pageProps: { ...pageProps, appData: appDataInitial, hasLanguage: lang || "en", } }
+//   return { pageProps: { ...pageProps, appData: appDataInitial, hasLanguage: lang || "en", } }
 
-});
+// });
 export default wrapper.withRedux(MyApp);
