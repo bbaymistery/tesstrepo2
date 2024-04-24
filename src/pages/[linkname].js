@@ -37,7 +37,7 @@ const NavbarLinkName = (props) => {
     let { metaTitle, keywords, metaDescription, pageContent, data = "", } = props
     const paths = extractPathsFromListsWithFirstChild(navigatorMobile);
     if (data === "not found") return <Error404 />
-    if (!paths.includes(router.asPath)) return <Error404 />
+    // if (!paths.includes(router.asPath)) return <Error404 />
     useEffect(() => {
         // Combine both Airports and CruisePorts into a single array
         const lists = [...Airports, ...CruisePorts];
