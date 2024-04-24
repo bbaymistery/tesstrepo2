@@ -1,0 +1,46 @@
+@import '../../styles/variables';
+@import '../../styles/fonts';
+$checkbox-size: 20px;
+$checkbox-border: #cecece;
+$checkbox-selected: $primary; // Primary colour
+
+.payment_details {
+    background-color: #ffffff;
+
+    .payment_details_section {
+        .payment_details_section_container {
+            @media (max-width:1400px) {
+                max-width: 1070px;
+            }
+
+            @media (max-width:1200px) {
+                max-width: 1070px;
+            }
+@media (max-width:768px) {
+    padding: 0px;
+}
+            .payment_details_section {
+                padding-top: 0px;
+                padding-bottom: 80px;
+                width: 100%;
+                position: relative;
+
+
+                div {
+                    .main_container {
+                        max-width: 1070px;
+                        width: 100%;
+                        background-color: transparent;
+                        position: relative;
+                        gap: 1rem;
+                        margin: 0 auto;
+                        z-index: 1;
+
+                    }
+                }
+
+
+            }
+        }
+    }
+}

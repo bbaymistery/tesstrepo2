@@ -1,0 +1,124 @@
+@import '../../styles/_fonts';
+@import '../../styles/variables';
+
+.account_results_details {
+    background-color: #fff;
+
+    .account_results_details_section {
+        .account_results_details_section_container {
+            .content {
+                display: flex;
+                gap: 2.5rem;
+                justify-content: space-between;
+
+                .left_content {
+                    border: 5px solid lighten($border, 7%);
+                    border-radius: 4px;
+                    padding: 30px 20px;
+                    flex-basis: 65%;
+                    gap: 2rem;
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    position: relative;
+
+                    @media(max-width:1100px) {
+                        flex-basis: 100%;
+                    }
+
+                    @media (max-width:540px) {
+                        padding: 15px 25px 5px 25px;
+                    }
+
+                    .info_section {
+
+
+                        h1 {
+                            font-size: 32px;
+                            margin-bottom: 1rem;
+                            text-align: center;
+
+                            @media (max-width:540px) {
+                                font-size: 24px;
+                            }
+
+                            @media (max-width:440px) {
+                                font-size: 22px;
+                            }
+                        }
+
+                        .operationNotes_info {
+                            flex-direction: column;
+                        }
+
+                        .info {
+                            display: flex;
+                            justify-content: space-between;
+                            border-bottom: 1px solid $border;
+                            // font-family: $font-jost;
+                            padding: 12px 0px;
+
+                            &:last-child {
+                                border-bottom: none;
+                            }
+
+                            .left {
+                                color: $black-2;
+                                text-transform: capitalize;
+
+                                @media (max-width:490px) {
+                                    font-size: 15px;
+                                }
+
+                            }
+
+                            .right {
+                                font-size: 17px;
+                                font-weight: 500;
+                                color: $primary;
+
+                                @media (max-width:490px) {
+                                    font-size: 16px;
+                                }
+
+                                @media(max-width:420px) {
+                                    font-size: 13px;
+                                }
+                            }
+
+                        }
+
+                        .buttons {
+
+                            display: flex;
+                            width: 100%;
+                            justify-content: flex-end;
+                            margin-top: 2rem;
+
+                            button {
+                                font-size: 17px;
+                                color: white;
+                                border-radius: 4px;
+                                padding: 5px 11px;
+                            }
+
+                        }
+                    }
+                }
+
+                .contact_section {
+                    border-radius: 4px;
+                    flex-basis: 35%;
+                    position: sticky;
+                    top: 120px;
+                    height: 100%;
+
+                    @media(max-width:1100px) {
+                        display: none;
+                    }
+                }
+            }
+
+        }
+    }
+}
