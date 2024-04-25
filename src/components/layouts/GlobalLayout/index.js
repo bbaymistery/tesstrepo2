@@ -3,6 +3,7 @@ import Head from 'next/head';
 import TopHeader from '../../widgets/TopHeader';
 import { useRouter } from 'next/router';
 import { seoDefaults } from '../../../constants/seoDefaults';
+import Footer from '../../widgets/Footer';
 const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDefaults.description, keywords = seoDefaults.keywords, footerbggray = seoDefaults.footerbggray, isVisible = seoDefaults.isVisible }) => {
   const currentYear = new Date().getFullYear(); // Get the current year
   const router = useRouter()
