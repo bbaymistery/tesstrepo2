@@ -2,8 +2,8 @@ import React from 'react'
 import Head from 'next/head';
 import TopHeader from '../../widgets/TopHeader';
 import { useRouter } from 'next/router';
-
-const GlobalLayout = ({ children, title = "Salam", description = "Salam", keywords = "Salam", }) => {
+import { seoDefaults } from '../../../constants/seoDefaults';
+const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDefaults.description, keywords = seoDefaults.keywords, footerbggray = seoDefaults.footerbggray, isVisible = seoDefaults.isVisible }) => {
   const currentYear = new Date().getFullYear(); // Get the current year
   const router = useRouter()
   return (
@@ -56,6 +56,7 @@ const GlobalLayout = ({ children, title = "Salam", description = "Salam", keywor
       <main>
         {children}
       </main>
+      {((isVisible && router.pathname === '/[...pathname]') || (router.pathname !== '/[...pathname]')) && (<Footer bggray={footerbggray} />)}
     </>
   )
 }
