@@ -25,7 +25,7 @@ const MobileMenu = (({ handleClickNavLinkMobileMenuNotList, language, handleClic
                                         return (
                                             <li onClick={() => {
                                                 handleClickNavLinkMobileMenuList({ hasTaxiDeals });
-                                                router.push(`${language === 'en' ? `${listPath}` : `${language}${listPath}`}`)
+                                                router.push(`${language === 'en' ? `${listPath}` : `/${language}${listPath}`}`)
                                             }} key={listInnerText} className={`${styles.li_item} ${!listPath.length ? styles.nocursor : ""}  `}>
                                                 <p title={appData?.words[listTitle]} tabIndex="-1">
                                                     <span>{appData?.words[strInnerText]}</span>

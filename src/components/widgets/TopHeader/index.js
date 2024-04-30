@@ -78,41 +78,8 @@ const Header = () => {
     setLanguageStatus(!languageStatus)
   }
 
-  const toggleMenu = () => {
-    // menuRef.current.classList.toggle(`${styles.menuActive}`);
-    // mobileMenu?.current?.classList.toggle(`${styles.active_header_content_menu_mobile}`);
+  const toggleMenu = () =>  setOpenMenu(!openMenu)
 
-    setOpenMenu(!openMenu)
-    // let positionOfBody = getComputedStyle(document.body).position
-    // if (positionOfBody === "relative") {
-    //   document.body.style.position = "fixed"
-    // } else {
-    //   document.body.style.position = "relative"
-    // }
-
-    const navLinks = document.querySelectorAll('#navLink');
-
-    // setTimeout(() => {
-    //   //Animate Links
-    //   navLinks.forEach((link, index) => {
-    //     if (link.style.animation) {
-    //       link.style.animation = ''
-    //     } else {
-    //       link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 1.3}s`;
-    //     }
-    //   });
-    // }, 1000);
-  }
-  //!bu fonksyonu yazmayada bilersen Asagidaki degisdirildi yazilan yeri oxu A tagi icinde yazila biler
-  // const gotoHomePage = (index) => {
-  //   if (index === 0) {
-  //     if (language === 'en') {
-  //       router.push(`/`).then(() => { window.location.reload() });
-  //     } else {
-  //       router.push(`/${language}`).then(() => { window.location.reload() });
-  //     }
-  //   }
-  // }
   //for language dropdown
   const outsideClickDropDown = useCallback((e) => {
     setLanguageStatus(!languageStatus);

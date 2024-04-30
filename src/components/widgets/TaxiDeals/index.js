@@ -85,6 +85,7 @@ const TaxiDeals = (props) => {
         // Encode the dealsNameProp to handle spaces and special characters
         let encodedDealsNameProp = encodeURIComponent(dealsNameProp);
         let url = `${env.apiDomain}/api/v1/taxi-deals/list?points=${encodedDealsNameProp}&language=${language}&channelId=${channelId}`;
+console.log(url);
 
         let response = await fetch(url);
         let { data, status } = await response.json();
