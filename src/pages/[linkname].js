@@ -19,26 +19,26 @@ import env from '../resources/env';
 import { capitalizeFirstLetter, urlToTitle } from '../helpers/letters';
 
 // Function to extract paths from items with a list where firstChild is true
-const extractPathsFromListsWithFirstChild = (data) => {
-    const paths = [];
-    data.forEach(item => {
-        if (item.firstChild && Array.isArray(item.list)) {
-            item.list.forEach(subItem => {
-                paths.push(subItem.path);
-            });
-        }
-    });
-    return paths;
-}
+// const extractPathsFromListsWithFirstChild = (data) => {
+//     const paths = [];
+//     data.forEach(item => {
+//         if (item.firstChild && Array.isArray(item.list)) {
+//             item.list.forEach(subItem => {
+//                 paths.push(subItem.path);
+//             });
+//         }
+//     });
+//     return paths;
+// }
 const NavbarLinkName = (props) => {
     const dispatch = useDispatch()
     const router = useRouter();
     const { linkname } = router.query;
     let { metaTitle, keywords, metaDescription, pageContent, data = "", } = props
-    const paths = extractPathsFromListsWithFirstChild(navigatorMobile);
+    // const paths = extractPathsFromListsWithFirstChild(navigatorMobile);
     if (data === "not found") return <Error404 />
     // if (!paths.includes(router.asPath)) return <Error404 />
-    console.log(router);
+    // console.log(router);
 
     useEffect(() => {
         // Combine both Airports and CruisePorts into a single array

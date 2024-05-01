@@ -1,6 +1,7 @@
 let description = "We specialize in airport transfer shuttle service. We can provide you with a chauffeur driven car to and from all major London airports. The airports include Heathrow, Gatwick, Stanstead, Luton and City airport.!"
 let title = "Results Airport Transfers London Airport Pickups"
 let keywords = " London airport transfers, London airport transfer, heathrow airport transfer, Gatwick airport transfer, stansted airport transfer, luton airport transfer, shuttle service, shuttle services, airport shuttle services, airport transfer shuttle service,  airport taxi service, taxi services, cab services, airport taxi service, London airport, airport transport, luton airport transport, London airport transportation, London shuttle services, Gatwick airport shuttle service, Heathrow airport shuttle service, Luton airport shuttle service, Stansted airport shuttle service, London airport taxi transfer, London airport shuttle, airport transfers London, airport transfers, chauffeur driven car, chauffeur driven cars, airport pick up and drop."
+
 import { splitDateTimeStringIntoDate, splitDateTimeStringIntoHourAndMinute } from '../../helpers/splitHelper'
 import SelectedPointsOnTransferDetails from '../../components/elements/SelectedPointsOnTransferDetails'
 import TransferJourneySummaryPanel from '../../components/elements/TransferJourneySummaryPanel'
@@ -50,6 +51,7 @@ const collectPoints = (params = {}, callback = () => { }) => {
         });
 }
 const collectPointsAsync = params => new Promise((resolve, reject) => collectPoints(params, log => resolve(log)))
+
 const TransferDetails = (props) => {
 
 
@@ -262,6 +264,7 @@ const TransferDetails = (props) => {
             <div className={`${styles.tr_details} page`}>
                 <div className={`${styles.tr_details_section} page_section`}>
                     <div className={`${styles.tr_details_section_container} page_section_container`}>
+                  
                         {quotations[0].taxiDeal ?
                             // isTaxideal true
                             <div className={styles.taxideals_subcontainer}>

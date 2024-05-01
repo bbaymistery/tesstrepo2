@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import { extractLanguage } from '../helpers/extractLanguage';
 import { checkLanguageAttributeOntheUrl } from '../helpers/checkLanguageAttributeOntheUrl';
 import localFont from '@next/font/local';
-import { setCookie } from '../helpers/cokieesFunc';
+import { getCookie, setCookie } from '../helpers/cokieesFunc';
 const myFont = localFont({ src: '../../public/googleFonts/92zatBhPNqw73oTd4g.woff2' })
 export const MyApp = ({ Component, pageProps }) => {
   const router = useRouter()
@@ -26,14 +26,10 @@ export const MyApp = ({ Component, pageProps }) => {
   const { store, props } = wrapper.useWrappedStore(pageProps);
   let { hasLanguage, appData } = props//has language used for when user comes it write lcalhost:3000/tr
 
-  //based on hasnLAnguage attribute we r upding appData content
-  const languages = appData?.languages
-  const hasLanguageCode = languages.map(lang => `/${lang.value}/`).some(code => router.asPath.includes(code))
-  let langAtrribute = "en"
-  if (hasLanguageCode) langAtrribute = extractLanguage(router.asPath)//if it is tr then we assingg langAtribute to tr
-
   const setLanguage = useCallback(async (params = {}) => {
     let { language, hydrate = true } = params;
+    // console.log("useCallback");
+    // console.log({ r: router.asPath, params });
 
     if (language) {
       let index
@@ -53,12 +49,13 @@ export const MyApp = ({ Component, pageProps }) => {
         const appDataUrl = `${env.apiDomain}/app/${language}`; // Use the preferred language if available, otherwise default to English
         const response = await fetch(appDataUrl);
         const appDatass = await response.json();
-
         // Dispatch values to Redux store
         dispatch({ type: "SET_NEW_APPDATA", data: appDatass, initialStateReducer: store.getState().initialReducer })
       }
     }
   }, [dispatch, appData,])
+
+
   useEffect(() => {
     //global errors
     if (typeof window === 'object') {
@@ -113,8 +110,6 @@ export const MyApp = ({ Component, pageProps }) => {
 
     };
 
-
-
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
@@ -125,8 +120,9 @@ export const MyApp = ({ Component, pageProps }) => {
 
   //when we r on payment page and change lang twice then go back with browser then our content changes
   useEffect(() => {
-    setLanguage({ language: hasLanguage !== 'en' ? hasLanguage : langAtrribute, hydrate: false })
-  }, [langAtrribute])
+    const language = getCookie("lang")
+    setLanguage({ language: hasLanguage !== 'en' ? hasLanguage : language, hydrate: false })
+  }, [router.asPath])
 
 
 

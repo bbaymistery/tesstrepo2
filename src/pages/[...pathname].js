@@ -12,8 +12,8 @@ import QuotationResultsTaxiDeal from '../components/elements/QuotationResultsTax
 import { urlToTitle } from '../helpers/letters';
 
 function Pages(props) {
-    let { data, pickUps, dropoffs, keywords, language, pageTitle, headTitle, description, returnPathname, urlOfPage, pageContent, returnHeadTitle, returnPageTitle, duration, distance, quotationOptions, breadcrumbs, linkurl,review } = props
-  
+    let { data, pickUps, dropoffs, keywords, language, pageTitle, headTitle, description, returnPathname, urlOfPage, pageContent, returnHeadTitle, returnPageTitle, duration, distance, quotationOptions, breadcrumbs, linkurl, review } = props
+
     if (data === "not found") return <Error404 />
 
     const state = useSelector(state => state.pickUpDropOffActions)
@@ -23,49 +23,7 @@ function Pages(props) {
     const { appData } = useSelector(state => state.initialReducer)
     const objectDetailss = appData?.pointTypeCategories.reduce((obj, item) => ({ ...obj, [item.id]: JSON.parse(item.objectDetails), }), {});
 
-    const getDataBasedLanguage = async (language) => {
-        //zaten en olanda app.js de butun datalari  fetch(`${env.apiDomain}/app/${language}`)   bununla getiririk
-        //cunki burdaki fonksyon isliyir ancag :=>http://localhost:3500/tr/heathrow/heathrow-to-oxford-taxi =>tr goturub request edirik
-        if (language !== 'en') {
-            try {
-                //payment hydation error ucun
-                let response = await fetch(`${env.apiDomain}/app/${language}`)
-                let data = await response.json()
-                if (data.status === 200) {
-                    //passing inital state in order make update in store js when language changing
-                    dispatch({ type: "SET_NEW_APPDATA", data, initialStateReducer: store.getState().initialReducer })
-                }
-            } catch (error) {
-                window.handelErrorLogs(
-                    error,
-                    ' APL ...pathname -getDataBasedLanguage function try catch blog ',
-                    {
-                        url: `${env.apiDomain}/app/${language}`
-                    })
 
-            }
-        }
-    }
-
-
-    const setLanguage = (params = {}) => {
-        let { language } = params
-        if (language) {
-            let index
-            let direction
-            direction = language === 'ar' ? "rtl" : "ltr"
-            appData?.languages.map((item, idx) => {
-                let { value: key, } = item
-                if (language === key) index = idx
-            })
-            dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: language, direction, langIndex: index } })
-            //set language and dicertion  to localstorage
-            localStorage.setItem("language", JSON.stringify(language));
-            localStorage.setItem("direction", JSON.stringify(direction));
-            localStorage.setItem("langIndex", JSON.stringify(index));
-            getDataBasedLanguage(language)
-        }
-    }
     useEffect(() => {
         //when we go to transfer details then go back in that case we need to check if we have already quotations or not
         if (!quotations[0]?.quotationOptions?.length) dispatch({ type: "GET_QUOTATION_AT_PATHNAME", data: { results: data, journeyType } })
@@ -85,12 +43,12 @@ function Pages(props) {
             dispatch({ type: "ADD_NEW_POINT_AT_PATHNAME", data: { pickupPoints, dropoffPoints, index: 0 } })
         }
         // }
+
+        console.log(language);
+        // setLanguage({ language })
         //set language and bring appDAtas
-        if (language?.length === 2) {
-            setLanguage({ language })
-        } else {
-            setLanguage({ language: JSON.parse(localStorage.getItem("language")) })
-        }
+
+
     }, [])
 
 

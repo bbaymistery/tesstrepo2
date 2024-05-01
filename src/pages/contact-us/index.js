@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from "./styles.module.scss"
 import GlobalLayout from '../../components/layouts/GlobalLayout'
@@ -100,6 +100,7 @@ const ContactUs = (props) => {
         if (e === active) return setActive(null);
         setActive(e);
     };
+
 
     return (
         <GlobalLayout title="Contact Us" keywords="Contact Us" description="Contact Us" footerbggray={true}>

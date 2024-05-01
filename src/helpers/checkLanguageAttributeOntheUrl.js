@@ -12,7 +12,8 @@ export const checkLanguageAttributeOntheUrl = (url) => {
 
     if (checkTheUrlIfLangExist && allLanguages.includes(checkTheUrlIfLangExist)) {
         lang = checkTheUrlIfLangExist
-    } else {
+    }
+    else {
         lang = "en"
     }
 
