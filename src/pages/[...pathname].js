@@ -10,6 +10,7 @@ import { parse } from 'url'
 import { checkLanguageAttributeOntheUrl } from '../helpers/checkLanguageAttributeOntheUrl';
 import QuotationResultsTaxiDeal from '../components/elements/QuotationResultsTaxiDeal';
 import { urlToTitle } from '../helpers/letters';
+import { parseCookies } from '../helpers/cokieesFunc';
 
 function Pages(props) {
     let { data, pickUps, dropoffs, keywords, language, pageTitle, headTitle, description, returnPathname, urlOfPage, pageContent, returnHeadTitle, returnPageTitle, duration, distance, quotationOptions, breadcrumbs, linkurl, review } = props
@@ -85,6 +86,17 @@ const cache = {}
 
 //     return kilobytes;
 // }
+function cleanPath(path) {
+    // Replace any sequence of "/../" with "/"
+    // This might be needed for paths that attempt to go up a directory level
+    let cleanedPath = path.replace(/\/\.\.\//g, '/');
+
+    // Remove a two-letter country/language code at the beginning of the path
+    cleanedPath = cleanedPath.replace(/^\/[a-z]{2}\//, '/');
+
+    return cleanedPath;
+}
+
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, ...etc }) => {
     const { resolvedUrl } = etc;
     const lowerCaseUrl = resolvedUrl.toLowerCase();
@@ -99,16 +111,31 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     res?.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59')
     let pickUps = []
     let dropoffs = []
-    let dealUrl = `${req.url}`
-    const { pathname } = parse(req.url, true)
-    dealUrl = pathname.replace(/^\/_next\/data\/[^/]+\//, '/').replace(/\.[^/.]+$/, '').replace(/\.json$/, '')
-    const cacheKey = `page-${req.url}`
-    let language = checkLanguageAttributeOntheUrl(dealUrl)
+    const { cookie } = req.headers;
+    const cookies = parseCookies(cookie);
+    let language = checkLanguageAttributeOntheUrl(req.url)
+    let { pathname } = parse(req.url, true)
 
+
+
+
+    if (language === 'en') {
+        pathname = pathname.replace(/^\/_next\/data\/[^/]+\//, '/').replace(/\.[^/.]+$/, '').replace(/\.json$/, '')
+        pathname = cleanPath(pathname)
+        if (cookies['lang']) {
+            language = cookies['lang'];
+        }
+    } else {
+        //http://localhost:3500/es/heathrow/heathrow-to-oxford-taxi  yazb google enter basarsa burasi isliyr
+        pathname = cleanPath(pathname)
+    }
+
+    ///_next/data/development/heathrow-taxi-prices.json
+    const cacheKey = `page-${req.url}`
     // Check if the data is cached
     if (cache[cacheKey]) return { props: cache[cacheKey] }
 
-    const body = { language, checkRedirect: true, taxiDealPathname: dealUrl, withoutExprectedPoints: true, }
+    const body = { language, checkRedirect: true, taxiDealPathname: pathname, withoutExprectedPoints: true, }
     const url = `${env.apiDomain}/api/v1/taxi-deals/details`
     const { status, data } = await postDataAPI({ url, body })
 
@@ -167,7 +194,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             headTitle,
             description,
             returnPathname,
-            urlOfPage: dealUrl,
+            urlOfPage: pathname,
             schemaOfTaxiDeals,
             pageContent: newPageContent,
             returnHeadTitle,

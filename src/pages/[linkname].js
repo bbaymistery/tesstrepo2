@@ -56,7 +56,7 @@ const NavbarLinkName = (props) => {
         }
     }, [linkname, dispatch, language]); // Add linkname and dispatch to the dependency array
 
-    console.log(language);
+    // console.log(language);
 
 
     return (
@@ -94,6 +94,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     //! Gelen URL'i analiz et
     const { cookie } = req.headers;
     let { pathname } = parse(req.url, true)
+    console.log(pathname);
+
     let pathnameUrlWHenChangeByTopbar = pathname
 
     //baslangucda it/gatwic-taxi yazb enter basarsa ona gore yoxluyuruq Eger en ise deymirik yox localhost3500:/it/gatwick-taxi-prices ise split edirik
@@ -107,7 +109,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     //!Istisnalar
     let exceptions = pathname === "/dover-cruise-taxi" || pathname === "/portsmouth-taxi-prices" || pathname === "/harwich-taxi-prices" || pathname === "/southampton-cruise-taxi"
-    console.log({ metaTitle });
 
     if (exceptions) status = 200
 
