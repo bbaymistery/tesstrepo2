@@ -50,14 +50,15 @@ const NavbarLinkName = (props) => {
             // Use the 'hasTaxiDeals' property of the matching item for dispatch
             dispatch({ type: "SET_NAVBAR_TAXI_DEALS", data: { hasTaxiDeals: matchingItem.hasTaxiDeals } });
         }
-    }, [linkname, dispatch]); // Add linkname and dispatch to the dependency array
+    }, [linkname, dispatch, pageContent]); // Add linkname and dispatch to the dependency array
 
+    console.log({ keywords });
 
     return (
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={false}>
             <Hero islinknamecomponent={true} bggray={false} />
             <TaxiDeals showTabs={false} bggray={false} islinknamecomponent={true} />
-            {pageContent ? <LinkNameDescription pageContent={pageContent} /> : <></>}
+            <LinkNameDescription pageContent={pageContent} />
             <CarsSlider bggray={true} />
         </GlobalLayout>
     )
@@ -90,6 +91,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     const { cookie } = req.headers;
     let { pathname } = parse(req.url, true)
     let pathnameUrlWHenChangeByTopbar = pathname
+    console.log({ pathnameUrlWHenChangeByTopbar });
 
     //baslangucda it/gatwic-taxi yazb enter basarsa ona gore yoxluyuruq Eger en ise deymirik yox localhost3500:/it/gatwick-taxi-prices ise split edirik
     //cunki direk adres yazb enteride basa biler  => http://localhost:3500/it/gatwick-taxi-prices

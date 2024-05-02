@@ -6,11 +6,7 @@ const LinkNameDescription = (props) => {
     const state = useSelector(state => state.pickUpDropOffActions)
     let { params: { direction, } } = state;
     const createMarkup = (htmlString) => { return { __html: htmlString } };
-    useEffect(() => {
-        if (pageContent) {
-            console.log(pageContent);
-        }
-    }, [pageContent])
+  
 
     return (
         <div className={`${styles.linkname_description_section} ${direction} page`} bggray={String(bggray === "true")}>
