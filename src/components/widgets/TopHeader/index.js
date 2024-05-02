@@ -36,22 +36,25 @@ const Header = () => {
     localStorage.setItem("language", JSON.stringify(key));
     localStorage.setItem("direction", JSON.stringify(direction));
     localStorage.setItem("langIndex", JSON.stringify(index));
-
-    
-
-    // try {
-    //   let response = await fetch(`${env.apiDomain}/app/${key}`)
-    //   let data = await response.json()
-    //   if (data.status === 200) {
-    dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: key, direction, langIndex: index } })
-    //     //passing inital state in order make update in store js when language changing
-    //     dispatch({ type: "SET_NEW_APPDATA", data, initialStateReducer: store.getState().initialReducer })
-    //   } 
-
-    // } catch (error) {
-    //   let message = "AIRPORT-PICK-UP-LONDON  handleLanguage function Top HeaderComponent"
-    //   window.handelErrorLogs(error, message, { url: `${env.apiDomain}/app/${key}` })
-    // }
+    try {
+      let response = await fetch(`${env.apiDomain}/app/${key}`)
+      let data = await response.json()
+      if (data.status === 200) {
+        dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: key, direction, langIndex: index } })
+        //passing inital state in order make update in store js when language changing
+        dispatch({ type: "SET_NEW_APPDATA", data, initialStateReducer: store.getState().initialReducer })
+      } else {
+        //if sth wrong it means we can use en for dont crush our website
+        let response = await fetch(`${env.apiDomain}/app/en`)
+        let data = await response.json()
+        dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: key, direction, langIndex: index } })
+        //passing inital state in order make update in store js when language changing
+        dispatch({ type: "SET_NEW_APPDATA", data, initialStateReducer: store.getState().initialReducer })
+      }
+    } catch (error) {
+      let message = "AIRPORT-PICK-UP-LONDON  handleLanguage function Top HeaderComponent"
+      window.handelErrorLogs(error, message, { url: `${env.apiDomain}/app/${key}` })
+    }
     //url configuration based on language we select
     let checkTheUrlIfLangExist = extractLanguage(router.asPath) //tr es or it
     //to be sure that selected language is exist among languages or not
@@ -62,8 +65,7 @@ const Header = () => {
 
       let url = router.asPath.replace(/^\/([a-z]{2})\/?/i, replacedString)
       //tr|it|sp/transfer-details...  replacing withh
-      url = key === 'en' ? `${url}` : `/${url}`
-
+      url = `/${url}`
       router.push(url);
     }
     else {
