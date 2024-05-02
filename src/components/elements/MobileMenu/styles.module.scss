@@ -28,10 +28,12 @@
             padding: 10px;
 
             li {
-                &:hover {
-                    color: lighten($primary, 15%);
-                    background-color: rgba(53, 84, 209, 0.05);
-                    transition: 0.4s ease;
+                a {
+                    &:hover {
+                        color: lighten($primary, 15%);
+                        background-color: rgba(53, 84, 209, 0.05);
+                        transition: 0.4s ease;
+                    }
                 }
 
                 a {
@@ -62,16 +64,12 @@
             .has_children {
 
                 // airports uzerine gelende arxa fonu beyaz olsun ve ul icindeki span rengi gara olsu
-                &:hover {
-                    ul {
-                        li {
-                            &:hover {
-                                a {
-                                    span {
-                                        color: $blue-1;
-                                    }
-                                }
-                            }
+                ul {
+                    li {
+                        &:hover {
+                            color: $blue-1;
+
+                           
                         }
                     }
                 }

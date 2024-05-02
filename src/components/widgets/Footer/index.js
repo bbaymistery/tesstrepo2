@@ -16,8 +16,8 @@ const Footer = (props) => {
   const { appData } = useSelector(state => state.initialReducer)
 
   const dispatch = useDispatch()
-  const companyNameAndDescription = appData?.words["strFooterDescription"].split("),")[0] + ")" || "Airport Pickups London (APL Cars)";
-  const companyText = appData?.words["strFooterDescription"].split("),")[0] ? appData?.words["strFooterDescription"].split("),")[1] : normalText;
+  // const companyNameAndDescription = appData?.words["strFooterDescription"].split("),")[0] + ")" || "Airport Pickups London (APL Cars)";
+  // const companyText = appData?.words["strFooterDescription"].split("),")[0] ? appData?.words["strFooterDescription"].split("),")[1] : normalText;
 
   return (
 
@@ -30,7 +30,7 @@ const Footer = (props) => {
                 <Image src={logoImage} alt="Airport-pickups-london Logo" width={300} height={28} />
               </div>
               <p>
-                <span>{appData?.words["strCompanyFooter"]} </span>
+                <span>{appData?.words["strFooterDescription"]} </span>
               </p>
             </div>
 

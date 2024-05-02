@@ -6,13 +6,13 @@ import { quotationImagesObjWebp } from '../../constants/quotationImages'
 import Image from 'next/image';
 import meetAndGret from '../../../public/images/icons/blackMeetAndGreet.svg'
 import LeftSidebarInformation from '../../components/elements/LeftSidebarInformation'
+import { checkLanguageAttributeOntheUrl } from '../../helpers/checkLanguageAttributeOntheUrl'
+import { parse } from 'url';
+import { fetchContent } from '../../helpers/fetchContent'
 
-let description = "Airport Pickups London vehicle types and all taxi capacity information"
-let title = "Airport Pickups London (APL Cars)  fleet information. Our vehicle types. "
-let keywords = "taxi types, london airport taxi information"
 
 const Fleet = (props) => {
-    let { bggray = false } = props;
+    let { bggray = false, metaTitle, keywords, metaDescription, shortDescription, pageTitle, pageContent } = props;
     const { appData } = useSelector(state => state.initialReducer)
     const state = useSelector(state => state.pickUpDropOffActions)
     let { params: { direction } } = state
@@ -21,7 +21,7 @@ const Fleet = (props) => {
 
 
     return (
-        <GlobalLayout keywords={keywords} title={title} description={description} footerbggray={true}>
+        <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true}>
             <div className={`${styles.fleet} ${direction} page`} bggray={String(bggray === "true")}>
                 <div className={`${styles.fleet_section} page_section`}>
                     <div className={`${styles.fleet_section_container} page_section_container`}>
@@ -32,17 +32,20 @@ const Fleet = (props) => {
                         </div>
                         <div className={styles.right_content}>
                             <div className={`${styles.fleet_header}`}>
-                                <h1>{appData?.words["strOurFleet"]}</h1>
-                                <p>{appData?.words["strWeOfferaRangeOfVehicles"]}
-                                    <br />
-                                    {appData?.words["strTakeaLookAtOur"]}</p>
+                                <h1>{pageTitle}</h1>
+                                <p>
+                                    {/* {appData?.words["strWeOfferaRangeOfVehicles"]} */}
+                                    {/* <br /> */}
+                                    {/* {appData?.words["strTakeaLookAtOur"]} */}
+                                    {shortDescription}
+                                </p>
                             </div>
                             {Object?.values(quotationImagesObjWebp)?.map((item, index) => {
                                 return (
                                     <div dataid={`${item.id}_car`} key={index} className={`${styles.card_item}`}    >
                                         <div data={item?.id} className={styles.column_first} style={{ backgroundImage: `url(${item?.image})` }}> </div>
                                         <div className={styles.column_second}>
-                                            <div className={styles.column_second_flex_column}>
+                                            <div className={styles.column_second_flex_column} direction={String(direction === "rtl")}>
                                                 <div className={styles.name_and_postcode_div}>
                                                     <div className={styles.postcode}> {carObject[item?.id]?.transferType}  </div>
                                                     <h3 className={styles.name}>{carObject[item?.id]?.name}   </h3>
@@ -103,7 +106,8 @@ const Fleet = (props) => {
                                 )
                             })}
                             &nbsp;
-                   
+                            <div className={styles.page_content} dangerouslySetInnerHTML={{ __html: pageContent }} />
+
                         </div>
 
                     </div>
@@ -114,3 +118,15 @@ const Fleet = (props) => {
 }
 
 export default Fleet
+export async function getServerSideProps({ req, res }) {
+    let firstLoadLangauge = checkLanguageAttributeOntheUrl(req?.url)
+    const { cookie } = req.headers;
+    let { pathname } = parse(req?.url, true)
+    let pathnameUrlWHenChangeByTopbar = pathname
+    let { metaTitle, keywords, pageContent, metaDescription, shortDescription, pageTitle } = await fetchContent("/fleet", cookie, firstLoadLangauge, pathnameUrlWHenChangeByTopbar)
+    console.log(metaTitle);
+
+    return {
+        props: { metaTitle, keywords, pageContent, metaDescription, shortDescription, pageTitle }
+    }
+}

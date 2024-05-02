@@ -120,8 +120,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
 
     if (language === 'en') {
-        pathname = pathname.replace(/^\/_next\/data\/[^/]+\//, '/').replace(/\.[^/.]+$/, '').replace(/\.json$/, '')
-        pathname = cleanPath(pathname)
+        pathname = cleanPath(pathname.replace(/^\/_next\/data\/[^/]+\//, '/').replace(/\.[^/.]+$/, '').replace(/\.json$/, ''))
         if (cookies['lang']) {
             language = cookies['lang'];
         }
@@ -129,9 +128,9 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         //http://localhost:3500/es/heathrow/heathrow-to-oxford-taxi  yazb google enter basarsa burasi isliyr
         pathname = cleanPath(pathname)
     }
-
     ///_next/data/development/heathrow-taxi-prices.json
     const cacheKey = `page-${req.url}`
+    { { cacheKey } }
     // Check if the data is cached
     if (cache[cacheKey]) return { props: cache[cacheKey] }
 
