@@ -7,7 +7,7 @@ import TaxiDeals from '../components/widgets/TaxiDeals';
 import store from '../store/store';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LinkNameDescription from '../components/elements/LinkNameDescription';
 import { fetchContent } from '../helpers/fetchContent';
 import { parse } from 'url'
@@ -33,6 +33,8 @@ import { capitalizeFirstLetter, urlToTitle } from '../helpers/letters';
 const NavbarLinkName = (props) => {
     const dispatch = useDispatch()
     const router = useRouter();
+    const { params: { language, } } = useSelector(state => state.pickUpDropOffActions)
+
     const { linkname } = router.query;
     let { metaTitle, keywords, metaDescription, pageContent, data = "", } = props
     // const paths = extractPathsFromListsWithFirstChild(navigatorMobile);
@@ -49,16 +51,19 @@ const NavbarLinkName = (props) => {
         if (matchingItem) {
             // Use the 'hasTaxiDeals' property of the matching item for dispatch
             dispatch({ type: "SET_NAVBAR_TAXI_DEALS", data: { hasTaxiDeals: matchingItem.hasTaxiDeals } });
-        }
-    }, [linkname, dispatch, pageContent]); // Add linkname and dispatch to the dependency array
+            console.log("sdsa");
 
-    console.log({ keywords });
+        }
+    }, [linkname, dispatch, language]); // Add linkname and dispatch to the dependency array
+
+    console.log(language);
+
 
     return (
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={false}>
             <Hero islinknamecomponent={true} bggray={false} />
             <TaxiDeals showTabs={false} bggray={false} islinknamecomponent={true} />
-            <LinkNameDescription pageContent={pageContent} />
+            <LinkNameDescription pageContent={pageContent} language={language} />
             <CarsSlider bggray={true} />
         </GlobalLayout>
     )
@@ -70,9 +75,10 @@ const makestore = () => store;
 const wrapper = createWrapper(makestore);
 //?biz burada metatile metaDescriptionlari fethcContente gore alib gonderirirk Her sayfa icin ayri bi sekilde gider
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, ...etc }) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+
     const { resolvedUrl } = etc;
     const lowerCaseUrl = resolvedUrl.toLowerCase();
-
     if (resolvedUrl !== lowerCaseUrl) {
         res.setHeader('Location', lowerCaseUrl);
         res.statusCode = 301;
@@ -84,14 +90,11 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     //language congiguration based on the url (http://localhost:3500/it/gatwick-taxi-prices  if he pres enter we get lang)
     let pageStartLanguage = checkLanguageAttributeOntheUrl(req?.url)
 
-    //! Caching başlıklarını ayarla
-    res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
 
     //! Gelen URL'i analiz et
     const { cookie } = req.headers;
     let { pathname } = parse(req.url, true)
     let pathnameUrlWHenChangeByTopbar = pathname
-    console.log({ pathnameUrlWHenChangeByTopbar });
 
     //baslangucda it/gatwic-taxi yazb enter basarsa ona gore yoxluyuruq Eger en ise deymirik yox localhost3500:/it/gatwick-taxi-prices ise split edirik
     //cunki direk adres yazb enteride basa biler  => http://localhost:3500/it/gatwick-taxi-prices
@@ -104,6 +107,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     //!Istisnalar
     let exceptions = pathname === "/dover-cruise-taxi" || pathname === "/portsmouth-taxi-prices" || pathname === "/harwich-taxi-prices" || pathname === "/southampton-cruise-taxi"
+    console.log({ metaTitle });
 
     if (exceptions) status = 200
 
