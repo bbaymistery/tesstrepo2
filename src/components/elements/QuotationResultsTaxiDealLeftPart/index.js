@@ -51,7 +51,7 @@ const QuotationResultsTaxiDealLeftPart = () => {
                                 sizes='10vw'
                                 style={{ width: "19px", height: 'auto' }} src="/images/others/tel.webp" alt="Airport Pickups Support Phone " />
                         </span>
-                        <a href="tel:+442088687744">+44 (0) 208 688 7744</a>
+                        <a href="tel:+442088687744">+44 208 688 7744</a>
                     </li>
                     <li className={styles.wp} >
                         <span >

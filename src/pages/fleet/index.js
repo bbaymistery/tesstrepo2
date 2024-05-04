@@ -124,7 +124,6 @@ export async function getServerSideProps({ req, res }) {
     let { pathname } = parse(req?.url, true)
     let pathnameUrlWHenChangeByTopbar = pathname
     let { metaTitle, keywords, pageContent, metaDescription, shortDescription, pageTitle } = await fetchContent("/fleet", cookie, firstLoadLangauge, pathnameUrlWHenChangeByTopbar)
-    console.log(metaTitle);
 
     return {
         props: { metaTitle, keywords, pageContent, metaDescription, shortDescription, pageTitle }

@@ -23,11 +23,13 @@ export const fetchContent = async (pagePathname, cookie, firstLoadLangauge, path
     }
     let url = `${env.apiDomain}/api/v1/pages/details`;
     let body = { pagePathname: pagePathname, language: lang };
+
     const method = "POST"
     const headers = { "Content-Type": "application/json", }
     const reqOpt = { body: JSON.stringify(body), method, headers }
     const response = await fetch(url, reqOpt);
     const datas = await response.json();
+
     if (datas.status === 200) {
         metaTitle = datas.data.metaTitle
         keywords = datas.data.keywords

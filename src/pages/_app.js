@@ -11,7 +11,11 @@ import { extractLanguage } from '../helpers/extractLanguage';
 import { checkLanguageAttributeOntheUrl } from '../helpers/checkLanguageAttributeOntheUrl';
 import localFont from '@next/font/local';
 import { getCookie, setCookie } from '../helpers/cokieesFunc';
+import { getDataApi } from '../helpers/fetchDatas';
+import { fetchAllLanguagesAppDatas } from '../helpers/fetchAllLanguagesAppDatas';
 const myFont = localFont({ src: '../../public/googleFonts/92zatBhPNqw73oTd4g.woff2' })
+const allLanguages = ["en", "tr", "ar", "es", "zh", "it", "ru"]
+
 export const MyApp = ({ Component, pageProps }) => {
   const router = useRouter()
 
@@ -26,33 +30,25 @@ export const MyApp = ({ Component, pageProps }) => {
   const { store, props } = wrapper.useWrappedStore(pageProps);
   let { hasLanguage, appData } = props//has language used for when user comes it write lcalhost:3000/tr
 
+
   const setLanguage = useCallback(async (params = {}) => {
-    let { language, hydrate = true } = params;
-    // console.log("useCallback");
-    // console.log({ r: router.asPath, params });
+    let { language, } = params;
 
-    if (language) {
-      let index
-      let direction = language === 'ar' ? "rtl" : "ltr"
-      //assign idx to index
-      appData?.languages.map((item, idx) => (language === item.value) ? index = idx : idx)
-
-      dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: language, direction, langIndex: index } })
-      //set language and dicertion  to localstorage
-      localStorage.setItem("language", JSON.stringify(language));
-      localStorage.setItem("direction", JSON.stringify(direction));
-      localStorage.setItem("langIndex", JSON.stringify(index));
-      //in order to hydate redux store i need to save to localstorage new version of appData(based on langugae) so i use
-      if (hydrate) {
-        dispatch({ type: "SET_NEW_APPDATA", data: appData, initialStateReducer: store.getState().initialReducer })
-      } else {
-        const appDataUrl = `${env.apiDomain}/app/${language}`; // Use the preferred language if available, otherwise default to English
-        const response = await fetch(appDataUrl);
-        const appDatass = await response.json();
-        // Dispatch values to Redux store
-        dispatch({ type: "SET_NEW_APPDATA", data: appDatass, initialStateReducer: store.getState().initialReducer })
-      }
+    console.log("useCallback setLanguage=>>", language);
+    let allAppDatas = JSON.parse(sessionStorage.getItem('allAppDatas'))
+    if (language.length === 2 && allAppDatas) {
+      // console.log({ allAppDatas, location: "language && allAppDatas" });
+      dispatch({ type: "SET_NEW_APPDATA", data: allAppDatas?.[language], initialStateReducer: store.getState().initialReducer })
+    } else {
+      //ilk basda tek sefer calisicak sonra yukarisi calisir
+      // console.log({ appData, location: "MyApp" });
+      dispatch({ type: "SET_NEW_APPDATA", data: appData, initialStateReducer: store.getState().initialReducer })
     }
+
+    let direction = language === 'ar' ? "rtl" : "ltr"
+    localStorage.setItem("direction", JSON.stringify(direction));
+    dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: language, direction, } })
+
   }, [dispatch, appData,])
 
 
@@ -101,14 +97,13 @@ export const MyApp = ({ Component, pageProps }) => {
     }
     //if user close browser initialize localstorage
     const handleBeforeUnload = () => {
-      localStorage.removeItem("langIndex"); // remove an item from local storage
       localStorage.removeItem("appData"); // remove an item from local storage
-      localStorage.removeItem("language"); // remove an item from local storage
       localStorage.removeItem("direction"); // remove an item from local storage
       localStorage.removeItem("path"); // remove an item from local storage
       // Dynamically inject the termsReducer when this component mounts
 
     };
+    fetchAllLanguagesAppDatas()
 
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => {
@@ -121,7 +116,18 @@ export const MyApp = ({ Component, pageProps }) => {
   //when we r on payment page and change lang twice then go back with browser then our content changes
   useEffect(() => {
     const language = getCookie("lang")
-    setLanguage({ language: hasLanguage !== 'en' ? hasLanguage : language, hydrate: false })
+    //when cahnge on home page language then click browser back btn we update language vai  first condirtione
+    if (language !== router.asPath.split("/")[1] && router.asPath.split("/")[1].length === 2) {
+      setCookie("lang", router.asPath.split("/")[1], 7);
+      setLanguage({ language: router.asPath.split("/")[1], hydrate: false })
+    }
+    else {
+      setLanguage({ language: hasLanguage !== 'en' ? hasLanguage : language, hydrate: false })
+    
+      
+    }
+
+
   }, [router.asPath])
 
 
@@ -139,22 +145,24 @@ const wrapper = createWrapper(makestore);
 
 MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component, ctx }) => {
 
-
-
   const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
   //language congiguration based on the url (http://localhost:3500/it/gatwick-taxi-prices  if he pres enter we get lang)
   let lang = checkLanguageAttributeOntheUrl(ctx?.req?.url)
   let appDataInitial = store.getState().initialReducer?.appData
   let paymentTypesInitial = store.getState().initialReducer?.paymentTypes
 
-  // Fetch app data and payment types only if not already fetched
-  if (!appDataInitial || !paymentTypesInitial) {
 
-    // Fetch app data and payment types
+  // Fetch app data and payment types only if not already fetched
+  //yani localhost3500/it yazb enter basdigimizda ctx?.req?.url=>"/it " olur O zamanbu calismalidi Tek sefer calismasi icin includes json ile yoxladig
+  //vunki language degisende (navbardan )  ctx?.req?.url =>icinde json olur ||| url: '/_next/data/development/index.json
+  //Tek seferlik calismasi ucun bele yazdiq
+  //Onnan sor her dil degisende  setLanguage fonksyonu ile eski appDatalari getirirk Hansiniki  fetchAllLanguages ile sesion storage eklemisik
+
+  // Fetch app data and payment types
+  if (ctx?.req?.url) {
     const paymentUrl = `${env.apiDomain}/api/v1/payment-types`;
     const appDataUrl = `${env.apiDomain}/app/${lang?.length === 2 ? lang : 'en'}`; // Use the preferred language if available, otherwise default to English
     const urls = [paymentUrl, appDataUrl];
-
     let response = await Promise.all(urls.map(async url => {
       let resp = await fetch(url);
       return resp.json();
@@ -166,7 +174,6 @@ MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component
     // Dispatch values to Redux store
     store.dispatch({ type: "GET_APP_DATA", data: { appData: appDataInitial, paymentTypes: paymentTypesInitial, }, });
   }
-
   return { pageProps: { ...pageProps, appData: appDataInitial, hasLanguage: lang || "en", } }
 
 });

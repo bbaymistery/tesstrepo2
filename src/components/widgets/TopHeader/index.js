@@ -3,8 +3,6 @@ import styles from "./styles.module.scss";
 import logoImage from '../../../../public/logos/square_dark_blue.webp'
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import env from "../../../resources/env";
-import store from "../../../store/store";
 import { useRouter } from "next/router";
 import { extractLanguage } from "../../../helpers/extractLanguage";
 import OutsideClickAlert from "../../elements/OutsideClickAlert";
@@ -19,25 +17,21 @@ const Header = () => {
 
   const router = useRouter()
   const dispatch = useDispatch()
-  const { appData } = useSelector(state => state.initialReducer)
-  const { params: { language, langIndex: reducerLangIndex, journeyType } } = useSelector(state => state.pickUpDropOffActions)
-  const [langFlag, setLangFlag] = useState(language)
-  const [langIndex, setLangIndex] = useState(reducerLangIndex)
+  const { params: { language, journeyType } } = useSelector(state => state.pickUpDropOffActions)
+  const [langIndex, setLangIndex] = useState(0)
+
 
   const [openMenu, setOpenMenu] = useState(false) //mobile
   const [languageStatus, setLanguageStatus] = useState(false)
+  const { appData } = useSelector(state => state.initialReducer)
+  const [translatedAppData, setTranslatedAppData] = useState(appData)
 
   const handleLanguage = async (params = {}) => {
     let { e, text, key, direction, index } = params
     setCookie("lang", key, 7);
-    setLangFlag(key)
     setLangIndex(index)
     //set language and dicertion  to localstorage
-    localStorage.setItem("language", JSON.stringify(key));
     localStorage.setItem("direction", JSON.stringify(direction));
-    localStorage.setItem("langIndex", JSON.stringify(index));
-
-    
 
     // try {
     //   let response = await fetch(`${env.apiDomain}/app/${key}`)
@@ -79,9 +73,7 @@ const Header = () => {
   const toggleMenu = () => setOpenMenu(!openMenu)
 
   //for language dropdown
-  const outsideClickDropDown = useCallback((e) => {
-    setLanguageStatus(!languageStatus);
-  }, [languageStatus]);
+  const outsideClickDropDown = useCallback((e) => { setLanguageStatus(!languageStatus); }, [languageStatus]);
 
   //when we click lang text it opens dropdown
   const setOpenLanguageDropdown = (e) => {
@@ -116,17 +108,17 @@ const Header = () => {
   let { width } = size
 
   useEffect(() => {
-    if ((localStorage?.getItem("language"))) {
-      let langKey = JSON.parse(localStorage.getItem("language"))
-      appData?.languages.map((item, index) => {
-        let { value: key, } = item
-        if (langKey === key) {
-          setLangFlag(key)
-          setLangIndex(index)
-        }
-      })
+
+ 
+    let cahceAppData = (JSON.parse(sessionStorage.getItem('allAppDatas')));
+    if (cahceAppData) {
+      setTranslatedAppData(cahceAppData[language])
     }
+
   }, [language])
+
+
+
 
   return (
     <header className={styles.header} id="navbar_container" >
@@ -138,10 +130,10 @@ const Header = () => {
                 <Image src={logoImage} alt="Airport-pickups-london Logo" width={30} height={30} priority />
                 <span>Airport Pickups London</span>
               </a>
-              {width > 1200 ? <DesktopMenu appData={appData} journeyType={journeyType} language={language} /> : <></>}
+              {width > 1200 ? <DesktopMenu appData={translatedAppData} journeyType={journeyType} language={language} /> : <></>}
               {/* mobile  */}
               {openMenu ?
-                <MobileMenu openMenu={openMenu} handleClickNavLinkMobileMenuNotList={handleClickNavLinkMobileMenuNotList} language={language} handleClickNavLinkMobileMenuList={handleClickNavLinkMobileMenuList} appData={appData} />
+                <MobileMenu openMenu={openMenu} handleClickNavLinkMobileMenuNotList={handleClickNavLinkMobileMenuNotList} language={language} handleClickNavLinkMobileMenuList={handleClickNavLinkMobileMenuList} appData={translatedAppData} />
                 : <></>}
             </div>
           </div>
@@ -151,7 +143,7 @@ const Header = () => {
             <div className={`${styles.language_dropdown}`} style={{ cursor: `${router.asPath === "/drivers-wanted" ? " default" : ""}` }}>
               <div className={styles.top} >
                 <div className={styles.img_div} onClick={setOpenLanguageDropdown} data-name="language">
-                  <Image src={`/languages/${langFlag}.gif`} width={20} height={11} priority alt={langFlag} data-name="language" />
+                  <Image src={`/languages/${language}.gif`} width={20} height={11} priority alt={language} data-name="language" />
                 </div>
                 <span data-name="language" onClick={setOpenLanguageDropdown} className={styles.lang_text}>
                   {appData?.languages[langIndex]?.innerText}
@@ -164,7 +156,7 @@ const Header = () => {
               </div>
             </div>
 
-            {width > 1200 ? <TopHeaderWhiteLeftButtons language={language} appData={appData} /> : <></>}
+            {width > 1200 ? <TopHeaderWhiteLeftButtons language={language} appData={translatedAppData} /> : <></>}
             <div onClick={toggleMenu} className={`${styles.menu}`} id="menu"   >
               {!openMenu ? <i className="fa-solid fa-bars"></i> : <i className="fa-solid fa-xmark"></i>}
             </div>

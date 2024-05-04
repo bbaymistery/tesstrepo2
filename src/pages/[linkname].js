@@ -40,7 +40,6 @@ const NavbarLinkName = (props) => {
     // const paths = extractPathsFromListsWithFirstChild(navigatorMobile);
     if (data === "not found") return <Error404 />
     // if (!paths.includes(router.asPath)) return <Error404 />
-    // console.log(router);
 
     useEffect(() => {
         // Combine both Airports and CruisePorts into a single array
@@ -51,12 +50,10 @@ const NavbarLinkName = (props) => {
         if (matchingItem) {
             // Use the 'hasTaxiDeals' property of the matching item for dispatch
             dispatch({ type: "SET_NAVBAR_TAXI_DEALS", data: { hasTaxiDeals: matchingItem.hasTaxiDeals } });
-            console.log("sdsa");
 
         }
     }, [linkname, dispatch, language]); // Add linkname and dispatch to the dependency array
 
-    // console.log(language);
 
 
     return (
@@ -94,7 +91,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     //! Gelen URL'i analiz et
     const { cookie } = req.headers;
     let { pathname } = parse(req.url, true)
-    console.log(pathname);
 
     let pathnameUrlWHenChangeByTopbar = pathname
 

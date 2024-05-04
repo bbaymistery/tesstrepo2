@@ -17,7 +17,7 @@ const GeneralTerms = ({ pageContent }) => {
                     </p>
                     <h2>1 quotations, rates and charges</h2>
                     <ul><li><b>1.1</b> All prices are in GBP and  are inclusive of VAT (where applicable).</li>
-                        <li><b>1.2</b> APL offices are open 24/7.  The operation contact number is 0208 688 7744 (from abroad: +44 (0)208 688 7744).</li>
+                        <li><b>1.2</b> APL offices are open 24/7.  The operation contact number is 0208 688 7744 (from abroad: +44 208 688 7744).</li>
                         <li><b>1.3</b> All quotations are valid  for 30 days and include Airport -meet and greet, waiting time*, parking or  tolls. Gratuities are at the Customer’s discretion.</li>
                     </ul>
 
@@ -62,7 +62,7 @@ const GeneralTerms = ({ pageContent }) => {
                         </li>
 
                         <li><b>2.3</b> Our driver will  be waiting for you in the arrivals hall, with an “Airport Pickups” name board  with your name on it. </li>
-                        <li><b>2.4</b> If you cannot locate your  driver and you seek an alternative method of transport without first contacting  APL to try and resolve the situation, you will be charged the tariff rate based  on the service booked.<br /> Our 24/7 contact number is +44 (0)208 688 7744</li>
+                        <li><b>2.4</b> If you cannot locate your  driver and you seek an alternative method of transport without first contacting  APL to try and resolve the situation, you will be charged the tariff rate based  on the service booked.<br /> Our 24/7 contact number is +44 208 688 7744</li>
                     </ul>
                     <h2 style={{ textDecoration: "underline", paddingBottom: "5px", marginBottom: "0px" }} >Hotel and address Pick-up Rules:</h2>
                     <ul>

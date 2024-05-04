@@ -38,7 +38,7 @@ const structuredSchema = {
         "name": "Airport Pickups London",
         "image": "https://www.airport-pickups-london.com/Images/Airport-Pickups-London.jpg",
         "address": "APL Office, Novotel, Cherry Lane, UB7 9HJ",
-        "telephone": "+44 (0) 208 688 7744",
+        "telephone": "+44 208 688 7744",
         "priceRange": "£10.00 to £55.00",
         "currenciesAccepted": "GBP",
         "paymentAccepted": "Cash, Credit Card, Debit Card, PayPal"

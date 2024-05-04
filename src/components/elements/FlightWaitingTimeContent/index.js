@@ -11,7 +11,7 @@ const FlightWaitingTimeContent = () => {
 
     useEffect(() => {
         if (localStorage?.getItem("language")) {
-            let langKey = JSON.parse(localStorage.getItem("language"));
+            let langKey = getCookie("lang")
             let foundMatch = false;
             JSON.parse(appData?.words["seBookingNotes"]).forEach((item, index) => {
                 let { value, language } = item;

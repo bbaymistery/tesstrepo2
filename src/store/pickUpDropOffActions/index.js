@@ -69,9 +69,8 @@ const INITIAL_STATE = {
   params: {
     journeyType: "0",
     sessionToken: "",
-    language: typeof window !== 'undefined' && localStorage.getItem("language") ? JSON.parse(localStorage.getItem("language")) : "en",
+    language:"en",
     direction: typeof window !== 'undefined' && localStorage.getItem("direction") ? JSON.parse(localStorage.getItem("direction")) : "ltr",
-    langIndex: typeof window !== 'undefined' && localStorage.getItem("langIndex") ? JSON.parse(localStorage.getItem("langIndex")) : 0,
     modalInfo: false,//when we click carInfo icon pops up modal,  //!check again if u didnt use eliminate this
     quotations: [{}],//we use it when we collect quotations
     postCodeAdresses: [],//when we select pcatId5 we need to add adresses

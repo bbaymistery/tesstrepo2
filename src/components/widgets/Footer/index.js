@@ -77,7 +77,7 @@ const Footer = (props) => {
                     {appData?.words["strPorterService"]}
                   </a>
                 </li>
-               
+
                 <li>
                   <a href={`${language === 'en' ? `/heathrow-vip-meet-and-assist` : `/${language}/heathrow-vip-meet-and-assist`}`}  >
                     {appData?.words["strAirportAssistant"]}
@@ -136,11 +136,10 @@ const Footer = (props) => {
                 {direction === 'rtl' ?
                   <a style={{ flexDirection: "row-reverse", justifyContent: "flex-end", display: 'flex' }} href="tel:+442086887744">
                     <span>  + </span>
-                    4402086887744
+                    442086887744
                   </a>
                   : <a href="tel:+442086887744">
-
-                    +44 (0) 208 688 7744
+                    +44 208 688 7744
                   </a>}
               </div>
               <div className={styles.description}>
@@ -156,7 +155,7 @@ const Footer = (props) => {
                 {direction === 'rtl' ?
                   // <a target="_blank" href="https://wa.me/447387901028" style={{ flexDirection: "row-reverse", justifyContent: "flex-end", display: 'flex' }} tabIndex="-1">
                   <a target="_blank" href="https://wa.me/7387901028" style={{ flexDirection: "row-reverse", justifyContent: "flex-end", display: 'flex' }} tabIndex="-1">
-                    
+
                     <span>  + </span>
                     447387901028
                   </a>
@@ -173,7 +172,7 @@ const Footer = (props) => {
 
             <div className={styles.subcontent_left}>
               <div className={styles.copyright}>
-                Copyrights  © {`${ new Date().getFullYear()}`}  Airport Pickups London
+                Copyrights  © {`${new Date().getFullYear()}`}  Airport Pickups London
               </div>
               <ul className={styles.lists}>
                 <li>

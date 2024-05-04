@@ -59,7 +59,7 @@ const TransferDetails = (props) => {
     const dispatch = useDispatch()
     let state = useSelector((state) => state.pickUpDropOffActions)
     let { reservations, params: { passengerDetailsStatus, modalInfo, direction, quotations, sessionToken: reducerSessionToken, language, journeyType } } = state
-    
+
     const { appData } = useSelector(state => state.initialReducer)
     //we use it to render paxs inside select component
     const carObject = appData?.carsTypes?.reduce((obj, item) => ({ ...obj, [item.id]: item, }), {});
@@ -264,7 +264,7 @@ const TransferDetails = (props) => {
             <div className={`${styles.tr_details} page`}>
                 <div className={`${styles.tr_details_section} page_section`}>
                     <div className={`${styles.tr_details_section_container} page_section_container`}>
-                  
+
                         {quotations[0].taxiDeal ?
                             // isTaxideal true
                             <div className={styles.taxideals_subcontainer}>
@@ -484,9 +484,9 @@ const TransferDetails = (props) => {
                                                     </div>
                                                     <div className={` ${direction === 'rtl' ? styles.directionbuttons : styles.buttons}  ${quotations[0]?.taxiDeal ? styles.taxideal_buttons : ""}`} >
                                                         <div className={styles.left}>
-                                                            <Link href={`${localStorage?.getItem("path") ? localStorage?.getItem("path") : "/"}`}>
-                                                                <button className='btn btn_primary'>{appData?.words["strGoBack"]}</button>
-                                                                 </Link>
+                                                            {/* <Link href={`${localStorage?.getItem("path") ? localStorage?.getItem("path") : "/"}`}> */}
+                                                            <button onClick={() => { router.back() }} className='btn btn_primary'>{appData?.words["strGoBack"]}</button>
+                                                            {/* </Link> */}
                                                             <button onClick={(e) => checkValidation(e)} className='btn btn_primary'>{appData?.words["strNext"]}</button>
                                                         </div>
                                                         <div className={styles.right}></div>
@@ -571,7 +571,8 @@ const TransferDetails = (props) => {
                                                     {index === 1 || (index === 0 && +journeyType === 0) ?
                                                         <div className={` ${direction === 'rtl' ? styles.directionbuttons : styles.buttons}  ${quotations[0]?.taxiDeal ? styles.taxideal_buttons : ""}`} >
                                                             <div className={styles.left}>
-                                                                <Link href={`${localStorage?.getItem("path") ? localStorage?.getItem("path") : "/"}`}><button className='btn btn_primary'>{appData?.words["strGoBack"]}</button> </Link>
+                                                                <button onClick={() => { router.back() }} className='btn btn_primary'>{appData?.words["strGoBack"]}</button>
+
                                                                 <button onClick={(e) => checkValidation(e)} className='btn btn_primary'>{appData?.words["strNext"]}</button>
                                                             </div>
 
@@ -581,18 +582,18 @@ const TransferDetails = (props) => {
                                                 {quotations[0].taxiDeal ? <></> : <TransferJourneySummaryPanel journeyType={journeyType} index={index} splitedHour={splitedHour} splitedMinute={splitedMinute} splitedDate={splitedDate} quotation={quotation} selectedDropoffPoints={selectedDropoffPoints} selectedPickupPoints={selectedPickupPoints} />}
                                             </div>
                                             {index === 1 || (index === 0 && +journeyType === 0) ?
-                                             <div className={`${direction === 'rtl' ? styles.directionbuttons_for_gap : styles.buttons_for_gap}  ${quotations[0]?.taxiDeal ? styles.taxideal_buttons : ""}`} >
-                                                <div className={styles.left}>
+                                                <div className={`${direction === 'rtl' ? styles.directionbuttons_for_gap : styles.buttons_for_gap}  ${quotations[0]?.taxiDeal ? styles.taxideal_buttons : ""}`} >
+                                                    <div className={styles.left}>
 
-                                                </div>
-                                                <div className={styles.right}>
-                                                    <div className={`${styles.content} ${styles.summarycontent} `}>
-                                                        <div className={`${styles.left_info} ${styles.acceptedcards}`} style={{ marginTop: "0rem" }} title="Accepted Cards for Airport Pickups London">
-                                                            <img className={styles.acceptedcards_img} border="0" alt="Accepted Cards for Airport Pickups London " src="/images/others/accepted-cards.png" />
+                                                    </div>
+                                                    <div className={styles.right}>
+                                                        <div className={`${styles.content} ${styles.summarycontent} `}>
+                                                            <div className={`${styles.left_info} ${styles.acceptedcards}`} style={{ marginTop: "0rem" }} title="Accepted Cards for Airport Pickups London">
+                                                                <img className={styles.acceptedcards_img} border="0" alt="Accepted Cards for Airport Pickups London " src="/images/others/accepted-cards.png" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div> : <></>}
+                                                </div> : <></>}
                                         </div>
                                     )
                                 })}

@@ -6,18 +6,29 @@ import { pickUpDropOffActions } from "./pickUpDropOffActions";
 import { alertReducer } from './alertReducer';
 import GET_APP_DATA from './pickUpDropOffActions/GET_APP_DATA';
 
-// Initial Reducer
+/*
+Baslangicda en birinci 
+*/
+// Initial ReducerIn your Redux actions file
 const initialReducer = (state = {}, action) => {
     switch (action.type) {
         case HYDRATE:
             if (typeof window !== 'undefined') {
                 if (localStorage.getItem("appData")) {
-                    action.payload.initialReducer = { ...action.payload.initialReducer, appData: { ...JSON.parse(localStorage.getItem("appData")) } };
+                    action.payload.initialReducer = {
+                        ...action.payload.initialReducer,
+                        appData: { ...JSON.parse(localStorage.getItem("appData")) },
+                    };
                 }
             }
-            return { ...state.initialReducer, ...action.payload.initialReducer };
+            return {
+                ...state.initialReducer,
+                ...action.payload.initialReducer,
+            };
+
         case 'GET_APP_DATA':
             return GET_APP_DATA({ state, action });
+
         default:
             return state;
     }

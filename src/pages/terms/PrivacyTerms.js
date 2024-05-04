@@ -106,8 +106,8 @@ const PrivacyTerms = ({ pageContent }) => {
                         <p>Novotel Heathrow</p>
                         <p>Cherry Lane, West Drayton, London</p>
                         <p>UB7 9HJ </p>
-                        <p>Tel: +44 (0) 20 8688 7744</p>
-                        <p>Fax: +44 (0) 20 8683 2330 </p>
+                        <p>Tel: +44 208 688 7744</p>
+                        <p>Fax: +44 208 683 2330 </p>
                         <p> <a style={{ color: 'blue' }} href="https://www.airport-pickups-london.com" title="Airport Pickups London" target="_blank">www.airport-pickups-london.com</a></p>
                     </div>
             }

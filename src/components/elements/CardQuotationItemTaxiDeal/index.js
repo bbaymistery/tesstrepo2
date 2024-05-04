@@ -12,6 +12,7 @@ const checkJourneyTypeAndAddQuotationToReducer = (params = {}) => {
     //by this index  we r gonna assure in which journey we should add quotation
     //by journey type we r gonn assure should we directly pass to next page or not
     let { journeyType, quotation, index, router, dispatch, language, isTaxiDeal, quotations } = params
+    console.log({ language, loation: "checkJourneyTypeAndAddQuotationToReducer" });
 
     //if it is both way journey then do not push directly to other page
     if (parseInt(journeyType) === 1) {
@@ -87,13 +88,21 @@ const CardQuotationItemTaxiDeal = (params = {}) => {
         let { quotation } = params
         checkJourneyTypeAndAddQuotationToReducer({ journeyType, quotation, index, router, dispatch, language, isTaxiDeal, quotations })
         if (isTaxiDeal) {
-            const body = { language, checkRedirect: true, taxiDealPathname: previousUrl, withoutExprectedPoints: false, }
-            const url = `${env.apiDomain}/api/v1/taxi-deals/details`
-            const { status, data } = await postDataAPI({ url, body })
-            let { taxiDeal: { pickupPoints, dropoffPoints, } } = data
-            pickupPoints = mergeDetails(pickupPoints, objectDetailss)
-            dropoffPoints = mergeDetails(dropoffPoints, objectDetailss)
-            dispatch({ type: "GET_QUOTATION_AT_PATHNAME", data: { results: data, journeyType } })
+
+            try {
+                const body = { language, checkRedirect: true, taxiDealPathname: previousUrl, withoutExprectedPoints: false, }
+                const url = `${env.apiDomain}/api/v1/taxi-deals/details`
+                const { status, data } = await postDataAPI({ url, body })
+                if (status === 200) {
+                    let { taxiDeal: { pickupPoints, dropoffPoints, } } = data
+                    pickupPoints = mergeDetails(pickupPoints, objectDetailss)
+                    dropoffPoints = mergeDetails(dropoffPoints, objectDetailss)
+                    dispatch({ type: "GET_QUOTATION_AT_PATHNAME", data: { results: data, journeyType } })
+                }
+            } catch (error) {
+                console.log(error);
+
+            }
         }
     };
 
@@ -242,7 +251,7 @@ const CardQuotationItemTaxiDeal = (params = {}) => {
             )
         })}
 
-        {isVisible && uploadedPageContent?.length > 1 ? <TaxiDealsContents pageContent={uploadedPageContent} isVisible={isVisible} /> : <></>}
+        {isVisible && uploadedPageContent?.length > 5 ? <TaxiDealsContents pageContent={uploadedPageContent} isVisible={isVisible} /> : <></>}
 
     </div>
     )

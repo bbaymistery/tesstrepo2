@@ -1,13 +1,18 @@
 export const postDataAPI = async (params = {}) => {
-    let { url, body } = params
-    const method = "POST"
-    const headers = { "Content-Type": "application/json", }
-    const reqOpt = { body: JSON.stringify(body), method, headers }
+    try {
+        let { url, body } = params
+        const method = "POST"
+        const headers = { "Content-Type": "application/json", }
+        const reqOpt = { body: JSON.stringify(body), method, headers }
 
-    const response = await fetch(url, reqOpt);
-    const datas = await response.json();
+        const response = await fetch(url, reqOpt);
+        const datas = await response.json();
 
-    return datas;
+        return datas;
+    } catch (error) {
+        console.log(error);
+
+    }
 }
 
 export const getDataApi = async (params = {}) => {

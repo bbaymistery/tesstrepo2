@@ -24,7 +24,9 @@ const TransferJourneySummaryPanel = (props) => {
                             className={`${styles.img_div}
                          ${quotation.carId === 6 || quotation.carId === 5 ? styles.cardIdSix : ""}
                           ${quotation.carId === 4 ? styles.carIdFour : ""}
-                           ${quotation.carId === 2 ? styles.carIdTwo : ""}`}
+                           ${quotation.carId === 2 ? styles.carIdTwo : ""}
+                           ${quotation.carId === 3 ? styles.cardIdThree : ""}
+                           `}
                             style={{ backgroundImage: `url(${quotationImagesObjWebp[quotation?.carId]?.image})` }}>
 
                         </div>

@@ -11,25 +11,31 @@ import { checkLanguageAttributeOntheUrl } from '../helpers/checkLanguageAttribut
 import QuotationResultsTaxiDeal from '../components/elements/QuotationResultsTaxiDeal';
 import { urlToTitle } from '../helpers/letters';
 import { parseCookies } from '../helpers/cokieesFunc';
+import { useState } from 'react';
+import { fetchPathnamePageDatas } from '../helpers/fetchPathnamePageDatas';
 
 function Pages(props) {
-    let { data, pickUps, dropoffs, keywords, language, pageTitle, headTitle, description, returnPathname, urlOfPage, pageContent, returnHeadTitle, returnPageTitle, duration, distance, quotationOptions, breadcrumbs, linkurl, review } = props
-
-    if (data === "not found") return <Error404 />
 
     const state = useSelector(state => state.pickUpDropOffActions)
-    let { reservations, params: { journeyType, quotations } } = state
+    let { reservations, params: { journeyType, quotations, language: reduxLanguage } } = state
 
     const dispatch = useDispatch()
     const { appData } = useSelector(state => state.initialReducer)
     const objectDetailss = appData?.pointTypeCategories.reduce((obj, item) => ({ ...obj, [item.id]: JSON.parse(item.objectDetails), }), {});
 
+    const [fetchdatas, setFetchDatas] = useState(props)
+    let
+        { data = "",
+            pickUps = [], dropoffs = [],
+            keywords = [], pageTitle = "", headTitle = "", description = "", returnPathname = "",
+            pageContent = "", returnHeadTitle = "", returnPageTitle = "", duration = "", distance = "", quotationOptions = [], breadcrumbs = [], linkurl = "", review = {} } = fetchdatas
+
+    if (data === "not found") return <Error404 />
 
     useEffect(() => {
         //when we go to transfer details then go back in that case we need to check if we have already quotations or not
         if (!quotations[0]?.quotationOptions?.length) dispatch({ type: "GET_QUOTATION_AT_PATHNAME", data: { results: data, journeyType } })
 
-        // if (parseInt(journeyType) === 0) {
         //if it is already selected It means when user go to quotain and go to transfer details then come back It should be selected
         if (reservations[0].selectedDropoffPoints.length > 0 && reservations[0].selectedPickupPoints.length > 0) {
             let pickupPoints = reservations[0].selectedPickupPoints
@@ -43,15 +49,22 @@ function Pages(props) {
             let dropoffPoints = dropoffs.length > 0 ? [{ ...dropoffs[0], ...objectDetailss[dropoffs[0].pcatId] }] : []
             dispatch({ type: "ADD_NEW_POINT_AT_PATHNAME", data: { pickupPoints, dropoffPoints, index: 0 } })
         }
-        // }
 
-        console.log(language);
-        // setLanguage({ language })
-        //set language and bring appDAtas
-
+        fetchPathnamePageDatas(linkurl,);
+        console.log({ linkurl, reduxLanguage });
 
     }, [])
 
+    useEffect(() => {
+        const cacheKey = `page-${reduxLanguage}-${linkurl}`;
+        let cache = sessionStorage.getItem('pathnameLinkCache');
+        let allAppDatas = JSON.parse(sessionStorage.getItem('allAppDatas'))
+        console.log({ cache, allAppDatas });
+
+        if (cache && allAppDatas) {
+            setFetchDatas(JSON.parse(cache)[cacheKey])
+        }
+    }, [reduxLanguage])
 
     return <QuotationResultsTaxiDeal
         isTaxiDeal={true}
@@ -59,7 +72,7 @@ function Pages(props) {
         pageTitle={pageTitle}
         headTitle={headTitle}
         description={description}
-        previousUrl={urlOfPage}
+        previousUrl={linkurl}
         returnPathname={returnPathname}
         pageContent={pageContent}
         returnHeadTitle={returnHeadTitle}
@@ -77,7 +90,6 @@ function Pages(props) {
 export default Pages
 const makestore = () => store;
 const wrapper = createWrapper(makestore);
-const cache = {}
 
 // function getJsonSizeInKB(jsonObject) {
 //     const jsonString = JSON.stringify(jsonObject);
@@ -96,11 +108,10 @@ function cleanPath(path) {
 
     return cleanedPath;
 }
-
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, ...etc }) => {
+    res?.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59')
     const { resolvedUrl } = etc;
     const lowerCaseUrl = resolvedUrl.toLowerCase();
-
     if (resolvedUrl !== lowerCaseUrl) {
         res.setHeader('Location', lowerCaseUrl);
         res.statusCode = 301;
@@ -108,7 +119,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         return { props: { data: "not found", } }
     }
 
-    res?.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59')
     let pickUps = []
     let dropoffs = []
     const { cookie } = req.headers;
@@ -116,28 +126,19 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     let language = checkLanguageAttributeOntheUrl(req.url)
     let { pathname } = parse(req.url, true)
 
-
-
-
-    if (language === 'en') {
+    //navbarda dil degisende burasi calisir o yuzden cookiden alrq
+    if (language === 'en' &&cookies['lang']) {
         pathname = cleanPath(pathname.replace(/^\/_next\/data\/[^/]+\//, '/').replace(/\.[^/.]+$/, '').replace(/\.json$/, ''))
-        if (cookies['lang']) {
-            language = cookies['lang'];
-        }
+        language = cookies['lang'];
     } else {
         //http://localhost:3500/es/heathrow/heathrow-to-oxford-taxi  yazb google enter basarsa burasi isliyr
         pathname = cleanPath(pathname)
     }
-    ///_next/data/development/heathrow-taxi-prices.json
-    const cacheKey = `page-${req.url}`
-    { { cacheKey } }
-    // Check if the data is cached
-    if (cache[cacheKey]) return { props: cache[cacheKey] }
+
 
     const body = { language, checkRedirect: true, taxiDealPathname: pathname, withoutExprectedPoints: true, }
     const url = `${env.apiDomain}/api/v1/taxi-deals/details`
     const { status, data } = await postDataAPI({ url, body })
-
     if (status === 205) return { redirect: { destination: data.redirectPathname, permanent: false } }
 
     // homepagedeki appDatafalanbunu asagisinda idi
@@ -181,10 +182,12 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
                 },
             ]
         }
+
+
         let schemas = [breadcumbSchema]
         // Cache the data
-        cache[cacheKey] = {
-            data,
+        let finalData = {
+            data: "",
             pickUps,
             dropoffs,
             keywords,
@@ -193,7 +196,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             headTitle,
             description,
             returnPathname,
-            urlOfPage: pathname,
             schemaOfTaxiDeals,
             pageContent: newPageContent,
             returnHeadTitle,
@@ -207,10 +209,10 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             metaTags,
             review
         }
+        return { props: finalData }
 
-        return { props: cache[cacheKey] }
-
-    } else {
+    }
+    else {
         return { props: { data: "not found", } }
     }
 });

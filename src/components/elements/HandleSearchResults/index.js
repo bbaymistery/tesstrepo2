@@ -151,7 +151,7 @@ const HandleSearchResults = (params = {}) => {
                 No any result matched .
                 if you want a quotation, try to contact
                 with this phone number :{" "}
-                <a href="tel: +44 (0) 208 688 7744" style={{ fontWeight: '500' }}>+44 (0) 208 688 7744</a>
+                <a href="tel: +44 208 688 7744" style={{ fontWeight: '500' }}>+44 208 688 7744</a>
             </p>
         </li>
     </ul>

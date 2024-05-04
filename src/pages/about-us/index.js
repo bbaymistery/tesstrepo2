@@ -10,7 +10,7 @@ import { checkLanguageAttributeOntheUrl } from '../../helpers/checkLanguageAttri
 const AboutUs = (props) => {
     const state = useSelector(state => state.pickUpDropOffActions)
     let { params: { direction } } = state
-    let { metaTitle, keywords, metaDescription, shortDescription, pageTitle } = props
+    let { metaTitle, keywords, metaDescription, shortDescription, pageTitle, pageContent } = props
 
     return (
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true}>
@@ -30,7 +30,9 @@ const AboutUs = (props) => {
                                 <img src="/images/others/aboutPage.jpg" alt="APL about us " />
                             </div>
                         </div>
+                        <div className={styles.page_content} dangerouslySetInnerHTML={{ __html: pageContent }} />
                         <DestinationsCustomers />
+
                         <CarsSlider noborder={true} />
                     </div>
                 </div>
@@ -44,6 +46,7 @@ export async function getServerSideProps({ req, res }) {
     let { pathname } = parse(req?.url, true)
     let pathnameUrlWHenChangeByTopbar = pathname
     let { metaTitle, keywords, pageContent, metaDescription, shortDescription, pageTitle } = await fetchContent("/About_APL", cookie, firstLoadLangauge, pathnameUrlWHenChangeByTopbar)
+
     return {
         props: { metaTitle, keywords, pageContent, metaDescription, shortDescription, pageTitle }
     }

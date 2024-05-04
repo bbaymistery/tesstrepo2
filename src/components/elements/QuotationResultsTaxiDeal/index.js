@@ -6,6 +6,7 @@ import CardQuotationItemTaxiDeal from '../CardQuotationItemTaxiDeal'
 import dynamic from 'next/dynamic'
 import { useWindowSize } from '../../../hooks/useWindowSize'
 import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 const QuotationResultsTaxiDealLeftPart = dynamic(() => import('../QuotationResultsTaxiDealLeftPart'));
 const QuotationResultsTaxiDeal = (props) => {
     //these props comes from ...pathname
@@ -30,7 +31,7 @@ const QuotationResultsTaxiDeal = (props) => {
     const state = useSelector(state => state.pickUpDropOffActions)
     let { reservations, params } = state
     let { direction, } = params
-
+    const router = useRouter()
 
     const { appData } = useSelector(state => state.initialReducer)
     const objectDetailss = appData?.pointTypeCategories?.reduce((obj, item) => ({ ...obj, [item.id]: JSON.parse(item.objectDetails), }), {});
@@ -54,63 +55,45 @@ const QuotationResultsTaxiDeal = (props) => {
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
+
+
         // Clean up event listener
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isVisible]);
+    useEffect(() => {
+        localStorage.setItem("path", router.asPath);
+    }, [])
+
 
     return (<GlobalLayout keywords={keywordsTaxiDeal} title={headTitle} description={descriptionTaxiDeal} footerbggray={true} isVisible={isVisible} >
         <div className={`${styles.quotation} page`}>
             <div className={`${styles.quotation_section} page_section`}>
                 <div className={`${styles.quotation_section_container} page_section_container`}>
-                    {width > 1280 ?
-                        <div >
-                            <div className={`${direction} ${styles.main_container_taxideal}`}>
-                                <QuotationResultsTaxiDealLeftPart />
-                                <CardQuotationItemTaxiDeal
-                                    index={0}
-                                    distance={distance}
-                                    duration={duration}
-                                    selectedQuotation={reservations[0]?.quotation}
-                                    quotationOptions={quotationOptions}
-                                    headTitle={headTitle}
-                                    previousUrl={previousUrl}
-                                    returnPathname={returnPathname}
-                                    pageTitle={pageTitle}
-                                    pageContent={pageContent}
-                                    returnHeadTitle={returnHeadTitle}
-                                    returnPageTitle={returnPageTitle}
-                                    objectDetailss={objectDetailss}
-                                    isVisible={isVisible}
-                                    breadcrumbs={breadcrumbs}
-                                    linkurl={linkurl}
-                                    review={review}
-                                />
+                    <div >
+                        <div className={`${direction} ${styles.main_container_taxideal}`}>
+                            <QuotationResultsTaxiDealLeftPart />
+                            <CardQuotationItemTaxiDeal
+                                index={0}
+                                distance={distance}
+                                duration={duration}
+                                selectedQuotation={reservations[0]?.quotation}
+                                quotationOptions={quotationOptions}
+                                headTitle={headTitle}
+                                previousUrl={linkurl}
+                                returnPathname={returnPathname}
+                                pageTitle={pageTitle}
+                                pageContent={pageContent}
+                                returnHeadTitle={returnHeadTitle}
+                                returnPageTitle={returnPageTitle}
+                                objectDetailss={objectDetailss}
+                                isVisible={isVisible}
+                                breadcrumbs={breadcrumbs}
+                                linkurl={linkurl}
+                                review={review}
+                            />
 
-                            </div>
                         </div>
-                        :
-                        <div >
-                            <div className={`${direction} ${styles.main_container_taxideal}`}>
-                                <CardQuotationItemTaxiDeal
-                                    index={0}
-                                    distance={distance}
-                                    duration={duration}
-                                    selectedQuotation={reservations[0]?.quotation}
-                                    quotationOptions={quotationOptions}
-                                    headTitle={headTitle}
-                                    previousUrl={previousUrl}
-                                    returnPathname={returnPathname}
-                                    pageTitle={pageTitle}
-                                    pageContent={pageContent}
-                                    returnHeadTitle={returnHeadTitle}
-                                    returnPageTitle={returnPageTitle}
-                                    objectDetailss={objectDetailss}
-                                    isVisible={isVisible}
-                                />
-
-                            </div>
-                        </div>
-                    }
+                    </div>
                 </div>
             </div>
         </div>

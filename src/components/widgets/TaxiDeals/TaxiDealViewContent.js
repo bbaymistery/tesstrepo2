@@ -101,6 +101,7 @@ const TaxiDealViewContent = ({ points, dealsName, islinknamecomponent }) => {
     }
     //dealsName === 'dover' || dealsName === 'southampton' || dealsName === 'portsmouth' || dealsName === 'harwich'
     const filteredDatas = filterDatas(points);
+
     return (
         <>
             <div className={styles.cards}>
@@ -115,7 +116,8 @@ const TaxiDealViewContent = ({ points, dealsName, islinknamecomponent }) => {
 
                                 </div>
                                 <div className={styles.card_body}>
-                                    <h2>{item?.translatedPageTitle ? item?.translatedPageTitle : item?.title}</h2>
+                                    <h2>{item?.translatedPageTitle ? item?.translatedPageTitle : item?.pageTitle
+                                    }</h2>
                                     <div className={styles.review}>
 
                                         <div className={styles.review_left}>{item.point} </div>
