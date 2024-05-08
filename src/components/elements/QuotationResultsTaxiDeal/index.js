@@ -4,7 +4,6 @@ import GlobalLayout from '../../layouts/GlobalLayout'
 import { useSelector } from 'react-redux'
 import CardQuotationItemTaxiDeal from '../CardQuotationItemTaxiDeal'
 import dynamic from 'next/dynamic'
-import { useWindowSize } from '../../../hooks/useWindowSize'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 const QuotationResultsTaxiDealLeftPart = dynamic(() => import('../QuotationResultsTaxiDealLeftPart'));
@@ -35,8 +34,6 @@ const QuotationResultsTaxiDeal = (props) => {
 
     const { appData } = useSelector(state => state.initialReducer)
     const objectDetailss = appData?.pointTypeCategories?.reduce((obj, item) => ({ ...obj, [item.id]: JSON.parse(item.objectDetails), }), {});
-    const size = useWindowSize();
-    const { width } = size;
     const [isVisible, setIsVisible] = useState(false);
     const lastScrollTop = useRef(0);
 

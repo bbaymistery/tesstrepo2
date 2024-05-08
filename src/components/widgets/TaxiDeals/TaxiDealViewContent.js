@@ -77,7 +77,7 @@ const cruiseTaxiDealsValidLocations = (dealsName) => {
     ]
 }
 
-const TaxiDealViewContent = ({ points, dealsName, islinknamecomponent }) => {
+const TaxiDealViewContent = ({ points, dealsName, islinknamecomponent, language }) => {
 
     const { appData } = useSelector(state => state.initialReducer)
     function filterDatas(datas) {
@@ -108,7 +108,7 @@ const TaxiDealViewContent = ({ points, dealsName, islinknamecomponent }) => {
                 {points.length > 1 ?
                     filteredDatas.map((item, index) => {
                         return (
-                            <a data-id="a" title={item?.pageTitle} href={item.pathname} className={`${styles.card}`} key={item.id}>
+                            <a data-id="a" title={item?.pageTitle} href={`${item.pathname}`} className={`${styles.card}`} key={item.id}  onClick={() => sessionStorage.removeItem('pathnameLinkCache')}>
                                 <div className={styles.card_image_div}>
                                     {dealsName === 'dover' || dealsName === 'southampton' || dealsName === 'portsmouth' || dealsName === 'harwich' ?
                                         <Image src={`${cruisePortimages?.[index]?.image}`} className={styles.img} fill alt={item.pageTitle} sizes="(max-width: 768px) 30vw, (max-width: 1200px) 50vw" />
@@ -116,7 +116,7 @@ const TaxiDealViewContent = ({ points, dealsName, islinknamecomponent }) => {
 
                                 </div>
                                 <div className={styles.card_body}>
-                                    <h2>{item?.translatedPageTitle ? item?.translatedPageTitle : item?.pageTitle
+                                    <h2>{item?.translatedPageTitle ? item?.translatedPageTitle : item?.translatedPageTitle
                                     }</h2>
                                     <div className={styles.review}>
 

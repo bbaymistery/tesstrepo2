@@ -347,7 +347,7 @@ export const navigatorMobile = [
         type: "cell",
         hasTaxiDeals: "",
         firstChild: false
-    },{
+    }, {
         innerText: "Travel Agents",
         path: "/travel-agents",
         type: "cell",
@@ -378,7 +378,7 @@ export const navigatorMobile = [
 ]
 
 
-let taxiPricesLinks = [
+export const taxiPricesLinks = [
     "/gatwick-taxi-prices",
     "/heathrow-taxi-prices",
     "/london-city-taxi-prices",

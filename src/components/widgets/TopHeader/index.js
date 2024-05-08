@@ -9,6 +9,7 @@ import OutsideClickAlert from "../../elements/OutsideClickAlert";
 import { useWindowSize } from "../../../hooks/useWindowSize";
 import dynamic from 'next/dynamic'
 import { setCookie } from "../../../helpers/cokieesFunc";
+import store from "../../../store/store";
 const TopHeaderWhiteLeftButtons = dynamic(() => import('../../elements/TopHeaderWhiteLeftButtons'),);
 const DropDownAllLanguages = dynamic(() => import('../../elements/DropDownAllLanguages'),);
 const MobileMenu = dynamic(() => import('../../elements/MobileMenu'),);
@@ -17,8 +18,7 @@ const Header = () => {
 
   const router = useRouter()
   const dispatch = useDispatch()
-  const { params: { language, journeyType } } = useSelector(state => state.pickUpDropOffActions)
-  const [langIndex, setLangIndex] = useState(0)
+  const { params: { language, journeyType, langIndex: reducerLangIndex, } } = useSelector(state => state.pickUpDropOffActions)
 
 
   const [openMenu, setOpenMenu] = useState(false) //mobile
@@ -29,23 +29,16 @@ const Header = () => {
   const handleLanguage = async (params = {}) => {
     let { e, text, key, direction, index } = params
     setCookie("lang", key, 7);
-    setLangIndex(index)
     //set language and dicertion  to localstorage
     localStorage.setItem("direction", JSON.stringify(direction));
-
-    // try {
-    //   let response = await fetch(`${env.apiDomain}/app/${key}`)
-    //   let data = await response.json()
-    //   if (data.status === 200) {
     dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: key, direction, langIndex: index } })
-    //     //passing inital state in order make update in store js when language changing
-    //     dispatch({ type: "SET_NEW_APPDATA", data, initialStateReducer: store.getState().initialReducer })
-    //   } 
 
-    // } catch (error) {
-    //   let message = "AIRPORT-PICK-UP-LONDON  handleLanguage function Top HeaderComponent"
-    //   window.handelErrorLogs(error, message, { url: `${env.apiDomain}/app/${key}` })
-    // }
+
+    let cahceAppData = (JSON.parse(sessionStorage.getItem('allAppDatas')));
+    if (cahceAppData) {
+      setTranslatedAppData(cahceAppData[key])
+      dispatch({ type: "SET_NEW_APPDATA", data: cahceAppData[key], initialStateReducer: store.getState().initialReducer })
+    }
     //url configuration based on language we select
     let checkTheUrlIfLangExist = extractLanguage(router.asPath) //tr es or it
     //to be sure that selected language is exist among languages or not
@@ -107,15 +100,7 @@ const Header = () => {
   let size = useWindowSize();
   let { width } = size
 
-  useEffect(() => {
 
- 
-    let cahceAppData = (JSON.parse(sessionStorage.getItem('allAppDatas')));
-    if (cahceAppData) {
-      setTranslatedAppData(cahceAppData[language])
-    }
-
-  }, [language])
 
 
 
@@ -146,7 +131,7 @@ const Header = () => {
                   <Image src={`/languages/${language}.gif`} width={20} height={11} priority alt={language} data-name="language" />
                 </div>
                 <span data-name="language" onClick={setOpenLanguageDropdown} className={styles.lang_text}>
-                  {appData?.languages[langIndex]?.innerText}
+                  {appData?.languages[reducerLangIndex]?.innerText}
                   {router.asPath === "/drivers-wanted" ? <></> : <i className="fa-solid fa-angle-down"></i>}
                 </span>
                 {languageStatus ?

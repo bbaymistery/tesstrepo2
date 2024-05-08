@@ -16,7 +16,11 @@ import { checkLanguageAttributeOntheUrl } from '../helpers/checkLanguageAttribut
 import { Airports, CruisePorts, navigatorMobile } from '../constants/navigatior';
 import { generateCanonicalAlternates } from '../helpers/canolicalAlternates';
 import env from '../resources/env';
-import { capitalizeFirstLetter, urlToTitle } from '../helpers/letters';
+import { urlToTitle } from '../helpers/letters';
+import { parseCookies } from '../helpers/cokieesFunc';
+import { taxiPricesLinks } from './../constants/navigatior'
+import TaaxidealsQuotationLink from '../components/elements/TaaxidealsQuotationLink';
+import { postDataAPI } from '../helpers/fetchDatas';
 
 // Function to extract paths from items with a list where firstChild is true
 // const extractPathsFromListsWithFirstChild = (data) => {
@@ -36,33 +40,37 @@ const NavbarLinkName = (props) => {
     const { params: { language, } } = useSelector(state => state.pickUpDropOffActions)
 
     const { linkname } = router.query;
-    let { metaTitle, keywords, metaDescription, pageContent, data = "", } = props
+    let { metaTitle = "", keywords = "", metaDescription = "", pageContent = "", data = "", isItQuationLink = false } = props
     // const paths = extractPathsFromListsWithFirstChild(navigatorMobile);
     if (data === "not found") return <Error404 />
     // if (!paths.includes(router.asPath)) return <Error404 />
 
     useEffect(() => {
-        // Combine both Airports and CruisePorts into a single array
-        const lists = [...Airports, ...CruisePorts];
-        // Find the object that matches the current linkname based on the path
-        const matchingItem = lists.find(item => item.path.includes(linkname));
-        // If a matching item is found, dispatch the appropriate action
-        if (matchingItem) {
-            // Use the 'hasTaxiDeals' property of the matching item for dispatch
-            dispatch({ type: "SET_NAVBAR_TAXI_DEALS", data: { hasTaxiDeals: matchingItem.hasTaxiDeals } });
+        if (!isItQuationLink) {
+            // Combine both Airports and CruisePorts into a single array
+            const lists = [...Airports, ...CruisePorts];
+            // Find the object that matches the current linkname based on the path
+            const matchingItem = lists.find(item => item.path.includes(linkname));
+            // If a matching item is found, dispatch the appropriate action
+            // Use the 'hasTaxiDeals' property of the matching item for dispatch 
+            if (matchingItem) dispatch({ type: "SET_NAVBAR_TAXI_DEALS", data: { hasTaxiDeals: matchingItem.hasTaxiDeals } });
+
 
         }
     }, [linkname, dispatch, language]); // Add linkname and dispatch to the dependency array
 
 
 
-    return (
+    return (isItQuationLink ? <TaaxidealsQuotationLink props={props} />
+        :
+
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={false}>
             <Hero islinknamecomponent={true} bggray={false} />
             <TaxiDeals showTabs={false} bggray={false} islinknamecomponent={true} />
             <LinkNameDescription pageContent={pageContent} language={language} />
             <CarsSlider bggray={true} />
         </GlobalLayout>
+
     )
 }
 
@@ -70,10 +78,135 @@ export default NavbarLinkName
 
 const makestore = () => store;
 const wrapper = createWrapper(makestore);
+function createBreadcrumbSchema(pathname) {
+    const breadcumbName1 = urlToTitle({ url: pathname, linknamePage: true });
+    return {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": { "@id": "https://www.airport-pickups-london.com/", "name": "Home" }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": { "@id": `https://www.airport-pickups-london.com${pathname}/`, "name": breadcumbName1 }
+            },
+        ]
+    };
+}
+
+function adjustPathnameForLanguage(pathname, pageStartLanguage, cookies) {
+    if (pageStartLanguage === 'en') {
+        pathname = pathname.replace(/^\/_next\/data\/[^/]+\//, '/').replace(/\.[^/.]+$/, '').replace(/\.json$/, '');
+        pageStartLanguage = cookies['lang'] || 'en';  // Default to 'en' if no lang cookie is present
+    } else {
+        pathname = `/${pathname.split("/")[2]}`;
+    }
+    return { pathname, pageStartLanguage };
+}
+async function handleStandardContent(pathname, cookie, pageStartLanguage, schemas, pathnameUrlWHenChangeByTopbar) {
+    let { metaTitle, keywords, pageContent, metaDescription, status, lang } = await fetchContent(pathname, cookie, pathnameUrlWHenChangeByTopbar);
+    //!Istisnalar
+    let exceptions = pathname === "/dover-cruise-taxi" || pathname === "/portsmouth-taxi-prices" || pathname === "/harwich-taxi-prices" || pathname === "/southampton-cruise-taxi"
+
+    if (exceptions) status = 200
+
+    if (status === 200) {
+        //!Canoncakls
+        let mainCanonical = pageStartLanguage === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${pageStartLanguage}${pathname}`
+        let canonicalAlternates = generateCanonicalAlternates(pathname);
+        return {
+            props: {
+                metaTitle,
+                keywords,
+                pageContent,
+                metaDescription,
+                canonicalAlternates,
+                mainCanonical,
+                schemas,
+                isItQuationLink: false
+            }
+        };
+    } else {
+        return { props: { data: "not found" } };
+    }
+}
+
+async function handleQuotationLink(language, pathname, schemas) {
+    //for taxid eals pickups and drop offs
+    let pickUps = []
+    let dropoffs = []
+    let review = {}
+
+    const body = { language, checkRedirect: true, taxiDealPathname: pathname, withoutExprectedPoints: true, }
+    let { breadcrumbs } = urlToTitle({ url: pathname, pathnamePage: true })
+
+    const url = `${env.apiDomain}/api/v1/taxi-deals/details`;
+    const { status, data } = await postDataAPI({ url, body });
+
+    if (status === 205) return { redirect: { destination: data.redirectPathname, permanent: false } };
+
+
+    if (status === 200) {
+        // getJsonSizeInKB(data)
+
+        let {
+            distance,
+            duration,
+            quotationOptions,
+            taxiDeal: { pickupPoints, dropoffPoints, pageTitle = "", headTitle = "", description = "", keywords = "", returnPathname = "", pageContent = "", returnHeadTitle = "", returnPageTitle = "", pathname: linkurl, metaTags = [] } } = data
+
+        // select first item from all points
+        pickUps = pickupPoints?.length >= 1 ? [pickupPoints[0]] : []
+        dropoffs = dropoffPoints?.length >= 1 ? [dropoffPoints[0]] : []
+
+        const newPageContent = pageContent?.replace(/__website_domain__/g, "https://www.airport-pickups-london.com/");
+        review.bestRating = data?.taxiDeal?.schema.Product.aggregateRating.bestRating || 5
+        review.ratingValue = data?.taxiDeal?.schema.Product.aggregateRating.ratingValue || 4.95
+        review.reviewCount = data?.taxiDeal?.schema.Product.aggregateRating.reviewCount || 1988
+
+        let schemaOfTaxiDeals = data?.taxiDeal?.schema || []
+        schemaOfTaxiDeals = Object.keys(schemaOfTaxiDeals).map(key => ({ [key]: schemaOfTaxiDeals[key] }));//array of objects [b:{ab:"1"},c:{ab:"2"},d:{ab:"3"}]
+        schemaOfTaxiDeals = schemaOfTaxiDeals.map(obj => Object.values(obj)[0]);//Output: ["1", "2", "3"]
+
+        // Cache the data
+        let finalData = {
+            data: "",
+            pickUps,
+            dropoffs,
+            keywords,
+            language,
+            pageTitle,
+            headTitle,
+            description,
+            returnPathname,
+            schemaOfTaxiDeals,
+            pageContent: newPageContent,
+            returnHeadTitle,
+            returnPageTitle,
+            distance,
+            duration,
+            quotationOptions,
+            schemas,
+            breadcrumbs,
+            linkurl,
+            metaTags,
+            review,
+            isItQuationLink: true
+        }
+        return { props: finalData }
+
+    }
+    else {
+        return { props: { data: "not found", } }
+    }
+}
 //?biz burada metatile metaDescriptionlari fethcContente gore alib gonderirirk Her sayfa icin ayri bi sekilde gider
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, ...etc }) => {
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-
     const { resolvedUrl } = etc;
     const lowerCaseUrl = resolvedUrl.toLowerCase();
     if (resolvedUrl !== lowerCaseUrl) {
@@ -83,61 +216,37 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         return { props: { data: "not found", } }
     }
 
-    //!Dil ayarlarını kontrol etmek için URL'yi analiz et
-    //language congiguration based on the url (http://localhost:3500/it/gatwick-taxi-prices  if he pres enter we get lang)
-    let pageStartLanguage = checkLanguageAttributeOntheUrl(req?.url)
 
 
-    //! Gelen URL'i analiz et
-    const { cookie } = req.headers;
+    let cookies = parseCookies(req.headers.cookie);
     let { pathname } = parse(req.url, true)
-
+    //language congiguration based on the url (http://localhost:3500/it/gatwick-taxi-prices  if he pres enter we get lang) at first time
+    let pageStartLanguage = checkLanguageAttributeOntheUrl(req?.url)
+    // Extract query parameters
     let pathnameUrlWHenChangeByTopbar = pathname
+    let schemas = []
 
-    //baslangucda it/gatwic-taxi yazb enter basarsa ona gore yoxluyuruq Eger en ise deymirik yox localhost3500:/it/gatwick-taxi-prices ise split edirik
-    //cunki direk adres yazb enteride basa biler  => http://localhost:3500/it/gatwick-taxi-prices
-    if (pageStartLanguage === 'en') {
-        pathname = pathname.replace(/^\/_next\/data\/[^/]+\//, '/').replace(/\.[^/.]+$/, '').replace(/\.json$/, '')
+
+    // Breadcumb Schema
+    const breadcumbSchema = createBreadcrumbSchema(pathname);
+    schemas.push(breadcumbSchema);
+
+
+    // Adjust pathname and language based on initial language
+    const adjusted = adjustPathnameForLanguage(pathname, pageStartLanguage, cookies);
+    pathname = adjusted.pathname;
+    pageStartLanguage = adjusted.pageStartLanguage;
+
+    //so here i check if it is quation link or it is simple taxi prices link 
+    let isItQuationLink = false
+    if (!taxiPricesLinks.includes(pathname)) isItQuationLink = true
+
+
+    if (!isItQuationLink) {
+        return handleStandardContent(pathname, req.headers.cookie, pageStartLanguage, schemas, pathnameUrlWHenChangeByTopbar);
+
     } else {
-        pathname = `/${pathname.split("/")[2]}`
+        return handleQuotationLink(pageStartLanguage, pathname, schemas);
     }
-    let { metaTitle, keywords, pageContent, metaDescription, status, lang } = await fetchContent(pathname, cookie, pageStartLanguage, pathnameUrlWHenChangeByTopbar)
-
-    //!Istisnalar
-    let exceptions = pathname === "/dover-cruise-taxi" || pathname === "/portsmouth-taxi-prices" || pathname === "/harwich-taxi-prices" || pathname === "/southampton-cruise-taxi"
-
-    if (exceptions) status = 200
-
-    //!Canoncakls
-    let mainCanonical = lang === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${lang}${pathname}`
-    let canonicalAlternates = generateCanonicalAlternates(pathname);
-
-    //!Shemas
-    // /harwich-taxi-prices =>destruct harwich and turn first letter to uppercase
-    let breadcumbName1 = urlToTitle({ url: pathname, linknamePage: true })
-    let breadcumbSchema = {
-        "@context": "http://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "item": { "@id": "https://www.airport-pickups-london.com/", "name": `Home` }
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "item": { "@id": `https://www.airport-pickups-london.com${pathname}/`, "name": `${breadcumbName1}` }
-            },
-        ]
-    }
-    let schemas = [breadcumbSchema]
-
-
-    //!respond
-    if (status === 200) {
-        return { props: { metaTitle, keywords, pageContent, metaDescription, canonicalAlternates, mainCanonical, schemas } }
-    } else {
-        return { props: { data: "not found", } }
-    }
+    return { props: { data: "not fousnd", } }
 });

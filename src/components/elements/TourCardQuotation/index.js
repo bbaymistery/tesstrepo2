@@ -51,7 +51,7 @@ const TourCardQuotation = (params = {}) => {
   const onChangeSetDateTimeHandler = (params = {}) => {
     let { value, hourOrMinute, } = params
     // dispatch({ type: 'SET_TOUR_DATETIME', data: { hourOrMinute, value } })
-    dispatch({ type: 'SET_JOURNEY_DATETIME', data: { journeyType:0, hourOrMinute, value } })
+    dispatch({ type: 'SET_JOURNEY_DATETIME', data: { journeyType: 0, hourOrMinute, value } })
 
   }
   useEffect(() => {

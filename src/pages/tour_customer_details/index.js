@@ -303,14 +303,10 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             }
         }
     }
-
-
     return {
         props: {
             data: ""
         }
     }
-
-
 });
 export default TourCustomerDetails

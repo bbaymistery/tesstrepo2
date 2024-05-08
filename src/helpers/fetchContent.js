@@ -22,7 +22,7 @@ export const fetchContent = async (pagePathname, cookie, firstLoadLangauge, path
         lang = firstLoadLangauge
     }
     let url = `${env.apiDomain}/api/v1/pages/details`;
-    let body = { pagePathname: pagePathname, language: lang };
+    let body = { pagePathname, language: lang };
 
     const method = "POST"
     const headers = { "Content-Type": "application/json", }

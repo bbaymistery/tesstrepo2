@@ -91,7 +91,7 @@ const TaxiDeals = (props) => {
 
         if (status === 200) {
             setTaxiPoints(sortDestinationsAlphabetically(data?.destinations));
-            sortDestinations(data.destinations,hasTaxiDeals)
+            sortDestinations(data.destinations, hasTaxiDeals)
         }
     };
 
@@ -139,7 +139,7 @@ const TaxiDeals = (props) => {
                                 )}
                             </div>
                             : <></>}
-                        {taxiPoints.length > 1 ? <TaxiDealViewContent islinknamecomponent={islinknamecomponent} points={taxiPoints} dealsName={hasTaxiDeals} /> : <div className={styles.no_result}>There is no result on Taxi Deals</div>}
+                        {taxiPoints.length > 1 ? <TaxiDealViewContent language={language}  islinknamecomponent={islinknamecomponent} points={taxiPoints} dealsName={hasTaxiDeals} /> : <div className={styles.no_result}>There is no result on Taxi Deals</div>}
                         {taxiPoints.length > 1 ?
                             <div className={styles.btn_div}>
                                 <button className='btn_hover_reverse_primary' onClick={() => { setModal() }}>

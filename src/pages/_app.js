@@ -18,6 +18,7 @@ const allLanguages = ["en", "tr", "ar", "es", "zh", "it", "ru"]
 
 export const MyApp = ({ Component, pageProps }) => {
   const router = useRouter()
+  console.log(router);
 
 
   //localhost:3500//test
@@ -34,20 +35,23 @@ export const MyApp = ({ Component, pageProps }) => {
   const setLanguage = useCallback(async (params = {}) => {
     let { language, } = params;
 
-    console.log("useCallback setLanguage=>>", language);
+
     let allAppDatas = JSON.parse(sessionStorage.getItem('allAppDatas'))
+
     if (language.length === 2 && allAppDatas) {
-      // console.log({ allAppDatas, location: "language && allAppDatas" });
       dispatch({ type: "SET_NEW_APPDATA", data: allAppDatas?.[language], initialStateReducer: store.getState().initialReducer })
+
     } else {
       //ilk basda tek sefer calisicak sonra yukarisi calisir
-      // console.log({ appData, location: "MyApp" });
       dispatch({ type: "SET_NEW_APPDATA", data: appData, initialStateReducer: store.getState().initialReducer })
-    }
 
+    }
+    let index
+    appData?.languages.map((item, idx) => (language === item.value) ? index = idx : idx)
     let direction = language === 'ar' ? "rtl" : "ltr"
     localStorage.setItem("direction", JSON.stringify(direction));
-    dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: language, direction, } })
+
+    dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: language, direction, langIndex: index } })
 
   }, [dispatch, appData,])
 
@@ -100,6 +104,7 @@ export const MyApp = ({ Component, pageProps }) => {
       localStorage.removeItem("appData"); // remove an item from local storage
       localStorage.removeItem("direction"); // remove an item from local storage
       localStorage.removeItem("path"); // remove an item from local storage
+
       // Dynamically inject the termsReducer when this component mounts
 
     };
@@ -123,11 +128,7 @@ export const MyApp = ({ Component, pageProps }) => {
     }
     else {
       setLanguage({ language: hasLanguage !== 'en' ? hasLanguage : language, hydrate: false })
-    
-      
     }
-
-
   }, [router.asPath])
 
 

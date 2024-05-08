@@ -8,11 +8,11 @@ import Image from 'next/image';
 import { formatPriceInTitle } from '../../../helpers/formatPriceInTitle';
 import TaxiDealsContents from '../TaxiDealsContents';
 import { postDataAPI } from '../../../helpers/fetchDatas';
+import Link from 'next/link';
 const checkJourneyTypeAndAddQuotationToReducer = (params = {}) => {
     //by this index  we r gonna assure in which journey we should add quotation
     //by journey type we r gonn assure should we directly pass to next page or not
     let { journeyType, quotation, index, router, dispatch, language, isTaxiDeal, quotations } = params
-    console.log({ language, loation: "checkJourneyTypeAndAddQuotationToReducer" });
 
     //if it is both way journey then do not push directly to other page
     if (parseInt(journeyType) === 1) {
@@ -128,10 +128,10 @@ const CardQuotationItemTaxiDeal = (params = {}) => {
         {/* 111  */}
 
 
-        <h1 alt={pageTitle} className={`${styles.title} ${styles.title_center} ${direction}`}>{headTitle ? formatPriceInTitle(headTitle) : "..."}</h1>
+        <h1 alt={pageTitle} className={`${styles.title} ${styles.title_center} ${direction}`}>{headTitle ? (headTitle) : "..."}</h1>
         <p className={styles.breadcrumbs}>
             <span>
-                <a href="/" title="Airport Pickups London">
+                <a href={`${language === 'en' ? "/" : `/${language}`}`} title="Airport Pickups London">
                     <span>Home</span>
                 </a>
                 →
@@ -139,9 +139,7 @@ const CardQuotationItemTaxiDeal = (params = {}) => {
             &nbsp;
             &nbsp;
             <span>
-                <a href={linkurl} title={pageTitle}>
-                    <span>{pageTitle}</span>
-                </a>
+                <span>{pageTitle}</span>
             </span>
         </p>
         <div direction={String(direction === "rtl")} className={styles.stars}>
@@ -162,7 +160,7 @@ const CardQuotationItemTaxiDeal = (params = {}) => {
         </div>
         {/* 111  */}
         <p className={styles.viceversa}>
-            <a href={returnPathname} title={returnPageTitle}> {returnHeadTitle ? formatPriceInTitle(returnHeadTitle) : "..."} </a>
+            <a href={returnPathname} onClick={() => sessionStorage.removeItem('pathnameLinkCache')} title={returnPageTitle}> {returnHeadTitle ? (returnHeadTitle) : "..."} </a>
 
         </p>
 
