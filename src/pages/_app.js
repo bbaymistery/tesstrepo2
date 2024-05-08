@@ -7,18 +7,15 @@ import env from '../resources/env';
 import "../styles/global.scss";
 import Error404 from './404/index'
 import { useRouter } from 'next/router';
-import { extractLanguage } from '../helpers/extractLanguage';
 import { checkLanguageAttributeOntheUrl } from '../helpers/checkLanguageAttributeOntheUrl';
 import localFont from '@next/font/local';
 import { getCookie, setCookie } from '../helpers/cokieesFunc';
-import { getDataApi } from '../helpers/fetchDatas';
 import { fetchAllLanguagesAppDatas } from '../helpers/fetchAllLanguagesAppDatas';
 const myFont = localFont({ src: '../../public/googleFonts/92zatBhPNqw73oTd4g.woff2' })
 const allLanguages = ["en", "tr", "ar", "es", "zh", "it", "ru"]
 
 export const MyApp = ({ Component, pageProps }) => {
   const router = useRouter()
-  console.log(router);
 
 
   //localhost:3500//test
@@ -40,6 +37,7 @@ export const MyApp = ({ Component, pageProps }) => {
 
     if (language.length === 2 && allAppDatas) {
       dispatch({ type: "SET_NEW_APPDATA", data: allAppDatas?.[language], initialStateReducer: store.getState().initialReducer })
+      
 
     } else {
       //ilk basda tek sefer calisicak sonra yukarisi calisir
