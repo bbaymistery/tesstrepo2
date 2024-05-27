@@ -123,6 +123,7 @@ export default function Home(props) {
 
   return (
     <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true} >
+
       <Hero />
       <TaxiDeals />
       <SeaportTransfers bggray={true} />

@@ -16,9 +16,11 @@ $checkbox-selected: $primary; // Primary colour
             @media (max-width:1200px) {
                 max-width: 1070px;
             }
-@media (max-width:768px) {
-    padding: 0px;
-}
+
+            @media (max-width:768px) {
+                padding: 0px;
+            }
+
             .payment_details_section {
                 padding-top: 0px;
                 padding-bottom: 80px;

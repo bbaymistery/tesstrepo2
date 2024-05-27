@@ -25,7 +25,6 @@ function TestA(props) {
     const objectDetailss = appData?.pointTypeCategories.reduce((obj, item) => ({ ...obj, [item.id]: JSON.parse(item.objectDetails), }), {});
     const router = useRouter()
     const [fetchdatas, setFetchDatas] = useState(props.props ? props.props : null)
-    console.log(fetchdatas);
 
     let
         { data = "",

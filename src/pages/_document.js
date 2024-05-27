@@ -65,7 +65,33 @@ class CustomDocument extends Document {
                     {alternates?.length > 0 && alternates.map((alternate, index) => <link rel="alternate" key={index} hrefLang={alternate.hrefLang} href={alternate.href} />)}
                     {mainCanonical?.length > 0 && <link rel="canonical" href={mainCanonical} />}
                     {this.createMetaTagElements(metaTags)}
+
+
+                    {/* 
+//G-54500Y5330
+ <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
+
+            <Script id='google-analytics' strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                    __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('consent', 'default', {
+                    'analytics_storage': 'denied'
+                });
+                
+                gtag('config', '${GA_MEASUREMENT_ID}', {
+                    page_path: window.location.pathname,
+                });
+                `,
+                }}
+
+*/}
+
                 </Head>
+
                 <body>
                     <Main />
                     <NextScript />

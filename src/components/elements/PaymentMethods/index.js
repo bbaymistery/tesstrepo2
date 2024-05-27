@@ -265,7 +265,7 @@ const PaymentMethods = (props) => {
             <Link href={"/terms"} target="_blank" >
               <p className={styles.header_top_subtitle} direction={String(direction === 'rtl')}>
                 <i className="fa-solid fa-check"></i>
-                <span dangerouslySetInnerHTML={{ __html: (appData?.words["strByProceedingNote"]) }} />
+                <span dangerouslySetInnerHTML={{ __html: (appData?.words["strByProceedingNote"].replace("_link_", "/terms")) }} />
               </p>
             </Link>
           </div>

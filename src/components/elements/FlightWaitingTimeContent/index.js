@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "../../elements/Select/styles.module.scss"
+import { getCookie } from "../../../helpers/cokieesFunc";
 const FlightWaitingTimeContent = () => {
 
     const { appData } = useSelector(state => state.initialReducer)
@@ -10,8 +11,8 @@ const FlightWaitingTimeContent = () => {
     const [content, setContent] = useState("")
 
     useEffect(() => {
-        if (localStorage?.getItem("language")) {
-            let langKey = getCookie("lang")
+        let langKey = getCookie("lang") 
+        if (langKey) {
             let foundMatch = false;
             JSON.parse(appData?.words["seBookingNotes"]).forEach((item, index) => {
                 let { value, language } = item;

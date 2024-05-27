@@ -19,7 +19,13 @@ const DriversWanted = () => {
               <div className={styles.left}>
                 <h1>Become an APL Driver</h1>
                 <p>
-                  Join our growing team of professional drivers at APL Cars. We are currently accepting applications for MPV, SUV, and 8-seater vehicles. Additionally, we are accepting applications for Business Class saloon vehicles such as Mercedes, BMW, Tesla, and Jaguar.
+
+                  Join our growing team of professional drivers at APL Cars.
+                  We are currently accepting applications for all Saloon,
+                  MPV, SUV, and 8-seater vehicles. Additionally, we are accepting applications
+                  for both Standard and Business Class saloon vehicles. Our Standard Class includes
+                  various Saloon/Sedan models, while our Business Class features premium vehicles such as Mercedes, BMW, Tesla, and Jaguar.
+
                 </p>
                 <h2>
                   Driver Registration
@@ -35,6 +41,7 @@ const DriversWanted = () => {
                     </li>
                     <li>
                       3.   After completing the registration process, visit our office at APL Office, Novotel Cherry Lane, UB7 9HJ (FREE parking).
+                      <br />  For any documents or further inquiries, please email us at documents@aplcars.com or contact us via WhatsApp 📱 at 07809536620
                     </li>
                   </ul>
                 </p>
@@ -44,10 +51,10 @@ const DriversWanted = () => {
                 <div className={styles.ios_android_div}>
                   <p> For Iphone: please click on the link below</p>
                   <a href="https://apps.apple.com/gb/app/apl-drivers/id1661484765">
-                    <div>
+                    <p>
                       <img src="images/others/iosicon.png" alt="Aiport pickups-london ios-icon" />
                       <p>APL Drivers<br /></p>
-                    </div>
+                    </p>
                   </a>
                 </div>
                 <p>Go to Settings / Privacy / Location Services, APL / Allow Location Always.</p>
@@ -56,10 +63,10 @@ const DriversWanted = () => {
                 <div className={styles.ios_android_div}>
                   <p> For Android Phones: Please click on the link below or download from Google PLAY Store</p>
                   <a href="https://apps.apple.com/gb/app/apl-drivers/id1661484765">
-                    <div>
+                    <p>
                       <img src="images/others/androidicon.png" alt="Aiport pickups-london ios-icon" />
                       <p>APL Drivers<br /></p>
-                    </div>
+                    </p>
                   </a>
                 </div>
                 <p>After installation is completed, accept notifications and location permissions.</p>
@@ -91,6 +98,3 @@ const DriversWanted = () => {
 }
 
 export default DriversWanted
-
-
-

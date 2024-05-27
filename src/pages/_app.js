@@ -37,7 +37,7 @@ export const MyApp = ({ Component, pageProps }) => {
 
     if (language.length === 2 && allAppDatas) {
       dispatch({ type: "SET_NEW_APPDATA", data: allAppDatas?.[language], initialStateReducer: store.getState().initialReducer })
-      
+
 
     } else {
       //ilk basda tek sefer calisicak sonra yukarisi calisir
