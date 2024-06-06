@@ -204,16 +204,16 @@ const Footer = (props) => {
               <div className={styles.icons}>
 
                 <a href="https://www.facebook.com/AirportPickupsLondon" target={"_blank"} title={"Airport Pickups London Facebook"}>
-                  <Image src={fbImage} alt="Airport Pickups London Facebook" width={25} height={25} priority />
+                  <Image src={fbImage} alt="Airport Pickups London Facebook" width={25} height={25} />
                 </a>
                 <a href="https://twitter.com/Airport_Pickups" target={"_blank"} title="Airport Pickups London Twitters">
-                  <Image src={twImage} alt="Airport Pickups London Twitters" width={25} height={25} priority />
+                  <Image src={twImage} alt="Airport Pickups London Twitters" width={25} height={25} />
                 </a>
                 <a href="http://feeds2.feedburner.com/London-Airport-News" target="_blank" title="Airport Pickups London News RSS">
-                  <Image src={srImage} alt="Airport Pickups London News RSS" width={25} height={25} priority />
+                  <Image src={srImage} alt="Airport Pickups London News RSS" width={25} height={25} />
                 </a>
                 <a href="https://www.instagram.com/airport_pickups_london/" target="_blank" title="Airport Pickups London Instigram page">
-                  <Image src={instaIamge} alt="Airport Pickups London Instigram page" width={25} height={25} priority />
+                  <Image src={instaIamge} alt="Airport Pickups London Instigram page" width={25} height={25} />
                 </a>
 
               </div>
