@@ -236,7 +236,7 @@ const ReservationsDocument = () => {
                                                                     switch (paymentType) {
                                                                         case 1: return appData?.words["strCash"];
                                                                         case 5: return appData?.words["strPayWithPayPal"];
-                                                                        case 7: return appData?.words["strPayByCard"];
+                                                                        case 7: return appData?.words["strPaybycard"];
                                                                         default: return "Pay by Cash";
                                                                     }
                                                                 })()}
@@ -326,7 +326,7 @@ const ReservationsDocument = () => {
                                                                             switch (paymentType) {
                                                                                 case 1: return appData?.words["strCash"];
                                                                                 case 5: return appData?.words["strPayWithPayPal"];
-                                                                                case 7: return appData?.words["strPayByCard"];
+                                                                                case 7: return appData?.words["strPaybycard"];
                                                                                 default: return "Pay by Cash";
                                                                             }
                                                                         })()}
