@@ -162,6 +162,7 @@ const PaymentMethods = (props) => {
 
   //this function includes all the methods of payments
   const startPayment = (id) => {
+console.log({id});
 
 
     try {

@@ -108,7 +108,7 @@ function adjustPathnameForLanguage(pathname, pageStartLanguage, cookies) {
     return { pathname, pageStartLanguage };
 }
 async function handleStandardContent(pathname, cookie, pageStartLanguage, schemas, pathnameUrlWHenChangeByTopbar) {
-    let { metaTitle, keywords, pageContent, metaDescription, status, lang } = await fetchContent(pathname, cookie, pathnameUrlWHenChangeByTopbar);
+    let { metaTitle, keywords, pageContent, metaDescription, status, lang } = await fetchContent(pathname, cookie, pageStartLanguage, pathnameUrlWHenChangeByTopbar);
     //!Istisnalar
     let exceptions = pathname === "/dover-cruise-taxi" || pathname === "/portsmouth-taxi-prices" || pathname === "/harwich-taxi-prices" || pathname === "/southampton-cruise-taxi"
 
@@ -220,6 +220,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     let cookies = parseCookies(req.headers.cookie);
     let { pathname } = parse(req.url, true)
+
     //language congiguration based on the url (http://localhost:3500/it/gatwick-taxi-prices  if he pres enter we get lang) at first time
     let pageStartLanguage = checkLanguageAttributeOntheUrl(req?.url)
     // Extract query parameters
@@ -243,10 +244,12 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
 
     if (!isItQuationLink) {
+
+
         return handleStandardContent(pathname, req.headers.cookie, pageStartLanguage, schemas, pathnameUrlWHenChangeByTopbar);
 
     } else {
+
         return handleQuotationLink(pageStartLanguage, pathname, schemas);
     }
-    return { props: { data: "not fousnd", } }
 });

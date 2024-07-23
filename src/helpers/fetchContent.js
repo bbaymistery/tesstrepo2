@@ -14,7 +14,8 @@ export const fetchContent = async (pagePathname, cookie, firstLoadLangauge, path
     let lang = "en"
     // Use the function to parse the Cookie header
     const cookies = parseCookies(cookie);
-    if (firstLoadLangauge === 'en' && pathnameUrlWHenChangeByTopbar.includes("json")) {
+
+    if (firstLoadLangauge === 'en' && pathnameUrlWHenChangeByTopbar?.includes("json")) {
         //http://localhost:3500/tr  nburda ise degisilir langauge topbardan 
         lang = cookies['lang'];
     } else {
