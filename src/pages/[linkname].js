@@ -22,18 +22,6 @@ import { taxiPricesLinks } from './../constants/navigatior'
 import TaaxidealsQuotationLink from '../components/elements/TaaxidealsQuotationLink';
 import { postDataAPI } from '../helpers/fetchDatas';
 
-// Function to extract paths from items with a list where firstChild is true
-// const extractPathsFromListsWithFirstChild = (data) => {
-//     const paths = [];
-//     data.forEach(item => {
-//         if (item.firstChild && Array.isArray(item.list)) {
-//             item.list.forEach(subItem => {
-//                 paths.push(subItem.path);
-//             });
-//         }
-//     });
-//     return paths;
-// }
 const NavbarLinkName = (props) => {
     const dispatch = useDispatch()
     const router = useRouter();
@@ -41,9 +29,7 @@ const NavbarLinkName = (props) => {
 
     const { linkname } = router.query;
     let { metaTitle = "", keywords = "", metaDescription = "", pageContent = "", data = "", isItQuationLink = false } = props
-    // const paths = extractPathsFromListsWithFirstChild(navigatorMobile);
     if (data === "not found") return <Error404 />
-    // if (!paths.includes(router.asPath)) return <Error404 />
 
     useEffect(() => {
         if (!isItQuationLink) {
@@ -54,20 +40,16 @@ const NavbarLinkName = (props) => {
             // If a matching item is found, dispatch the appropriate action
             // Use the 'hasTaxiDeals' property of the matching item for dispatch 
             if (matchingItem) dispatch({ type: "SET_NAVBAR_TAXI_DEALS", data: { hasTaxiDeals: matchingItem.hasTaxiDeals } });
-
-
         }
     }, [linkname, dispatch, language]); // Add linkname and dispatch to the dependency array
 
 
 
-    return (isItQuationLink ? <TaaxidealsQuotationLink props={props} />
-        :
-
+    return (isItQuationLink ? <TaaxidealsQuotationLink props={props} /> :
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={false}>
             <Hero islinknamecomponent={true} bggray={false} />
             <TaxiDeals showTabs={false} bggray={false} islinknamecomponent={true} />
-            <LinkNameDescription pageContent={pageContent} language={language} />
+            {pageContent.length > 0 ? <LinkNameDescription pageContent={pageContent} language={language} /> : ""}
             <CarsSlider bggray={true} />
         </GlobalLayout>
 
@@ -244,12 +226,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
 
     if (!isItQuationLink) {
-
-
         return handleStandardContent(pathname, req.headers.cookie, pageStartLanguage, schemas, pathnameUrlWHenChangeByTopbar);
-
     } else {
-
         return handleQuotationLink(pageStartLanguage, pathname, schemas);
     }
 });

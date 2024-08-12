@@ -11,10 +11,13 @@ const PointsModal = ({ points, title }) => {
     const { appData } = useSelector(state => state.initialReducer)
     let clickedOutside = useOutsideClick(wrapperRef);
 
+    //closing points modal if it is opened when we click view all on taxi deals
     const setToFalse = () => {
         dispatch({ type: "SET_POINTS_MODAL", data: { trueOrFalse: false } });
         document.body.style.overflow = "unset";
     };
+
+    //observer animation
     const observerCallback = (entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
@@ -36,6 +39,7 @@ const PointsModal = ({ points, title }) => {
         const observer = new IntersectionObserver(observerCallback, observerOptions);
         allList.forEach((el) => observer.observe(el));
     }, [])
+
     useEffect(() => {
         if (clickedOutside) {
             dispatch({ type: "SET_POINTS_MODAL", data: { trueOrFalse: false } });
@@ -47,18 +51,14 @@ const PointsModal = ({ points, title }) => {
     return (
         <div className={styles.modal}>
             <div className={styles.main_container} ref={wrapperRef}>
-                <div>
-                    <i onClick={() => setToFalse()} className={`fa-sharp fa-solid fa-xmark ${styles.icon}`}></i>
-                </div>
-                <h3>
-                    {title}
-                </h3>
+                <div><i onClick={() => setToFalse()} className={`fa-sharp fa-solid fa-xmark ${styles.icon}`}></i></div>
+                <h3>{title}</h3>
                 <ul>
-                    {points?.map((point, index) => {
+                    {(points || [])?.map((point, index) => {
                         return <a href={point.pathname} key={index}>
                             <li className='li_item' >
                                 <span className={styles.title}>{point?.translatedPageTitle ? point?.translatedPageTitle : point?.title}</span>
-                                <span className={styles.start_from}>{appData.words["strStartFrom"]} <span className={styles.price}>{point.price}</span>  </span>
+                                <span className={styles.start_from}>{(appData || {}).words["strStartFrom"]} <span className={styles.price}>{point.price}</span>  </span>
                             </li>
                         </a>
                     })}

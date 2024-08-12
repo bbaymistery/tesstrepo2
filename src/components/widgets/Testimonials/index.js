@@ -1,10 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styles from "./styles.module.scss"
-const Testimonials = (props) => {
-    let { bggray, pageContent } = props
-    const state = useSelector(state => state.pickUpDropOffActions)
-    let { params: { direction } } = state
+const Testimonials = ({ bggray = false, pageContent = "" }) => {
+    const { pickUpDropOffActions } = useSelector(s => s) // s is state
+    let { 'params': { direction } } = pickUpDropOffActions
     const createMarkup = (htmlString) => { return { __html: htmlString } };
     return (
         <div className={`${styles.testimonials} ${direction} page`} bggray={String(bggray)} style={{ backgroundColor: `${String(bggray) === "true" ? "#f5f5f5" : "white"}` }}>

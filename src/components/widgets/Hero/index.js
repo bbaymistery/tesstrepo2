@@ -66,6 +66,7 @@ const Hero = (props) => {
 
     })
 
+    //collevcting points after resolving with collectPointsAsync
     const collectPoints = useCallback((params = {}, callback = () => { }) => {
 
         let { value = '', reducerSessionToken = "", language = "" } = params;
@@ -85,7 +86,7 @@ const Hero = (props) => {
     }, [params]);
     const collectPointsAsync = params => new Promise((resolve, reject) => collectPoints(params, log => resolve(log)))
 
-    //getting quotations
+    //getting quotations after resolving promise with collectQuotationsAsync
     const collectQuotations = useCallback((params = {}, callback = () => { }) => {
 
         let { reservations, journeyType } = params
@@ -194,6 +195,7 @@ const Hero = (props) => {
         let { value, hourOrMinute, journeyType } = params
         dispatch({ type: 'SET_JOURNEY_DATETIME', data: { journeyType, hourOrMinute, value } })
     }, [params, dispatch]);
+
     //when we click getQuotations there we check fields .If fields not empty then it will be triggering
     const readyToCollectQuotations = useCallback(async (params = {}) => {
         (async () => {
@@ -512,14 +514,9 @@ const Hero = (props) => {
                                                 : <></>
                                         }
                                     </div>
-
                                 )
                             })}
-
-
                         </div>
-
-
                     </div>
                 </div>
             </div>

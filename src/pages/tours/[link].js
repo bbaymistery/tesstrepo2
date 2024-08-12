@@ -43,7 +43,7 @@ const TourContentDetails = (props) => {
 
 
     let stateReservation = useSelector((state) => state.pickUpDropOffActions)
-    let { reservations, params: { direction,  language,  } } = stateReservation
+    let { reservations, params: { direction, language, } } = stateReservation
 
     const gotoPreviousSlider = () => setIndex(index - 1)
     const gotoNextSlider = () => setIndex(index + 1)
@@ -196,7 +196,7 @@ const TourContentDetails = (props) => {
                                         </div>
 
                                         <button className="btn" onClick={handleButtonClick} >
-                                            Select Car
+                                            {appData.words["panelPriceMarkupsCartype"]}
                                             <i className="fa-solid fa-arrow-down"></i>
                                         </button>
                                     </div>

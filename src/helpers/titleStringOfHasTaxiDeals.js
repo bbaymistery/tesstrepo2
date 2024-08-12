@@ -16,7 +16,7 @@ export const titleStringOfHastaxiDeals = (hasTaxiDeals) => {
         titleString = "strLutonTaxiPrices"
     } else if (hasTaxiDeals === "stansted") {
         titleString = "strStanstedTaxiPrices"
-    } else if (hasTaxiDeals === "city") {
+    } else if (hasTaxiDeals === "city airport") {
         titleString = "strLCYTaxiPrices"
     }
 

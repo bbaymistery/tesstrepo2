@@ -45,8 +45,6 @@ Dover to Luton taxi
 //taking delas name and making it dynamic for gatwixk for heathrow and the others
 const airportTaxiDealsValidLocations = (dealsName) => {
     //first letter uppercase
-
-
     dealsName = dealsName.charAt(0).toUpperCase() + dealsName.slice(1);
     if (dealsName === 'City airport') dealsName = 'City Airport'
     //we r destcructing to taxi trasnfer
@@ -64,7 +62,6 @@ const airportTaxiDealsValidLocations = (dealsName) => {
 
 const cruiseTaxiDealsValidLocations = (dealsName) => {
     dealsName = dealsName.charAt(0).toUpperCase() + dealsName.slice(1);
-
     return [
         `Heathrow to ${dealsName} taxi`,
         `Gatwick to ${dealsName} taxi`,
@@ -108,7 +105,7 @@ const TaxiDealViewContent = ({ points, dealsName, islinknamecomponent, language 
                 {points.length > 1 ?
                     filteredDatas.map((item, index) => {
                         return (
-                            <a data-id="a" title={item?.pageTitle} href={`${item.pathname}`} className={`${styles.card}`} key={item.id}  onClick={() => sessionStorage.removeItem('pathnameLinkCache')}>
+                            <a data-id="a" title={item?.pageTitle} href={`${item.pathname}`} className={`${styles.card}`} key={item.id} onClick={() => sessionStorage.removeItem('pathnameLinkCache')}>
                                 <div className={styles.card_image_div}>
                                     {dealsName === 'dover' || dealsName === 'southampton' || dealsName === 'portsmouth' || dealsName === 'harwich' ?
                                         <Image src={`${cruisePortimages?.[index]?.image}`} className={styles.img} fill alt={item.pageTitle} sizes="(max-width: 768px) 30vw, (max-width: 1200px) 50vw" />

@@ -70,13 +70,9 @@ const Header = () => {
 
   //when we click lang text it opens dropdown
   const setOpenLanguageDropdown = (e) => {
-
     // prevent to open dropdown
     if (router.asPath === "/drivers-wanted") return
-
-
     setLanguageStatus(!languageStatus)
-
   }
 
   const handleClickNavLinkMobileMenuList = useCallback((params = {}) => {

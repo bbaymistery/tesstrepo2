@@ -36,24 +36,25 @@ const tabsBttons = [
     {
         name: "strLCYTaxiPrices",
         id: 5,
-        dealsName: "city"
+        dealsName: "city airport"
 
     }
 ]
 //showTabs=>they come from here > heathrow-airport-transfer
 //isLinknameComponent comes driom [..linkname]
-const TaxiDeals = (props) => {
-    let { showTabs = true, bggray = false, islinknamecomponent = false } = props
+const TaxiDeals = ({ showTabs = true, bggray = false, islinknamecomponent = false }) => {
+
     const dispatch = useDispatch()
-    const state = useSelector(state => state.pickUpDropOffActions)
-    let { params: { direction, language, pointsModalStatus, hasTaxiDeals } } = state
+    const { pickUpDropOffActions, initialReducer } = useSelector(s => s) // s is state
+    let { 'params': { direction, language, pointsModalStatus, hasTaxiDeals } } = pickUpDropOffActions
 
     const [tabs, setTabs] = useState(0)
     const [taxiPoints, setTaxiPoints] = useState([])
     const refs = tabsBttons.map(() => useRef(null));
     const ripples = refs.map((ref) => useRipple(ref));
 
-    const { appData } = useSelector(state => state.initialReducer)
+    const { appData } = initialReducer
+
     function sortDestinationsAlphabetically(destinations) {
         return destinations.sort((a, b) => {
             return a?.pageTitle?.localeCompare(b.pageTitle);
@@ -61,27 +62,22 @@ const TaxiDeals = (props) => {
     }
     // Function to sort destinations
     function sortDestinations(data, dealsName) {
-
         data.sort((a, b) => {
             let isHeathrowA = a.pickup.toLowerCase().includes(dealsName); // Check if 'pickup' includes "heathrow"
             let isHeathrowB = b.pickup.toLowerCase().includes(dealsName); // Check if 'pickup' includes "heathrow"
-
             // Prioritize entries that include "Heathrow" in the sort order
-            if (isHeathrowA && !isHeathrowB) {
-                return -1; // a comes first
-            }
-            if (isHeathrowB && !isHeathrowA) {
-                return 1; // b comes first
-            }
+            // a comes first
+            if (isHeathrowA && !isHeathrowB) return -1;
+            // b comes first
+            if (isHeathrowB && !isHeathrowA) return 1;
             return 0; // no change
         });
     }
 
 
-
     const fecthPoints = async (params = {}) => {
         let { language, dealsNameProp = hasTaxiDeals } = params;
-        let channelId = state.reservations[0].reservationDetails.channelId;
+        let channelId = pickUpDropOffActions.reservations[0].reservationDetails.channelId;
         // Encode the dealsNameProp to handle spaces and special characters
         let encodedDealsNameProp = encodeURIComponent(dealsNameProp);
         let url = `${env.apiDomain}/api/v1/taxi-deals/list?points=${encodedDealsNameProp}&language=${language}&channelId=${channelId}`;
@@ -95,7 +91,7 @@ const TaxiDeals = (props) => {
         }
     };
 
-
+    //change tabs index 
     const tabsHandler = async (params = {}) => {
         let { index, dealsNameProp } = params
         setTabs(index)
@@ -109,6 +105,7 @@ const TaxiDeals = (props) => {
         document.body.style.overflow = "hidden";
     }
 
+    //initializ fetch and taxideals reducer
     useEffect(() => {
         fecthPoints({ dealsNameProp: hasTaxiDeals, language })
         //asagidaki iki kod asagidaki use effecti acanda yox olmalidir
@@ -123,11 +120,10 @@ const TaxiDeals = (props) => {
                 <div className={`${styles.taxideals_section} page_section`}>
                     <div className={`${styles.taxideals_section_container} page_section_container`}>
                         {taxiPoints.length > 1 ?
-                            <div className={styles.title}>
+                            (<div className={styles.title}>
                                 <h1>{appData?.words[`${titleStringOfHastaxiDeals(hasTaxiDeals)}`]}</h1>
-
                                 {islinknamecomponent ? "" : <p>{appData?.words["strAllinclusiveprices"]}</p>}
-                            </div> : <></>}
+                            </div>) : <></>}
                         {showTabs ?
                             <div className={`${styles.tabs} `}>
                                 {tabsBttons.map((btn, index) => {
@@ -135,11 +131,9 @@ const TaxiDeals = (props) => {
                                         <div className="ripple-wrapper">{ripples[index]}</div>
                                         {appData.words[btn.name]}
                                     </button>)
-                                }
-                                )}
-                            </div>
-                            : <></>}
-                        {taxiPoints.length > 1 ? <TaxiDealViewContent language={language}  islinknamecomponent={islinknamecomponent} points={taxiPoints} dealsName={hasTaxiDeals} /> : <div className={styles.no_result}>There is no result on Taxi Deals</div>}
+                                })}
+                            </div> : <></>}
+                        {taxiPoints.length > 1 ? <TaxiDealViewContent language={language} islinknamecomponent={islinknamecomponent} points={taxiPoints} dealsName={hasTaxiDeals} /> : <div className={styles.no_result}>There is no result on Taxi Deals</div>}
                         {taxiPoints.length > 1 ?
                             <div className={styles.btn_div}>
                                 <button className='btn_hover_reverse_primary' onClick={() => { setModal() }}>

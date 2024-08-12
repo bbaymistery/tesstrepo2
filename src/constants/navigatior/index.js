@@ -25,7 +25,7 @@ export const Airports = [
         path: "/london-city-taxi-prices",
         title: "London City Airport Transfer",
         type: "cell",
-        hasTaxiDeals: "city",
+        hasTaxiDeals: "city airport",
         id: 3,
         translateTitle: "strLCYTaxiPrices",
 
