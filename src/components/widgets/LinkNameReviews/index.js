@@ -1,9 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styles from "./styles.module.scss"
-const LinkNameReviews = ({ bggray = false }) => {
-    const { pickUpDropOffActions } = useSelector(s => s) // s is state
-    let { 'params': { direction } } = pickUpDropOffActions
+const LinkNameReviews = (props) => {
+    let { bggray = false } = props
+    const state = useSelector(state => state.pickUpDropOffActions)
+    let { params } = state
+    let { direction } = params
     return (
         <div className={`${styles.LinkNameReviews} ${direction} page`} bggray={String(bggray)}>
             <svg className={styles.wave_svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"   >

@@ -8,11 +8,13 @@ import srImage from '../../../../public/social/rss.png';
 import instaIamge from '../../../../public/social/Instigram.gif';
 import styles from "./styles.module.scss"
 import { Airports, CruisePorts } from '../../../constants/navigatior';
-const Footer = ({ bggray = false }) => {
+const Footer = (props) => {
+  let { bggray } = props
+  const state = useSelector(state => state.pickUpDropOffActions)
+  let { params: { direction, language, journeyType } } = state
+  const { appData } = useSelector(state => state.initialReducer)
+
   const dispatch = useDispatch()
-  const { pickUpDropOffActions, initialReducer } = useSelector(s => s) // s is state
-  let { 'params': { direction, language, journeyType } } = pickUpDropOffActions
-  const { appData } = initialReducer
 
   return (
 

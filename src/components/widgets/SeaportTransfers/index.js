@@ -3,11 +3,12 @@ import styles from "./styles.module.scss";
 import Image from 'next/image'
 import { useDispatch, useSelector } from "react-redux";
 import { CruisePorts } from "../../../constants/navigatior";
-const index = ({ bggray = false, }) => {
+const index = (props) => {
+  let { bggray = false, } = props
   const dispatch = useDispatch()
-  const { pickUpDropOffActions, initialReducer } = useSelector(s => s) // s is state
-  let { 'params': { language } } = pickUpDropOffActions
-  const { appData } = initialReducer
+  const { appData } = useSelector(state => state.initialReducer)
+  const { params: { language } } = useSelector(state => state.pickUpDropOffActions)
+
   return (
     <div className={`${styles.seaport} page`} bggray={String(bggray)} style={{ backgroundColor: `${String(bggray) === "true" ? "#f5f5f5" : "white"}` }}>
       <div className={`${styles.seaport_section} page_section`}>

@@ -41,13 +41,10 @@ const AdressInformations = ({ direction, appData }) => {
                                     <h5 className="title font-size-16 pb-1">{appData?.words["strWhatsAppUs"]}</h5>
                                     {direction === 'rtl' ?
                                         <a style={{ flexDirection: "row-reverse", justifyContent: "flex-end", display: 'flex' }} target="_blank" href="https://wa.me/7387901028">
-                                        {/* <a style={{ flexDirection: "row-reverse", justifyContent: "flex-end", display: 'flex' }} target="_blank" href="https://wa.me/447387901028"> */}
-                                            {/*  */}
                                             <span>  + </span>
                                             4402086887744
                                         </a>
                                         : <a target="_blank" href="https://wa.me/7387901028">
-                                        {/* : <a target="_blank" href="https://wa.me/447387901028"> */}
                                             +44 73 8790 1028
                                         </a>
 

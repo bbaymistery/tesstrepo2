@@ -2,10 +2,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { features } from "../../../constants/features";
 import styles from "./styles.module.scss";
-const Features = ({ bggray = false }) => {
-  const { pickUpDropOffActions, initialReducer } = useSelector(s => s) // s is state
-  let { 'params': { direction } } = pickUpDropOffActions
-  const { appData } = initialReducer
+const Features = (props) => {
+  let { bggray } = props
+  const state = useSelector(state => state.pickUpDropOffActions)
+  let { params: { direction } } = state
+  const { appData } = useSelector(state => state.initialReducer)
   return (
     <div className={`${styles.mainbox}  ${direction} page`} bggray={String(bggray)}>
       <div className={`${styles.mainbox_section} page_section`}>

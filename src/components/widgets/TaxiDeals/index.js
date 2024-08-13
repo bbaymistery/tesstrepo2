@@ -42,18 +42,19 @@ const tabsBttons = [
 ]
 //showTabs=>they come from here > heathrow-airport-transfer
 //isLinknameComponent comes driom [..linkname]
-const TaxiDeals = ({ showTabs = true, bggray = false, islinknamecomponent = false }) => {
-
+const TaxiDeals = (props) => {
+    let { showTabs = true, bggray = false, islinknamecomponent = false } = props
     const dispatch = useDispatch()
-    const { pickUpDropOffActions, initialReducer } = useSelector(s => s) // s is state
-    let { 'params': { direction, language, pointsModalStatus, hasTaxiDeals } } = pickUpDropOffActions
+    const state = useSelector(state => state.pickUpDropOffActions)
+    let { params: { direction, language, pointsModalStatus, hasTaxiDeals } } = state
 
     const [tabs, setTabs] = useState(0)
     const [taxiPoints, setTaxiPoints] = useState([])
     const refs = tabsBttons.map(() => useRef(null));
     const ripples = refs.map((ref) => useRipple(ref));
 
-    const { appData } = initialReducer
+    const { appData } = useSelector(state => state.initialReducer)
+
 
     function sortDestinationsAlphabetically(destinations) {
         return destinations.sort((a, b) => {
@@ -77,7 +78,7 @@ const TaxiDeals = ({ showTabs = true, bggray = false, islinknamecomponent = fals
 
     const fecthPoints = async (params = {}) => {
         let { language, dealsNameProp = hasTaxiDeals } = params;
-        let channelId = pickUpDropOffActions.reservations[0].reservationDetails.channelId;
+        let channelId = state.reservations[0].reservationDetails.channelId;
         // Encode the dealsNameProp to handle spaces and special characters
         let encodedDealsNameProp = encodeURIComponent(dealsNameProp);
         let url = `${env.apiDomain}/api/v1/taxi-deals/list?points=${encodedDealsNameProp}&language=${language}&channelId=${channelId}`;

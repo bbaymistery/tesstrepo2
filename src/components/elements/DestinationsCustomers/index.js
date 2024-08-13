@@ -27,7 +27,6 @@ const DestinationsCustomers = () => {
                     className={styles.column}>
                     <div className={styles.numbers}>
                         4.8
-
                     </div>
                     <div className={styles.text}>{appData?.words["strServiceRatings"]}</div>
                 </a>
