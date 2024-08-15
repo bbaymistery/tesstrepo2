@@ -93,8 +93,8 @@ $checkbox-selected: $primary; // Primary colour
                                 border-right: none;
                                 margin-bottom: 0rem;
                             }
-                           
-                           .point_title1 {
+
+                            .point_title1 {
                                 font-size: 20px;
                                 font-weight: 500 !important;
                                 text-transform: capitalize;
@@ -102,6 +102,7 @@ $checkbox-selected: $primary; // Primary colour
                                 padding-right: 8px;
                                 padding-bottom: 10px;
                             }
+
                             .point_title {
                                 font-size: 20px;
                                 font-weight: 500 !important;
@@ -110,6 +111,7 @@ $checkbox-selected: $primary; // Primary colour
                                 padding-right: 8px;
                                 padding-bottom: 10px;
                             }
+
                             .input_div {
                                 position: relative;
 
@@ -130,13 +132,13 @@ $checkbox-selected: $primary; // Primary colour
                                     padding-top: 12px;
                                     padding-bottom: 10px;
                                     padding-left: 3px;
+                                    text-transform: capitalize;
 
                                     i {
                                         margin-right: 11px;
                                         font-size: 21px;
                                         cursor: pointer;
                                         z-index: 999999999999999;
-                                        margin-bottom: 8px;
                                     }
 
                                     p {
@@ -762,5 +764,21 @@ $checkbox-selected: $primary; // Primary colour
                 font-weight: 500;
             }
         }
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    .search-input-container[f="true"] {
+        position: fixed !important;
+        top: 70px !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        overflow: auto;
+        background-color: white;
+        z-index: 100000;
+        padding: 12px !important;
+        overflow: hidden;
+
     }
 }

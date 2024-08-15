@@ -199,7 +199,6 @@ const TransferDetails = (props) => {
         let inputField = document.getElementById("input_focused")
         inputField.style.opacity = 1
         setInternalState({ [`${destination}-search-focus-${index}`]: false, [`${destination}-search-value-${index}`]: "", [`collecting-${destination}-points-${index}`]: [] })
-
     }
 
     const outsideClick = ({ destination, index }) => {
