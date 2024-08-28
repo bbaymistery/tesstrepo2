@@ -30,6 +30,11 @@ export const quotationImagesObjWebp = {
         image: "/images/cars/vip-mpv-v2.webp",
         id: 6,
     },
+    18: {
+        name: "16 Seaters",
+        image: "/images/cars/16seater.webp",
+        id: 18,
+    },
     // 7: {
     //     name: "Large-people-Carrier-7.webp",
     //     image: "/images/cars/Large-people-Carrier-7.webp",

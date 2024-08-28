@@ -371,7 +371,11 @@
                             display: grid;
                             grid-template-columns: 1fr 1fr;
                         }
+                        @media (max-width: 520px) {
+                            grid-template-columns: 1fr;
+                        gap: 13px;
 
+                        }
                         .snapshot_icons_div {
                             display: flex;
                             align-items: flex-start;

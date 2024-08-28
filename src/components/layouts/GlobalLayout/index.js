@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head';
 import TopHeader from '../../widgets/TopHeader';
 import { useRouter } from 'next/router';
@@ -7,12 +7,19 @@ import Footer from '../../widgets/Footer';
 const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDefaults.description, keywords = seoDefaults.keywords, footerbggray = seoDefaults.footerbggray, isVisible = seoDefaults.isVisible }) => {
   const currentYear = new Date().getFullYear(); // Get the current year
   const router = useRouter()
+
+  useEffect(() => {
+    console.log({description,keywords,title});
+
+  }, [description,keywords])
+  
+  
   return (
     <>
       <Head>
         <title>{title}</title>
-        <meta name="keywords" content={keywords} />
-        <meta name="description" content={description} />
+        <meta  name="keywords" content={keywords} />
+        <meta  name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 " />
         <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
         {/*//?Directly copied from aplcars.com */}

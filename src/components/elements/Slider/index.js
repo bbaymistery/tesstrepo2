@@ -12,8 +12,8 @@ const Slider = (props) => {
           if (carIndex === index) position = `${styles.activeSlide}`;
           if (carIndex === index - 1 || (index === 0 && carIndex === sliderItems.length - 1)) position = `${styles.lastSlide}`;
           return (
-            <div className={styles.slide + " " + position} key={image.id}>
-              <Image src={image.img} layout="fill" objectFit="cover" alt="Logo" />
+            <div className={styles.slide + " " + position} key={carIndex}>
+              <Image src={image} layout="fill" objectFit="cover" alt="Logo" />
               {/* <img src={image.img} alt="Logo" /> */}
               <div className={styles.container_auto_center}>
                 <div className={styles.intro}>

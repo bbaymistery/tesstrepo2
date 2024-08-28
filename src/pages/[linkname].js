@@ -81,14 +81,18 @@ function createBreadcrumbSchema(pathname) {
 }
 
 function adjustPathnameForLanguage(pathname, pageStartLanguage, cookies) {
+
     if (pageStartLanguage === 'en') {
+
         pathname = pathname.replace(/^\/_next\/data\/[^/]+\//, '/').replace(/\.[^/.]+$/, '').replace(/\.json$/, '');
         pageStartLanguage = cookies['lang'] || 'en';  // Default to 'en' if no lang cookie is present
     } else {
+
         pathname = `/${pathname.split("/")[2]}`;
     }
     return { pathname, pageStartLanguage };
 }
+//when we click to navbar and go to /heathorw taxi price
 async function handleStandardContent(pathname, cookie, pageStartLanguage, schemas, pathnameUrlWHenChangeByTopbar) {
     let { metaTitle, keywords, pageContent, metaDescription, status, lang } = await fetchContent(pathname, cookie, pageStartLanguage, pathnameUrlWHenChangeByTopbar);
     //!Istisnalar
@@ -100,6 +104,7 @@ async function handleStandardContent(pathname, cookie, pageStartLanguage, schema
         //!Canoncakls
         let mainCanonical = pageStartLanguage === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${pageStartLanguage}${pathname}`
         let canonicalAlternates = generateCanonicalAlternates(pathname);
+        
         return {
             props: {
                 metaTitle,
@@ -117,8 +122,8 @@ async function handleStandardContent(pathname, cookie, pageStartLanguage, schema
     }
 }
 
+//for taxid eals pickups and drop offs
 async function handleQuotationLink(language, pathname, schemas) {
-    //for taxid eals pickups and drop offs
     let pickUps = []
     let dropoffs = []
     let review = {}
@@ -217,6 +222,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     // Adjust pathname and language based on initial language
     const adjusted = adjustPathnameForLanguage(pathname, pageStartLanguage, cookies);
+    console.log({adjusted});
+    
     pathname = adjusted.pathname;
     pageStartLanguage = adjusted.pageStartLanguage;
 

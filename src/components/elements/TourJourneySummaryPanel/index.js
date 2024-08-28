@@ -9,6 +9,9 @@ const TourJourneySummaryPanel = (props) => {
 
     let state = useSelector((state) => state.pickUpDropOffActions)
     let { params: { direction } } = state
+    let { reservations,  } = state
+    let {selectedPickupPoints,} = reservations[0]
+
     const router = useRouter();
     const { appData } = useSelector(state => state.initialReducer)
     //cartypes object for card item as {1:{image:'sds, name:Economy}}
@@ -25,7 +28,8 @@ const TourJourneySummaryPanel = (props) => {
                     <div d={quotation.carId}
                         className={`${styles.img_div}
                           ${quotation.carId === 6 || quotation.carId === 5 ? styles.cardIdSix : ""} 
-                          ${quotation.carId === 3 || quotation.carId === 3 ? styles.cardIdThree : ""} 
+                          ${quotation.carId === 3  ? styles.cardIdThree : ""} 
+                          ${quotation.carId === 18  ? styles.cardEighteen : ""} 
                           ${quotation.carId === 4 ? styles.carIdFour : ""}
                            ${quotation.carId === 2 ? styles.carIdTwo : ""}`}
                         style={{ backgroundImage: `url(${quotationImagesObjWebp[quotation?.carId]?.image})` }}>
@@ -43,7 +47,7 @@ const TourJourneySummaryPanel = (props) => {
                                 {/* {appData?.words["strFrom2"]}: */}
                                 {appData?.words["strPickupAddress"]}:
                             </h5>
-                            {/* {selectedPickupPoints.map((pickup, i) => { return <li key={i}><span>{isTaxiDeal ? "" : `${i + 1}. `}  {pickup.address}</span></li> })} */}
+                            {selectedPickupPoints.map((pickup, i) => { return <li style={{borderBottom:"0px"}} key={i}><span>{`${i + 1}. `}  {pickup.address}</span></li> })}
                             <li >
                                 <span style={{ fontSize: "17px" }}>
                                     {pickupPointAddress}

@@ -11,21 +11,41 @@ import { splitDateTimeStringIntoDate, splitDateTimeStringIntoHourAndMinute } fro
 
 const TourCardQuotation = (params = {}) => {
 
-  //by this index  we r gonna assure in which journey we should add quotation
-  let { quotationOptions: datas, selectedQuotation, quotationLoading = false, direction, selectedTour, language, transferDateTime } = params
+  let {
+    quotationOptions: datas,
+    selectedQuotation,
+    quotationLoading = false,
+    direction,
+    language,
+    transferDateTime,
+    duration,
+    images,
+    shortDescription,
+    pageTitle
+  } = params
 
-  const router = useRouter();
   const dispatch = useDispatch();
   const { appData } = useSelector(state => state.initialReducer)
   //cartypes object for card item as {1:{image:'sds, name:Economy}}
   const carObject = appData?.carsTypes?.reduce((obj, item) => ({ ...obj, [item.id]: item, }), {});
-
+  const router = useRouter()
   const refHeight = useRef();
   const [heightEl, setHeightEl] = useState();
   const [activeAccordion, setActiveAccordion] = useState(null)//BY DEFAULT ALL OF TEM WILL BE CLOSED
   const [splitedDate, setSplitedDate] = useState(currentDate())
   const setQuotationHandleClick = (params = {}) => {
-    let { quotation, selectedTour } = params
+    console.log(params);
+    let { quotation } = params
+    let selectedTour = {
+      quotationOptions: datas,
+      images,
+      desc: shortDescription,
+      duration,
+      price: quotation.price,
+      urlImage: quotationImagesObjWebp[quotation?.carId]?.image,
+      title:pageTitle
+    }
+
     dispatch({ type: "SET_TOUR_QUOTATION", data: { selectedTour } })
     dispatch({ type: "SET_QUOTATION", data: { quotation, journeyType: 0 } })
 
@@ -72,7 +92,12 @@ const TourCardQuotation = (params = {}) => {
           return (
             <div className={`${activeAccordion === item.carId ? styles.selectedAccordionCard : ""}`}>
               <div key={index} className={`${getClassNameResult(selectedQuotation, item)} `} >
-                {item ? <div data={quotationImagesObjWebp[item?.carId]?.id} className={styles.column_first}>  <Image src={quotationImagesObjWebp[item?.carId]?.image} alt="Car Image" width={300} height={100} style={{ objectFit: "contain", }} priority />   </div> : <></>}
+                {item ?
+                  <div data={quotationImagesObjWebp[item?.carId]?.id} className={styles.column_first}>
+                    <Image src={quotationImagesObjWebp[item?.carId]?.image} alt="Car Image" width={300} height={120} style={{ objectFit: "contain", }} priority />
+                    {/* <img className={styles.image} src={quotationImagesObjWebp[item?.carId]?.image} alt="Car Image"  style={{ objectFit: "contain", }} priority /> */}
+
+                  </div> : <></>}
                 <div className={styles.column_second}>
                   <div className={styles.column_second_flex_column}>
                     <div className={styles.car_features}>
@@ -129,14 +154,13 @@ const TourCardQuotation = (params = {}) => {
                   <p>
                     <span>Tour Duration :</span>
                     <span className={styles.desc}>
-                      Approximately {selectedTour.duration} hours, starting after your selected pickup time.
+                      Approximately {duration} hours, starting after your selected pickup time.
                     </span>
                   </p>
                 </div>
                 <div className={styles.bottom}>
                   <div className={styles.date_time}>
                     <div className={styles.date}>
-                      {/* <DateInput form_control_input_div_style={{ width: "100%", maxWidth: "100%" }} showIcon={true} headingStyle={{ fontSize: "15px", }} value={selectedDate} min={currentDate()} title={"Tour Date"} onChange={onchangeDate} /> */}
                       <div className={`${styles.book_input_date}`}>
                         <p className={direction}> Tour Date</p>
                         <div className={`${styles.date_div} ${direction === 'rtl' && styles.date_div_rtl}`}>
@@ -182,7 +206,7 @@ const TourCardQuotation = (params = {}) => {
 
 
                 </div>
-                <div className={styles.btn_div} onClick={() => setQuotationHandleClick({ quotation: item, selectedTour })}>
+                <div className={styles.btn_div} onClick={() => setQuotationHandleClick({ quotation: item })}>
                   <button className="btn btn_darkPrimary">{appData?.words["strBookNow"]}</button>
                 </div>
               </div>
