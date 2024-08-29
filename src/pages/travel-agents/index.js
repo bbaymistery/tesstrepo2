@@ -30,7 +30,7 @@ const Corporate = (props) => {
                 </h1>
                 <br />
                 <div className={styles.account_div}>
-                  <Link target='_blank' href="https://www.airport-pickups-london.com/Agency" >
+                  <Link target='_blank' href="https://corporate-accounts.london-tech.com/" >
                     <button className='btn btn_primary'>{appData?.words["strLogin"]}</button>
                   </Link>
                   <a href={language === 'en' ? '/account-register' : `/${language}/account-register`} title="AccountRegister" >

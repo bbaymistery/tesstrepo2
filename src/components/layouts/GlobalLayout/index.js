@@ -9,7 +9,6 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
   const router = useRouter()
 
   useEffect(() => {
-    console.log({description,keywords,title});
 
   }, [description,keywords])
   

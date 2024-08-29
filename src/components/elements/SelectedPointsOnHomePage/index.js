@@ -5,7 +5,7 @@ import env from '../../../resources/env';
 import styles from "./styles.module.scss"
 const SelectedPointsOnHomePage = (params = {}) => {
     //hasOneItem related to taxi deals
-    let { points, index, destination, getQuotations = () => { }, isTaxiDeal = false, hasOneItem = false } = params
+    let { points, index, destination, getQuotations = () => { }, isTaxiDeal = false, hasOneItem = false ,isTours=false} = params
     const dispatch = useDispatch()
     const router = useRouter()
     const state = useSelector((state) => state.pickUpDropOffActions);
@@ -22,6 +22,11 @@ const SelectedPointsOnHomePage = (params = {}) => {
     const handleDelete = (params = {}) => {
         let { currentIndexOfDeletedItem } = params
         dispatch({ type: "DELETE_ITEM_FROM_SELECTEDLIST", data: { currentIndexOfDeletedItem, index, destination } })
+        if(isTours){
+            destination="dropoff"
+            dispatch({ type: "DELETE_ITEM_FROM_SELECTEDLIST", data: { currentIndexOfDeletedItem, index, destination } })
+          
+        }
         let points = reservations[index][`selected${destination === 'pickup' ? 'Pickup' : 'Dropoff'}Points`];
         reservations[index][`selected${destination === 'pickup' ? 'Pickup' : 'Dropoff'}Points`] = points.filter((point, i) => i !== currentIndexOfDeletedItem)
         getQuotations()

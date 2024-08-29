@@ -30,6 +30,7 @@ import RESET_SELECTED_POINTS from "./RESET_SELECTED_POINTS";
 import SET_NAVBAR_TAXI_DEALS from "./SET_NAVBAR_TAXI_DEALS";
 import { currentDateForJourney } from "../../helpers/getDates";
 import RESELECT_POINTS_FROM_STORE from "./RESELECT_POINTS_FROM_STORE";
+import COPY_PICK_UP_DETAILS_FOR_TOURS_DROPOFF from "./COPY_PICK_UP_DETAILS_FOR_TOURS_DROPOFF.JS";
 
 
 
@@ -179,7 +180,10 @@ export const pickUpDropOffActions = (state = INITIAL_STATE, action) => {
     case "RESELECT_POINTS_FROM_STORE": {
       return RESELECT_POINTS_FROM_STORE({ state, action })
     }
-
+    case "COPY_PICK_UP_DETAILS_FOR_TOURS_DROPOFF": {
+      return COPY_PICK_UP_DETAILS_FOR_TOURS_DROPOFF({ state, action })
+    }
+    
     default:
       return state;
   }

@@ -61,7 +61,7 @@ const requestForGooglePLace = (params = {}, callback = () => { }) => {
 const getPostCodesAndAddToListAsync = params => new Promise((resolve, reject) => getPostCodesAndAddToList(params, log => resolve(log)))
 const requestForGogglePalceAsync = (params) => new Promise((resolve, reject) => requestForGooglePLace(params, log => resolve(log)))
 const HandleSearchResults = (params = {}) => {
-    let { collectingPoints, destination, setInternalState, index, getQuotations = () => { }, language, isTaxiDeal = false } = params
+    let { collectingPoints, destination, setInternalState, index, getQuotations = () => { }, language, isTaxiDeal = false, isTours = false } = params
 
     let newOrderedItems = []
     //simplify collectedpoints
@@ -121,12 +121,24 @@ const HandleSearchResults = (params = {}) => {
             })()
         }
         point = { ...point, ...objectDetailss[point.pcatId] }//...point    flightDetails{ flightNumber="",waitingPickupTime=0}
+
+        //postcode details 
         if (isTaxiDeal && point.pcatId === 5) {
             point = { ...point, postCodeDetails: { ...point.postCodeDetails, id: "" } }
-
             dispatch({ type: 'ADD_NEW_POINT', data: { point, destination, index } })
+            if (isTours) {
+                dispatch({ type: 'ADD_NEW_POINT', data: { point, destination: "dropoff", index } })
+            }
+            // when we add points for single tours we add pick points also to drop points 
         } else {
             dispatch({ type: 'ADD_NEW_POINT', data: { point, destination, index } })
+            if (isTours) {
+                //for tours when we add point to dropoff selected points Waiting pick up time comes with 0 So wened it update to ""
+                if (point.pcatId === 1) {
+                    point.flightDetails.waitingPickupTime = "";
+                }
+                dispatch({ type: 'ADD_NEW_POINT', data: { point, destination: "dropoff", index } })
+            }
         }
 
         // cleaning input field after adding item
@@ -140,6 +152,8 @@ const HandleSearchResults = (params = {}) => {
 
         let points = reservations[index][`selected${destination === 'pickup' ? 'Pickup' : 'Dropoff'}Points`]
         reservations[index][`selected${destination === 'pickup' ? 'Pickup' : 'Dropoff'}Points`] = [...points, point]
+
+
         getQuotations()
     }
 
@@ -190,4 +204,3 @@ const HandleSearchResults = (params = {}) => {
 }
 
 export default HandleSearchResults
-

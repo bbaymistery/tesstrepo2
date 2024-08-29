@@ -114,6 +114,8 @@ const TourCustomerDetails = () => {
         let errorHolder = reservationSchemeValidator({ reservations: newReservations, appData }, { checkTransferDetails: true });
         setInternalState({ errorHolder })
         if (errorHolder.status === 200) {
+            //Copy selectedpickup points details to selected drop off points for tours exactly
+            dispatch({ type: 'COPY_PICK_UP_DETAILS_FOR_TOURS_DROPOFF', data: { selectedPickupPoints } })
             router.push(`${language === 'en' ? "/tour_payment_details" : `/${language}/tour_payment_details`}`)
         }
     }
@@ -225,7 +227,7 @@ const TourCustomerDetails = () => {
                                                     {selectedPickupPoints?.length > 0 ? <p className={`${styles.point_title} ${direction}`} >{appData?.words["strPickupPoints"]}</p> : <React.Fragment></React.Fragment>}
                                                     {/* selectedPoints */}
                                                     {/* //!case 1 => if quotations.points has only one item  =>show selected point*/}
-                                                    {selectedPickupPoints?.length === 1 && <SelectedPointsOnHomePage hasOneItem={false} isTaxiDeal={true} index={0} destination="pickup" points={selectedPickupPoints} />}
+                                                    {selectedPickupPoints?.length === 1 && <SelectedPointsOnHomePage hasOneItem={false} isTaxiDeal={true} index={0} destination="pickup" points={selectedPickupPoints} isTours={true} />}
 
                                                     <SelectedPointsOnTransferDetails isTaxiDeal={false} pointsError={reservationError['selectedPickupPoints']} selectedPoints={selectedPickupPoints} journeyType={0} type='pickup' language={language} />
                                                     <OutsideClickAlert onOutsideClick={(e) => outsideClick({ destination: "pickup", index: 0 })}>
@@ -252,7 +254,7 @@ const TourCustomerDetails = () => {
                                                             {internalState[`pickup-search-loading-${0}`] ? <div className={styles.loading_div} popupp={String(internalState[`pickup-search-focus-${0}`])} direction={String(direction === "rtl")}><Loading /></div> : <React.Fragment></React.Fragment>}
                                                             {/* results when we get points */}
                                                             {!Array.isArray(internalState[`collecting-pickup-points-${0}`]) ?
-                                                                <HandleSearchResults isTaxiDeal={true} language={language} index={0} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${0}`]} /> : <React.Fragment></React.Fragment>}
+                                                                <HandleSearchResults isTours={true} isTaxiDeal={true} language={language} index={0} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${0}`]} /> : <React.Fragment></React.Fragment>}
                                                         </div>
                                                     </OutsideClickAlert>
                                                 </div>

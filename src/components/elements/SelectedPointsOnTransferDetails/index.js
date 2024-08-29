@@ -12,7 +12,7 @@ import React from 'react'
 import CheckForUniversity from './CheckForUniversity';
 const SelectedPointOnTransferDetails = (props) => {
     //index it is a destination if 0 it means pick up
-    let { selectedPoints, journeyType, type, pointsError = props.selectedPoints.map(obj => ({})), language, isTaxiDeal = false } = props;
+    let { selectedPoints, journeyType, type, pointsError = props.selectedPoints.map(obj => ({})), language, isTaxiDeal = false,isTours=false } = props;
     const { appData } = useSelector(state => state.initialReducer)
     const dispatch = useDispatch()
 
@@ -46,6 +46,7 @@ const SelectedPointOnTransferDetails = (props) => {
                                     journeyType={journeyType}
                                     objectDetailStatuses={objectDetailStatuses}
                                     isTaxiDeal={isTaxiDeal}
+                                    isTours={isTours}
                                     onChange={flightDetails => dispatch({ type: 'SET_FLIGHT_DETAILS_FOR_POINTS', 'data': { 'index': journeyType, type, 'pointIndex': i, flightDetails } })}
                                 /> : <React.Fragment></React.Fragment>}
 

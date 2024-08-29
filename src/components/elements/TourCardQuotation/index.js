@@ -90,8 +90,8 @@ const TourCardQuotation = (params = {}) => {
         {datas?.map((item, index) => {
 
           return (
-            <div className={`${activeAccordion === item.carId ? styles.selectedAccordionCard : ""}`}>
-              <div key={index} className={`${getClassNameResult(selectedQuotation, item)} `} >
+            <div key={index+1000} className={`${activeAccordion === item.carId ? styles.selectedAccordionCard : ""}`}>
+              <div  className={`${getClassNameResult(selectedQuotation, item)} `} >
                 {item ?
                   <div data={quotationImagesObjWebp[item?.carId]?.id} className={styles.column_first}>
                     <Image src={quotationImagesObjWebp[item?.carId]?.image} alt="Car Image" width={300} height={120} style={{ objectFit: "contain", }} priority />
