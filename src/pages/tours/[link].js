@@ -18,22 +18,21 @@ import env from "../../resources/env";
 
 const TourContentDetails = (props) => {
     let {
-         duration,
-          headTitle,
-           keywords,
-            metaDescription,
-             pageContent, 
-             breadcrumbTitle,
-              thumbnailTitle,
-               pageTitle,
-                review, 
-                quotationOptions,
-                 images,
-                  snapshots ,
-                  shortDescription
-                
-                } = props.toursDatas
-    console.log(props.toursDatas);
+        duration,
+        headTitle,
+        keywords,
+        metaDescription,
+        pageContent,
+        breadcrumbTitle,
+        thumbnailTitle,
+        pageTitle,
+        review,
+        quotationOptions,
+        images,
+        snapshots,
+        shortDescription
+
+    } = props.toursDatas
     const informationDivRef = useRef(null);
     const [shouldShowModal, setshouldShowModal] = useState(false)
     const [index, setIndex] = React.useState(0);
@@ -197,18 +196,18 @@ const TourContentDetails = (props) => {
                                         </div>
                                     ))}
                                 </div>
-                                {loadAlert ? <></> : 
-                                <TourCardQuotation
-                                 transferDateTime={reservations[0]?.transferDetails?.transferDateTimeString}
-                                  language={language} 
-                                   selectedQuotation={reservations[0]?.quotation}
-                                    quotationOptions={quotationOptions}
-                                     direction={direction} 
-                                     duration={duration}
-                                     images={images}
-                                     shortDescription={shortDescription}
-                                     pageTitle={pageTitle}
-                                     />}
+                                {loadAlert ? <></> :
+                                    <TourCardQuotation
+                                        transferDateTime={reservations[0]?.transferDetails?.transferDateTimeString}
+                                        language={language}
+                                        selectedQuotation={reservations[0]?.quotation}
+                                        quotationOptions={quotationOptions}
+                                        direction={direction}
+                                        duration={duration}
+                                        images={images}
+                                        shortDescription={shortDescription}
+                                        pageTitle={pageTitle}
+                                    />}
                             </div>
                             <div className={`${styles.page_content} `} dangerouslySetInnerHTML={{ __html: pageContent }} />
                         </div>

@@ -5,6 +5,7 @@ import GlobalLayout from '../../components/layouts/GlobalLayout'
 import { tourLinks } from '../../constants/tours'
 import Image from 'next/image'
 import env from '../../resources/env'
+import Link from 'next/link'
 
 const Tours = (props) => {
     let { bggray = false, insideGlobalLayout = true } = props
@@ -38,25 +39,25 @@ const Tours = (props) => {
                         </div>
                         <div className={styles.cards_content}>
                             <div className={styles.cards}>
-                                {
-                                    tourLinks.map((item, index) => {
-                                        return (
-                                            <a href={`${language === "en" ? "" : `${language}/`}tours/${item.link}`} title={item?.pageTitle} className={`${styles.card}`} key={item.id}>
-                                                <div className={styles.card_image_div}>
-                                                    <Image src={`${item.urlImage}`} className={styles.img} fill alt={item.title} sizes="(max-width: 768px) 100vw, 50vw" />
+                            {
+                                toursData.map((item, _) => {
+                                    return (
+                                        <Link href={`${language === "en" ? "" : `${language}`}${item.pathname}`} title={item?.pageTitle} className={`${styles.card}`} key={item.tourDealId}>
+                                            <div className={styles.card_image_div}>
+                                                <Image src={`${item.images[0]}`} className={styles.img} fill alt={item.headTitle} sizes="(max-width: 768px) 100vw, 50vw" />
+                                            </div>
+                                            <div className={styles.card_body}>
+                                                <h2>{item.pageTitle}</h2>
+                                                <div className={styles.start_from}>
+                                                    <div className={styles.start_from_text_left}>{appData.words["strStartFrom"]} </div>
+                                                    <div className={styles.start_from_text_right}> {item?.price} </div>
                                                 </div>
-                                                <div className={styles.card_body}>
-                                                    <h2>{appData?.words[item?.translate]}</h2>
-                                                    <div className={styles.start_from}>
-                                                        <div className={styles.start_from_text_left}>{appData.words["strStartFrom"]} </div>
-                                                        <div className={styles.start_from_text_right}> £ {item?.price} </div>
-                                                    </div>
 
-                                                </div>
-                                            </a>
-                                        )
-                                    })
-                                }
+                                            </div>
+                                        </Link>
+                                    )
+                                })
+                            }
                                 {/* {
                                     toursData.map((item, _) => {
                                         return (
