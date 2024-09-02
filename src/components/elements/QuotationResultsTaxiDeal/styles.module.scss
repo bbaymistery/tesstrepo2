@@ -2,7 +2,7 @@
 @import '../../../styles/variables';
 
 .quotation {
-    background-color: #f5f7fc;
+    background-color: $light-4;
     padding-bottom: 30px;
 
     @media (max-width:1280px) {

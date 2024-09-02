@@ -72,6 +72,7 @@ const Header = () => {
   const setOpenLanguageDropdown = (e) => {
     // prevent to open dropdown
     if (router.asPath === "/drivers-wanted") return
+    if (router.asPath === "/sitemap") return
     setLanguageStatus(!languageStatus)
   }
 
@@ -121,14 +122,14 @@ const Header = () => {
 
           <div className={styles.right_items}>
             {/* eliminate cursor  */}
-            <div className={`${styles.language_dropdown}`} style={{ cursor: `${router.asPath === "/drivers-wanted" ? " default" : ""}` }}>
+            <div className={`${styles.language_dropdown}`} style={{ cursor: `${(router.asPath === "/drivers-wanted" || router.asPath === "/sitemap") ? " default" : ""}` }}>
               <div className={styles.top} >
                 <div className={styles.img_div} onClick={setOpenLanguageDropdown} data-name="language">
                   <Image src={`/languages/${language}.gif`} width={20} height={11} priority alt={language} data-name="language" />
                 </div>
                 <span data-name="language" onClick={setOpenLanguageDropdown} className={styles.lang_text}>
                   {appData?.languages[reducerLangIndex]?.innerText}
-                  {router.asPath === "/drivers-wanted" ? <></> : <i className="fa-solid fa-angle-down"></i>}
+                  {(router.asPath === "/drivers-wanted" || router.asPath === "/sitemap") ? <></> : <i className="fa-solid fa-angle-down"></i>}
                 </span>
                 {languageStatus ?
                   <OutsideClickAlert onOutsideClick={outsideClickDropDown}>
