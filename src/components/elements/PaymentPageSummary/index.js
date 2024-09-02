@@ -4,6 +4,11 @@ import { useSelector } from 'react-redux'
 import styles from "./styles.module.scss"
 import DropOffPoints from './DropOffPoints'
 import PickUpPoints from './PickUpPoints'
+/*
+                                                tourPickupPointAddress={pickupPoint}
+                                                selectedTour={selectedTour}
+                                                tourDetailsStatus={true}
+*/
 const PaymentPageSummary = (props) => {
   let { index, selectedPickupPoints, selectedDropoffPoints, firstname, email, phone, passengersNumber, specialRequests } = props
   let state = useSelector((state) => state.pickUpDropOffActions)

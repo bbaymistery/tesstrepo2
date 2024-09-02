@@ -116,7 +116,7 @@ const TourCustomerDetails = () => {
         if (errorHolder.status === 200) {
             //Copy selectedpickup points details to selected drop off points for tours exactly
             dispatch({ type: 'COPY_PICK_UP_DETAILS_FOR_TOURS_DROPOFF', data: { selectedPickupPoints } })
-            router.push(`${language === 'en' ? "/tour_payment_details" : `/${language}/tour_payment_details`}`)
+            router.push(`${language === 'en' ? "/payment-details" : `/${language}/payment-details`}`)
         }
     }
     const outsideClick = ({ destination, index }) => {

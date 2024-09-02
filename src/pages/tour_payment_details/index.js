@@ -41,9 +41,6 @@ const TourPaymentDetails = () => {
                                         firstname={firstname}
                                         selectedPickupPoints={selectedPickupPoints}
                                         selectedDropoffPoints={selectedDropoffPoints}
-                                        tourPickupPointAddress={pickupPoint}
-                                        selectedTour={selectedTour}
-                                        tourDetailsStatus={true}
                                     />
                                 </div>
                             </div>

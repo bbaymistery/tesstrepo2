@@ -19,10 +19,13 @@ let keywords = ""
 let description = ""
 const PaymentDetails = () => {
     const router = useRouter()
-    let state = useSelector((state) => state.pickUpDropOffActions)
-    let { reservations, params: { tokenForArchieve, direction } } = state
     const { appData } = useSelector(state => state.initialReducer)
 
+    let state = useSelector((state) => state.pickUpDropOffActions)
+    let { reservations, params: { tokenForArchieve, direction } } = state
+
+    const tourActionState = useSelector(state => state.tourActions) || {}; // Add a fallback to an empty object
+    let { selectedTour = {}, pickupPoint = {} } = tourActionState;
 
     const { nexturls, previousUrls, currentUrls } = urlWithLangAtribute({ languages: appData.languages, previousUrl: "/transfer-details", nextUrl: "/reservations-document", currentUrl: router.asPath })
     // const confirmationAlert = useConfirm({ previousUrl: previousUrls, nextUrl: nexturls, currentUrls, message: "If you refresh the page, all data will be deleted." })
@@ -132,7 +135,7 @@ const PaymentDetails = () => {
                                 return (
                                     <div key={index}>
                                         <div className={`${styles.main_container} ${reservations.length > 1 && index === 0 ? "mb_4" : ""}`} >
-                                            <CarInfo index={index} quotation={quotation} splitedHour={splitedHour} splitedDate={splitedDate} splitedMinute={splitedMinute} />
+                                            <CarInfo index={index} quotation={quotation} splitedHour={splitedHour} splitedDate={splitedDate} splitedMinute={splitedMinute} selectedTour={selectedTour} tourDetailsStatus={true} />
                                             <PaymentPageSummary
                                                 index={index}
                                                 email={passengerDetails.email}
@@ -188,4 +191,3 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
 
 });
-

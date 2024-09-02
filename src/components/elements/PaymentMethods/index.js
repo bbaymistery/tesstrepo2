@@ -4,8 +4,7 @@ import Link from "next/link";
 import env from "../../../resources/env";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-const PaymentMethods = (props) => {
-  let { tourDetailsStatus = false, selectedTour } = props
+const PaymentMethods = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   let state = useSelector((state) => state.pickUpDropOffActions)
@@ -75,15 +74,13 @@ const PaymentMethods = (props) => {
   };
   //*payment methods
   const cashMethod = (params = {}) => {
-    if (!tourDetailsStatus) {
-      let { token, paymentType } = params
-      // if it is cash payment you have set payment type first of all then send archive
-      // fetchArchieveToken({ token: "", paymentType: "", stage: "CLICK_OVER_CASH_BUTTON" })
-      dispatch({ type: "SET_PAYMENT_TYPE_AND_TOKEN", data: { token, paymentType } })
-      setIframeStripe("")//CLOSE OFRAME INSIDE OF Page (in case of if it was opened )
-      setStatusToken("");//it will trigger interval and will make request
-      router.push(`${language === 'en' ? "/reservations-document" : `${language}/reservations-document`}`)
-    }
+    let { token, paymentType } = params
+    // if it is cash payment you have set payment type first of all then send archive
+    // fetchArchieveToken({ token: "", paymentType: "", stage: "CLICK_OVER_CASH_BUTTON" })
+    dispatch({ type: "SET_PAYMENT_TYPE_AND_TOKEN", data: { token, paymentType } })
+    setIframeStripe("")//CLOSE OFRAME INSIDE OF Page (in case of if it was opened )
+    setStatusToken("");//it will trigger interval and will make request
+    router.push(`${language === 'en' ? "/reservations-document" : `${language}/reservations-document`}`)
 
   };
   const stripeMethod = (params = {}) => {
@@ -162,7 +159,7 @@ const PaymentMethods = (props) => {
 
   //this function includes all the methods of payments
   const startPayment = (id) => {
-console.log({id});
+    console.log({ id });
 
 
     try {
@@ -273,7 +270,7 @@ console.log({id});
           <div className={styles.header_tot_price} direction={String(direction === 'rtl')}>
             <p className={styles.header_tot_price_text}>{appData?.words["strTotalPrice"]}</p>
             <span className={styles.header_tot_price_price}>
-              £ {tourDetailsStatus ? selectedTour.price : parseInt(journeyType) === 0 ? reservations[0].quotation.price : parseInt(reservations[0].quotation.price) + parseInt(reservations[1].quotation.price)}
+              £ {parseInt(journeyType) === 0 ? reservations[0].quotation.price : parseInt(reservations[0].quotation.price) + parseInt(reservations[1].quotation.price)}
             </span>
           </div>
         </div>
@@ -287,12 +284,12 @@ console.log({id});
               <p>{appData?.words["strToDriverCashTitle"]}</p>
               <img src="/images/others/pp.jpg" alt="" />
             </div>
-            {tourDetailsStatus ? <></> : <div title={appData?.words["Pay with PayPal"]} onClick={() => startPayment(5)} className={` ${styles.item} ${styles.item_2}`}   >
+            {<div title={appData?.words["Pay with PayPal"]} onClick={() => startPayment(5)} className={` ${styles.item} ${styles.item_2}`}   >
               <p>{appData?.words["strPaywithPayPal"]} </p>
               <img src="/images/others/paypal.png" alt="" />
             </div>
             }
-            {tourDetailsStatus ? <></> : <div onClick={() => startPayment(7)} title={appData?.words["strPaybycard"]} className={`${styles.item} ${styles.item_4}`}   >
+            {<div onClick={() => startPayment(7)} title={appData?.words["strPaybycard"]} className={`${styles.item} ${styles.item_4}`}   >
               <p>{appData?.words["strPaybycard"]} </p>
               <img src="/images/others/vsMaster.jpg" alt="" />
             </div>}
