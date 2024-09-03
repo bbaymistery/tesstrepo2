@@ -4,21 +4,49 @@ import GlobalLayout from '../../components/layouts/GlobalLayout';
 import { useSelector } from 'react-redux';
 import { titleStringOfHastaxiDeals } from '../../helpers/titleStringOfHasTaxiDeals';
 import env from '../../resources/env';
-
-const API_POINTS = [
-    "heathrow",
-    "gatwick",
-    "city airport",
-    'luton',
-    'stansted',
-    'portsmouth',
-    'dover',
-    'southampton'
+const keywords = "Sitemap";
+const metaTitle = "Airport Pickup London Sitemap";
+const metaDescription = "You can find your destination url from our Sitemap-Airport-pickups-london.com.";
+const API_POINTS = ["heathrow", "gatwick", "city airport", 'luton', 'stansted', 'portsmouth', 'dover', 'southampton'];
+const mainPages = [
+    { href1: '/about-us', title1: 'About-Us', href2: '/tours', title2: 'Tours' },
+    { href1: '/contact-us', title1: 'Contact-us', href2: '/fleet', title2: 'Our Fleet' },
+    { href1: '/travel-agents', title1: 'Travel Agents', href2: '/drivers-wanted', title2: 'Drivers-wanted' },
+    { href1: '/account-register', title1: 'Account-register', href2: '/heathrow-porter-service', title2: 'Heathrow Porter Service' },
+    { href1: '/parking-calculator', title1: 'Parking Calculator', href2: '/heathrow-vip-meet-and-assist', title2: 'Heathrow Vip Meet-And-Assist' },
 ];
 
-let keywords = "Sitemap";
-let metaTitle = "Airport Pickup London Sitemap";
-let metaDescription = "You can find your destination url from our Sitemap-Airport-pickups-london.com.";
+const Table = ({ title, rows }) => (
+    <table className={styles.sitemap} id="sitemap">
+        <thead>
+            <tr>
+                <th style={{ textAlign: "center" }} colSpan="2">{title}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {rows}
+        </tbody>
+    </table>
+);
+
+const TableRow = ({ pathname, pageTitle, price }) => (
+    <tr>
+        <td>
+            <a href={pathname}>
+                {pageTitle}
+            </a>
+            <span>{price}</span>
+        </td>
+        <td>
+            <a href={pathname}>
+                {pageTitle}
+            </a>
+            <span>{price}</span>
+        </td>
+    </tr>
+);
+
+
 
 const Sitemap = ({ tourDatas, taxiData }) => {
     const { appData } = useSelector(state => state.initialReducer);
@@ -34,67 +62,55 @@ const Sitemap = ({ tourDatas, taxiData }) => {
             <div className={`${styles.sitemap} page`}>
                 <div className={`${styles.sitemap_section} page_section`}>
                     <div className={`${styles.sitemap_section_container} page_section_container`}>
-                        <table className={styles.sitemap} id="sitemap">
-                            <thead>
-                                <tr>
-                                    <th style={{ textAlign: "center" }} colSpan="2">Tours Deals Taxi Prices</th>
+
+                        {/* Main Pages Table */}
+                        <Table
+                            title="Main Pages"
+                            rows={mainPages.map((page, index) => (
+                                <tr key={index}>
+                                    <td>
+                                        <a href={page.href1}>{page.title1}</a>
+                                    </td>
+                                    <td>
+                                        <a href={page.href2}>{page.title2}</a>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {tourDatas.map((data, index) => (
-                                    <tr key={index}>
-                                        <td>
-                                            <a href={data.pathname}>
-                                                {data.pageTitle}
-                                            </a>
-                                            <span>{data.price}</span>
-                                        </td>
-                                        <td>
-                                            <a href={data.pathname}>
-                                                {data.pageTitle}
-                                            </a>
-                                            <span>{data.price}</span>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                            ))}
+                        />
+
+                        {/* Tours Deals Taxi Prices Table */}
+                        <Table
+                            title="Tours Deals Taxi Prices"
+                            rows={tourDatas.map((data, index) => (
+                                <TableRow key={index} pathname={data.pathname} pageTitle={data.pageTitle} price={data.price} />
+                            ))}
+                        />
+
+
+                        {/* Taxi Deals Tables */}
                         {API_POINTS.map((point) => (
-                            <table key={point} className={styles.sitemap} id="sitemap">
-                                <thead>
-                                    <tr>
-                                        <th style={{ textAlign: "center" }} colSpan="2">{appData?.words[`${titleStringOfHastaxiDeals(point)}`]}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {taxiData[point] && taxiData[point].slice(0, showMore[point] ? taxiData[point].length : 14).map((data, index) => (
-                                        <tr key={index}>
-                                            <td>
-                                                <a href={data.pathname}>
-                                                    {data.translatedPageTitle}
-                                                </a>
-                                                <span>{data.price}</span>
-                                            </td>
-                                            <td>
-                                                <a href={data.pathname}>
-                                                    {data.translatedPageTitle}
-                                                </a>
-                                                <span>{data.price}</span>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                    {taxiData[point] && taxiData[point].length > 14 && (
-                                        <tr>
-                                            <td colSpan="2" style={{ textAlign: 'center', justifyContent: "center", alignItems: 'center' }}>
-                                                <button onClick={() => toggleShowMore(point)}>
-                                                    {showMore[point] ? 'Show Less' : 'Show More'}
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
+                            <Table
+                                key={point}
+                                title={appData?.words[`${titleStringOfHastaxiDeals(point)}`]}
+                                rows={
+                                    <>
+                                        {taxiData[point] && taxiData[point].slice(0, showMore[point] ? taxiData[point].length : 12).map((data, index) => (
+                                            <TableRow key={index} pathname={data.pathname} pageTitle={data.translatedPageTitle} price={data.price} />
+                                        ))}
+                                        {taxiData[point] && taxiData[point].length > 14 && (
+                                            <tr>
+                                                <td colSpan="2" style={{ textAlign: 'center', justifyContent: "center" }}>
+                                                    <button onClick={() => toggleShowMore(point)}>
+                                                        {showMore[point] ? 'Show Less' : 'Show More'}
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </>
+                                }
+                            />
                         ))}
+
                     </div>
                     <br />
                     <br />
