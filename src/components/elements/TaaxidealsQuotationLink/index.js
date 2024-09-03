@@ -52,7 +52,8 @@ function TestA(props) {
             dispatch({ type: "ADD_NEW_POINT_AT_PATHNAME", data: { pickupPoints, dropoffPoints, index: 0 } })
         }
         const urls = [`/${returnPathname.split("/")[2]}`, linkurl]
-        fetchPathnamePageDatas(urls, setFetchDatas, `page-${reduxLanguage}-${linkurl}`);
+        // fetchPathnamePageDatas(urls, setFetchDatas, `page-${reduxLanguage}-${linkurl}`);
+        fetchPathnamePageDatas(urls);
 
         //returnPathname
 
@@ -64,7 +65,7 @@ function TestA(props) {
         let cache = sessionStorage.getItem('pathnameLinkCache');
         let allAppDatas = JSON.parse(sessionStorage.getItem('allAppDatas'))
 
-        if (cache && allAppDatas) {
+        if (cache && allAppDatas && JSON.parse(cache)[cacheKey]) {
             setFetchDatas(JSON.parse(cache)[cacheKey])
         }
 

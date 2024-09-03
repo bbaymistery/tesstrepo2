@@ -28,7 +28,7 @@ const NavbarLinkName = (props) => {
     const { params: { language, } } = useSelector(state => state.pickUpDropOffActions)
 
     const { linkname } = router.query;
-    let { metaTitle = "", keywords = "", metaDescription = "", pageContent = "", data = "", isItQuationLink = false } = props
+    let { metaTitle = "", keywords = "", metaDescription = "", pageContent = "", data = "", isItQuationLink = false } = props || {}
     if (data === "not found") return <Error404 />
 
     useEffect(() => {
@@ -44,6 +44,7 @@ const NavbarLinkName = (props) => {
     }, [linkname, dispatch, language]); // Add linkname and dispatch to the dependency array
 
 
+    console.log(props);
 
     return (isItQuationLink ? <TaaxidealsQuotationLink props={props} /> :
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={false}>
@@ -104,7 +105,7 @@ async function handleStandardContent(pathname, cookie, pageStartLanguage, schema
         //!Canoncakls
         let mainCanonical = pageStartLanguage === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${pageStartLanguage}${pathname}`
         let canonicalAlternates = generateCanonicalAlternates(pathname);
-        
+
         return {
             props: {
                 metaTitle,
@@ -222,8 +223,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     // Adjust pathname and language based on initial language
     const adjusted = adjustPathnameForLanguage(pathname, pageStartLanguage, cookies);
-    console.log({adjusted});
-    
+    console.log({ adjusted });
+
     pathname = adjusted.pathname;
     pageStartLanguage = adjusted.pageStartLanguage;
 
