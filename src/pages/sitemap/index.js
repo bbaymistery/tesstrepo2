@@ -4,6 +4,7 @@ import GlobalLayout from '../../components/layouts/GlobalLayout';
 import { useSelector } from 'react-redux';
 import { titleStringOfHastaxiDeals } from '../../helpers/titleStringOfHasTaxiDeals';
 import env from '../../resources/env';
+const INITIAL_DISPLAY_COUNT = 12;
 const keywords = "Sitemap";
 const metaTitle = "Airport Pickup London Sitemap";
 const metaDescription = "You can find your destination url from our Sitemap-Airport-pickups-london.com.";
@@ -15,6 +16,7 @@ const mainPages = [
     { href1: '/account-register', title1: 'Account-register', href2: '/heathrow-porter-service', title2: 'Heathrow Porter Service' },
     { href1: '/parking-calculator', title1: 'Parking Calculator', href2: '/heathrow-vip-meet-and-assist', title2: 'Heathrow Vip Meet-And-Assist' },
 ];
+
 
 const Table = ({ title, rows }) => (
     <table className={styles.sitemap} id="sitemap">
@@ -94,7 +96,7 @@ const Sitemap = ({ tourDatas, taxiData }) => {
                                 title={appData?.words[`${titleStringOfHastaxiDeals(point)}`]}
                                 rows={
                                     <>
-                                        {taxiData[point] && taxiData[point].slice(0, showMore[point] ? taxiData[point].length : 12).map((data, index) => (
+                                        {taxiData[point] && taxiData[point].slice(0, showMore[point] ? taxiData[point].length : INITIAL_DISPLAY_COUNT).map((data, index) => (
                                             <TableRow key={index} pathname={data.pathname} pageTitle={data.translatedPageTitle} price={data.price} />
                                         ))}
                                         {taxiData[point] && taxiData[point].length > 14 && (

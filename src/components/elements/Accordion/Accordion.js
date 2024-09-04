@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
-const Accordion = ({ title, content, toggleState, active, dangerouslyHtml = false, key }) => {
+const Accordion = ({ title, content, toggleState, active, dangerouslyHtml = false, id }) => {
+
   const [heightEl, setHeightEl] = useState();
   const refHeight = useRef();
   //elave onu Acilan moment asagida boslug yaransin diye ekledik
   useEffect(() => { setHeightEl(`${refHeight.current.scrollHeight + 10}px`) }, []);
 
   return (
-    <div className={styles.accordion} key={key}>
+    <div className={styles.accordion} key={id}>
       <div className={styles.accordion_heading} >
         <div className={styles.accordion_heading_content} onClick={() => toggleState(title)}    >
           <p className={styles.head_title}>{title}</p>

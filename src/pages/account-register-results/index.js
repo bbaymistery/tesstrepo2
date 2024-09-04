@@ -127,14 +127,9 @@ const AccountRegisterResults = (props) => {
 
 
                                     <div className={styles.buttons}>
-                                        {/* <button ref={prevRef} className='btn btn_primary' onClick={() => { router.back() }}>{prevRipples} {appData?.words["strGoBack"]}</button>
-                                        <button ref={nextRef} className='btn btn_primary'>{nextRipples}  Confirm</button> */}
-
                                         <a href={language === 'en' ? '/' : `/${language}`}>
-
                                             <button ref={nextRef} className='btn btn_primary'>{prevRipples}{appData?.words["strNavHome"]}</button>
                                         </a>
-                                        {/* <button ref={nextRef} className='btn btn_primary'>{nextRipples}  Confirm</button> */}
                                     </div>
                                 </div>
                             </div>

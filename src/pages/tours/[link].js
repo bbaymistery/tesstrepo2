@@ -12,11 +12,16 @@ import { tourActions } from '../../store/tourActions'
 import { Skeleton } from "../../components/elements/Skeleton";
 import { parseCookies } from "../../helpers/cokieesFunc";
 import env from "../../resources/env";
+import Error404 from '../404/index'
 
 
 
 
 const TourContentDetails = (props) => {
+    
+    if (props.data === 'not found') {
+        return <Error404 />
+    }
     let {
         duration,
         headTitle,
@@ -31,7 +36,6 @@ const TourContentDetails = (props) => {
         images,
         snapshots,
         shortDescription
-
     } = props.toursDatas
     const informationDivRef = useRef(null);
     const [shouldShowModal, setshouldShowModal] = useState(false)

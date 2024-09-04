@@ -2,10 +2,25 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import FlightWaitingTimeContent from '../FlightWaitingTimeContent';
 import styles from "./styles.module.scss";
+
 /**
- @TextInput {//*name:string,label:string,errorMessage:string,value:string,onChange:function,placeholder:string,data:number||string,flightInfoIcon:boolean,direction:string}
- **/
+ * A React component that renders a select dropdown with various options and additional functionality.
+ *
+ * @param {object} props - The component props.
+ * @param {string} [props.name] - The name of the select field.
+ * @param {string} [props.value] - The current value of the select field.
+ * @param {string} [props.label] - The label for the select field.
+ * @param {string} [props.errorMessage] - An error message to display if the select field is invalid.
+ * @param {function} [props.onChange] - A callback function to handle changes to the select field.
+ * @param {string} [props.postCodeSelectOption] - A flag to indicate if the select options are post codes.
+ * @param {array} props.data - The data to populate the select options.
+ * @param {boolean} [props.flightSelectOption] - A flag to indicate if the select options are flight numbers.
+ * @param {boolean} [props.flightInfoIcon] - A flag to indicate if a flight information icon should be displayed.
+ * @param {boolean} [props.isTaxiDeal] - A flag to indicate if the select is part of a taxi deal.
+ * @returns {JSX.Element} - The Select component.
+ */
 const Select = (props) => {
+  
   let { name = "", value = "", label = "", errorMessage = "", onChange = (e) => { }, postCodeSelectOption = "", data, flightSelectOption = false, flightInfoIcon = false, isTaxiDeal, } = props
   const dispatch = useDispatch()
   let state = useSelector((state) => state.pickUpDropOffActions)

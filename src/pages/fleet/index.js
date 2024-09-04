@@ -34,9 +34,6 @@ const Fleet = (props) => {
                             <div className={`${styles.fleet_header}`}>
                                 <h1>{pageTitle}</h1>
                                 <p>
-                                    {/* {appData?.words["strWeOfferaRangeOfVehicles"]} */}
-                                    {/* <br /> */}
-                                    {/* {appData?.words["strTakeaLookAtOur"]} */}
                                     {shortDescription}
                                 </p>
                             </div>

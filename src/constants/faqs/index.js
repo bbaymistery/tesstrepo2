@@ -25,7 +25,7 @@ export const bookingAndReservations = [
 ];
 export const tr_bookingAndReservations = [
   {
-    id: 1,
+    id: 4,
     title:
       "Önceden Taksi Nasıl Rezerve Edilir?",
     content: [`
@@ -41,7 +41,7 @@ açıktır, her zaman size yardımcı olmak için buradayız.
     `],
   },
   {
-    id: 2,
+    id: 5,
     title: "Önceden Rezerve Edilen Taksiler İçin İptal Politikası Nedir?",
     content: [`
   Önceden rezerve ettiğiniz taksiyi planlanan alınma saatinden 24 saat
@@ -51,7 +51,7 @@ fazla detay için lütfen şartlar ve koşullarımıza başvurun.
   `]
   },
   {
-    id: 3,
+    id: 6,
     title: "Rezervasyon Detaylarımı Yaptıktan Sonra Değiştirebilir miyim?",
     content: [`
     Evet, rezervasyon yaptıktan sonra rezervasyon detaylarınızı
@@ -70,7 +70,7 @@ yardıma hazırdır.
 ];
 export const ar_bookingAndReservations = [
   {
-    id: 1,
+    id: 7,
     title: `كيف يمكنني حجز سيارة أجرة مسبقًا؟  `,
     content: [`
 
@@ -79,7 +79,7 @@ export const ar_bookingAndReservations = [
     `],
   },
   {
-    id: 2,
+    id: 8,
     title: `ما هي سياسة الإلغاء لسيارات الأجرة التي تم حجزها مسبقًا؟`,
     content: [`
     يمكنك إلغاء سيارة الأجرة التي حجزتها مسبقًا دون أي رسوم حتى 24 ساعة قبل موعد الاستلام المجدول. إذا قمت بالإلغاء خلال 24 ساعة من وقت الاستلام، قد يتم تطبيق رسوم إلغاء. يرجى الرجوع إلى الشروط والأحكام الخاصة بنا لمزيد من التفاصيل.
@@ -87,7 +87,7 @@ export const ar_bookingAndReservations = [
   `]
   },
   {
-    id: 3,
+    id: 9,
     title: "هل يمكنني تعديل تفاصيل حجزي بعد إجراء الحجز؟",
     content: [`
     نعم، يمكنك تعديل تفاصيل حجزك بعد إجراء الحجز. بالإضافة إلى الاتصال بدعم العملاء لدينا عبر الهاتف أو البريد الإلكتروني، لديك أيضًا خيار إدارة حجزك عبر الإنترنت. بزيارة قسم إدارة الحجز، يمكنك تسجيل الدخول بأمان والوصول إلى تفاصيل حجزك. من هناك، يمكنك إجراء التعديلات اللازمة حتى 24 ساعة قبل موعد الخدمة المجدول. يرجى التأكد من أن لديك رقم مرجع الحجز في متناول اليد عند إجراء أي تغييرات. إذا كنت بحاجة إلى مزيد من المساعدة، فإن فريق دعم العملاء لدينا دائمًا جاهز للمساعدة.
@@ -97,7 +97,7 @@ export const ar_bookingAndReservations = [
 ];
 export const ru_bookingAndReservations = [
   {
-    id: 1,
+    id: 10,
     title:
       "Как забронировать такси заранее? ",
     content: [`
@@ -113,7 +113,7 @@ export const ru_bookingAndReservations = [
     `],
   },
   {
-    id: 2,
+    id: 11,
     title: "Какова политика отмены для такси, забронированных заранее?",
     content: [`
     Вы можете отменить забронированное такси без взимания платы за
@@ -122,7 +122,7 @@ export const ru_bookingAndReservations = [
     `],
   },
   {
-    id: 3,
+    id: 12,
     title: `
     Могу ли я изменить детали бронирования после оформления
 брони?
@@ -141,7 +141,7 @@ export const ru_bookingAndReservations = [
 ];
 export const zh_bookingAndReservations = [
   {
-    id: 1,
+    id: 13,
     title:
       "如何提前预订出租车？",
     content: [`
@@ -154,14 +154,14 @@ export const zh_bookingAndReservations = [
     `],
   },
   {
-    id: 2,
+    id: 14,
     title: "预订出租车的取消政策是什么？",
     content: [`您可以在预定的上车时间前 24 小时内免费取消预订
     的出租车。如果您在上车时间前 24 小时内取消预订，可能需要支付取消费用。请参
     阅我们的条款和条件以获取更多详情。`],
   },
   {
-    id: 3,
+    id: 15,
     title: "在预订后我可以修改我的预订详情吗？",
     content: [`
     是的，您可以在进行预订后修改您的预订详
@@ -175,7 +175,7 @@ export const zh_bookingAndReservations = [
 ];
 export const it_bookingAndReservations = [
   {
-    id: 1,
+    id: 16,
     title:
       "Come posso prenotare un taxi in anticipo?",
     content: [`
@@ -190,7 +190,7 @@ export const it_bookingAndReservations = [
     `],
   },
   {
-    id: 2,
+    id: 17,
     title: "Qual è la politica di cancellazione per i taxi prenotati in anticipo?",
     content: [`
     Puoi cancellare il tuo taxi prenotato in anticipo senza alcun addebito fino a
@@ -199,7 +199,7 @@ tuo orario di ritiro, potrebbe essere applicata una tariffa di cancellazione.
     `],
   },
   {
-    id: 3,
+    id: 18,
     title: `Posso modificare i dettagli della mia prenotazione dopo aver
     effettuato una prenotazione?`,
     content: [`
@@ -216,7 +216,7 @@ ore prima del tuo servizio programmato.
 ];
 export const es_bookingAndReservations = [
   {
-    id: 1,
+    id: 19,
     title:
       "¿Cómo puedo reservar un taxi con anticipación?",
     content: [`
@@ -232,7 +232,7 @@ export const es_bookingAndReservations = [
     `],
   },
   {
-    id: 2,
+    id: 20,
     title: `¿Cuál es la política de cancelación para taxis reservados con
     anticipación?`,
     content: [`
@@ -243,7 +243,7 @@ aplicar una tarifa de cancelación.
     `],
   },
   {
-    id: 3,
+    id: 21,
     title: `¿Puedo modificar los detalles de mi reserva después de hacer una
     reserva?`,
     content: [`
@@ -261,12 +261,12 @@ aplicar una tarifa de cancelación.
 //**********************************************/
 export const pricePayments = [
   {
-    id: 4,
+    id: 22,
     title: "How is the fare calculated for airport taxi rides?",
     content: ["Fares for airport taxi rides are calculated based on the distance between the pick-up and drop-off locations, time of day, and any applicable surcharges (e.g., tolls, airport fees). We offer fixed-rate fares to ensure transparent pricing without any hidden charges."],
   },
   {
-    id: 5,
+    id: 23,
     title: "Are there any additional charges for luggage?",
     content: ["Our standard fares include the cost of handling a reasonable amount of luggage. However, excess or oversized luggage may incur additional charges.",],
   },
@@ -275,7 +275,7 @@ export const pricePayments = [
 ]
 export const tr_pricePayments = [
   {
-    id: 4,
+    id: 24,
     title: "Havalimanı taksi ücretleri nasıl hesaplanır?",
     content: [`
     Havalimanı taksi ücretleri, alınma ve bırakılma yerleri arasındaki mesafe,
@@ -285,7 +285,7 @@ sağlamak için sabit oranlı ücretler sunuyoruz.
     `]
   },
   {
-    id: 5,
+    id: 25,
     title: "Bagaj için herhangi bir ek ücret var mı?",
     content: [`
     Bagaj için herhangi bir ek ücret var mı? Standart ücretlerimiz makul bir
@@ -296,7 +296,7 @@ bagaj ek ücretlere neden olabilir.
 ]
 export const ar_pricePayments = [
   {
-    id: 4,
+    id: 26,
     title: "كيف يتم حساب أجرة رحلات سيارات الأجرة إلى المطار؟",
     content: [`
     تُحسب أجور رحلات سيارات الأجرة إلى المطار بناءً على المسافة بين موقع الاستلام ووجهة التوصيل، ووقت اليوم، وأي رسوم إضافية مطبقة (مثل رسوم العبور، رسوم المطار). نحن نقدم أسعارًا ثابتة لضمان الشفافية في التسعير دون أي رسوم خفية.
@@ -304,7 +304,7 @@ export const ar_pricePayments = [
     `]
   },
   {
-    id: 5,
+    id: 27,
     title: `هل هناك أي رسوم إضافية على الأمتعة؟
     `,
     content: [`
@@ -315,7 +315,7 @@ export const ar_pricePayments = [
 ]
 export const ru_pricePayments = [
   {
-    id: 4,
+    id: 28,
     title: `
     Как рассчитывается тариф за поездки на такси из
 аэропорта?
@@ -330,7 +330,7 @@ export const ru_pricePayments = [
     `],
   },
   {
-    id: 5,
+    id:29,
     title: "Есть ли дополнительные сборы за багаж? ",
     content: [
       `
@@ -346,7 +346,7 @@ export const ru_pricePayments = [
 ]
 export const zh_pricePayments = [
   {
-    id: 4,
+    id: 30,
     title: "机场出租车费用是如何计算的？",
     content: [`
     机场出租车的费用基于上车地点和下车
@@ -355,7 +355,7 @@ export const zh_pricePayments = [
     `],
   },
   {
-    id: 5,
+    id:31,
     title: "行李有额外费用吗？",
     content: [`
     我们的标准费率包括处理合理数量行李的费用。然而，过多或超
@@ -367,7 +367,7 @@ export const zh_pricePayments = [
 ]
 export const it_pricePayments = [
   {
-    id: 4,
+    id: 32,
     title: `Come viene calcolata la tariffa per i viaggi in taxi
     dall'aeroporto?`,
     content: [`
@@ -379,7 +379,7 @@ trasparente senza costi nascosti.
     `],
   },
   {
-    id: 5,
+    id: 33,
     title: "Ci sono costi aggiuntivi per il bagaglio?",
     content: [`
     Le nostre tariffe standard
@@ -393,7 +393,7 @@ aggiuntivi.
 ]
 export const es_pricePayments = [
   {
-    id: 4,
+    id: 34,
     title: `¿Cómo se calcula la tarifa para los viajes en taxi al
     aeropuerto?`,
     content: [`
@@ -405,7 +405,7 @@ tarificación transparente sin cargos ocultos.
     `],
   },
   {
-    id: 5,
+    id: 35,
     title: "¿Hay cargos adicionales por equipaje?",
     content: [`
     Nuestras tarifas estándar
@@ -420,7 +420,7 @@ adicionales.
 //**********************************************/
 export const waitingTimeCharges = [
   {
-    id: 6,
+    id: 36,
     title: "Our waiting time charges are as follows",
     content: [
       `
@@ -467,7 +467,7 @@ export const waitingTimeCharges = [
 ]
 export const tr_waitingTimeCharges = [
   {
-    id: 6,
+    id: 37,
     title: "Bekleme süresi ücretlerimiz aşağıdaki gibidir",
     content: [
       `
@@ -517,7 +517,7 @@ bekleyecektir. Bu süreden sonra aşağıdaki ücretler uygulanacaktır:
 ]
 export const ar_waitingTimeCharges = [
   {
-    id: 6,
+    id: 38,
     title: `رسوم وقت الانتظار لدينا كما يلي`,
     content: [
       `
@@ -530,7 +530,7 @@ export const ar_waitingTimeCharges = [
 ]
 export const ru_waitingTimeCharges = [
   {
-    id: 6,
+    id: 39,
     title: "Сборы за время ожидания следующие:",
     content: [
       `
@@ -578,7 +578,7 @@ export const ru_waitingTimeCharges = [
 ]
 export const zh_waitingTimeCharges = [
   {
-    id: 6,
+    id: 40,
     title: "等待时间费用 我们的等待时间费用如下",
     content: [
       `
@@ -618,7 +618,7 @@ export const zh_waitingTimeCharges = [
 ]
 export const it_waitingTimeCharges = [
   {
-    id: 6,
+    id: 41,
     title: "I nostri costi per i tempi di attesa sono i seguenti",
     content: [
       `
@@ -660,7 +660,7 @@ export const it_waitingTimeCharges = [
 ]
 export const es_waitingTimeCharges = [
   {
-    id: 6,
+    id: 42,
     title: "Nuestros cargos por tiempo de espera son los siguientes",
     content: [
       `
@@ -702,30 +702,30 @@ export const es_waitingTimeCharges = [
 //**********************************************/
 export const vehicles = [
   {
-    id: 7,
+    id: 43,
     title: 'What types of vehicles are available for airport transfers?',
     content: ["We offer a variety of vehicles to cater to different passenger needs, including sedans, minivans, and luxury vehicles. Please check our website or contact customer support for a detailed list of available vehicles."]
   },
   {
-    id: 8,
+    id: 44,
     title: "Can I request a specific type of vehicle for my ride?",
     content: ['Yes, during the booking process, you can choose a specific vehicle type to suit your preferences and needs.']
   }
   ,
   {
-    id: 9,
+    id: 45,
     title: "Are child safety seats available upon request?",
     content: ['Yes, child safety seats can be provided upon request. Please mention your requirements during the booking process to ensure availability.']
   },
   {
-    id: 10,
+    id: 46,
     title: "Do you provide wheelchair-accessible taxis?",
     content: ['Yes, we offer wheelchair-accessible taxis. Please specify your requirements when booking to ensure availability.']
   }
 ]
 export const tr_vehicles = [
   {
-    id: 7,
+    id: 47,
     title: `Havalimanı transferleri için hangi tür araçlar
     mevcut?`,
     content: [`
@@ -736,7 +736,7 @@ hizmetimizle iletişime geçin.
     `],
   },
   {
-    id: 8,
+    id: 48,
     title: "Yolculuğum için belirli bir araç türü talep edebilir miyim? ",
     content: [`
     Evet,
@@ -746,7 +746,7 @@ bir araç türünü seçebilirsiniz.
   }
   ,
   {
-    id: 9,
+    id: 49,
     title: "Çocuk güvenlik koltukları talep üzerine sağlanabilir mi?",
     content: [`
     Evet, çocuk
@@ -756,7 +756,7 @@ sağlanabilir.
     `]
   },
   {
-    id: 10,
+    id: 50,
     title: "Tekerlekli sandalye erişimine uygun taksiler sağlıyor musunuz?",
     content: [`
     Evet,
@@ -768,7 +768,7 @@ yaparken ihtiyaçlarınızı belirtin, böylece kullanılabilirlik sağlanabilir
 export const ar_vehicles = [
 
   {
-    id: 8,
+    id: 51,
     title: "المركبات والخدمة",
     content: [`
     نحن نقدم مجموعة متنوعة من المركبات لتلبية احتياجات الركاب المختلفة، بما في ذلك السيدان، والفانات الصغيرة، والمركبات الفاخرة. أثناء عملية الحجز، يمكنك اختيار نوع المركبة المحدد لتلبية تفضيلاتك واحتياجاتك.
@@ -776,14 +776,14 @@ export const ar_vehicles = [
   }
   ,
   {
-    id: 9,
+    id: 52,
     title: "هل يمكن توفير مقاعد سلامة الأطفال عند الطلب؟",
     content: [`
     نعم، يمكن توفير مقاعد سلامة الأطفال عند الطلب. يرجى ذكر طلبك أثناء عملية الحجز لضمان التوفير.
     `]
   },
   {
-    id: 10,
+    id: 53,
     title: `هل توفرون سيارات أجرة للأشخاص ذوي الإعاقة؟`,
     content: [`
     نعم، نحن نوفر سيارات أجرة متاحة للأشخاص ذوي الإعاقة. يرجى تحديد احتياجاتك عند الحجز لضمان التوفير.
@@ -793,7 +793,7 @@ export const ar_vehicles = [
 ]
 export const ru_vehicles = [
   {
-    id: 7,
+    id: 54,
     title: 'Выбор Транспортных Средств и Опции Бронирования',
     content: [`
     Мы предлагаем разнообразие
@@ -805,7 +805,7 @@ export const ru_vehicles = [
     `]
   },
   {
-    id: 8,
+    id: 55,
     title: "Доступны ли детские кресла по запросу?",
     content: [`
     Да, детские кресла
@@ -815,7 +815,7 @@ export const ru_vehicles = [
   }
   ,
   {
-    id: 9,
+    id: 56,
     title: `Предоставляете ли вы такси, доступные для инвалидных
     колясок? `,
     content: [`
@@ -828,7 +828,7 @@ export const ru_vehicles = [
 ]
 export const zh_vehicles = [
   {
-    id: 7,
+    id: 57,
     title: '有哪些类型的车辆可供机场接送？',
     content: [`
     我们提供多种车辆以满足不同乘客的需求，包括轿车、小型货车和豪华车辆。
@@ -837,20 +837,20 @@ export const zh_vehicles = [
   },
 
   {
-    id: 9,
+    id: 58,
     title: "可以根据要求提供儿童安全座椅吗？",
     content: [`是的，根据要求可以提供儿童安全座椅。请在预
     订过程中提及您的要求以确保提供。`]
   },
   {
-    id: 10,
+    id: 59,
     title: "你们提供无障碍出租车吗？",
     content: [`是的，我们提供无障碍出租车。在预订时请说明您的要求以确保提供。`]
   }
 ]
 export const it_vehicles = [
   {
-    id: 7,
+    id: 60,
     title: 'Quali tipi di veicoli sono disponibili per i trasferimenti aeroportuali?',
     content: [`
     Offriamo una varietà di veicoli per soddisfare diverse
@@ -860,7 +860,7 @@ richiedere un tipo specifico di veicolo durante il processo di prenotazione.
   },
 
   {
-    id: 9,
+    id: 61,
     title: "Sono disponibili seggiolini per bambini su richiesta?",
     content: [`
     Sì, i seggiolini
@@ -871,7 +871,7 @@ disponibilità.
     `]
   },
   {
-    id: 10,
+    id: 62,
     title: "Fornite taxi accessibili in sedia a rotelle?",
     content: [`Sì, offriamo taxi accessibili
     in sedia a rotelle. Specifica le tue esigenze al momento della prenotazione
@@ -880,7 +880,7 @@ disponibilità.
 ]
 export const es_vehicles = [
   {
-    id: 7,
+    id: 63,
     title: '¿Qué tipos de vehículos están disponibles para traslados al aeropuerto?',
     content: [`
     Ofrecemos una variedad de vehículos para
@@ -890,19 +890,19 @@ vehículo durante el proceso de reserva.
     `]
   },
   {
-    id: 8,
+    id: 64,
     title: "¿Puedo solicitar un tipo de vehículo específico para mi viaje?",
     content: [`Sí, durante el proceso de reserva, podrás elegir un tipo de vehículo específico que se adapte a tus preferencias y necesidades.`]
   }
   ,
   {
-    id: 9,
+    id: 65,
     title: "Asientos de seguridad para niños disponibles a pedido?",
     content: [`Sí, los
     asientos de seguridad para niños pueden proporcionarse a pedido. Por`]
   },
   {
-    id: 10,
+    id: 66,
     title: "¿Ofrecen taxis accesibles para sillas de ruedas?",
     content: ['Sí, ofrecemos taxis accesibles para sillas de ruedas. Por favor, especifique sus necesidades al hacer la reserva para asegurar la disponibilidad.']
   }
@@ -910,7 +910,7 @@ vehículo durante el proceso de reserva.
 //**********************************************/
 export const pickdropoff = [
   {
-    id: 11,
+    id: 67,
     title: "Meeting Points at Airports",
     content: [
       `
@@ -925,7 +925,7 @@ export const pickdropoff = [
     ],
   },
   {
-    id: 12,
+    id: 68,
     title: "Cruise Port Meeting Points",
     content: [
       `
@@ -944,7 +944,7 @@ export const pickdropoff = [
 ]
 export const tr_pickdropoff = [
   {
-    id: 11,
+    id: 69,
     title: "Havalimanlarında Buluşma Noktaları",
     content: [
       `
@@ -982,7 +982,7 @@ export const tr_pickdropoff = [
     ],
   },
   {
-    id: 12,
+    id: 70,
     title: "Cruise Limanı Buluşma Noktaları",
     content: [
       `
@@ -1003,7 +1003,7 @@ Harwich cruise limanı:
 ]
 export const ar_pickdropoff = [
   {
-    id: 11,
+    id: 71,
     title: "نقاط الالتقاء في المطارات والموانئ",
     content: [
       `
@@ -1014,7 +1014,7 @@ export const ar_pickdropoff = [
 ]
 export const ru_pickdropoff = [
   {
-    id: 11,
+    id: 72,
     title: "Пункты Встречи в Аэропортах и Портах",
     content: [
       `
@@ -1030,7 +1030,7 @@ export const ru_pickdropoff = [
 ]
 export const zh_pickdropoff = [
   {
-    id: 11,
+    id: 73,
     title: "机场和港口的集合点",
     content: [
       `在机场和港口的接送点 我们为机场和港口提供具体的会面点，以方便您和您的司机见
@@ -1043,7 +1043,7 @@ export const zh_pickdropoff = [
 export const it_pickdropoff = [
 
   {
-    id: 12,
+    id: 74,
     title: "Punti di Incontro in Aeroporti e Porti per Crociere ",
     content: [
       `
@@ -1059,7 +1059,7 @@ export const it_pickdropoff = [
 ]
 export const es_pickdropoff = [
   {
-    id: 11,
+    id: 75,
     title: "Puntos de Encuentro en Aeropuertos y Puertos",
     content: [
       `

@@ -44,7 +44,6 @@ const NavbarLinkName = (props) => {
     }, [linkname, dispatch, language]); // Add linkname and dispatch to the dependency array
 
 
-    console.log(props);
 
     return (isItQuationLink ? <TaaxidealsQuotationLink props={props} /> :
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={false}>

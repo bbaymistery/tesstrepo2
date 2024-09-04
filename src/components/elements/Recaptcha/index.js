@@ -1,6 +1,16 @@
 import React from 'react'
 
+/**
+ * A React component that renders a Google reCAPTCHA widget.
+ *
+ * This component handles the loading and rendering of the reCAPTCHA widget, and provides a callback function to notify the parent component when the reCAPTCHA is verified.
+ *
+ * @param {object} props - The component props.
+ * @param {string} [props.id] - The ID of the reCAPTCHA element. Defaults to 'reCaptchaReactElement'.
+ * @param {function} props.onVerify - A callback function that is called when the reCAPTCHA is verified, with the reCAPTCHA token as the argument.
+ */
 export class Recaptcha extends React.PureComponent {
+    
     constructor(props) {
         super(props)
         this.state = {
