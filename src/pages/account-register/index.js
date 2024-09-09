@@ -14,7 +14,7 @@ import { accountRegisterActions } from '../../store/accountRegisterReducer'
 import ApplicantDetails from './ApplicantDetails'
 import ContactDetails from './ContactDetails'
 import OperationNotes from './OperationNotes'
-import { Translation } from './Translation'
+import Translation from './Translation'
 import 'react-phone-input-2/lib/style.css'
 
 const description = "Airport Pickups London agency registration form"

@@ -167,6 +167,7 @@ const nextConfig = {
     remotePatterns: [
       { hostname: 'api.london-tech.com' },
       { hostname: 'www.airport-pickups-london.com' },
+      { hostname: 'api-backup.london-tech.com' },
     ],
   },
 }

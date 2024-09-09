@@ -28,6 +28,7 @@ const Tours = (props) => {
     useEffect(() => {
         fecthPoints(language)
     }, [language])
+    console.log(toursData);
 
     return (insideGlobalLayout ?
         <GlobalLayout keywords={keywords} title={title} description={description} footerbggray={true}>
@@ -39,29 +40,10 @@ const Tours = (props) => {
                         </div>
                         <div className={styles.cards_content}>
                             <div className={styles.cards}>
-                            {
-                                toursData.map((item, _) => {
-                                    return (
-                                        <Link href={`${language === "en" ? "" : `${language}`}${item.pathname}`} title={item?.pageTitle} className={`${styles.card}`} key={item.tourDealId}>
-                                            <div className={styles.card_image_div}>
-                                                <Image src={`${item.images[0]}`} className={styles.img} fill alt={item.headTitle} sizes="(max-width: 768px) 100vw, 50vw" />
-                                            </div>
-                                            <div className={styles.card_body}>
-                                                <h2>{item.pageTitle}</h2>
-                                                <div className={styles.start_from}>
-                                                    <div className={styles.start_from_text_left}>{appData.words["strStartFrom"]} </div>
-                                                    <div className={styles.start_from_text_right}> {item?.price} </div>
-                                                </div>
-
-                                            </div>
-                                        </Link>
-                                    )
-                                })
-                            }
-                                {/* {
+                                {
                                     toursData.map((item, _) => {
                                         return (
-                                            <a href={item.pathname} title={item?.pageTitle} className={`${styles.card}`} key={item.tourDealId}>
+                                            <Link href={`${language === "en" ? "" : `${language}`}${item.pathname}`} title={item?.pageTitle} className={`${styles.card}`} key={item.tourDealId}>
                                                 <div className={styles.card_image_div}>
                                                     <Image src={`${item.images[0]}`} className={styles.img} fill alt={item.headTitle} sizes="(max-width: 768px) 100vw, 50vw" />
                                                 </div>
@@ -73,10 +55,10 @@ const Tours = (props) => {
                                                     </div>
 
                                                 </div>
-                                            </a>
+                                            </Link>
                                         )
                                     })
-                                } */}
+                                }
                             </div>
 
 

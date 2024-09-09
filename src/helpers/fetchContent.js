@@ -28,8 +28,14 @@ export const fetchContent = async (pagePathname, cookie, firstLoadLangauge, path
     const method = "POST"
     const headers = { "Content-Type": "application/json", }
     const reqOpt = { body: JSON.stringify(body), method, headers }
+    console.log({ status: url, body });
+
     const response = await fetch(url, reqOpt);
+    console.log({ status: url, body });
+    console.log("*************************");
     const datas = await response.json();
+    console.log({ status: datas.status });
+
 
     if (datas.status === 200) {
         metaTitle = datas.data.metaTitle
