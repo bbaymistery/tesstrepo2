@@ -31,19 +31,24 @@ const Table = ({ title, rows }) => (
     </table>
 );
 
-const TableRow = ({ pathname, pageTitle, price }) => (
+
+const TableRow = ({ leftData, rightData }) => (
     <tr>
         <td>
-            <a href={pathname}>
-                {pageTitle}
-            </a>
-            <span>{price}</span>
+            {leftData && (
+                <>
+                    <a href={leftData.pathname}>{leftData.pageTitle}</a>
+                    <span>{leftData.price}</span>
+                </>
+            )}
         </td>
         <td>
-            <a href={pathname}>
-                {pageTitle}
-            </a>
-            <span>{price}</span>
+            {rightData && (
+                <>
+                    <a href={rightData.pathname}>{rightData.pageTitle}</a>
+                    <span>{rightData.price}</span>
+                </>
+            )}
         </td>
     </tr>
 );
@@ -80,26 +85,47 @@ const Sitemap = ({ tourDatas, taxiData }) => {
                             ))}
                         />
 
-                        {/* Tours Deals Taxi Prices Table */}
+
                         <Table
                             title="Tours Deals Taxi Prices"
-                            rows={tourDatas.map((data, index) => (
-                                <TableRow key={index} pathname={data.pathname} pageTitle={data.pageTitle} price={data.price} />
-                            ))}
+                            rows={tourDatas.reduce((acc, data, index) => {
+                                if (index % 2 === 0) {
+                                    // If index is even, create a new row with left data
+                                    acc.push(
+                                        <TableRow
+                                            key={index}
+                                            leftData={tourDatas[index]}
+                                            rightData={tourDatas[index + 1] || null} // Right data is the next item if it exists
+                                        />
+                                    );
+                                }
+                                return acc;
+                            }, [])}
                         />
 
-
-                        {/* Taxi Deals Tables */}
                         {API_POINTS.map((point) => (
                             <Table
                                 key={point}
                                 title={appData?.words[`${titleStringOfHastaxiDeals(point)}`]}
                                 rows={
                                     <>
-                                        {taxiData[point] && taxiData[point].slice(0, showMore[point] ? taxiData[point].length : INITIAL_DISPLAY_COUNT).map((data, index) => (
-                                            <TableRow key={index} pathname={data.pathname} pageTitle={data.translatedPageTitle} price={data.price} />
-                                        ))}
-                                        {taxiData[point] && taxiData[point].length > 14 && (
+                                        {taxiData[point] && taxiData[point]
+                                            .slice(0, showMore[point] ? taxiData[point].length : INITIAL_DISPLAY_COUNT)
+                                            .reduce((acc, data, index) => {
+                                                if (index % 2 === 0) {
+                                                    acc.push(
+                                                        <TableRow
+                                                            key={index}
+                                                            leftData={taxiData[point][index]}
+                                                            rightData={taxiData[point][index + 1] || null} // Right data is the next item if it exists
+                                                        />
+                                                    );
+                                                }
+                                                return acc;
+                                            }, [])
+                                        }
+
+                                        {taxiData[point] && taxiData[point].length > INITIAL_DISPLAY_COUNT && (
                                             <tr>
                                                 <td colSpan="2" style={{ textAlign: 'center', justifyContent: "center" }}>
                                                     <button onClick={() => toggleShowMore(point)}>
@@ -112,6 +138,8 @@ const Sitemap = ({ tourDatas, taxiData }) => {
                                 }
                             />
                         ))}
+
+
 
                     </div>
                     <br />

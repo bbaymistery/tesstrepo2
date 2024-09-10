@@ -1,5 +1,4 @@
-let urls = {
-  "/": "/",
+ let urls = {
   "/Blog": "<check-point>",
   "/Heathrow/Heathrow-Taxi-Prices.asp": "/heathrow-taxi-prices",
   "/Gatwick/Gatwick-Taxi-Prices.asp": "/gatwick-taxi-prices",
@@ -972,3 +971,4 @@ let urls = {
   "/Application%20For%20Credit.pdf": "<check-point>",
   "/Heathrow/taxi-from-eastbourne-to-heathrow.asp": "<check-point>", //! couldnt find eatbourne inside heathrow points
 }
+module.exports = { urls };

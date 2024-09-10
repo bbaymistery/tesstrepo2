@@ -167,7 +167,7 @@ const Footer = (props) => {
                   </a>
                 </li>
                 <li>
-                  <a href="#">Site Map</a>
+                  <a href="/sitemap">Site Map</a>
                 </li>
               </ul>
             </div>
