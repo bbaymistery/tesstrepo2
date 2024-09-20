@@ -11,17 +11,18 @@ import store from "../../store/store";
 import { tourActions } from '../../store/tourActions'
 import { Skeleton } from "../../components/elements/Skeleton";
 import { parseCookies } from "../../helpers/cokieesFunc";
-import env from "../../resources/env";
 import Error404 from '../404/index'
+import { fetchConfig } from '../../resources/getEnvConfig';
 
 
 
 
 const TourContentDetails = (props) => {
-    
+
     if (props.data === 'not found') {
         return <Error404 />
     }
+    let { env } = props
     let {
         duration,
         headTitle,
@@ -239,6 +240,8 @@ function adjustPathnameForLanguage(pathname, pageStartLanguage, cookies) {
     return { pathname, pageStartLanguage };
 }
 export async function getServerSideProps({ req, query }) {
+    const env = await fetchConfig();
+
     let cookies = parseCookies(req.headers.cookie);
     let { pathname } = parse(req.url, true)
     let pageStartLanguage = checkLanguageAttributeOntheUrl(req?.url)

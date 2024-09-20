@@ -8,7 +8,6 @@ import { useRouter } from 'next/router'
 import useRipple from '../../hooks/useRipple'
 import Recaptcha from '../../components/elements/Recaptcha'
 import Loading from '../../components/elements/alert/Loading'
-import env from '../../resources/env'
 import store from '../../store/store'
 import { accountRegisterActions } from '../../store/accountRegisterReducer'
 import ApplicantDetails from './ApplicantDetails'
@@ -25,7 +24,8 @@ const keywords = ""
 //to translate declaration manually 
 
 const AccountRegister = (props) => {
-    let { bggray } = props
+    let { bggray,env } = props
+
     const btnRef = useRef(null);
     const ripples = useRipple(btnRef);
     const router = useRouter()

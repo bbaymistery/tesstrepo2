@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useWindowSize } from '../../../hooks/useWindowSize';
-import env from '../../../resources/env';
 import styles from "./styles.module.scss"
 
 //!when we get search result: there pcatId is :  from greater to less    like >>   4 3 2 1
@@ -61,7 +60,7 @@ const requestForGooglePLace = (params = {}, callback = () => { }) => {
 const getPostCodesAndAddToListAsync = params => new Promise((resolve, reject) => getPostCodesAndAddToList(params, log => resolve(log)))
 const requestForGogglePalceAsync = (params) => new Promise((resolve, reject) => requestForGooglePLace(params, log => resolve(log)))
 const HandleSearchResults = (params = {}) => {
-    let { collectingPoints, destination, setInternalState, index, getQuotations = () => { }, language, isTaxiDeal = false, isTours = false } = params
+    let { collectingPoints, destination, setInternalState, index, getQuotations = () => { }, language, isTaxiDeal = false, isTours = false ,env} = params
 
     let newOrderedItems = []
     //simplify collectedpoints

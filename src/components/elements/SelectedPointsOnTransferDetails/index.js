@@ -7,12 +7,13 @@ import CheckForFlight from './CheckForFlight';
 import CheckForTrain from './CheckForTrain';
 import CheckForOther from './CheckForOther';
 import styles from "./styles.module.scss"
-import env from '../../../resources/env';
 import React from 'react'
 import CheckForUniversity from './CheckForUniversity';
+import { fetchConfig } from '../../../resources/getEnvConfig';
+
 const SelectedPointOnTransferDetails = (props) => {
     //index it is a destination if 0 it means pick up
-    let { selectedPoints, journeyType, type, pointsError = props.selectedPoints.map(obj => ({})), language, isTaxiDeal = false,isTours=false } = props;
+    let { selectedPoints, journeyType, type, pointsError = props.selectedPoints.map(obj => ({})), language, isTaxiDeal = false, isTours = false,env } = props;
     const { appData } = useSelector(state => state.initialReducer)
     const dispatch = useDispatch()
 
@@ -126,3 +127,8 @@ const SelectedPointOnTransferDetails = (props) => {
 
 export default SelectedPointOnTransferDetails
 
+export async function getServerSideProps({ req, res }) {
+    const env = await fetchConfig(); // Fetch the env config
+
+    return { props: { env }, };
+}

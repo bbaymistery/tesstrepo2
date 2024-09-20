@@ -7,7 +7,6 @@ import { useState } from 'react'
 import Accordion from '../../components/elements/Accordion/Accordion'
 import Textarea from '../../components/elements/Textarea'
 import TextInput from '../../components/elements/TextInput'
-import env from '../../resources/env'
 import AdressInformations from '../../components/elements/AdressInformations'
 import Alert from '../../components/elements/alert/Alert'
 
@@ -164,7 +163,9 @@ const ContactUsForm = ({ appData, formValue, onChangeHandler, error, handleSend 
 );
 
 
-const ContactUs = ({ bggray }) => {
+const ContactUs = ({ bggray, env }) => {
+    console.log({ env });
+
     const dispatch = useDispatch()
     const state = useSelector(state => state.pickUpDropOffActions)
     let { params: { direction, language } } = state

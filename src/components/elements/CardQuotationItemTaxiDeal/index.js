@@ -3,12 +3,9 @@ import styles from "./styles.module.scss"
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { quotationImagesObjWebp } from '../../../constants/quotationImages';
-import env from '../../../resources/env';
 import Image from 'next/image';
-import { formatPriceInTitle } from '../../../helpers/formatPriceInTitle';
 import TaxiDealsContents from '../TaxiDealsContents';
 import { postDataAPI } from '../../../helpers/fetchDatas';
-import Link from 'next/link';
 const checkJourneyTypeAndAddQuotationToReducer = (params = {}) => {
     //by this index  we r gonna assure in which journey we should add quotation
     //by journey type we r gonn assure should we directly pass to next page or not
@@ -72,8 +69,11 @@ const CardQuotationItemTaxiDeal = (params = {}) => {
         isVisible = false,
         breadcrumbs,
         linkurl,
-        review
+        review,
+        env
     } = params
+
+
     const router = useRouter();
     const dispatch = useDispatch();
     const state = useSelector((state) => state.pickUpDropOffActions)
@@ -86,7 +86,7 @@ const CardQuotationItemTaxiDeal = (params = {}) => {
 
     const setQuotationHandleClick = async (params = {}) => {
         let { quotation } = params
-        checkJourneyTypeAndAddQuotationToReducer({ journeyType, quotation, index, router, dispatch, language, isTaxiDeal, quotations })
+        checkJourneyTypeAndAddQuotationToReducer({ journeyType, quotation, index, router, dispatch, language, isTaxiDeal, quotations, env })
         if (isTaxiDeal) {
 
             try {
@@ -254,5 +254,6 @@ const CardQuotationItemTaxiDeal = (params = {}) => {
     </div>
     )
 }
+
 
 export default CardQuotationItemTaxiDeal

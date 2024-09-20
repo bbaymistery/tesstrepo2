@@ -10,7 +10,7 @@ import { parse } from 'url';
 import Tours from "./tours";
 import { fetchContent } from "../helpers/fetchContent";
 import { checkLanguageAttributeOntheUrl } from "../helpers/checkLanguageAttributeOntheUrl";
-import env from "../resources/env";
+import { fetchConfig } from "../resources/getEnvConfig";
 
 const structuredSchema = {
   "@context": "http://schema.org/",
@@ -99,6 +99,7 @@ const breadcumbSchema = {
 
 export default function Home(props) {
   let { metaTitle, keywords, metaDescription, pageContent } = props
+
   const [hasScrolled, setHasScrolled] = useState(false);
   const handleScroll = () => {
     if (!hasScrolled) setHasScrolled(true);
@@ -124,16 +125,17 @@ export default function Home(props) {
   return (
     <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true} >
 
-      <Hero />
-      <TaxiDeals />
+      <Hero env={props.env} />
+      <TaxiDeals env={props.env} />
       <SeaportTransfers bggray={true} />
-      <Tours insideGlobalLayout={false} />
+      <Tours insideGlobalLayout={false} env={props.env} />
       {hasScrolled && <CarsSlider bggray={true} />}
       <Testimonials bggray={false} pageContent={pageContent} />
     </GlobalLayout>
   )
 }
 export async function getServerSideProps({ req, res }) {
+  const env = await fetchConfig(); // Fetch the env config
   res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   let firstLoadLangauge = checkLanguageAttributeOntheUrl(req?.url)
   let { pathname } = parse(req?.url, true)
@@ -148,10 +150,3 @@ export async function getServerSideProps({ req, res }) {
     props: { metaTitle, keywords, pageContent, metaDescription, schemas, mainCanonical },
   }
 }
-/**
- * 
- * 
- Direk =: 
- { pathname: '/it/gatwick-taxi-prices' }
-{ pathnameUrlWHenChangeByTopbar: '/it/gatwick-taxi-prices' } 
- */

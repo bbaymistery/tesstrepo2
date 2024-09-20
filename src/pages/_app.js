@@ -3,7 +3,6 @@ import { createWrapper } from "next-redux-wrapper";
 import { Provider, useDispatch, } from "react-redux";
 import React, { useCallback, useEffect } from "react";
 import store from "../store/store";
-import env from '../resources/env';
 import "../styles/global.scss";
 import Error404 from './404/index'
 import { useRouter } from 'next/router';
@@ -11,10 +10,12 @@ import { checkLanguageAttributeOntheUrl } from '../helpers/checkLanguageAttribut
 import localFont from '@next/font/local';
 import { getCookie, setCookie } from '../helpers/cokieesFunc';
 import { fetchAllLanguagesAppDatas } from '../helpers/fetchAllLanguagesAppDatas';
+import { fetchConfig, } from '../resources/getEnvConfig';
 const myFont = localFont({ src: '../../public/googleFonts/92zatBhPNqw73oTd4g.woff2' })
 const allLanguages = ["en", "tr", "ar", "es", "zh", "it", "ru"]
 
 export const MyApp = ({ Component, pageProps }) => {
+
   const router = useRouter()
 
 
@@ -74,9 +75,9 @@ export const MyApp = ({ Component, pageProps }) => {
         };
 
 
-        if (!env.websiteDomain.includes("localhost")) {
+        if (!pageProps.env.websiteDomain.includes("localhost")) {
           try {
-            fetch(`${env.apiDomain}/tools/add-error-logs`, requestOptions)
+            fetch(`${!pageProps.env.apiDomain}/tools/add-error-logs`, requestOptions)
               .then(response => response.text())
               .then(result => { console.log(result) })
               .catch(error => console.log('error', error));
@@ -144,6 +145,8 @@ const wrapper = createWrapper(makestore);
 
 MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component, ctx }) => {
 
+  const env = await fetchConfig();
+
   const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
   //language congiguration based on the url (http://localhost:3500/it/gatwick-taxi-prices  if he pres enter we get lang)
   let lang = checkLanguageAttributeOntheUrl(ctx?.req?.url)
@@ -160,6 +163,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component
   // Fetch app data and payment types
   if (ctx?.req?.url) {
     const paymentUrl = `${env.apiDomain}/api/v1/payment-types`;
+
     const appDataUrl = `${env.apiDomain}/app/${lang?.length === 2 ? lang : 'en'}`; // Use the preferred language if available, otherwise default to English
     const urls = [paymentUrl, appDataUrl];
     let response = await Promise.all(urls.map(async url => {
@@ -173,7 +177,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component
     // Dispatch values to Redux store
     store.dispatch({ type: "GET_APP_DATA", data: { appData: appDataInitial, paymentTypes: paymentTypesInitial, }, });
   }
-  return { pageProps: { ...pageProps, appData: appDataInitial, hasLanguage: lang || "en", } }
+  return { pageProps: { ...pageProps, appData: appDataInitial, hasLanguage: lang || "en", env } }
 
 });
 export default wrapper.withRedux(MyApp);

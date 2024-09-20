@@ -17,7 +17,7 @@ async function getRoutes() {
 
   let linknameRoutes = [{ source: `/:lang(${allLangaugesAsString})/:path`, destination: '/:path', locale: false, }]
 
-  // let toursRoutes = [{ source: `/:lang(${allLangaugesAsString})/tours/:link`, destination: '/tours/:link', locale: false, } ]
+  let toursRoutes = [{ source: `/:lang(${allLangaugesAsString})/tours/:link`, destination: '/tours/:link', locale: false, } ]
 
   // Rewrite rule to prevent doubling the language prefix
   let specificToursPageRoutes = [
@@ -35,7 +35,7 @@ async function getRoutes() {
   const rewriteRules = [
     ...singleRoutes,
     ...linknameRoutes,
-    // ...toursRoutes,
+    ...toursRoutes,
     ...specificToursPageRoutes
   ];
   return rewriteRules

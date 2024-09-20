@@ -15,14 +15,17 @@ import Error404 from './404/index'
 import { checkLanguageAttributeOntheUrl } from '../helpers/checkLanguageAttributeOntheUrl';
 import { Airports, CruisePorts } from '../constants/navigatior';
 import { generateCanonicalAlternates } from '../helpers/canolicalAlternates';
-import env from '../resources/env';
+
 import { urlToTitle } from '../helpers/letters';
 import { parseCookies } from '../helpers/cokieesFunc';
 import { taxiPricesLinks } from './../constants/navigatior'
 import TaaxidealsQuotationLink from '../components/elements/TaaxidealsQuotationLink';
 import { postDataAPI } from '../helpers/fetchDatas';
+import { fetchConfig } from '../resources/getEnvConfig';
 
 const NavbarLinkName = (props) => {
+
+    const { env } = props
     const dispatch = useDispatch()
     const router = useRouter();
     const { params: { language, } } = useSelector(state => state.pickUpDropOffActions)
@@ -45,10 +48,10 @@ const NavbarLinkName = (props) => {
 
 
 
-    return (isItQuationLink ? <TaaxidealsQuotationLink props={props} /> :
+    return (isItQuationLink ? <TaaxidealsQuotationLink props={props}   /> :
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={false}>
             <Hero islinknamecomponent={true} bggray={false} />
-            <TaxiDeals showTabs={false} bggray={false} islinknamecomponent={true} />
+            <TaxiDeals env={env} showTabs={false} bggray={false} islinknamecomponent={true} />
             {pageContent.length > 0 ? <LinkNameDescription pageContent={pageContent} language={language} /> : ""}
             <CarsSlider bggray={true} />
         </GlobalLayout>
@@ -93,7 +96,7 @@ function adjustPathnameForLanguage(pathname, pageStartLanguage, cookies) {
     return { pathname, pageStartLanguage };
 }
 //when we click to navbar and go to /heathorw taxi price
-async function handleStandardContent(pathname, cookie, pageStartLanguage, schemas, pathnameUrlWHenChangeByTopbar) {
+async function handleStandardContent(pathname, cookie, pageStartLanguage, schemas, pathnameUrlWHenChangeByTopbar, env) {
     let { metaTitle, keywords, pageContent, metaDescription, status, lang } = await fetchContent(pathname, cookie, pageStartLanguage, pathnameUrlWHenChangeByTopbar);
     //!Istisnalar
     let exceptions = pathname === "/dover-cruise-taxi" || pathname === "/portsmouth-taxi-prices" || pathname === "/harwich-taxi-prices" || pathname === "/southampton-cruise-taxi"
@@ -103,7 +106,7 @@ async function handleStandardContent(pathname, cookie, pageStartLanguage, schema
     if (status === 200) {
         //!Canoncakls
         let mainCanonical = pageStartLanguage === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${pageStartLanguage}${pathname}`
-        let canonicalAlternates = generateCanonicalAlternates(pathname);
+        let canonicalAlternates = generateCanonicalAlternates(pathname, env);
 
         return {
             props: {
@@ -123,7 +126,7 @@ async function handleStandardContent(pathname, cookie, pageStartLanguage, schema
 }
 
 //for taxid eals pickups and drop offs
-async function handleQuotationLink(language, pathname, schemas) {
+async function handleQuotationLink(language, pathname, schemas, env) {
     let pickUps = []
     let dropoffs = []
     let review = {}
@@ -193,6 +196,9 @@ async function handleQuotationLink(language, pathname, schemas) {
 }
 //?biz burada metatile metaDescriptionlari fethcContente gore alib gonderirirk Her sayfa icin ayri bi sekilde gider
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, ...etc }) => {
+
+    const env = await fetchConfig();
+
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     const { resolvedUrl } = etc;
     const lowerCaseUrl = resolvedUrl.toLowerCase();
@@ -233,8 +239,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
 
     if (!isItQuationLink) {
-        return handleStandardContent(pathname, req.headers.cookie, pageStartLanguage, schemas, pathnameUrlWHenChangeByTopbar);
+        return handleStandardContent(pathname, req.headers.cookie, pageStartLanguage, schemas, pathnameUrlWHenChangeByTopbar, env);
     } else {
-        return handleQuotationLink(pageStartLanguage, pathname, schemas);
+        return handleQuotationLink(pageStartLanguage, pathname, schemas, env);
     }
 });

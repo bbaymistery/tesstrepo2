@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styles from "./styles.module.scss"
 import GlobalLayout from '../../components/layouts/GlobalLayout'
-import { tourLinks } from '../../constants/tours'
 import Image from 'next/image'
-import env from '../../resources/env'
 import Link from 'next/link'
 
 const Tours = (props) => {
-    let { bggray = false, insideGlobalLayout = true } = props
+    let { bggray = false, insideGlobalLayout = true ,env} = props
     const state = useSelector(state => state.pickUpDropOffActions)
     let { params: { direction, language } } = state
     const { appData } = useSelector(state => state.initialReducer)
@@ -25,10 +23,12 @@ const Tours = (props) => {
             setToursData(data)
         }
     };
+
+    
+
     useEffect(() => {
         fecthPoints(language)
     }, [language])
-    console.log(toursData);
 
     return (insideGlobalLayout ?
         <GlobalLayout keywords={keywords} title={title} description={description} footerbggray={true}>

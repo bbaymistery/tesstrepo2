@@ -3,7 +3,8 @@ import styles from "./styles.module.scss";
 import GlobalLayout from '../../components/layouts/GlobalLayout';
 import { useSelector } from 'react-redux';
 import { titleStringOfHastaxiDeals } from '../../helpers/titleStringOfHasTaxiDeals';
-import env from '../../resources/env';
+import { fetchConfig } from '../../resources/getEnvConfig';
+
 const INITIAL_DISPLAY_COUNT = 12;
 const keywords = "Sitemap";
 const metaTitle = "Airport Pickup London Sitemap";
@@ -55,7 +56,9 @@ const TableRow = ({ leftData, rightData }) => (
 
 
 
-const Sitemap = ({ tourDatas, taxiData }) => {
+const Sitemap = (props) => {
+    let { tourDatas, taxiData} = props
+
     const { appData } = useSelector(state => state.initialReducer);
     const [showMore, setShowMore] = useState({});
 
@@ -153,6 +156,8 @@ const Sitemap = ({ tourDatas, taxiData }) => {
 export default Sitemap;
 
 export async function getServerSideProps() {
+  const env = await fetchConfig();
+
     // Fetch tour deals data
     async function fetchTourDealPaths() {
         const response = await fetch(`${env.apiDomain}/api/v1/tours-deals/list`);

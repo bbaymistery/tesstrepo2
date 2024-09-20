@@ -1,5 +1,3 @@
-import env from "../resources/env";
-
 const staticUrls = `
 <url>
   <loc>https://aplairtest.netlify.app/</loc>
@@ -88,6 +86,9 @@ const staticUrls = `
 
 `
 
+//todo  change aplairtest to dynamic 
+import { fetchConfig } from "../resources/getEnvConfig";
+
 const API_POINTS = [
   "heathrow",
   "gatwick",
@@ -100,18 +101,21 @@ const API_POINTS = [
 ];
 
 async function fetchTaxiDealPaths(point) {
+  const env = await fetchConfig();
+
   const response = await fetch(`${env.apiDomain}/api/v1/taxi-deals/list?points=${point}`);
   const data = await response.json();
   return data.data.destinations.map(destination => destination.pathname);
 }
 
 async function fetchTourDealPaths() {
+  const env = await fetchConfig();
   const response = await fetch(`${env.apiDomain}/api/v1/tours-deals/list`);
   const data = await response.json();
   return data.data.map(tour => tour.pathname);
 }
 
-async function generateSiteMapWithPaths() {
+async function generateSiteMapWithPaths(env) {
   // Fetch paths from taxi deals API concurrently for all points
   const taxiPathsArray = await Promise.all(API_POINTS.map(fetchTaxiDealPaths));
 
@@ -142,7 +146,8 @@ async function generateSiteMapWithPaths() {
 }
 
 export async function getServerSideProps({ res }) {
-  // Generate the XML sitemap with the API paths
+
+
   const sitemap = await generateSiteMapWithPaths();
 
   res.setHeader('Content-Type', 'text/xml');

@@ -6,7 +6,6 @@ import OutsideClickAlert from '../../elements/OutsideClickAlert';
 import { currentDate } from '../../../helpers/getDates';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from "./styles.module.scss"
-import env from '../../../resources/env'
 import RadioButton from './RadioButton'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, } from 'react'
@@ -27,7 +26,8 @@ const pushToQuotationsResultPage = (params = {}) => {
     // router.push("/quotation-results")
 }
 const Hero = (props) => {
-    let { islinknamecomponent = false, bggray = true } = props
+
+    let { islinknamecomponent = false, bggray = true, env } = props
     const router = useRouter()
     const dispatch = useDispatch()
     const state = useSelector(state => state.pickUpDropOffActions)
@@ -65,6 +65,7 @@ const Hero = (props) => {
         "error-booking-message-1": ""
 
     })
+
 
     //collevcting points after resolving with collectPointsAsync
     const collectPoints = useCallback((params = {}, callback = () => { }) => {
@@ -340,7 +341,7 @@ const Hero = (props) => {
                                                 {/* Pick Points text */}
                                                 {selectedPickupPoints.length > 0 ? <p className={`${styles.point_title} ${direction}`} >{appData?.words["strPickupPoints"]}</p> : <React.Fragment></React.Fragment>}
                                                 {/* selectedPoints */}
-                                                {selectedPickupPoints.length > 0 ? <SelectedPointsOnHomePage index={index} destination="pickup" points={selectedPickupPoints} language={language} /> : <React.Fragment></React.Fragment>}
+                                                {selectedPickupPoints.length > 0 ? <SelectedPointsOnHomePage env={env} index={index} destination="pickup" points={selectedPickupPoints} language={language} /> : <React.Fragment></React.Fragment>}
                                                 {/* add extra pooint div */}
                                                 {internalState[`show-pickup-extra-point-${index}`] && selectedPickupPoints.length > 0 ?
                                                     <div className={`${styles.add_point_div} ${direction}`} onClick={() => handleAddNewInput({ index, destination: "pickup" })}  >
@@ -383,7 +384,7 @@ const Hero = (props) => {
                                                         {/* if !internalState[`pickup-search-value-${index}`] then our handleSearchResults will be belong to styles.book.input */}
                                                         {!Array.isArray(internalState[`collecting-pickup-points-${index}`]) ?
                                                             //setInternalState>>>after adding item we set input field  to empty and add extradiv to true
-                                                            <HandleSearchResults language={language} index={index} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${index}`]} /> : <React.Fragment></React.Fragment>}
+                                                            <HandleSearchResults env={env} language={language} index={index} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${index}`]} /> : <React.Fragment></React.Fragment>}
 
                                                     </div>
 
@@ -396,7 +397,7 @@ const Hero = (props) => {
                                                 {/* Pick Points text */}
                                                 {selectedDropoffPoints.length > 0 ? <p className={`${styles.point_title} ${direction}`} >{appData?.words["strDropoffPoints"]}</p> : <React.Fragment></React.Fragment>}
                                                 {/* selectedPoints */}
-                                                {selectedDropoffPoints.length > 0 ? <SelectedPointsOnHomePage index={index} destination="dropoff" points={selectedDropoffPoints} language={language} /> : <React.Fragment></React.Fragment>}
+                                                {selectedDropoffPoints.length > 0 ? <SelectedPointsOnHomePage env={env} index={index} destination="dropoff" points={selectedDropoffPoints} language={language} /> : <React.Fragment></React.Fragment>}
                                                 {/* add extra pooint div */}
                                                 {internalState[`show-dropoff-extra-point-${index}`] && selectedDropoffPoints.length > 0 ?
                                                     <div className={styles.add_point_div} onClick={() => handleAddNewInput({ index, destination: "dropoff" })}  >
@@ -437,7 +438,7 @@ const Hero = (props) => {
                                                             : <React.Fragment></React.Fragment>}
                                                         {/* results when we get points */}
                                                         {!Array.isArray(internalState[`collecting-dropoff-points-${index}`]) ?
-                                                            <HandleSearchResults language={language} index={index} destination="dropoff" setInternalState={setInternalState} collectingPoints={internalState[`collecting-dropoff-points-${index}`]} /> : <React.Fragment></React.Fragment>}
+                                                            <HandleSearchResults env={env} language={language} index={index} destination="dropoff" setInternalState={setInternalState} collectingPoints={internalState[`collecting-dropoff-points-${index}`]} /> : <React.Fragment></React.Fragment>}
                                                     </div>
                                                 </OutsideClickAlert>
                                             </div>

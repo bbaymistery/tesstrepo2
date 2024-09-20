@@ -34,7 +34,7 @@ const TourCardQuotation = (params = {}) => {
   const [activeAccordion, setActiveAccordion] = useState(null)//BY DEFAULT ALL OF TEM WILL BE CLOSED
   const [splitedDate, setSplitedDate] = useState(currentDate())
   const setQuotationHandleClick = (params = {}) => {
-    console.log(params);
+ 
     let { quotation } = params
     let selectedTour = {
       quotationOptions: datas,

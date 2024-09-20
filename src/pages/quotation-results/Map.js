@@ -1,7 +1,6 @@
 import styles from "./styles.module.scss";
 import React, { useEffect, useState } from "react";
 import { GoogleMap, Polyline, OverlayView as OverlayViewComponent, useLoadScript } from "@react-google-maps/api";
-import env from "../../resources/env";
 
 const OverlayView = (props) => {
   return (
@@ -14,7 +13,7 @@ const OverlayView = (props) => {
  * @props { rightLabel = "left", label, index, color, position }
  */
 const MarkerWithLabel = (props) => {
-  let { rightLabel = false, label, index, color, position, isTaxiDeal } = props;
+  let { rightLabel = false, label, index, color, position, isTaxiDeal ,env} = props;
 
   return (
     <>
@@ -29,7 +28,7 @@ const MarkerWithLabel = (props) => {
     </>
   );
 };
-const Map = ({ datas, selectedPickPoints, selectedDroppOfPoints, isTaxiDeal = false }) => {
+const Map = ({ datas, selectedPickPoints, selectedDroppOfPoints, isTaxiDeal = false,env}) => {
   const { isLoaded, loadError } = useLoadScript({ googleMapsApiKey: process.env.mapApiKey })
   const [points, setPoints] = useState([]);
 
@@ -93,6 +92,7 @@ const Map = ({ datas, selectedPickPoints, selectedDroppOfPoints, isTaxiDeal = fa
                     position={coord}
                     index={letters[index]}
                     label={index % 2 === 0 ? points[index]?.address : points[index]?.address}
+                    env={env}
                   />)}
             </>
           </GoogleMap>

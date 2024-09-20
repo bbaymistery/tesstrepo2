@@ -1,21 +1,16 @@
-import { createWrapper } from 'next-redux-wrapper';
 import React from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { postDataAPI } from '../../../helpers/fetchDatas';
-import env from '../../../resources/env';
-import store from '../../../store/store';
 import Error404 from '../../../pages/404/index'
-import { parse } from 'url'
-import { checkLanguageAttributeOntheUrl } from '../../../helpers/checkLanguageAttributeOntheUrl';
 import QuotationResultsTaxiDeal from '../QuotationResultsTaxiDeal';
-import { urlToTitle } from '../../../helpers/letters';
-import { parseCookies } from '../../../helpers/cokieesFunc';
 import { useState } from 'react';
 import { fetchPathnamePageDatas } from '../../../helpers/fetchPathnamePageDatas';
 import { useRouter } from 'next/router';
 
 function TestA(props) {
+
+    console.log({ env: props.props.env });
+
 
     const state = useSelector(state => state.pickUpDropOffActions)
     let { reservations, params: { journeyType, quotations, language: reduxLanguage } } = state
@@ -89,6 +84,7 @@ function TestA(props) {
         breadcrumbs={breadcrumbs}
         linkurl={linkurl}
         review={review}
+        env={props.props.env}
     />
 }
 

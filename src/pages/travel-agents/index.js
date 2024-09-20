@@ -15,7 +15,6 @@ const Corporate = (props) => {
   const state = useSelector(state => state.pickUpDropOffActions)
   let { params: { direction, language } } = state
   const { appData } = useSelector(state => state.initialReducer)
-  // const { metaTitle, keywords, description, pageContent, pageTitle, shortDescription } = usePageContentHook("open-a-corporate-accounts", language);
 
   return (
     <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription}>

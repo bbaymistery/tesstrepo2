@@ -11,7 +11,7 @@ function COPY_PICK_UP_DETAILS_FOR_TOURS_DROPOFF(params = {}) {
                 flightDetails: {
                     ...point.flightDetails,
                     flightNumber: "",
-                    waitingPickupTime: ""
+                    waitingPickupTime: 0
                 }
             };
         }

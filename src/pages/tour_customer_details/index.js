@@ -13,7 +13,6 @@ import { ifHasUnwantedCharacters } from '../../helpers/ifHasUnwantedCharacters';
 import TourJourneySummaryPanel from '../../components/elements/TourJourneySummaryPanel';
 import { splitDateTimeStringIntoDate, splitDateTimeStringIntoHourAndMinute } from '../../helpers/splitHelper';
 import Textarea from '../../components/elements/Textarea';
-import { tourSchemaValidator } from '../../helpers/tourSchemaValidator';
 import SelectedPointsOnHomePage from '../../components/elements/SelectedPointsOnHomePage';
 import OutsideClickAlert from '../../components/elements/OutsideClickAlert';
 let description = ""
@@ -22,11 +21,10 @@ let keywords = ""
 import Loading from '../../components/elements/Loading'
 import HandleSearchResults from '../../components/elements/HandleSearchResults';
 import SelectedPointsOnTransferDetails from '../../components/elements/SelectedPointsOnTransferDetails'
-import env from '../../resources/env';
 import { reservationSchemeValidator } from '../../helpers/reservationSchemeValidator';
 const collectPoints = (params = {}, callback = () => { }) => {
 
-    let { value = '', reducerSessionToken = "", language = "" } = params;
+    let { value = '', reducerSessionToken = "", language = "",env } = params;
     const url = `${env.apiDomain}/api/v1/suggestions`;
     const method = "POST"
     const headers = { "Content-Type": "application/json" }
@@ -37,12 +35,14 @@ const collectPoints = (params = {}, callback = () => { }) => {
         .then((res) => res.json())
         .then((res) => { callback(res) })
         .catch((error) => {
-            let message = "APL   Hero component _collectPoints()  function catch blog "
+            let message = "APL   Tour customer details component _collectPoints()  function catch blog "
             window.handelErrorLogs(error, message, { config })
         });
 }
 const collectPointsAsync = params => new Promise((resolve, reject) => collectPoints(params, log => resolve(log)))
-const TourCustomerDetails = () => {
+const TourCustomerDetails = (props) => {
+    let {env} = props
+
     const router = useRouter()
     const dispatch = useDispatch()
     let state = useSelector((state) => state.pickUpDropOffActions)
@@ -146,7 +146,7 @@ const TourCustomerDetails = () => {
                 //set input loading to true
                 setInternalState({ [`${destination}-search-loading-${index}`]: true })
 
-                let log = await collectPointsAsync({ value, reducerSessionToken, language })
+                let log = await collectPointsAsync({ value, reducerSessionToken, language,env })
                 let { status, result, "session-token": sessionToken = "", token } = log
 
                 if (status == 200) {
@@ -227,9 +227,9 @@ const TourCustomerDetails = () => {
                                                     {selectedPickupPoints?.length > 0 ? <p className={`${styles.point_title} ${direction}`} >{appData?.words["strPickupPoints"]}</p> : <React.Fragment></React.Fragment>}
                                                     {/* selectedPoints */}
                                                     {/* //!case 1 => if quotations.points has only one item  =>show selected point*/}
-                                                    {selectedPickupPoints?.length === 1 && <SelectedPointsOnHomePage hasOneItem={false} isTaxiDeal={true} index={0} destination="pickup" points={selectedPickupPoints} isTours={true} />}
+                                                    {selectedPickupPoints?.length === 1 && <SelectedPointsOnHomePage env={env} hasOneItem={false} isTaxiDeal={true} index={0} destination="pickup" points={selectedPickupPoints} isTours={true} />}
 
-                                                    <SelectedPointsOnTransferDetails isTaxiDeal={false} pointsError={reservationError['selectedPickupPoints']} selectedPoints={selectedPickupPoints} journeyType={0} type='pickup' language={language} />
+                                                    <SelectedPointsOnTransferDetails env={env} isTaxiDeal={false} pointsError={reservationError['selectedPickupPoints']} selectedPoints={selectedPickupPoints} journeyType={0} type='pickup' language={language} />
                                                     <OutsideClickAlert onOutsideClick={(e) => outsideClick({ destination: "pickup", index: 0 })}>
                                                         <div className={`${styles.input_div} ${styles['search-input-container']}`} f={String(internalState[`pickup-search-focus-${0}`])} >
                                                             <div className={`${styles.popup_header} ${direction}`} f={String(internalState[`pickup-search-focus-${0}`])}>
@@ -254,7 +254,7 @@ const TourCustomerDetails = () => {
                                                             {internalState[`pickup-search-loading-${0}`] ? <div className={styles.loading_div} popupp={String(internalState[`pickup-search-focus-${0}`])} direction={String(direction === "rtl")}><Loading /></div> : <React.Fragment></React.Fragment>}
                                                             {/* results when we get points */}
                                                             {!Array.isArray(internalState[`collecting-pickup-points-${0}`]) ?
-                                                                <HandleSearchResults isTours={true} isTaxiDeal={true} language={language} index={0} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${0}`]} /> : <React.Fragment></React.Fragment>}
+                                                                <HandleSearchResults env={env} isTours={true} isTaxiDeal={true} language={language} index={0} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${0}`]} /> : <React.Fragment></React.Fragment>}
                                                         </div>
                                                     </OutsideClickAlert>
                                                 </div>

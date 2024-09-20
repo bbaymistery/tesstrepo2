@@ -10,7 +10,6 @@ import html2canvas from "html2canvas";
 import { useEffect } from 'react'
 import jsPDF from "jspdf";
 import ProgresBar from '../../components/elements/ProgresBar'
-import env from '../../resources/env'
 import store from '../../store/store'
 import { createWrapper } from 'next-redux-wrapper'
 import { urlWithLangAtribute } from '../../helpers/urlWithLangAtrribute'
@@ -19,7 +18,8 @@ let title = ""
 let keywords = ""
 let description = ""
 
-const ReservationsDocument = () => {
+const ReservationsDocument = (props) => {
+    let { env } = props
     let state = useSelector((state) => state.pickUpDropOffActions)
     let { reservations, params: { journeyType, tokenForArchieve, direction, language } } = state
     let { paymentDetails: { paymentType } } = reservations[0]
@@ -422,42 +422,3 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
 });
 
-/*
-    useEffect(() => {
-        const confirmationMessage = "If you leave the page, all data will be deleted.";
-        const beforeUnloadHandler = async (e) => {
-            if (confirmation) {
-                (e || window.event).returnValue = confirmationMessage;
-                return confirmationMessage;
-            }
-
-        };
-
-        // burasi bizim hangi sayfaya gecdigimizi soyler  (tiklayinca)
-        const beforeRouteHandler = (url) => {
-            if(previousUrl.includes(url)) router.reload
-            if (confirmation) {
-                //when we change language we dont want to confirmation message
-                if (currentUrls.includes(url)) {
-                    setConfirmation(false)
-                    return
-                } else {
-                    setConfirmation(true)
-                    router.reload()
-                }
-
-                if (Router.pathname !== url && !confirm(confirmationMessage)) {
-                    Router.events.emit("routeChangeError");
-                    throw `Route change to "${url}" was aborted (this error can be safely ignored). See https://github.com/zeit/next.js/issues/2476.`;
-                }
-            }
-        };
-
-        window.addEventListener("beforeunload", beforeUnloadHandler);
-        Router.events.on("routeChangeStart", beforeRouteHandler);
-        return () => {
-            window.removeEventListener("beforeunload", beforeUnloadHandler);
-            Router.events.off("routeChangeStart", beforeRouteHandler);
-        };
-    }, [confirmation]);
-*/

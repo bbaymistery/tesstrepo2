@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import env from '../../../resources/env'
 import styles from "./styles.module.scss"
 import TaxiDealViewContent from './TaxiDealViewContent'
 import useRipple from '../../../hooks/useRipple'
@@ -43,7 +42,7 @@ const tabsBttons = [
 //showTabs=>they come from here > heathrow-airport-transfer
 //isLinknameComponent comes driom [..linkname]
 const TaxiDeals = (props) => {
-    let { showTabs = true, bggray = false, islinknamecomponent = false } = props
+    let { showTabs = true, bggray = false, islinknamecomponent = false ,env} = props
     const dispatch = useDispatch()
     const state = useSelector(state => state.pickUpDropOffActions)
     let { params: { direction, language, pointsModalStatus, hasTaxiDeals } } = state
@@ -82,6 +81,7 @@ const TaxiDeals = (props) => {
         // Encode the dealsNameProp to handle spaces and special characters
         let encodedDealsNameProp = encodeURIComponent(dealsNameProp);
         let url = `${env.apiDomain}/api/v1/taxi-deals/list?points=${encodedDealsNameProp}&language=${language}&channelId=${channelId}`;
+       
 
         let response = await fetch(url);
         let { data, status } = await response.json();

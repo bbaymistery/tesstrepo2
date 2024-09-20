@@ -14,7 +14,6 @@
   "/open-a-corporate-accounts.asp": "/travel-agents",
   "/Contact_APL.asp": "/contact-us",
   "/News/covid19-prevention-measures": "<check-point>",
-  "/Tours": "/tours",
   "/heathrow-vip-meet-and-assist": "/heathrow-vip-meet-and-assist",
   "/News/heathrow-airport-is-top-10-list": "<check-point>",
   "/News": "<check-point>",
@@ -412,14 +411,6 @@
   "/ru/": "/ru",
   "/cn/": "/zh",
   "/ar/": "/ar",
-  "/Tours/bicester-village-tour": "/tours/bicester-village-tour",
-  "/Tours/cambridge-daily-tour": "/tours/cambridge-daily-tour",
-  "/Tours/canterbury-and-leeds-castle-tour": "/tours/canterbury-and-leeds-castle-tour",
-  "/Tours/london-tour-full-day": "/tours/london-tour-full-day",
-  "/Tours/london-tour-half-day": "/tours/london-tour-half-day",
-  "/Tours/oxford-and-blenheim-palace-tour": "/tours/oxford-and-blenheim-palace-tour",
-  "/Tours/stonehenge-and-bath": "/tours/stonehenge-and-bath",
-  "/Tours/windsor-and-london-tour": "/tours/windsor-and-london-tour",
   "/heathrow-porter-service": "/heathrow-porter-service", //!Same
 
   //?We never build News pages Doesnt exist
@@ -808,7 +799,6 @@
   "/Stansted/taxi-from-swanage-to-stansted.asp": "/swanage-to-stansted-taxi || <check-point", //!Postman request error",
   "/Stansted/taxi-from-tunbridgewells-to-stansted.asp": "/tunbridge-wells-to-stansted-taxi",
   "/Stansted/taxi-from-warwick-to-stansted.asp": "/warwick-to-stansted-taxi",
-  "/Tours/": "/tours",
   "/es/Taxi_al_aeropuerto_de_Heathrow.asp": "/es/heathrow-taxi-prices",
   "/es/Taxi_al_aeropuerto_de_Gatwick.asp": "/es/gatwick-taxi-prices",
   "/es/Taxi_al_aeropuerto_London_City.asp": "/es/london-city-taxi-prices",

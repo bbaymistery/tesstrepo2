@@ -1,11 +1,10 @@
 import { useRouter } from 'next/router';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import env from '../../../resources/env';
 import styles from "./styles.module.scss"
 const SelectedPointsOnHomePage = (params = {}) => {
     //hasOneItem related to taxi deals
-    let { points, index, destination, getQuotations = () => { }, isTaxiDeal = false, hasOneItem = false ,isTours=false} = params
+    let { points, index, destination, getQuotations = () => { }, isTaxiDeal = false, hasOneItem = false ,isTours=false,env} = params
     const dispatch = useDispatch()
     const router = useRouter()
     const state = useSelector((state) => state.pickUpDropOffActions);

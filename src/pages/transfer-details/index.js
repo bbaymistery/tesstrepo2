@@ -17,13 +17,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import styles from "./styles.module.scss"
 import { useRouter } from 'next/router'
 import CheckBox from './CheckBox'
-import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { currentDate } from '../../helpers/getDates'
 import HandleSearchResults from '../../components/elements/HandleSearchResults'
 import OutsideClickAlert from '../../components/elements/OutsideClickAlert'
 import { hours, minutes } from '../../constants/minutesHours'
-import env from '../../resources/env'
 import Loading from '../../components/elements/Loading'
 import SelectedPointsOnHomePage from '../../components/elements/SelectedPointsOnHomePage'
 import store from '../../store/store'
@@ -35,7 +33,7 @@ import { useUserIp } from '../../hooks/userIp'
 
 const collectPoints = (params = {}, callback = () => { }) => {
 
-    let { value = '', reducerSessionToken = "", language = "" } = params;
+    let { value = '', reducerSessionToken = "", language = "",env } = params;
     const url = `${env.apiDomain}/api/v1/suggestions`;
     const method = "POST"
     const headers = { "Content-Type": "application/json" }
@@ -54,6 +52,7 @@ const collectPointsAsync = params => new Promise((resolve, reject) => collectPoi
 
 const TransferDetails = (props) => {
 
+    let {env}=props
 
     const router = useRouter()
     const dispatch = useDispatch()
@@ -221,7 +220,7 @@ const TransferDetails = (props) => {
                 //set input loading to true
                 setInternalState({ [`${destination}-search-loading-${index}`]: true })
 
-                let log = await collectPointsAsync({ value, reducerSessionToken, language })
+                let log = await collectPointsAsync({ value, reducerSessionToken, language,env })
                 let { status, result, "session-token": sessionToken = "", token } = log
 
                 if (status == 200) {
@@ -290,7 +289,7 @@ const TransferDetails = (props) => {
                                                             {/* selectedPoints */}
                                                             {/* //!case 1 => if quotations.points has only one item  =>show selected point*/}
                                                             {quotations[index]?.taxiDeal?.pickupPoints?.length <= 1 &&
-                                                                selectedPickupPoints.length === 1 && <SelectedPointsOnHomePage hasOneItem={quotations[index]?.taxiDeal?.pickupPoints?.length === 1} isTaxiDeal={true} index={index} destination="pickup" points={selectedPickupPoints} />}
+                                                                selectedPickupPoints.length === 1 && <SelectedPointsOnHomePage env={env} hasOneItem={quotations[index]?.taxiDeal?.pickupPoints?.length === 1} isTaxiDeal={true} index={index} destination="pickup" points={selectedPickupPoints} />}
                                                             {/* //!case 2 => if quotations.points has more than 1  item  =>show select box*/}
                                                             {quotations[index]?.taxiDeal?.pickupPoints.length > 1 ?
                                                                 <div style={{ border: (errorPickUpSelectBox) ? "1px solid red" : "" }} className={styles.taxideals_select_div} direction={String(direction === 'rtl')} title={selectedPickupPoints[0]?.address}>
@@ -313,7 +312,7 @@ const TransferDetails = (props) => {
                                                                 : <></>}
                                                             {/* //it means by default we dont have selected so he should select sth in order to see flight number waiting time  */}
                                                             {/* {pickupIdForImage ? */}
-                                                            <SelectedPointsOnTransferDetails isTaxiDeal={true} pointsError={reservationError['selectedPickupPoints']} selectedPoints={selectedPickupPoints} journeyType={index} type='pickup' language={language} />
+                                                            <SelectedPointsOnTransferDetails  env={env} isTaxiDeal={true} pointsError={reservationError['selectedPickupPoints']} selectedPoints={selectedPickupPoints} journeyType={index} type='pickup' language={language} />
                                                             {/* : <></>} */}
                                                             <OutsideClickAlert onOutsideClick={(e) => outsideClick({ destination: "pickup", index })}>
                                                                 <div className={`${styles.input_div} ${styles['search-input-container']}`} f={String(internalState[`pickup-search-focus-${index}`])} >
@@ -341,7 +340,7 @@ const TransferDetails = (props) => {
                                                                     {/* if !internalState[`pickup-search-value-${index}`] then our handleSearchResults will be belong to styles.book.input */}
                                                                     {!Array.isArray(internalState[`collecting-pickup-points-${index}`]) ?
                                                                         //setInternalState>>>after adding item we set input field  to empty and add extradiv to true
-                                                                        <HandleSearchResults isTaxiDeal={true} language={language} index={index} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${index}`]} /> : <React.Fragment></React.Fragment>}
+                                                                        <HandleSearchResults env={env} isTaxiDeal={true} language={language} index={index} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${index}`]} /> : <React.Fragment></React.Fragment>}
 
                                                                 </div>
 
@@ -356,7 +355,7 @@ const TransferDetails = (props) => {
                                                             {/* selectedPoints */}
                                                             {/* //!case 1 => if quotations.points has only one item  =>show selected point*/}
                                                             {quotations[index]?.taxiDeal?.dropoffPoints?.length <= 1 &&
-                                                                selectedDropoffPoints.length === 1 && <SelectedPointsOnHomePage hasOneItem={quotations[index]?.taxiDeal?.dropoffPoints?.length === 1} isTaxiDeal={true} index={index} destination="dropoff" points={selectedDropoffPoints} />}
+                                                                selectedDropoffPoints.length === 1 && <SelectedPointsOnHomePage env={env} hasOneItem={quotations[index]?.taxiDeal?.dropoffPoints?.length === 1} isTaxiDeal={true} index={index} destination="dropoff" points={selectedDropoffPoints} />}
                                                             {/* //!case 2 => if quotations.points has more than 1  item  =>show select box*/}
                                                             {quotations[index]?.taxiDeal?.dropoffPoints.length > 1 ?
                                                                 <div style={{ border: (errorDropoffSelectBox) ? "1px solid red" : "" }} className={styles.taxideals_select_div} direction={String(direction === 'rtl')}>
@@ -376,7 +375,7 @@ const TransferDetails = (props) => {
                                                                     </select>
                                                                 </div>
                                                                 : <></>}
-                                                            <SelectedPointsOnTransferDetails isTaxiDeal={true} pointsError={reservationError['selectedDropoffPoints']} selectedPoints={selectedDropoffPoints} journeyType={index} type='dropoff' language={language} />
+                                                            <SelectedPointsOnTransferDetails  env={env} isTaxiDeal={true} pointsError={reservationError['selectedDropoffPoints']} selectedPoints={selectedDropoffPoints} journeyType={index} type='dropoff' language={language} />
                                                             <OutsideClickAlert onOutsideClick={(e) => outsideClick({ destination: "dropoff", index })}>
                                                                 <div className={`${styles.input_div} ${styles['search-input-container']}`} f={String(internalState[`dropoff-search-focus-${index}`])} >
                                                                     <div className={`${styles.popup_header} ${direction}`} f={String(internalState[`dropoff-search-focus-${index}`])}>
@@ -405,7 +404,7 @@ const TransferDetails = (props) => {
 
                                                                     {/* results when we get points */}
                                                                     {!Array.isArray(internalState[`collecting-dropoff-points-${index}`]) ?
-                                                                        <HandleSearchResults isTaxiDeal={true} language={language} index={index} destination="dropoff" setInternalState={setInternalState} collectingPoints={internalState[`collecting-dropoff-points-${index}`]} /> : <React.Fragment></React.Fragment>}
+                                                                        <HandleSearchResults env={env} isTaxiDeal={true} language={language} index={index} destination="dropoff" setInternalState={setInternalState} collectingPoints={internalState[`collecting-dropoff-points-${index}`]} /> : <React.Fragment></React.Fragment>}
                                                                 </div>
                                                             </OutsideClickAlert>
                                                         </div>
@@ -552,13 +551,13 @@ const TransferDetails = (props) => {
                                                                 <div className={`${styles.points} ${styles.selectedlist_points_left}`} >
                                                                     <h3 className={styles.points_header}>{appData?.words["strSelectedPickUpPoint"]}</h3>
                                                                     {/* //index =0 it is like destination pickup  */}
-                                                                    <SelectedPointsOnTransferDetails pointsError={reservationError['selectedPickupPoints']} selectedPoints={selectedPickupPoints} journeyType={index} type='pickup' language={language} />
+                                                                    <SelectedPointsOnTransferDetails  env={env} pointsError={reservationError['selectedPickupPoints']} selectedPoints={selectedPickupPoints} journeyType={index} type='pickup' language={language} />
                                                                 </div>
                                                                 {/* {  selectedlist_points_left     bunu aldk select komponentde kulandk} */}
                                                                 <div className={`${styles.points} ${styles.selectedlist_points_right}`}>
                                                                     <h3 className={styles.points_header}>{appData?.words["strSelectedDropOffPoint"]}</h3>
                                                                     {/* //index =1 it is like destination dropoff */}
-                                                                    <SelectedPointsOnTransferDetails pointsError={reservationError['selectedDropoffPoints']} selectedPoints={selectedDropoffPoints} journeyType={index} type='dropoff' language={language} />
+                                                                    <SelectedPointsOnTransferDetails  env={env} pointsError={reservationError['selectedDropoffPoints']} selectedPoints={selectedDropoffPoints} journeyType={index} type='dropoff' language={language} />
                                                                 </div>
                                                             </div>
                                                         </div>

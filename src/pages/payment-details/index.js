@@ -4,7 +4,6 @@ import { Router, useRouter } from "next/router";
 import { createWrapper } from 'next-redux-wrapper'
 import styles from "./styles.module.scss"
 
-import env from '../../resources/env'
 import { splitDateTimeStringIntoDate, splitDateTimeStringIntoHourAndMinute } from '../../helpers/splitHelper'
 import { urlWithLangAtribute } from '../../helpers/urlWithLangAtrribute'
 
@@ -17,7 +16,10 @@ import GlobalLayout from '../../components/layouts/GlobalLayout'
 let title = ""
 let keywords = ""
 let description = ""
-const PaymentDetails = () => {
+const PaymentDetails = (props) => {
+   
+    let {env} = props
+
     const router = useRouter()
     const { appData } = useSelector(state => state.initialReducer)
 
@@ -150,7 +152,7 @@ const PaymentDetails = () => {
                                     </div>
                                 )
                             })}
-                            <PaymentMethods />
+                            <PaymentMethods  env={env}/>
                         </div>
                     </div>
                 </div>

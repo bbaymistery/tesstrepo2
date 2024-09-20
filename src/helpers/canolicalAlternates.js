@@ -1,6 +1,5 @@
-import env from "../resources/env";
 
-export const generateCanonicalAlternates = (pathname) => {
+export const generateCanonicalAlternates = (pathname,env) => {
     const languages = ['en', 'tr', 'ar', 'es', 'it', 'ru', 'zh']; // Define your supported languages
     const websiteDomain = env.websiteDomain; // Assuming you have this environment variable set up
     return languages.map(lang => ({

@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 const QuotationResultsTaxiDealLeftPart = dynamic(() => import('../QuotationResultsTaxiDealLeftPart'));
 const QuotationResultsTaxiDeal = (props) => {
     //these props comes from ...pathname
+
     let {
         previousUrl,
         keywords: keywordsTaxiDeal,
@@ -24,7 +25,8 @@ const QuotationResultsTaxiDeal = (props) => {
         quotationOptions,
         breadcrumbs,
         linkurl,
-        review
+        review,
+        env
     } = props//those props comes from ...pathname
 
     const state = useSelector(state => state.pickUpDropOffActions)
@@ -52,8 +54,6 @@ const QuotationResultsTaxiDeal = (props) => {
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
-
-
         // Clean up event listener
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isVisible]);
@@ -87,6 +87,7 @@ const QuotationResultsTaxiDeal = (props) => {
                                 breadcrumbs={breadcrumbs}
                                 linkurl={linkurl}
                                 review={review}
+                                env={env}
                             />
 
                         </div>

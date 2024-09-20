@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import Link from "next/link";
-import env from "../../../resources/env";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-const PaymentMethods = () => {
+const PaymentMethods = (props) => {
+  let {env}=props
+
   const router = useRouter()
   const dispatch = useDispatch()
   let state = useSelector((state) => state.pickUpDropOffActions)
@@ -159,9 +160,6 @@ const PaymentMethods = () => {
 
   //this function includes all the methods of payments
   const startPayment = (id) => {
-    console.log({ id });
-
-
     try {
       //general settings FOR PAYMENTS
       const paymentPagePath = JSON.parse(paymentTypes.filter((payment) => payment.id === id)[0].pagePath).path;
