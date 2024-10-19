@@ -14,7 +14,6 @@
   "/open-a-corporate-accounts.asp": "/travel-agents",
   "/Contact_APL.asp": "/contact-us",
   "/News/covid19-prevention-measures": "<check-point>",
-  "/heathrow-vip-meet-and-assist": "/heathrow-vip-meet-and-assist",
   "/News/heathrow-airport-is-top-10-list": "<check-point>",
   "/News": "<check-point>",
   "/Offers/SpecialOffers.asp": "<check-point>",
@@ -411,7 +410,6 @@
   "/ru/": "/ru",
   "/cn/": "/zh",
   "/ar/": "/ar",
-  "/heathrow-porter-service": "/heathrow-porter-service", //!Same
 
   //?We never build News pages Doesnt exist
   "/News/high-court-hears-case-against-heathrow-expansion-plans": "<check-point",

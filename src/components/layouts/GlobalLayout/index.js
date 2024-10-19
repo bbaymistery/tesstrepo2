@@ -47,19 +47,22 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.airport-pickups-london.com/" />
         <meta property="og:site_name" content="Airport Pickups London" /> */}
-
-
         {/*//? no follow  */}
         <meta name="googlebot" content="noindex" />
         <meta name="robots" content="noindex" />
+        <link 
+          rel="preload" 
+          href="/images/others/advisorTrip.webp" 
+          as="image" 
+          type="image/webp"
+        />
         {/* <meta name="googlebot" content="index" /> */}
         {/* <meta name="robots" content="index,follow" /> */}
-
-
         {/* //for home page and /heathrow/heathrow-to-oxford-taxi we dont show all fontawesome csss */}
         {(router.pathname === "/") ? <link rel="stylesheet" href="/fontawesome/css/all.min.css" /> : <link rel="stylesheet" href="/fontawesomeAll/css/all.min.css" />}
       </Head>
       <TopHeader />
+
       <main>
         {children}
       </main>

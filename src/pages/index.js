@@ -1,11 +1,11 @@
 import GlobalLayout from "../components/layouts/GlobalLayout";
 import Hero from "../components/widgets/Hero";
-import Testimonials from "../components/widgets/Testimonials";
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from "react";
 const TaxiDeals = dynamic(() => import('../components/widgets/TaxiDeals'), { loading: () => <div>Loading...</div> });
+const Testimonials = dynamic(() => import('../components/widgets/Testimonials'),);
 const CarsSlider = dynamic(() => import('../components/widgets/CarsSlider'),);
-import SeaportTransfers from "../components/widgets/SeaportTransfers";
+const SeaportTransfers = dynamic(() => import('../components/widgets/SeaportTransfers'),);
 import { parse } from 'url';
 import Tours from "./tours";
 import { fetchContent } from "../helpers/fetchContent";

@@ -330,7 +330,7 @@ export const ru_pricePayments = [
     `],
   },
   {
-    id:29,
+    id: 29,
     title: "Есть ли дополнительные сборы за багаж? ",
     content: [
       `
@@ -355,7 +355,7 @@ export const zh_pricePayments = [
     `],
   },
   {
-    id:31,
+    id: 31,
     title: "行李有额外费用吗？",
     content: [`
     我们的标准费率包括处理合理数量行李的费用。然而，过多或超
@@ -914,15 +914,39 @@ export const pickdropoff = [
     title: "Meeting Points at Airports",
     content: [
       `
-    <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
-      <li style="margin-bottom: 8px;"><strong style="font-weight: 500;">Heathrow Airport:</strong> Terminal 2 (Arrival Hall, near the WHSmith store), Terminal 3 (Arrival Hall, next to the Costa Coffee), Terminal 4 (Arrival Hall, close to the WHSmith store), Terminal 5 (Arrival Hall, near the Costa Coffee)</li>
-      <li style="margin-bottom: 8px;"><strong style="font-weight: 500;">Gatwick Airport:</strong> North Terminal (Arrival Hall, next to the Costa Coffee), South Terminal (Arrival Hall, near the WHSmith store)</li>
-      <li style="margin-bottom: 8px;"><strong style="font-weight: 500;">Stansted Airport:</strong> Main Terminal (Arrival Hall, close to the Costa Coffee)</li>
-      <li style="margin-bottom: 8px;"><strong style="font-weight: 500;">Luton Airport:</strong> Main Terminal (Arrival Hall, near the WHSmith store)</li>
-      <li style="margin-bottom: 8px;"><strong style="font-weight: 500;">London City Airport:</strong> Main Terminal (Arrival Hall, next to the Information Desk)</li>
-    </ul>
-  `
-    ],
+        <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Heathrow Airport:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>Terminal 2: In front of the arrivals barrier, by the Currency Exchange kiosk.</li>
+              <li>Terminal 3: In front of the arrivals barriers, by the WH Smith shop.</li>
+              <li>Terminal 4: By the arrival gates, in front of Costa Coffee.</li>
+              <li>Terminal 5: By the arrival gates, in front of Costa Coffee.</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Gatwick Airport:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>North Terminal: In front of the arrival gates.</li>
+              <li>South Terminal: In front of the arrival gates.</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Stansted Airport:</strong>
+            In front of the arrival gates.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Luton Airport:</strong>
+            In front of the arrival gates.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">London City Airport:</strong>
+            In front of the arrival gates.
+          </li>
+        </ul>
+      `
+    ]
+
   },
   {
     id: 68,
@@ -948,38 +972,39 @@ export const tr_pickdropoff = [
     title: "Havalimanlarında Buluşma Noktaları",
     content: [
       `
-    <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
-
-      <li style="margin-bottom: 8px;"><strong style="font-weight: 500;">Heathrow Havalimanı:</strong> Terminal 2 (Varış Salonu, WHSmith
-        mağazasının yanında), Terminal 3 (Varış Salonu, Costa Coffee'nin
-        yanında), Terminal 4 (Varış Salonu, WHSmith mağazasına yakın),
-        Terminal 5 (Varış Salonu, Costa Coffee'nin yanında)</li>
-
-
-     
-
-
-      <li style="margin-bottom: 8px;"><strong style="font-weight: 500;">Gatwick Havalimanı:</strong> Kuzey Terminali (Varış Salonu, M&S
-        Mağazasının yanında), Güney Terminali (Varış Salonu, Gregg
-        Bakery-Coffee'nin önünde</li>
-
-
-      <li style="margin-bottom: 8px;"><strong style="font-weight: 500;">Stansted Havalimanı:</strong>  Ana Terminal (Varış Salonu, Costa Coffee'ye
-      yakın)</li>
-
-
-      <li style="margin-bottom: 8px;"><strong style="font-weight: 500;">Luton Havalimanı:</strong>Ana Terminal (Varış Salonu, WHSmith
-        mağazasının yanında)</li>
-
-     
-
-      <li style="margin-bottom: 8px;"><strong style="font-weight: 500;">London City Havalimanı:</strong>Ana Terminal (Varış Salonu, Bilgi Masasının
-        yanında)</li>
-
-   
-    </ul>
-  `
-    ],
+        <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Heathrow Havalimanı:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>Terminal 2: Varış bariyerinin önünde, Döviz Bozdurma kioskunun yanında.</li>
+              <li>Terminal 3: Varış bariyerlerinin önünde, WH Smith mağazasının yanında.</li>
+              <li>Terminal 4: Varış kapılarının önünde, Costa Coffee'nin karşısında.</li>
+              <li>Terminal 5: Varış kapılarının önünde, Costa Coffee'nin karşısında.</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Gatwick Havalimanı:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>Kuzey Terminali: Varış kapılarının önünde.</li>
+              <li>Güney Terminali: Varış kapılarının önünde.</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Stansted Havalimanı:</strong>
+            Varış kapılarının önünde.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Luton Havalimanı:</strong>
+            Varış kapılarının önünde.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">London City Havalimanı:</strong>
+            Varış kapılarının önünde.
+          </li>
+        </ul>
+      `
+    ]
+    
   },
   {
     id: 70,
@@ -1007,10 +1032,57 @@ export const ar_pickdropoff = [
     title: "نقاط الالتقاء في المطارات والموانئ",
     content: [
       `
-      نحن نوفر نقاط التقاء محددة في المطارات والموانئ لتسهيل لقائك بالسائق. يرجى الرجوع إلى مواد المعلومات الخاصة بنا للحصول على تفاصيل حول نقاط الالتقاء الخاصة بكل موقع.
-  `
-    ],
+        <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">مطار هيثرو:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>المبنى 2: أمام حاجز الوصول، بجوار كشك صرف العملات.</li>
+              <li>المبنى 3: أمام حواجز الوصول، بجانب متجر WH Smith.</li>
+              <li>المبنى 4: عند بوابات الوصول، مقابل مقهى كوستا.</li>
+              <li>المبنى 5: عند بوابات الوصول، مقابل مقهى كوستا.</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">مطار جاتويك:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>المبنى الشمالي: أمام بوابات الوصول.</li>
+              <li>المبنى الجنوبي: أمام بوابات الوصول.</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">مطار ستانستيد:</strong>
+            أمام بوابات الوصول.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">مطار لوتون:</strong>
+            أمام بوابات الوصول.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">مطار لندن سيتي:</strong>
+            أمام بوابات الوصول.
+          </li>
+        </ul>
+      `
+    ]
+    
   },
+  {
+    id:7771,
+    title: "نقاط الالتقاء في موانئ الرحلات البحرية",
+    content: [
+      `
+        <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">
+            ميناء ساوثهامبتون، بورتسموث، دوفر، وهارويتش للرحلات البحرية:
+            </strong>
+            سائقنا سيحمل لوحة اسم عند بوابة النزول. نقدم 60 دقيقة من الانتظار المجاني لعمليات الاستقبال من الرحلات البحرية.
+          </li>
+        </ul>
+      `
+    ]
+    
+  }
 ]
 export const ru_pickdropoff = [
   {
@@ -1018,14 +1090,57 @@ export const ru_pickdropoff = [
     title: "Пункты Встречи в Аэропортах и Портах",
     content: [
       `
-      Мы предоставляем
-      конкретные места встреч в аэропортах и портах для удобства
-      встречи между вами и вашим водителем. Пожалуйста, ознакомьтесь
-      с конкретными деталями пунктов встреч для каждого
-      местоположения в нашем информационном материале
-  `
-    ],
+        <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Аэропорт Хитроу:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>Терминал 2: Перед барьером прибытия, у пункта обмена валюты.</li>
+              <li>Терминал 3: Перед барьерами прибытия, рядом с магазином WH Smith.</li>
+              <li>Терминал 4: У ворот прибытия, напротив Costa Coffee.</li>
+              <li>Терминал 5: У ворот прибытия, напротив Costa Coffee.</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Аэропорт Гатвик:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>Северный терминал: Перед воротами прибытия.</li>
+              <li>Южный терминал: Перед воротами прибытия.</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Аэропорт Станстед:</strong>
+            Перед воротами прибытия.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Аэропорт Лутон:</strong>
+            Перед воротами прибытия.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Аэропорт Лондон-Сити:</strong>
+            Перед воротами прибытия.
+          </li>
+        </ul>
+      `
+    ]
+    
   },
+
+  {
+    id: 722,
+    title: "Пункты Встречи в Портах Круизных Лайн",
+    content: [
+      `
+        <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">
+            Порты круизных лайнеров в Саутуэмпте, Портсмуте, Доувре и Харвиче:
+            </strong>
+            Водитель держит имя табличку у входа. Мы предлагаем 60-минутный бесплатный простой для круизных лайнеров.
+          </li>
+        </ul>
+      `
+    ]
+  }
 
 ]
 export const zh_pickdropoff = [
@@ -1033,11 +1148,57 @@ export const zh_pickdropoff = [
     id: 73,
     title: "机场和港口的集合点",
     content: [
-      `在机场和港口的接送点 我们为机场和港口提供具体的会面点，以方便您和您的司机见
-      面。请查阅我们的信息材料，了解每个地点的具体会面点详情。
       `
-    ],
+        <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">希思罗机场:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>2号航站楼: 在到达屏障前，货币兑换亭旁边。</li>
+              <li>3号航站楼: 在到达屏障前，WH Smith商店旁边。</li>
+              <li>4号航站楼: 在到达门口，Costa咖啡店前。</li>
+              <li>5号航站楼: 在到达门口，Costa咖啡店前。</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">盖特威克机场:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>北航站楼: 在到达门口。</li>
+              <li>南航站楼: 在到达门口。</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">斯坦斯特德机场:</strong>
+            在到达门口。
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">卢顿机场:</strong>
+            在到达门口。
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">伦敦城市机场:</strong>
+            在到达门口。
+          </li>
+        </ul>
+      `
+    ]
+    
   },
+  {
+    id: 774,
+    title: "游轮港口的集合点",
+    content: [
+      `
+        <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">
+            南安普顿、朴茨茅斯、多佛和哈维奇的游轮港口:
+            </strong>
+            司机将在入口处举着牌子。我们提供60分钟的免费等待时间，用于游轮港口的接机。
+          </li>
+        </ul>
+      `
+    ]
+  }
 
 ]
 export const it_pickdropoff = [
@@ -1047,14 +1208,56 @@ export const it_pickdropoff = [
     title: "Punti di Incontro in Aeroporti e Porti per Crociere ",
     content: [
       `
-      Forniamo
-      localizzazioni specifiche all'interno degli aeroporti e dei porti per crociere
-      per facilitare l'incontro tra te e il tuo autista. Si prega di consultare i
-      dettagli specifici dei punti di incontro per ogni località nel nostro materiale
-      informativo.
-      
-  `
-    ],
+        <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Aeroporto di Heathrow:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>Terminal 2: Davanti alla barriera degli arrivi, vicino al chiosco di cambio valuta.</li>
+              <li>Terminal 3: Davanti alle barriere degli arrivi, vicino al negozio WH Smith.</li>
+              <li>Terminal 4: Davanti ai cancelli degli arrivi, di fronte a Costa Coffee.</li>
+              <li>Terminal 5: Davanti ai cancelli degli arrivi, di fronte a Costa Coffee.</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Aeroporto di Gatwick:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>Terminal Nord: Davanti ai cancelli degli arrivi.</li>
+              <li>Terminal Sud: Davanti ai cancelli degli arrivi.</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Aeroporto di Stansted:</strong>
+            Davanti ai cancelli degli arrivi.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Aeroporto di Luton:</strong>
+            Davanti ai cancelli degli arrivi.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Aeroporto di London City:</strong>
+            Davanti ai cancelli degli arrivi.
+          </li>
+        </ul>
+      `
+    ]
+    
+  }
+  ,
+  {
+    id: 775,
+    title: "Punti di Incontro in Porti di Crociere",
+    content: [
+      `
+        <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">
+            Porti di Crociere a Southampton, Portsmouth, Dover e Harwich:
+            </strong>
+            Il conducente porterà un nome tabellone all'ingresso. Offriamo 60 minuti di attesa gratuita per i porti di crociere.
+          </li>
+        </ul>
+      `
+    ]
   }
 ]
 export const es_pickdropoff = [
@@ -1063,10 +1266,55 @@ export const es_pickdropoff = [
     title: "Puntos de Encuentro en Aeropuertos y Puertos",
     content: [
       `
-      Ofrecemos lugares específicos de encuentro en aeropuertos y puertos para facilitar la reunión entre usted y su conductor. 
-      Por favor, consulte los detalles específicos de los puntos de encuentro para cada ubicación en nuestro material informativo.
-  `
-    ],
+        <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Aeropuerto de Heathrow:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>Terminal 2: Frente a la barrera de llegadas, junto al quiosco de cambio de divisas.</li>
+              <li>Terminal 3: Frente a las barreras de llegadas, al lado de la tienda WH Smith.</li>
+              <li>Terminal 4: En las puertas de llegada, frente a Costa Coffee.</li>
+              <li>Terminal 5: En las puertas de llegada, frente a Costa Coffee.</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Aeropuerto de Gatwick:</strong>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>Terminal Norte: Frente a las puertas de llegada.</li>
+              <li>Terminal Sur: Frente a las puertas de llegada.</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Aeropuerto de Stansted:</strong>
+            Frente a las puertas de llegada.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Aeropuerto de Luton:</strong>
+            Frente a las puertas de llegada.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">Aeropuerto de la Ciudad de Londres:</strong>
+            Frente a las puertas de llegada.
+          </li>
+        </ul>
+      `
+    ]
+    
   },
+  {
+    id: 716,
+    title: "Puntos de Encuentro en Puertos de Cruceros",
+    content: [
+      `
+        <ul style="font-size: 16px; list-style-type: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong style="font-weight: 500;">
+            Puertos de Cruceros en Southampton, Portsmouth, Dover y Harwich:
+            </strong>
+            El conductor llevará una tabla con el nombre en la entrada. Ofrecemos 60 minutos de espera gratuita para los puertos de cruceros.
+          </li>
+        </ul>
+      `
+    ]
+  }
 
 ]

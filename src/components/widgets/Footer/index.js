@@ -33,14 +33,14 @@ const Footer = (props) => {
             <div className={styles.column}>
               <p className={styles.title}>{(appData || {})?.words["strCompany"]}</p>
               <ul className={styles.list_items}>
-                <li>
+                {/* <li>
                   <a href={`${language === 'en' ? `/drivers-wanted` : `/${language}/drivers-wanted`}`} title={`${(appData || {})?.words["strDrivers"] || "Drivers"} `} >
                     {(appData || {})?.words["strDrivers"] || Drivers}
                   </a>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <a href="/sitemap.xml">{(appData || {})?.words["strSiteMap"]}</a>
-                </li>
+                </li> */}
                 <li>
                   <a href={`${language === 'en' ? `/about-us` : `/${language}/about-us`}`} title={(appData || {}).words["strAboutUs"]}>
                     {(appData || {}).words["strAboutUs"]}
