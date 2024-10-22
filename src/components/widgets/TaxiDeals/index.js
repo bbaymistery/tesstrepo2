@@ -42,11 +42,12 @@ const tabsBttons = [
 //showTabs=>they come from here > heathrow-airport-transfer
 //isLinknameComponent comes driom [..linkname]
 const TaxiDeals = (props) => {
-    let { showTabs = true, bggray = false, islinknamecomponent = false ,env} = props
+    let { showTabs = true, bggray = false, islinknamecomponent = false, env } = props
     const dispatch = useDispatch()
     const state = useSelector(state => state.pickUpDropOffActions)
     let { params: { direction, language, pointsModalStatus, hasTaxiDeals } } = state
-
+    const [fromAirportToLondon, setFromAirportToLondon] = useState([])
+    const [fromLondonToAirport, setfromLondonToAirport] = useState([])
     const [tabs, setTabs] = useState(0)
     const [taxiPoints, setTaxiPoints] = useState([])
     const refs = tabsBttons.map(() => useRef(null));
@@ -81,7 +82,7 @@ const TaxiDeals = (props) => {
         // Encode the dealsNameProp to handle spaces and special characters
         let encodedDealsNameProp = encodeURIComponent(dealsNameProp);
         let url = `${env.apiDomain}/api/v1/taxi-deals/list?points=${encodedDealsNameProp}&language=${language}&channelId=${channelId}`;
-       
+
 
         let response = await fetch(url);
         let { data, status } = await response.json();
@@ -89,6 +90,25 @@ const TaxiDeals = (props) => {
         if (status === 200) {
             setTaxiPoints(sortDestinationsAlphabetically(data?.destinations));
             sortDestinations(data.destinations, hasTaxiDeals)
+
+            let fromAirportToLondon = [];
+            let fromLondonToAirport = [];
+            //filter by category text " "categoryText": "From Airport To London"
+            data.destinations.forEach(item => {
+                if (item.categoryText === "From Airport To London") {
+                    fromAirportToLondon.push(item)
+                }
+            })
+
+            setFromAirportToLondon(fromAirportToLondon)
+
+            //
+            data.destinations.forEach(item => {
+                if (item.categoryText === "From London To Airport") {
+                    fromLondonToAirport.push(item)
+                }
+            })
+            setfromLondonToAirport(fromLondonToAirport)
         }
     };
 
@@ -117,7 +137,7 @@ const TaxiDeals = (props) => {
     return (
         <>
             <div className={`${styles.taxideals} ${direction}  page `} bggray={String(bggray)} style={{ backgroundColor: `${String(bggray) === "true" ? "#f5f5f5" : "white"}` }}>
-                {pointsModalStatus && <PointsModal points={taxiPoints} title={appData?.words[`${titleStringOfHastaxiDeals(hasTaxiDeals)}`]} />}
+                {pointsModalStatus && <PointsModal fromLondonToAirport={fromLondonToAirport} fromAirportToLondon={fromAirportToLondon} points={taxiPoints} title={appData?.words[`${titleStringOfHastaxiDeals(hasTaxiDeals)}`]} />}
                 <div className={`${styles.taxideals_section} page_section`}>
                     <div className={`${styles.taxideals_section_container} page_section_container`}>
                         {taxiPoints.length > 1 ?

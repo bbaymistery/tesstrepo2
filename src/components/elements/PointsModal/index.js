@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import styles from "./styles.module.scss";
 
-const PointsModal = ({ points, title }) => {
+const PointsModal = ({ points, title, fromAirportToLondon, fromLondonToAirport }) => {
     const wrapperRef = useRef();
     const dispatch = useDispatch()
     const { appData } = useSelector(state => state.initialReducer)
@@ -54,16 +54,54 @@ const PointsModal = ({ points, title }) => {
                 <div><i onClick={() => setToFalse()} className={`fa-sharp fa-solid fa-xmark ${styles.icon}`}></i></div>
                 <h3>{title}</h3>
                 <ul>
-                    {(points || [])?.map((point, index) => {
-                        return <a href={point.pathname} key={index}>
-                            <li className='li_item' >
-                                <span className={styles.title}>{point?.translatedPageTitle ? point?.translatedPageTitle : point?.title}</span>
-                                <span className={styles.start_from}>{(appData || {}).words["strStartFrom"]} <span className={styles.price}>{point.price}</span>  </span>
-                            </li>
-                        </a>
-                    })}
+                    {(points || [])
+                        .filter(destination => destination.categoryText.toLowerCase() !== "from airport to london")
+                        .filter(destination => destination.categoryText.toLowerCase() !== "from london to airport")
+                        ?.map((point, index) => {
+                            return <a href={point.pathname} key={index}>
+                                <li className='li_item' >
+                                    <span className={styles.title}>{point?.translatedPageTitle ? point?.translatedPageTitle : point?.title}</span>
+                                    <span className={styles.start_from}>{(appData || {}).words["strStartFrom"]} <span className={styles.price}>{point.price}</span>  </span>
+                                </li>
+                            </a>
+                        })}
 
                 </ul>
+
+
+                <br /><br />
+                <h3>From Airport to London </h3>
+                <ul>
+                    {(fromAirportToLondon || [])
+
+                        ?.map((point, index) => {
+                            return <a href={point.pathname} key={index}>
+                                <li className='li_item' >
+                                    <span className={styles.title}>{point?.translatedPageTitle ? point?.translatedPageTitle : point?.title}</span>
+                                    <span className={styles.start_from}>{(appData || {}).words["strStartFrom"]} <span className={styles.price}>{point.price}</span>  </span>
+                                </li>
+                            </a>
+                        })}
+
+                </ul>
+                <br />
+                <br />
+                <h3>From London To Airport</h3>
+                <ul>
+                    {(fromLondonToAirport || [])
+
+                        ?.map((point, index) => {
+                            return <a href={point.pathname} key={index}>
+                                <li className='li_item' >
+                                    <span className={styles.title}>{point?.translatedPageTitle ? point?.translatedPageTitle : point?.title}</span>
+                                    <span className={styles.start_from}>{(appData || {}).words["strStartFrom"]} <span className={styles.price}>{point.price}</span>  </span>
+                                </li>
+                            </a>
+                        })}
+
+                </ul>
+
+
             </div>
         </div>
     )
