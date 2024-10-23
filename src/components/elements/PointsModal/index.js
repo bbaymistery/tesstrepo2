@@ -70,7 +70,7 @@ const PointsModal = ({ points, title, fromAirportToLondon, fromLondonToAirport }
 
 
                 <br /><br />
-                <h3>From Airport to London </h3>
+                <h3>Heathrow Airport to Central London Taxi Prices </h3>
                 <ul>
                     {(fromAirportToLondon || [])
 
