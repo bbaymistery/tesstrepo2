@@ -177,7 +177,7 @@ const Footer = (props) => {
                 <a href="https://www.facebook.com/AirportPickupsLondon" target={"_blank"} title={"Airport Pickups London Facebook"}>
                   <Image src={fbImage} alt="Airport Pickups London Facebook" width={25} height={25} />
                 </a>
-                <a href="https://twitter.com/Airport_Pickups" target={"_blank"} title="Airport Pickups London Twitters">
+                <a href="https://x.com/Airport_Pickups" target={"_blank"} title="Airport Pickups London Twitters">
                   <Image src={twImage} alt="Airport Pickups London Twitters" width={25} height={25} />
                 </a>
                 <a href="http://feeds2.feedburner.com/London-Airport-News" target="_blank" title="Airport Pickups London News RSS">

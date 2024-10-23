@@ -52,7 +52,7 @@ const structuredSchema = {
     },
     "sameAs": [
         "https://www.facebook.com/AirportPickupsLondon",
-        "https://twitter.com/Airport_Pickups",
+        "https://x.com/Airport_Pickups",
         "https://plus.google.com/+Airport-pickups-london"
     ]
 }
