@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useOutsideClick } from '../../../hooks/useOutsideClick';
 import styles from "./styles.module.scss";
 
-const PointsModal = ({ points, title, fromAirportToLondon, fromLondonToAirport }) => {
+const PointsModal = ({ points, title, fromAirportToLondon, fromLondonToAirport, dealsName }) => {
     const wrapperRef = useRef();
     const dispatch = useDispatch()
     const { appData } = useSelector(state => state.initialReducer)
@@ -38,7 +38,7 @@ const PointsModal = ({ points, title, fromAirportToLondon, fromLondonToAirport }
         const observerOptions = { root: null, rootMargin: "10px", threshold: 0 };
         const observer = new IntersectionObserver(observerCallback, observerOptions);
         allList.forEach((el) => observer.observe(el));
-    }, [])
+    }, [dealsName])
 
     useEffect(() => {
         if (clickedOutside) {
@@ -70,8 +70,13 @@ const PointsModal = ({ points, title, fromAirportToLondon, fromLondonToAirport }
 
 
                 <br /><br />
+
                 <h3>
-                    {appData.words["strHeathrowToCentralLondonTaxi"]}
+                    {dealsName === 'heathrow' && appData.words["strHeathrowToCentralLondonTaxi"]}
+                    {dealsName === 'gatwick' && appData.words["strGatwickToCentralLondonTaxi"]}
+                    {dealsName === 'stansted' && appData.words["strStanstedToCentralLondonTaxi"]}
+                    {dealsName === 'luton' && appData.words["strLutonToCentralLondonTaxi"]}
+                    {dealsName === 'city airport' && appData.words["strCityToCentralLondonTaxi"]}
                 </h3>
                 <ul>
                     {(fromAirportToLondon || [])
@@ -88,7 +93,13 @@ const PointsModal = ({ points, title, fromAirportToLondon, fromLondonToAirport }
                 </ul>
                 <br />
                 <br />
-                <h3>{appData.words["strCentralLondontoHeathrowTaxi"]}</h3>
+                <h3>
+                {dealsName === 'heathrow' && appData.words["strCentralLondontoHeathrowTaxi"]}
+                    {dealsName === 'gatwick' && appData.words["strCentralLondontoGatwickTaxi"]}
+                    {dealsName === 'stansted' && appData.words["strCentralLondontoStanstedTaxi"]}
+                    {dealsName === 'luton' && appData.words["strCentralLondontoLutonTaxi"]}
+                    {dealsName === 'city airport' && appData.words["strCentralLondontoCityTaxi"]}
+                </h3>
                 <ul>
                     {(fromLondonToAirport || [])
 

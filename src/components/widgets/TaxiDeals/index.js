@@ -134,10 +134,11 @@ const TaxiDeals = (props) => {
     }, [language, hasTaxiDeals])
 
 
+
     return (
         <>
             <div className={`${styles.taxideals} ${direction}  page `} bggray={String(bggray)} style={{ backgroundColor: `${String(bggray) === "true" ? "#f5f5f5" : "white"}` }}>
-                {pointsModalStatus && <PointsModal fromLondonToAirport={fromLondonToAirport} fromAirportToLondon={fromAirportToLondon} points={taxiPoints} title={appData?.words[`${titleStringOfHastaxiDeals(hasTaxiDeals)}`]} />}
+                {pointsModalStatus && <PointsModal dealsName={hasTaxiDeals} fromLondonToAirport={fromLondonToAirport} fromAirportToLondon={fromAirportToLondon} points={taxiPoints} title={appData?.words[`${titleStringOfHastaxiDeals(hasTaxiDeals)}`]} />}
                 <div className={`${styles.taxideals_section} page_section`}>
                     <div className={`${styles.taxideals_section_container} page_section_container`}>
                         {taxiPoints.length > 1 ?
