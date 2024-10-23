@@ -134,6 +134,14 @@ export default function Home(props) {
     </GlobalLayout>
   )
 }
+function cleanUrl(url) {
+  const unwantedPart = "/_next/data/development/index.json";
+  if (url.includes(unwantedPart)) {
+    return url.replace(unwantedPart, '');
+  }
+  return url;
+}
+
 export async function getServerSideProps({ req, res }) {
   const env = await fetchConfig(); // Fetch the env config
   res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
@@ -142,10 +150,9 @@ export async function getServerSideProps({ req, res }) {
   let pathnameUrlWHenChangeByTopbar = pathname
   const { cookie } = req.headers;
   let { metaTitle, keywords, pageContent, metaDescription, lang } = await fetchContent("/", cookie, firstLoadLangauge, pathnameUrlWHenChangeByTopbar)
-
   let schemas = [structuredSchema, breadcumbSchema];
   let mainCanonical = lang === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${lang}${pathname}`
-
+  mainCanonical = cleanUrl(mainCanonical);
   return {
     props: { metaTitle, keywords, pageContent, metaDescription, schemas, mainCanonical },
   }

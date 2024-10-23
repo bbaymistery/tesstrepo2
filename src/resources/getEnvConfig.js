@@ -1,9 +1,9 @@
 // env.js
 
 const getEnvConfig = (config) => {
-    const isDevelopment = true; // localohst -> true || live -> false
+    const isDevelopment = false; // localohst -> true || live -> false
     return {
-        websiteDomain: isDevelopment ? "http://localhost:3500" : "",
+        websiteDomain: isDevelopment ? "http://localhost:3500" : "https://www.airport-pickups-london.com",
         apiDomain: config.API_SERVER_ORIGIN || "https://api.london-tech.com", // Use API domain from config
         status: {
             success: 200,

@@ -1,93 +1,28 @@
-const staticUrls = `
-<url>
-  <loc>https://aplairtest.netlify.app/</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/about-us</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/account-register</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/account-register-results</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/contact-us</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/drivers-wanted</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/fleet</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/heathrow-porter-service</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/heathrow-vip-meet-and-assist</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/meetgreet</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/parking-calculator</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/payment-details</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/quotation-results</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/reservations-document</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/terms</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/tour_customer_details</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/tour_payment_details</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/tours</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/transfer-details</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/travel-agents</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-<url>
-  <loc>https://aplairtest.netlify.app/track-my-taxi</loc>
-  <lastmod>2024-08-29T00:00:00+00:00</lastmod>
-</url>
-
-`
-
-//todo  change aplairtest to dynamic 
 import { fetchConfig } from "../resources/getEnvConfig";
+
+const STATIC_PATHS = [
+  '/',
+  '/about-us',
+  '/account-register',
+  '/account-register-results',
+  '/contact-us',
+  '/drivers-wanted',
+  '/fleet',
+  '/heathrow-porter-service',
+  '/heathrow-vip-meet-and-assist',
+  '/meetgreet',
+  '/parking-calculator',
+  '/payment-details',
+  '/quotation-results',
+  '/reservations-document',
+  '/terms',
+  '/tour_customer_details',
+  '/tour_payment_details',
+  '/tours',
+  '/transfer-details',
+  '/travel-agents',
+  '/track-my-taxi',
+];
 
 const API_POINTS = [
   "heathrow",
@@ -100,68 +35,61 @@ const API_POINTS = [
   'southampton'
 ];
 
-async function fetchTaxiDealPaths(point) {
-  const env = await fetchConfig();
+const generateUrlXml = (domain, path, lastmod) => `<url><loc>${domain}${path}</loc><lastmod>${lastmod}</lastmod></url>`;
 
+
+const fetchTaxiDealPaths = async (point, env) => {
   const response = await fetch(`${env.apiDomain}/api/v1/taxi-deals/list?points=${point}`);
-  const data = await response.json();
-  return data.data.destinations.map(destination => destination.pathname);
-}
+  const { data } = await response.json();
+  return data.destinations.map(destination => destination.pathname);
+};
 
-async function fetchTourDealPaths() {
-  const env = await fetchConfig();
+const fetchTourDealPaths = async (env) => {
   const response = await fetch(`${env.apiDomain}/api/v1/tours-deals/list`);
-  const data = await response.json();
-  return data.data.map(tour => tour.pathname);
-}
+  const { data } = await response.json();
+  return data.map(tour => tour.pathname);
+};
 
-async function generateSiteMapWithPaths(env) {
-  // Fetch paths from taxi deals API concurrently for all points
-  const taxiPathsArray = await Promise.all(API_POINTS.map(fetchTaxiDealPaths));
+const generateSiteMap = async (env) => {
+  const lastmod = new Date().toISOString();
 
-  // Fetch paths from tours deals API
-  const tourPathsArray = await fetchTourDealPaths();
+  // Generate static URLs
+  const staticUrls = STATIC_PATHS.map(path => generateUrlXml(env.websiteDomain, path, lastmod)).join('\n');
 
-  // Flatten the taxi paths array into a single array of paths
-  const allTaxiPaths = taxiPathsArray.flat();
+  // Fetch dynamic paths concurrently
+  const [taxiPaths, tourPaths] = await Promise.all([
+    Promise.all(API_POINTS.map(point => fetchTaxiDealPaths(point, env))),
+    fetchTourDealPaths(env)
+  ]);
 
-  // Combine all paths
-  const allPaths = [...allTaxiPaths, ...tourPathsArray];
-
-  // Generate dynamic URLs for the sitemap
-  const dynamicUrls = allPaths.map(path => {
-    return `
-      <url>
-          <loc>https://aplairtest.netlify.app${path}</loc>
-          <lastmod>${new Date().toISOString()}</lastmod>
-      </url>
-    `;
-  }).join('');
+  // Generate dynamic URLs
+  const dynamicUrls = [...taxiPaths.flat(), ...tourPaths].map(path => generateUrlXml(env.websiteDomain, path, lastmod)).join('\n');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ${staticUrls}
-    ${dynamicUrls}
-  </urlset>`;
-}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${staticUrls}
+${dynamicUrls}
+</urlset>`;
+};
 
 export async function getServerSideProps({ res }) {
+  try {
+    const env = await fetchConfig();
+    const sitemap = await generateSiteMap(env);
 
+    res.setHeader('Content-Type', 'text/xml');
+    res.write(sitemap);
+    res.end();
 
-  const sitemap = await generateSiteMapWithPaths();
-
-  res.setHeader('Content-Type', 'text/xml');
-  // Send the XML to the browser
-  res.write(sitemap);
-  res.end();
-
-  return {
-    props: {},
-  };
+    return { props: {} };
+  } catch (error) {
+    console.error('Error generating sitemap:', error);
+    res.status(500).end();
+    return { props: {} };
+  }
 }
 
-function SiteMap() {
-  // No need to render anything, the XML response is sent directly from getServerSideProps
-}
+// Component remains empty as we handle everything in getServerSideProps
+const SiteMap = () => null;
 
 export default SiteMap;
