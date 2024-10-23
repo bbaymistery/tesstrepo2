@@ -70,7 +70,9 @@ const PointsModal = ({ points, title, fromAirportToLondon, fromLondonToAirport }
 
 
                 <br /><br />
-                <h3>Heathrow Airport to Central London Taxi Prices </h3>
+                <h3>
+                    {appData.words["strHeathrowToCentralLondonTaxi"]}
+                </h3>
                 <ul>
                     {(fromAirportToLondon || [])
 
@@ -86,7 +88,7 @@ const PointsModal = ({ points, title, fromAirportToLondon, fromLondonToAirport }
                 </ul>
                 <br />
                 <br />
-                <h3>From London To Airport</h3>
+                <h3>{appData.words["strCentralLondontoHeathrowTaxi"]}</h3>
                 <ul>
                     {(fromLondonToAirport || [])
 
