@@ -151,9 +151,9 @@ export async function getServerSideProps({ req, res }) {
   const { cookie } = req.headers;
   let { metaTitle, keywords, pageContent, metaDescription, lang } = await fetchContent("/", cookie, firstLoadLangauge, pathnameUrlWHenChangeByTopbar)
   let schemas = [structuredSchema, breadcumbSchema];
-  let mainCanonical = lang === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${lang}${pathname}`
-  mainCanonical = cleanUrl(mainCanonical);
+  // let mainCanonical = lang === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${lang}${pathname}`
+  // mainCanonical = cleanUrl(mainCanonical);
   return {
-    props: { metaTitle, keywords, pageContent, metaDescription, schemas, mainCanonical },
+    props: { metaTitle, keywords, pageContent, metaDescription, schemas, },
   }
 }

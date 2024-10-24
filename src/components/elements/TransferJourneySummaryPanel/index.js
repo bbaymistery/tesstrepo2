@@ -14,6 +14,11 @@ const TransferJourneySummaryPanel = (props) => {
     const carObject = appData?.carsTypes?.reduce((obj, item) => ({ ...obj, [item.id]: item, }), {});
     //https://www.tripadvisor.co.uk/Attraction_Review-g186338-d11966434-Reviews-Airport_Pickups_London-London_England.html
 
+
+      // Check if distance exists, remove 'mile', and convert to km
+  const distanceInMiles = quotations[index].distance ? parseFloat(quotations[index].distance.replace(' mile', '')) : null;
+  const distanceInKm = distanceInMiles ? (distanceInMiles * 1.60934).toFixed(2) : null;
+
     return (
         <div className={`${styles.journey_summary_panel} ${isTaxiDeal ? styles.journey_summary_panel_taxi_deal : ""}`}>
             {isTaxiDeal ?
@@ -72,7 +77,9 @@ const TransferJourneySummaryPanel = (props) => {
                         <div className={styles.text_1}>{appData?.words["strTotalLengthofJourney"]} </div>
                         <div className={styles.duration}>
                             <span>{appData?.words["strDistance"]}</span>
-                            <span>{quotations[index].distance}</span>
+
+                            {/* //!here   */}
+                            <span>{distanceInMiles} {appData?.words["strMiles"]} ({distanceInKm} km)</span>
                         </div>
                         <div className={styles.duration}>
                             <span>{appData?.words["strJourneyDurationTitle"]}</span>
@@ -156,7 +163,7 @@ const TransferJourneySummaryPanel = (props) => {
                         <div className={styles.text_1}>{appData?.words["strTotalLengthofJourney"]} </div>
                         <div className={styles.duration}>
                             <span>{appData?.words["strDistance"]}</span>
-                            <span>{quotations[index].distance}</span>
+                            <span>{distanceInMiles} {appData?.words["strMiles"]} ({distanceInKm} km)</span>
                         </div>
                         <div className={styles.duration}>
                             <span>{appData?.words["strJourneyDurationTitle"]}</span>

@@ -101,7 +101,7 @@ class CustomDocument extends Document {
                     {this.renderSchemaScripts(schemasOfPages)}
 
                     {alternates?.length > 0 && alternates.map((alternate, index) => <link rel="alternate" key={index} hrefLang={alternate.hrefLang} href={alternate.href} />)}
-                    {mainCanonical?.length > 0 && <link rel="canonical" href={mainCanonical} />}
+                    {/* {mainCanonical?.length > 0 && <link rel="canonical" href={mainCanonical} />} */}
 
                     {this.createMetaTagElements(metaTags)}
 
