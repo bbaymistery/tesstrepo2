@@ -1,103 +1,69 @@
 import React from 'react'
 import GlobalLayout from '../../components/layouts/GlobalLayout'
 import styles from "./styles.module.scss"
-import GeneralTerms from './GeneralTerms';
-// import PrivacyTerms from './PrivacyTerms'
+import PrivacyTerms from './PrivacyTerms'
 import { useSelector } from 'react-redux'
 import { fetchContent } from '../../helpers/fetchContent'
 import { checkLanguageAttributeOntheUrl } from '../../helpers/checkLanguageAttributeOntheUrl'
 import { parse } from 'url';
 
 const leftLinks = [
-    {
-        id: 1,
-        linkName: "General Terms of Use",
-        translateName: "strTermsOfUse",
-        pagePathname: 'Terms'
-    },
     // {
-    //     id: 2,
-    //     linkName: "Privacy policy",
-    //     pagePathname: "Privacy_Policy",
-    //     translateName: "strPrivacyPolicy",
-
+    //     id: 1,
+    //     linkName: "General Terms of Use",
+    //     translateName: "strTermsOfUse",
+    //     pagePathname: 'Terms'
     // },
+    {
+        id: 2,
+        linkName: "Privacy policy",
+        pagePathname: "Privacy_Policy",
+        translateName: "strPrivacyPolicy",
+
+    },
 
 ]
-const structuredSchema = {
-    "@context": "http://schema.org/",
-    "@type": "TaxiService",
-    "description": "Airport taxi & shuttle service",
-    "brand": "Airport Pickups London",
-    "name": "Airport Pickups London",
-    "url": "https://www.airport-pickups-london.com",
-    "logo": "https://www.airport-pickups-london.com/Images/Airport-Pickups-London.jpg",
-    "provider": {
-        "@type": "LocalBusiness",
-        "name": "Airport Pickups London",
-        "image": "https://www.airport-pickups-london.com/Images/Airport-Pickups-London.jpg",
-        "address": "APL Office, Novotel, Cherry Lane, UB7 9HJ",
-        "telephone": "+44 208 688 7744",
-        "priceRange": "£10.00 to £55.00",
-        "currenciesAccepted": "GBP",
-        "paymentAccepted": "Cash, Credit Card, Debit Card, PayPal"
-    },
-    "isRelatedTo": {
-        "@type": "Service",
-        "serviceType": "Airport Taxi & shuttle service",
-        "description": "Avarage journey rating",
-        "brand": "Airport Pickups London",
-        "name": "booking terms and conditions"
-    },
-    "sameAs": [
-        "https://www.facebook.com/AirportPickupsLondon",
-        "https://x.com/Airport_Pickups",
-        "https://plus.google.com/+Airport-pickups-london"
-    ]
-}
+
 const structedSchema2 = {
     "@context": "http://schema.org",
     "@type": "NewsArticle",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://www.airport-pickups-london.com/terms"
+        "@id": "https://www.airport-pickups-london.com/privacy-policy"  // Change URL to your privacy policy page
     },
-    "headline": "Booking Terms And Conditions",
+    "headline": "Privacy Policy",  // Change headline to "Privacy Policy"
     "image": {
         "@type": "ImageObject",
-        "url": "https://www.airport-pickups-london.com",
+        "url": "https://www.airport-pickups-london.com",  // Replace with an appropriate image URL if needed
         "height": 800,
         "width": 800
     },
-    "datePublished": "04/12/2018 11:57:11",
-    "dateModified": "04/12/2018 11:57:11",
+    "datePublished": "04/12/2018 11:57:11",  // Adjust date if necessary
+    "dateModified": "04/12/2018 11:57:11",   // Adjust date if necessary
     "author": {
         "@type": "Organization",
-        "name": "Airport Pickups London"
+        "name": "Airport Pickups London"  // Author stays the same
     },
     "publisher": {
         "@type": "Organization",
-        "name": "Airport Pickups London",
+        "name": "Airport Pickups London",  // Publisher stays the same
         "logo": {
             "@type": "ImageObject",
-            "url": "https://www.airport-pickups-london.com/images/apl-google-logo.png",
+            "url": "https://www.airport-pickups-london.com/images/apl-google-logo.png",  // Logo stays the same
             "width": 600,
             "height": 60
         }
     },
-    "description": "Airport Pickups London Booking Terms And Conditions"
-}
+    "description": "Airport Pickups London Privacy Policy"  // Update description to reflect the privacy policy
+};
 
 
-const Terms = (props) => {
+const PrivacyPolicy = (props) => {
     let { bggray = false } = props;
     let { metaTitle, keywords, metaDescription, pageContent } = props
     const state = useSelector(state => state.pickUpDropOffActions);
     const { params: { direction } } = state;
-
     const { appData } = useSelector(state => state.initialReducer)
-
-
 
     return (
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true}>
@@ -115,9 +81,7 @@ const Terms = (props) => {
                                 })}
                             </div>
                         </div>
-
-                         <GeneralTerms pageContent={pageContent} /> 
-                        {/* {isActiveId === 2 ? <PrivacyTerms pageContent={pageContent} /> : <></>} */}
+                        <PrivacyTerms pageContent={pageContent} />
                     </div>
                 </div>
             </div>
@@ -128,15 +92,13 @@ export async function getServerSideProps({ req, query }) {
     let firstLoadLangauge = checkLanguageAttributeOntheUrl(req?.url)
     const { cookie } = req.headers;
     let { pathname } = parse(req?.url, true)
-    // Determine the section based on the query parameter
-    const section = query?.section; // "general" or "privacy-policy"
     let pathnameUrlWHenChangeByTopbar = pathname
-    let contentPath = section === 'privacy-policy' ? '/Privacy_Policy' : '/Terms';
+    let contentPath = '/Privacy_Policy';
     let { metaTitle, keywords, pageContent, metaDescription } = await fetchContent(contentPath, cookie, firstLoadLangauge, pathnameUrlWHenChangeByTopbar)
 
-    let schemas = [structuredSchema, structedSchema2]
+    let schemas = [structedSchema2]
     return {
         props: { metaTitle, keywords, pageContent, metaDescription, schemas }
     }
 }
-export default Terms
+export default PrivacyPolicy

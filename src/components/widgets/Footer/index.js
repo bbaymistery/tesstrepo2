@@ -157,12 +157,12 @@ const Footer = (props) => {
               </div>
               <ul className={styles.lists}>
                 <li>
-                  <a href={`/${language === 'en' ? `/terms` : `${language}/terms`}`} title={(appData || {}).words["strPrivacyPolicy"]} >
+                  <a href={`${language === 'en' ? `/privacy-policy` : `/${language}/privacy-policy`}`} title={(appData || {}).words["strPrivacyPolicy"]} >
                     {(appData || {}).words["strPrivacyPolicy"]}
                   </a>
                 </li>
                 <li>
-                  <a href={`/${language === 'en' ? `/terms` : `${language}/terms`}`} title={(appData || {}).words["strTermsOfUse"]} >
+                  <a href={`${language === 'en' ? `/terms` : `/${language}/terms`}`} title={(appData || {}).words["strTermsOfUse"]} >
                     {(appData || {}).words["strTermsOfUse"]}
                   </a>
                 </li>

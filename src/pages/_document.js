@@ -87,7 +87,7 @@ class CustomDocument extends Document {
         let { schemaOfTaxiDeals, schemas, canonicalAlternates, mainCanonical = "", metaTags = [], toursDatas } = this?.props?.__NEXT_DATA__?.props?.pageProps
         let schemasOfPages = schemas || []//home page Terms and the rest page has different schemas 
         let alternates = canonicalAlternates || []
-        console.log({ alternates });
+      
 
         //checking if datas comes from single tour (tours/link.js)
         if (toursDatas?.pagePathname) {
@@ -102,7 +102,7 @@ class CustomDocument extends Document {
                     {this.renderSchemaScripts(schemaOfTaxiDeals)}
                     {this.renderSchemaScripts(schemasOfPages)}
 
-                    {alternates?.length > 0 && alternates.map((alternate, index) => <link rel="alternate" key={index} hrefLang={alternate.hrefLang} href={alternate.href} />)}
+                    {/* {alternates?.length > 0 && alternates.map((alternate, index) => <link rel="alternate" key={index} hrefLang={alternate.hrefLang} href={alternate.href} />)} */}
                     {/* {mainCanonical?.length > 0 && <link rel="canonical" href={mainCanonical} />} */}
 
                     {this.createMetaTagElements(metaTags)}

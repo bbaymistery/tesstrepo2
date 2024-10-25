@@ -61,17 +61,17 @@ export const CruisePorts = [
         imgUrl: "/images/cruiseto/cruise1__.webp",
         id: 1,
     },
-    {
-        innerText: "Harwich Cruise Port ",
-        path: "/harwich-taxi-prices",
-        title: "Harwich Cruise Port  Transfer",
-        type: "cell",
-        hasTaxiDeals: "harwich",
-        title: "Harwich Cruise Port",
-        id: 2,
-        imgUrl: "/images/cruiseto/cruise2__.webp",
-        translateTitle: "strHarwichCruisePort",
-    },
+    // {
+    //     innerText: "Harwich Cruise Port ",
+    //     path: "/harwich-taxi-prices",
+    //     title: "Harwich Cruise Port  Transfer",
+    //     type: "cell",
+    //     hasTaxiDeals: "harwich",
+    //     title: "Harwich Cruise Port",
+    //     id: 2,
+    //     imgUrl: "/images/cruiseto/cruise2__.webp",
+    //     translateTitle: "strHarwichCruisePort",
+    // },
     {
         innerText: "Portsmouth Cruise Port",
         path: "/portsmouth-taxi-prices",
@@ -192,14 +192,14 @@ export const navigator = [
                 hasTaxiDeals: "portsmouth",
                 strInnerText: "strPortsmouthCruisePort"
             },
-            {
-                innerText: "Harwich Cruise Port ",
-                path: "/harwich-taxi-prices",
-                title: "strHarwichCruisePort",
-                type: "cell",
-                hasTaxiDeals: "harwich",
-                strInnerText: "strHarwichCruisePort"
-            },
+            // {
+            //     innerText: "Harwich Cruise Port ",
+            //     path: "/harwich-taxi-prices",
+            //     title: "strHarwichCruisePort",
+            //     type: "cell",
+            //     hasTaxiDeals: "harwich",
+            //     strInnerText: "strHarwichCruisePort"
+            // },
         ]
     },
     {

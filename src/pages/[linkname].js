@@ -14,7 +14,7 @@ import { parse } from 'url'
 import Error404 from './404/index'
 import { checkLanguageAttributeOntheUrl } from '../helpers/checkLanguageAttributeOntheUrl';
 import { Airports, CruisePorts } from '../constants/navigatior';
-import { generateCanonicalAlternates } from '../helpers/canolicalAlternates';
+// import { generateCanonicalAlternates } from '../helpers/canolicalAlternates';
 
 import { urlToTitle } from '../helpers/letters';
 import { parseCookies } from '../helpers/cokieesFunc';
@@ -105,9 +105,8 @@ async function handleStandardContent(pathname, cookie, pageStartLanguage, schema
 
     if (status === 200) {
         //!Canoncakls
-        let mainCanonical = pageStartLanguage === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${pageStartLanguage}${pathname}`
-        let canonicalAlternates = generateCanonicalAlternates(pathname, env);
-        console.log({ canonicalAlternates });
+        // let mainCanonical = pageStartLanguage === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${pageStartLanguage}${pathname}`
+        // let canonicalAlternates = generateCanonicalAlternates(pathname, env);
 
         return {
             props: {
@@ -115,8 +114,8 @@ async function handleStandardContent(pathname, cookie, pageStartLanguage, schema
                 keywords,
                 pageContent,
                 metaDescription,
-                canonicalAlternates,
-                mainCanonical,
+                // canonicalAlternates: [],
+                // mainCanonical,
                 schemas,
                 isItQuationLink: false
             }
