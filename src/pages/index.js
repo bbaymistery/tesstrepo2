@@ -10,7 +10,7 @@ import { parse } from 'url';
 import Tours from "./tours";
 import { fetchContent } from "../helpers/fetchContent";
 import { checkLanguageAttributeOntheUrl } from "../helpers/checkLanguageAttributeOntheUrl";
-import { fetchConfig } from "../resources/getEnvConfig";
+// import { fetchConfig } from "../resources/getEnvConfig";
 
 const structuredSchema = {
   "@context": "http://schema.org/",
@@ -99,7 +99,6 @@ const breadcumbSchema = {
 
 export default function Home(props) {
   let { metaTitle, keywords, metaDescription, pageContent } = props
-
   const [hasScrolled, setHasScrolled] = useState(false);
   const handleScroll = () => {
     if (!hasScrolled) setHasScrolled(true);
@@ -143,7 +142,7 @@ function cleanUrl(url) {
 }
 
 export async function getServerSideProps({ req, res }) {
-  const env = await fetchConfig(); // Fetch the env config
+  // const env = await fetchConfig(); // Fetch the env config
   res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   let firstLoadLangauge = checkLanguageAttributeOntheUrl(req?.url)
   let { pathname } = parse(req?.url, true)

@@ -48,7 +48,7 @@ const NavbarLinkName = (props) => {
 
 
 
-    return (isItQuationLink ? <TaaxidealsQuotationLink props={props}   /> :
+    return (isItQuationLink ? <TaaxidealsQuotationLink props={props} /> :
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={false}>
             <Hero islinknamecomponent={true} bggray={false} />
             <TaxiDeals env={env} showTabs={false} bggray={false} islinknamecomponent={true} />
@@ -107,6 +107,7 @@ async function handleStandardContent(pathname, cookie, pageStartLanguage, schema
         //!Canoncakls
         let mainCanonical = pageStartLanguage === 'en' ? `${env.websiteDomain}${pathname}` : `${env.websiteDomain}/${pageStartLanguage}${pathname}`
         let canonicalAlternates = generateCanonicalAlternates(pathname, env);
+        console.log({ canonicalAlternates });
 
         return {
             props: {

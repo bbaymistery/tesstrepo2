@@ -87,12 +87,14 @@ class CustomDocument extends Document {
         let { schemaOfTaxiDeals, schemas, canonicalAlternates, mainCanonical = "", metaTags = [], toursDatas } = this?.props?.__NEXT_DATA__?.props?.pageProps
         let schemasOfPages = schemas || []//home page Terms and the rest page has different schemas 
         let alternates = canonicalAlternates || []
+        console.log({ alternates });
 
         //checking if datas comes from single tour (tours/link.js)
         if (toursDatas?.pagePathname) {
             schemasOfPages = toursDatas.schema
             metaTags = toursDatas.metaTags
         }
+
         return (
             <Html lang="en">
                 <Head >

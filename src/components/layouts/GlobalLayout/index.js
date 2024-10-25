@@ -30,14 +30,13 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
   }
 
   const websiteDomain = envConfig.websiteDomain;
-  console.log({ websiteDomain, language, pathname: router.pathname });
 
   return (
     <>
       <Head>
         <title>{title}</title>
-        <meta name="keywords" content={keywords} />
-        <meta name="description" content={description} />
+        <meta  key="keywords" name="keywords" content={keywords} />
+        <meta key="description" name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 " />
         <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
         {/*//?Directly copied from aplcars.com */}
@@ -61,6 +60,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         {router.pathname === '/' && <link rel="alternate" hreflang="es" href={`${websiteDomain}/es`} />}
         {router.pathname === '/' && <link rel="alternate" hreflang="tr" href={`${websiteDomain}/tr`} />}
         {router.pathname === '/' && <link rel="alternate" hreflang="ar" href={`${websiteDomain}/ar`} />}
+        {router.pathname === '/' && <link rel="alternate" hreflang="it" href={`${websiteDomain}/it`} />}
         {router.pathname === '/' && <link rel="alternate" hreflang="x-default" href={`${websiteDomain}/`} />}
 
         {/*   //!Generally same   Meta Tags for the Home Page  */}
@@ -78,9 +78,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         {/* <!-- Meta Tags for the Home Page (English) --> */}
         {language === 'en' && router.pathname === '/' && <meta property="og:title" content="Airport Pickups London | Reliable Airport Taxi & Transfer Service" />}
         {language === 'en' && router.pathname === '/' && <meta property="og:description" content="Airport Pickups London offers reliable, professional, and hassle-free airport transfers across London, including Heathrow, Gatwick, Stansted, Luton, and City Airport. Book online for stress-free travel." />}
-
         {/*    <!-- Twitter/X Meta Tags for the Home Page (English) --> */}
-
         {language === 'en' && router.pathname === '/' && <meta name="twitter:title" content="Airport Pickups London | Reliable Airport Taxi & Transfer Service" />}
         {language === 'en' && router.pathname === '/' && <meta name="twitter:description" content="Reliable airport taxi transfers across London from Heathrow, Gatwick, Stansted, and Luton. Book now for professional service and stress-free travel." />}
 
@@ -88,10 +86,45 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         {/* //?Turkish */}
         {language === 'tr' && router.pathname === '/' && <meta property="og:title" content="Airport Pickups London | Güvenilir Havalimanı Taksi ve Transfer Hizmeti" />}
         {language === 'tr' && router.pathname === '/' && <meta property="og:description" content="Airport Pickups London, Heathrow, Gatwick, Stansted, Luton ve City Havalimanları için güvenilir ve profesyonel havaalanı transfer hizmetleri sunar. Stresiz bir seyahat için şimdi rezervasyon yapın." />}
-        {/*    <!-- Twitter/X Meta Tags for the Home Page (English) --> */}
+        {/*    <!-- Twitter/X Meta Tags for the Home Page (Turkish) --> */}
         {language === 'tr' && router.pathname === '/' && <meta name="twitter:title" content="Airport Pickups London | Güvenilir Havalimanı Taksi ve Transfer Hizmeti" />}
         {language === 'tr' && router.pathname === '/' && <meta name="twitter:description" content="Heathrow, Gatwick, Stansted ve Luton'dan profesyonel havaalanı taksi transferleri. Şimdi stresiz bir yolculuk için rezervasyon yapın." />}
 
+        {/* //?Arabic */}
+        {language === 'ar' && router.pathname === '/' && <meta property="og:title" content="Airport Pickups London | خدمة تاكسي ونقل موثوقة من المطار" />}
+        {language === 'ar' && router.pathname === '/' && <meta property="og:description" content="تقدم Airport Pickups London خدمات نقل موثوقة ومهنية وخالية من المتاعب من مطارات لندن بما في ذلك هيثرو، جاتويك، ستانستيد، لوتون و City Airport. احجز الآن لرحلة خالية من القلق." />}
+        {/*    <!-- Twitter/X Meta Tags for the Home Page (Arabic) --> */}
+        {language === 'ar' && router.pathname === '/' && <meta name="twitter:title" content="Airport Pickups London | خدمة تاكسي ونقل موثوقة من المطار" />}
+        {language === 'ar' && router.pathname === '/' && <meta name="twitter:description" content="نقل تاكسي موثوق من مطارات لندن: هيثرو، جاتويك، ستانستيد، ولوتون. احجز الآن لرحلة خالية من المتاعب." />}
+
+
+        {/* //?Spanish */}
+        {language === 'es' && router.pathname === '/' && <meta property="og:title" content="Airport Pickups London | Servicio de taxi y traslado fiable del aeropuerto" />}
+        {language === 'es' && router.pathname === '/' && <meta property="og:description" content="Airport Pickups London ofrece traslados fiables, profesionales y sin complicaciones desde los aeropuertos de Londres, incluidos Heathrow, Gatwick, Stansted, Luton y City Airport. Reserve ahora para un viaje sin estrés." />}
+        {/*    <!-- Twitter/X Meta Tags for the Home Page (Spanish) --> */}
+        {language === 'es' && router.pathname === '/' && <meta name="twitter:title" content="Airport Pickups London | Servicio de taxi y traslado fiable del aeropuerto" />}
+        {language === 'es' && router.pathname === '/' && <meta name="twitter:description" content="Traslados en taxi confiables desde Heathrow, Gatwick, Stansted y Luton. Reserve ahora para un viaje sin estrés." />}
+
+        {/* //?Italian */}
+        {language === 'it' && router.pathname === '/' && <meta name="og:title" content="Airport Pickups London | Servizio di taxi e trasferimento affidabile dall'aeroporto" />}
+        {language === 'it' && router.pathname === '/' && <meta name="og:description" content="Airport Pickups London offre trasferimenti aeroportuali affidabili, professionali e senza problemi da Heathrow, Gatwick, Stansted, Luton e City Airport. Prenota ora per un viaggio senza stress." />}
+        {/*    <!-- Twitter/X Meta Tags for the Home Page (Italian) --> */}
+        {language === 'it' && router.pathname === '/' && <meta name="twitter:title" content="Airport Pickups London | Servizio di taxi e trasferimento affidabile dall'aeroporto" />}
+        {language === 'it' && router.pathname === '/' && <meta name="twitter:description" content="Trasferimenti in taxi affidabili da Heathrow, Gatwick, Stansted e Luton. Prenota ora per un viaggio senza stress." />}
+
+        {/* //?Russian */}
+        {language === 'ru' && router.pathname === '/' && <meta name="og:title" content="Airport Pickups London | Надежный такси-сервис и трансферы из аэропорта" />}
+        {language === 'ru' && router.pathname === '/' && <meta name="og:description" content="Airport Pickups London предлагает надежные, профессиональные и удобные трансферы из аэропортов Лондона, включая Хитроу, Гатвик, Станстед, Лутон и City Airport. Забронируйте сейчас для беспроблемной поездки." />}
+        {/*    <!-- Twitter/X Meta Tags for the Home Page (Russian) --> */}
+        {language === 'ru' && router.pathname === '/' && <meta name="twitter:title" content="Airport Pickups London | Надежный такси-сервис и трансферы из аэропорта" />}
+        {language === 'ru' && router.pathname === '/' && <meta name="twitter:description" content="Надежные и удобные такси-трансферы из аэропортов Лондона: Хитроу, Гатвик, Станстед и Лутон. Забронируйте сейчас для беспроблемной поездки." />}
+
+        {/* //?Chinise */}
+        {language === 'zh' && router.pathname === '/' && <meta name="og:title" content="Airport Pickups London | 可靠的机场出租车及接送服务" />}
+        {language === 'zh' && router.pathname === '/' && <meta name="og:description" content="Airport Pickups London 提供从伦敦希思罗机场、盖特威克机场、斯坦斯特德机场、卢顿机场及City机场的可靠、专业、无忧接送服务。现在预订，享受无忧旅程。" />}
+        {/*    <!-- Twitter/X Meta Tags for the Home Page (Chinise) --> */}
+        {language === 'zh' && router.pathname === '/' && <meta name="twitter:title" content="Airport Pickups London | 可靠的机场出租车及接送服务" />}
+        {language === 'zh' && router.pathname === '/' && <meta name="twitter:description" content="从伦敦的希思罗、盖特威克、斯坦斯特德及卢顿机场提供的可靠出租车接送服务。现在预订，享受无忧旅程。" />}
 
 
 
