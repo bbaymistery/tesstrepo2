@@ -69,6 +69,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
     <>
       <Head>
         <title>{title}</title>
+        <link rel="preload" href="/images/others/advisorTrip.webp" as="image" type="image/webp" />
         <meta key="keywords" name="keywords" content={keywords} />
         <meta key="description" name="description" content={description} />
 
@@ -99,7 +100,6 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         )}
 
 
-        <link rel="preload" href="/images/others/advisorTrip.webp" as="image" type="image/webp" />
         <link rel="stylesheet" href={router.pathname === "/" ? "/fontawesome/css/all.min.css" : "/fontawesomeAll/css/all.min.css"} />
 
         {/* //alternates for terms abouts us aand other Static pages We dont need schema so we didnt include*/}

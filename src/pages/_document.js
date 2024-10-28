@@ -70,15 +70,15 @@ class CustomDocument extends Document {
     renderGoogleTagManagerScript(id) {
         return (
             <>
-                <script async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></script>
-                <script dangerouslySetInnerHTML={{
+                <Script strategy="lazyOnload" async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></Script >
+                <Script strategy="lazyOnload" dangerouslySetInnerHTML={{
                     __html: `
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
                     gtag('config', '${id}');`
                 }}>
-                </script>
+                </Script >
             </>
         );
     }
@@ -122,9 +122,10 @@ class CustomDocument extends Document {
                        })(window,document,'script','dataLayer','GTM-M8WXW8KC')
                       ` }}>
                     </script>
-                    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=473f7b02-4850-4045-8010-1fedf9752180"> </script>
-                    <script src="/js/chat_widget.js?112" type="text/javascript"></script>
-                    <script src="/js/offProd.js?25" type="text/javascript"></script>
+
+                    <Script  id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=473f7b02-4850-4045-8010-1fedf9752180" />
+                    {/* <Script  src="/js/chat_widget.js?112" type="text/javascript" />
+                    <Script  src="/js/offProd.js?25" type="text/javascript" /> */}
                 </Head>
                 <body>
                     <Main />
