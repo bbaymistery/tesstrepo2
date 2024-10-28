@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import TopHeader from '../../widgets/TopHeader';
 import { useRouter } from 'next/router';
@@ -6,32 +6,8 @@ import { LINKNAME_ROUTES, META_CONTENT_LINKNAME, seoDefaults } from '../../../co
 import Footer from '../../widgets/Footer';
 import { useSelector } from 'react-redux';
 import { fetchConfig } from '../../../resources/getEnvConfig';
-import { SUPPORTED_LANGUAGES, SOCIAL_MEDIA, META_CONTENT_HOME_PAGE, SITE_VERIFICATIONS, STATIC_ROUTES, } from '../../../constants/seoDefaults';
-
-
-
-const StandardMetaTags = ({ currentYear }) => (
-  <>
-    <meta name="distribution" content="Global" />
-    <meta name="copyright" content={`Copyright Airport-pickups-london.com ${currentYear}. All rights reserved.`} />
-    <meta name="resource-type" content="document" />
-    <meta name="author" content="Airport-pickups-london.com" />
-    <meta name="language" content="en" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
-    <meta property="og:site_name" content="Airport Pickups London" />
-    <meta property="og:type" content="website" />
-    {/* Browser Compatibility */}
-    <meta httpEquiv="X-UA-Compatible" content="IE=9" />
-    <meta httpEquiv="x-ua-compatible" content="IE=EmulateIE9" />
-    {/* No follow */}
-    <meta name="googlebot" content="noindex" />
-    <meta name="robots" content="noindex" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Airport_Pickups" />
-  </>
-);
+import { SOCIAL_MEDIA, META_CONTENT_HOME_PAGE, STATIC_ROUTES, } from '../../../constants/seoDefaults';
+import Script from 'next/script';
 
 const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDefaults.description, keywords = seoDefaults.keywords, footerbggray = seoDefaults.footerbggray, isVisible = seoDefaults.isVisible }) => {
   const currentYear = new Date().getFullYear();
@@ -39,8 +15,6 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
   const state = useSelector(state => state.pickUpDropOffActions);
   const { params: { language } } = state;
   const [envConfig, setEnvConfig] = React.useState(null);
-
-
 
   useEffect(() => {
     const fetchEnvData = async () => {
@@ -60,54 +34,27 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
   }, [description, keywords]);
 
   if (!envConfig) return null;
-
   const websiteDomain = envConfig.websiteDomain;
-
-
-
   return (
     <>
       <Head>
         <title>{title}</title>
-        <link rel="preload" href="/images/others/advisorTrip.webp" as="image" type="image/webp" />
         <meta key="keywords" name="keywords" content={keywords} />
         <meta key="description" name="description" content={description} />
-
-        {/* Site Verifications */}
-        {Object.entries(SITE_VERIFICATIONS).map(([name, content]) => <meta key={name} name={name} content={content} />)}
-        <StandardMetaTags currentYear={currentYear} />
-        {router.pathname === STATIC_ROUTES.HOME && (
-          <>
-            {/* Open Graph and Twitter Cards */}
-            <meta property="og:url" content={`${websiteDomain}${language === 'en' ? '' : `/${language}`}`} />
-            <meta property="og:image" content={language === 'en' ? `${websiteDomain}/images/homeScreenImage.webp` : `${websiteDomain}/${language}/images/homeScreenImage.webp`} />
-            <meta name="twitter:image" content={language === 'en' ? `${websiteDomain}/images/homeScreenImage.webp` : `${websiteDomain}/${language}/images/homeScreenImage.webp`} />
-            <meta property="og:title" content={META_CONTENT_HOME_PAGE[language].ogTitle} />
-            <meta property="og:description" content={META_CONTENT_HOME_PAGE[language].ogDescription} />
-            <meta name="twitter:title" content={META_CONTENT_HOME_PAGE[language].twitterTitle} />
-            <meta name="twitter:description" content={META_CONTENT_HOME_PAGE[language].twitterDescription} />
-            <script type="application/ld+json">
-              {JSON.stringify({
-                "@context": "http://schema.org",
-                "@type": "Organization",
-                "name": "Airport Pickups London",
-                "url": `${language === "en" ? websiteDomain : `${websiteDomain}/${language}`}`,
-                "sameAs": Object.values(SOCIAL_MEDIA),
-                "inLanguage": { language }
-              }, null, 2)}
-            </script>
-          </>
-        )}
-
-
-        <link rel="stylesheet" href={router.pathname === "/" ? "/fontawesome/css/all.min.css" : "/fontawesomeAll/css/all.min.css"} />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
         {/* //alternates for terms abouts us aand other Static pages We dont need schema so we didnt include*/}
         {Object.entries(STATIC_ROUTES).map(([key, path]) =>
           router.pathname === path && (
             <>
               <link rel="canonical" href={`${websiteDomain}${path}`} />
-              {Object.values(SUPPORTED_LANGUAGES).map(lang => <link key={lang} rel="alternate" hrefLang={lang} href={`${websiteDomain}/${lang}${path}`} />)}
+              {/* {Object.values(SUPPORTED_LANGUAGES).map(lang => <link key={lang} rel="alternate" hrefLang={lang} href={`${websiteDomain}/${lang}${path}`} />)} */}
+              <link rel="alternate" hreflang="tr" href={`${websiteDomain}/tr${path}`} />
+              <link rel="alternate" hreflang="ar" href={`${websiteDomain}/ar${path}`} />
+              <link rel="alternate" hreflang="es" href={`${websiteDomain}/es${path}`} />
+              <link rel="alternate" hreflang="it" href={`${websiteDomain}/it${path}`} />
+              <link rel="alternate" hreflang="ru" href={`${websiteDomain}/ru${path}`} />
+              <link rel="alternate" hreflang="zh" href={`${websiteDomain}/zh${path}`} />
               <link rel="alternate" hrefLang="x-default" href={`${websiteDomain}${path}`} />
             </>
           )
@@ -119,7 +66,12 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
           router.query.linkname === path && (
             <>
               <link rel="canonical" href={language === 'en' ? `${websiteDomain}/${path}` : `${websiteDomain}/${language}/${path}`} />
-              {Object.values(SUPPORTED_LANGUAGES).map(lang => (<link key={lang} rel="alternate" hrefLang={lang} href={`${websiteDomain}/${lang}/${path}`} />))}
+              <link rel="alternate" hreflang="tr" href={`${websiteDomain}/tr/${path}`} />
+              <link rel="alternate" hreflang="ar" href={`${websiteDomain}/ar/${path}`} />
+              <link rel="alternate" hreflang="es" href={`${websiteDomain}/es/${path}`} />
+              <link rel="alternate" hreflang="it" href={`${websiteDomain}/it/${path}`} />
+              <link rel="alternate" hreflang="ru" href={`${websiteDomain}/ru/${path}`} />
+              <link rel="alternate" hreflang="zh" href={`${websiteDomain}/zh/${path}`} />
               <link rel="alternate" hrefLang="x-default" href={`${websiteDomain}/${path}`} />
 
               <meta property="og:title" content={META_CONTENT_LINKNAME[key][language].ogTitle} />
@@ -145,9 +97,71 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
           )
         )}
 
-        <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=473f7b02-4850-4045-8010-1fedf9752180"> </script>
-        <script src="https://www.airport-pickups-london.com/js/chat_widget.js?112" type="text/javascript"></script>
-        <script src="/js/offProd.js?25" type="text/javascript"></script>
+
+
+
+        {/* //Site verification  */}
+        <meta name={"google"} content={"_Cn8CYgXUWiRe05oCJj_l5OkyXza4K4nIuDWUPs8P2w"} />
+        <meta name={"ms"} content={"41FC097AFD6E06774C838AC3D486664F"} />
+        <meta name={"baidu"} content={"x5apENcEmp"} />
+        <meta name={"verify_v1"} content={"KKDrUvNuL/YKcQ6PqTYbnH+UUOq0/lz/pJU/z7M+Ro4="} />
+
+        {/* <StandardMetaTags currentYear={currentYear} /> */}
+        <meta name="distribution" content="Global" />
+        <meta name="copyright" content={`Copyright Airport-pickups-london.com ${currentYear}. All rights reserved.`} />
+        <meta name="resource-type" content="document" />
+        <meta name="author" content="Airport-pickups-london.com" />
+        <meta name="language" content="en" />
+
+        <meta property="og:site_name" content="Airport Pickups London" />
+        <meta property="og:type" content="website" />
+        {/* Browser Compatibility */}
+        <meta httpEquiv="X-UA-Compatible" content="IE=9" />
+        <meta httpEquiv="x-ua-compatible" content="IE=EmulateIE9" />
+        {/* No follow */}
+        <meta name="googlebot" content="noindex" />
+        <meta name="robots" content="noindex" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@Airport_Pickups" />
+
+        {router.pathname === "/" && (
+          <>
+            {/* Open Graph and Twitter Cards */}
+            <meta property="og:url" content={`${websiteDomain}${language === 'en' ? '' : `/${language}`}`} />
+            <meta property="og:image" content={language === 'en' ? `${websiteDomain}/images/homeScreenImage.webp` : `${websiteDomain}/${language}/images/homeScreenImage.webp`} />
+            <meta name="twitter:image" content={language === 'en' ? `${websiteDomain}/images/homeScreenImage.webp` : `${websiteDomain}/${language}/images/homeScreenImage.webp`} />
+            <meta property="og:title" content={META_CONTENT_HOME_PAGE[language].ogTitle} />
+            <meta property="og:description" content={META_CONTENT_HOME_PAGE[language].ogDescription} />
+            <meta name="twitter:title" content={META_CONTENT_HOME_PAGE[language].twitterTitle} />
+            <meta name="twitter:description" content={META_CONTENT_HOME_PAGE[language].twitterDescription} />
+            <Script strategy='beforeInteractive' type="application/ld+json">
+              {JSON.stringify({
+                "@context": "http://schema.org",
+                "@type": "Organization",
+                "name": "Airport Pickups London",
+                "url": `${language === "en" ? websiteDomain : `${websiteDomain}/${language}`}`,
+                "sameAs": Object.values(SOCIAL_MEDIA),
+                "inLanguage": { language }
+              }, null, 2)}
+            </Script>
+          </>
+        )}
+
+
+        <link rel="stylesheet" href={router.pathname === "/" ? "/fontawesome/css/all.min.css" : "/fontawesomeAll/css/all.min.css"} />
+        <link rel="preload" href="/images/others/advisorTrip.webp" as="image" type="image/webp" />
+
+
+
+
+
+        {/* 
+        //! 1step => Canonical falan siralamasi 
+        //* 2step => Keywords title degisende siralamani goruyarag push ele 
+        //! 3step => Mobilde zendesk olmuyacag  
+        //* 4step => Cruise taxi 3dene sekili
+        */}
 
       </Head>
 

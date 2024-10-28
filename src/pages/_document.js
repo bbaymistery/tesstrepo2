@@ -84,9 +84,8 @@ class CustomDocument extends Document {
     }
     render() {
         //here i am destructing props which i passed  with MyApp.getInitialProps
-        let { schemaOfTaxiDeals, schemas, canonicalAlternates, mainCanonical = "", metaTags = [], toursDatas } = this?.props?.__NEXT_DATA__?.props?.pageProps
+        let { schemaOfTaxiDeals, schemas, metaTags = [], toursDatas } = this?.props?.__NEXT_DATA__?.props?.pageProps
         let schemasOfPages = schemas || []//home page Terms and the rest page has different schemas 
-        let alternates = canonicalAlternates || []
 
 
         //checking if datas comes from single tour (tours/link.js)
@@ -98,11 +97,12 @@ class CustomDocument extends Document {
         return (
             <Html lang="en">
                 <Head >
+
                     {/* //render schemas home page or taxi deals  */}
                     {this.renderSchemaScripts(schemaOfTaxiDeals)}
                     {this.renderSchemaScripts(schemasOfPages)}
 
-                    {/* {alternates?.length > 0 && alternates.map((alternate, index) => <link rel="alternate" key={index} hrefLang={alternate.hrefLang} href={alternate.href} />)} */}
+
                     {/* {mainCanonical?.length > 0 && <link rel="canonical" href={mainCanonical} />} */}
 
                     {this.createMetaTagElements(metaTags)}
@@ -122,7 +122,9 @@ class CustomDocument extends Document {
                        })(window,document,'script','dataLayer','GTM-M8WXW8KC')
                       ` }}>
                     </script>
-                
+                    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=473f7b02-4850-4045-8010-1fedf9752180"> </script>
+                    <script src="https://www.airport-pickups-london.com/js/chat_widget.js?112" type="text/javascript"></script>
+                    {/* <script src="/js/offProd.js?25" type="text/javascript"></script> */}
                 </Head>
                 <body>
                     <Main />
