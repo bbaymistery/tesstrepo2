@@ -93,8 +93,7 @@ class CustomDocument extends Document {
             schemasOfPages = toursDatas.schema
             metaTags = toursDatas.metaTags
         }
-        console.log(this.props.pathname);
-        console.log({ pth: this.props?.__NEXT_DATA__.page });
+
 
 
         return (
@@ -114,7 +113,7 @@ class CustomDocument extends Document {
                     {/* <!-- Global site tagn (gtag.js) - Google Ads: 1036671229 -->
                     //yesil chat  7336181
                     */}
-                    {this.renderGoogleTagManagerScript('AW-1036671229')} 
+                    {/* {this.renderGoogleTagManagerScript('AW-1036671229')}  */}
                     {/* {this.renderGoogleTagManagerScript('UA-7336181-1')} */}
 
                     {/* This script initializes  (GTM) by creating a data layer, setting the GTM start time, and asynchronously loading the GTM script with the container ID 'GTM-M8WXW8KC'. */}
