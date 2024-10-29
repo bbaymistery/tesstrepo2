@@ -117,7 +117,7 @@ class CustomDocument extends Document {
                     {/* {this.renderGoogleTagManagerScript('UA-7336181-1')} */}
 
                     {/* This script initializes  (GTM) by creating a data layer, setting the GTM start time, and asynchronously loading the GTM script with the container ID 'GTM-M8WXW8KC'. */}
-                    <script dangerouslySetInnerHTML={{
+                    {/* <script dangerouslySetInnerHTML={{
                         __html: `
                        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -125,7 +125,7 @@ class CustomDocument extends Document {
                        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                        })(window,document,'script','dataLayer','GTM-M8WXW8KC')
                       ` }}>
-                    </script>
+                    </script> */}
 
                     <link rel="stylesheet" href={this.props?.__NEXT_DATA__.page === "/" ? "/fontawesome/css/all.min.css" : "/fontawesomeAll/css/all.min.css"} />
 
