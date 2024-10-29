@@ -94,6 +94,8 @@ class CustomDocument extends Document {
             metaTags = toursDatas.metaTags
         }
 
+
+
         return (
             <Html lang="en">
                 <Head >
@@ -122,9 +124,9 @@ class CustomDocument extends Document {
                        })(window,document,'script','dataLayer','GTM-M8WXW8KC')
                       ` }}>
                     </script>
-                    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=473f7b02-4850-4045-8010-1fedf9752180"> </script>
-                    <script src="https://www.airport-pickups-london.com/js/chat_widget.js?112" type="text/javascript"></script>
-                    {/* <script src="/js/offProd.js?25" type="text/javascript"></script> */}
+                    <link rel="stylesheet" href={this.props?.__NEXT_DATA__.page === "/" ? "/fontawesome/css/all.min.css" : "/fontawesomeAll/css/all.min.css"} />
+                    <link rel="preload" href="/images/others/advisorTrip.webp" as="image" type="image/webp" />
+
                 </Head>
                 <body>
                     <Main />

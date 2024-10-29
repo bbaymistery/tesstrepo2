@@ -14,10 +14,11 @@ const TransferJourneySummaryPanel = (props) => {
     const carObject = appData?.carsTypes?.reduce((obj, item) => ({ ...obj, [item.id]: item, }), {});
     //https://www.tripadvisor.co.uk/Attraction_Review-g186338-d11966434-Reviews-Airport_Pickups_London-London_England.html
 
+    console.log({ selectedPickupPoints, selectedDropoffPoints });
 
-      // Check if distance exists, remove 'mile', and convert to km
-  const distanceInMiles = quotations[index].distance ? parseFloat(quotations[index].distance.replace(' mile', '')) : null;
-  const distanceInKm = distanceInMiles ? (distanceInMiles * 1.60934).toFixed(2) : null;
+    // Check if distance exists, remove 'mile', and convert to km
+    const distanceInMiles = quotations[index].distance ? parseFloat(quotations[index].distance.replace(' mile', '')) : null;
+    const distanceInKm = distanceInMiles ? (distanceInMiles * 1.60934).toFixed(2) : null;
 
     return (
         <div className={`${styles.journey_summary_panel} ${isTaxiDeal ? styles.journey_summary_panel_taxi_deal : ""}`}>
@@ -48,8 +49,17 @@ const TransferJourneySummaryPanel = (props) => {
                                 {selectedPickupPoints.map((pickup, i) => { return <li key={i}><span>{isTaxiDeal ? "" : `${i + 1}. `}  {pickup.address}</span></li> })}
                                 <div className={styles.space}> </div>
                                 {/* <h5>Dropoff point:</h5> */}
-                                {selectedDropoffPoints.map((dropoff, i) => { return <li key={i + 15}><span>{isTaxiDeal ? "" : `${i + 1}. `} {dropoff.address}</span></li> })}
+                                {selectedDropoffPoints.map((dropoff, i) => {
+                                    const addressText = dropoff.address.includes(dropoff.postcode)
+                                        ? `${dropoff.address}`
+                                        : `${dropoff.address} ${dropoff.postcode}`;
 
+                                    return (
+                                        <li key={i + 15}>
+                                            <span>{isTaxiDeal ? "" : `${i + 1}. `}{addressText}</span>
+                                        </li>
+                                    );
+                                })}
 
                                 <a href={"https://g.co/kgs/Rg7vb8"} target="_blank" className={styles.review}>
                                     <div className={styles.review_left}>4.8 </div>

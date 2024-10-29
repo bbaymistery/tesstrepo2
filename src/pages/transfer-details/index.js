@@ -356,6 +356,7 @@ const TransferDetails = (props) => {
                                                             {/* //!case 1 => if quotations.points has only one item  =>show selected point*/}
                                                             {quotations[index]?.taxiDeal?.dropoffPoints?.length <= 1 &&
                                                                 selectedDropoffPoints.length === 1 && <SelectedPointsOnHomePage env={env} hasOneItem={quotations[index]?.taxiDeal?.dropoffPoints?.length === 1} isTaxiDeal={true} index={index} destination="dropoff" points={selectedDropoffPoints} />}
+                                                           
                                                             {/* //!case 2 => if quotations.points has more than 1  item  =>show select box*/}
                                                             {quotations[index]?.taxiDeal?.dropoffPoints.length > 1 ?
                                                                 <div style={{ border: (errorDropoffSelectBox) ? "1px solid red" : "" }} className={styles.taxideals_select_div} direction={String(direction === 'rtl')}>

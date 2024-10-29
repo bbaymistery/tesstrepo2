@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Footer from '../../widgets/Footer';
 import { useSelector } from 'react-redux';
 import TopHeader from '../../widgets/TopHeader';
@@ -14,6 +14,35 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
   const state = useSelector(state => state.pickUpDropOffActions);
   const { params: { language } } = state;
   const websiteDomain = "https://www.airport-pickups-london.com";
+  useEffect(() => {
+    const loadChatWidget = () => {
+      if (window.innerWidth >990) {
+        // If the window width is below 990px, do not load the chat widget
+        const script1 = document.createElement('script');
+        console.log("script1", script1);
+        script1.id = "ze-snippet";
+        script1.src = "https://static.zdassets.com/ekr/snippet.js?key=473f7b02-4850-4045-8010-1fedf9752180";
+        script1.async = true;
+        document.head.appendChild(script1); // Append to head
+  
+        const script2 = document.createElement('script');
+        script2.src = "https://www.airport-pickups-london.com/js/chat_widget.js?112";
+        script2.async = true;
+        document.head.appendChild(script2); // Append to head
+      }
+
+    };
+
+    const handleLoad = () => {
+      setTimeout(loadChatWidget, 3000); // Delay loading chat widget by 3000ms after load
+    };
+
+    window.addEventListener('load', handleLoad);
+
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
+  }, []);
 
   return (
     <>
@@ -26,7 +55,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         {/* //alternates for terms abouts us aand other Static pages We dont need schema so we didnt include*/}
         {Object.entries(STATIC_ROUTES).map(([key, path]) =>
           router.pathname === path && (
-            <>
+            <React.Fragment key={key}>
               <link rel="canonical" href={`${websiteDomain}${path}`} />
               <link rel="alternate" hrefLang="tr" href={`${websiteDomain}/tr${path}`} />
               <link rel="alternate" hrefLang="ar" href={`${websiteDomain}/ar${path}`} />
@@ -35,7 +64,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
               <link rel="alternate" hrefLang="ru" href={`${websiteDomain}/ru${path}`} />
               <link rel="alternate" hrefLang="zh" href={`${websiteDomain}/zh${path}`} />
               <link rel="alternate" hrefLang="x-default" href={`${websiteDomain}${path}`} />
-            </>
+            </React.Fragment>
           )
         )}
 
@@ -43,7 +72,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         {/* >>>Starting  [Linknname]  ALTERANTE CANONICAL configurations fFor all linknama query */}
         {Object.entries(LINKNAME_ROUTES).map(([key, path]) =>
           router.query.linkname === path && (
-            <>
+            <React.Fragment key={key}>
               <link rel="canonical" href={language === 'en' ? `${websiteDomain}/${path}` : `${websiteDomain}/${language}/${path}`} />
               <link rel="alternate" hrefLang="tr" href={`${websiteDomain}/tr/${path}`} />
               <link rel="alternate" hrefLang="ar" href={`${websiteDomain}/ar/${path}`} />
@@ -72,7 +101,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
                   "inLanguage": { language }
                 }, null, 2)}
               </Script>
-            </>
+            </React.Fragment>
           )
         )}
 
@@ -128,16 +157,8 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         )}
 
 
-        <link rel="stylesheet" href={router.pathname === "/" ? "/fontawesome/css/all.min.css" : "/fontawesomeAll/css/all.min.css"} />
-        <link rel="preload" href="/images/others/advisorTrip.webp" as="image" type="image/webp" />
 
 
-
-        {/* 
-        //! 3step => Mobilde zendesk olmuyacag  
-        //!Arasdir meta tag lari 
-        //!Arasdir Zendesk linkini
-        */}
 
       </Head>
 

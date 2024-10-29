@@ -12,7 +12,6 @@ import { getCookie, setCookie } from '../helpers/cokieesFunc';
 import { fetchAllLanguagesAppDatas } from '../helpers/fetchAllLanguagesAppDatas';
 import { fetchConfig, } from '../resources/getEnvConfig';
 const myFont = localFont({ src: '../../public/googleFonts/92zatBhPNqw73oTd4g.woff2' })
-const allLanguages = ["en", "tr", "ar", "es", "zh", "it", "ru"]
 
 export const MyApp = ({ Component, pageProps }) => {
 
@@ -134,7 +133,7 @@ export const MyApp = ({ Component, pageProps }) => {
 
   return (<Provider store={store}>
     <main style={{ fontFamily: myFont.style.fontFamily }}>
-      <Component {...pageProps} pathname={router.pathname} />
+      <Component {...pageProps}  />
     </main>
   </Provider>);
 }

@@ -26,7 +26,7 @@ const ReservationsDocument = (props) => {
 
 
     const router = useRouter()
-    const { appData, paymentTypes } = useSelector(state => state.initialReducer)
+    const { appData } = useSelector(state => state.initialReducer)
     const carObject = appData?.carsTypes?.reduce((obj, item) => ({ ...obj, [item.id]: item, }), {});
     // const confirmationAlert = useConfirm({ previousUrl: "/", nextUrl: "/", message: "If you leave the page, all data will be deleted." })
     const { previousUrls, currentUrls } = urlWithLangAtribute({ languages: appData.languages, previousUrl: "/payment-details", nextUrl: "/", currentUrl: router.asPath })
