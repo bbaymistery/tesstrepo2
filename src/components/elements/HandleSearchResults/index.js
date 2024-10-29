@@ -25,11 +25,13 @@ const moveZeroosToTheEndMakeAnArray = (params = {}) => {
     return newOrderedItems;
 };
 const getPostCodesAndAddToList = (params = {}, callback = () => { }) => {
-    let { point } = params
+    let { point, env } = params
     const url = `${env.apiDomain}/api/v1/postcode-address`;
     const headers = { "Content-Type": "application/json" }
     const method = "POST"
     const body = JSON.stringify({ postcodes: [point.postcode] })
+    console.log({ body });
+
     const config = { method, headers, body };
     fetch(url, config)
         .then((res) => res.json())
@@ -60,7 +62,7 @@ const requestForGooglePLace = (params = {}, callback = () => { }) => {
 const getPostCodesAndAddToListAsync = params => new Promise((resolve, reject) => getPostCodesAndAddToList(params, log => resolve(log)))
 const requestForGogglePalceAsync = (params) => new Promise((resolve, reject) => requestForGooglePLace(params, log => resolve(log)))
 const HandleSearchResults = (params = {}) => {
-    let { collectingPoints, destination, setInternalState, index, getQuotations = () => { }, language, isTaxiDeal = false, isTours = false ,env} = params
+    let { collectingPoints, destination, setInternalState, index, getQuotations = () => { }, language, isTaxiDeal = false, isTours = false, env } = params
 
     let newOrderedItems = []
     //simplify collectedpoints
@@ -107,7 +109,7 @@ const HandleSearchResults = (params = {}) => {
         //setting postcode adressess
         if (point.pcatId === 5) {
             (async () => {
-                let log = await getPostCodesAndAddToListAsync({ point })
+                let log = await getPostCodesAndAddToListAsync({ point, env })
                 let { status, results } = log
                 if (status && results.length > 0) dispatch({ type: "SET_POST_CODE_ADRESSES", data: { result: results[0] } })
             })()
