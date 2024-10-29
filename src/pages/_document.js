@@ -115,6 +115,7 @@ class CustomDocument extends Document {
                     //yesil chat  7336181
                     */}
                     {this.renderGoogleTagManagerScript('AW-1036671229')} 
+                    {/* {this.renderGoogleTagManagerScript('UA-7336181-1')} */}
 
                     {/* This script initializes  (GTM) by creating a data layer, setting the GTM start time, and asynchronously loading the GTM script with the container ID 'GTM-M8WXW8KC'. */}
                     <script dangerouslySetInnerHTML={{
