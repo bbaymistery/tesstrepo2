@@ -93,7 +93,8 @@ class CustomDocument extends Document {
             schemasOfPages = toursDatas.schema
             metaTags = toursDatas.metaTags
         }
-
+        console.log(this.props.pathname);
+        console.log({ pth: this.props?.__NEXT_DATA__.page });
 
 
         return (
@@ -110,9 +111,10 @@ class CustomDocument extends Document {
                     {this.createMetaTagElements(metaTags)}
 
                     {/* below tags copied from aplcars.com website  */}
-                    {/* <!-- Global site tagn (gtag.js) - Google Ads: 1036671229 --> */}
-                    {this.renderGoogleTagManagerScript('AW-1036671229')}
-                    {this.renderGoogleTagManagerScript('UA-7336181-1')}
+                    {/* <!-- Global site tagn (gtag.js) - Google Ads: 1036671229 -->
+                    //yesil chat  7336181
+                    */}
+                    {this.renderGoogleTagManagerScript('AW-1036671229')} 
 
                     {/* This script initializes  (GTM) by creating a data layer, setting the GTM start time, and asynchronously loading the GTM script with the container ID 'GTM-M8WXW8KC'. */}
                     <script dangerouslySetInnerHTML={{
@@ -124,8 +126,9 @@ class CustomDocument extends Document {
                        })(window,document,'script','dataLayer','GTM-M8WXW8KC')
                       ` }}>
                     </script>
+
                     <link rel="stylesheet" href={this.props?.__NEXT_DATA__.page === "/" ? "/fontawesome/css/all.min.css" : "/fontawesomeAll/css/all.min.css"} />
-                    <link rel="preload" href="/images/others/advisorTrip.webp" as="image" type="image/webp" />
+
 
                 </Head>
                 <body>
