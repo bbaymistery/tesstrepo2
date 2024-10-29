@@ -1,40 +1,20 @@
-import React, { useEffect } from 'react';
 import Head from 'next/head';
-import TopHeader from '../../widgets/TopHeader';
+import Script from 'next/script';
 import { useRouter } from 'next/router';
-import { LINKNAME_ROUTES, META_CONTENT_LINKNAME, seoDefaults } from '../../../constants/seoDefaults';
+import React from 'react';
 import Footer from '../../widgets/Footer';
 import { useSelector } from 'react-redux';
-import { fetchConfig } from '../../../resources/getEnvConfig';
+import TopHeader from '../../widgets/TopHeader';
+import { LINKNAME_ROUTES, META_CONTENT_LINKNAME, seoDefaults } from '../../../constants/seoDefaults';
 import { SOCIAL_MEDIA, META_CONTENT_HOME_PAGE, STATIC_ROUTES, } from '../../../constants/seoDefaults';
-import Script from 'next/script';
 
 const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDefaults.description, keywords = seoDefaults.keywords, footerbggray = seoDefaults.footerbggray, isVisible = seoDefaults.isVisible }) => {
   const currentYear = new Date().getFullYear();
   const router = useRouter();
   const state = useSelector(state => state.pickUpDropOffActions);
   const { params: { language } } = state;
-  const [envConfig, setEnvConfig] = React.useState(null);
+  const websiteDomain = "https://www.airport-pickups-london.com";
 
-  useEffect(() => {
-    const fetchEnvData = async () => {
-      try {
-        const env = await fetchConfig();
-        setEnvConfig(env);
-      } catch (error) {
-        console.error('Failed to fetch environment config:', error);
-      }
-    };
-    fetchEnvData();
-  }, []);
-
-  useEffect(() => {
-    const metaTags = ['keywords', 'description'].map(name => document.querySelector(`meta[name="${name}"]`));
-    metaTags.forEach(tag => tag?.remove());
-  }, [description, keywords]);
-
-  if (!envConfig) return null;
-  const websiteDomain = envConfig.websiteDomain;
   return (
     <>
       <Head>
@@ -48,13 +28,12 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
           router.pathname === path && (
             <>
               <link rel="canonical" href={`${websiteDomain}${path}`} />
-              {/* {Object.values(SUPPORTED_LANGUAGES).map(lang => <link key={lang} rel="alternate" hrefLang={lang} href={`${websiteDomain}/${lang}${path}`} />)} */}
-              <link rel="alternate" hreflang="tr" href={`${websiteDomain}/tr${path}`} />
-              <link rel="alternate" hreflang="ar" href={`${websiteDomain}/ar${path}`} />
-              <link rel="alternate" hreflang="es" href={`${websiteDomain}/es${path}`} />
-              <link rel="alternate" hreflang="it" href={`${websiteDomain}/it${path}`} />
-              <link rel="alternate" hreflang="ru" href={`${websiteDomain}/ru${path}`} />
-              <link rel="alternate" hreflang="zh" href={`${websiteDomain}/zh${path}`} />
+              <link rel="alternate" hrefLang="tr" href={`${websiteDomain}/tr${path}`} />
+              <link rel="alternate" hrefLang="ar" href={`${websiteDomain}/ar${path}`} />
+              <link rel="alternate" hrefLang="es" href={`${websiteDomain}/es${path}`} />
+              <link rel="alternate" hrefLang="it" href={`${websiteDomain}/it${path}`} />
+              <link rel="alternate" hrefLang="ru" href={`${websiteDomain}/ru${path}`} />
+              <link rel="alternate" hrefLang="zh" href={`${websiteDomain}/zh${path}`} />
               <link rel="alternate" hrefLang="x-default" href={`${websiteDomain}${path}`} />
             </>
           )
@@ -66,12 +45,12 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
           router.query.linkname === path && (
             <>
               <link rel="canonical" href={language === 'en' ? `${websiteDomain}/${path}` : `${websiteDomain}/${language}/${path}`} />
-              <link rel="alternate" hreflang="tr" href={`${websiteDomain}/tr/${path}`} />
-              <link rel="alternate" hreflang="ar" href={`${websiteDomain}/ar/${path}`} />
-              <link rel="alternate" hreflang="es" href={`${websiteDomain}/es/${path}`} />
-              <link rel="alternate" hreflang="it" href={`${websiteDomain}/it/${path}`} />
-              <link rel="alternate" hreflang="ru" href={`${websiteDomain}/ru/${path}`} />
-              <link rel="alternate" hreflang="zh" href={`${websiteDomain}/zh/${path}`} />
+              <link rel="alternate" hrefLang="tr" href={`${websiteDomain}/tr/${path}`} />
+              <link rel="alternate" hrefLang="ar" href={`${websiteDomain}/ar/${path}`} />
+              <link rel="alternate" hrefLang="es" href={`${websiteDomain}/es/${path}`} />
+              <link rel="alternate" hrefLang="it" href={`${websiteDomain}/it/${path}`} />
+              <link rel="alternate" hrefLang="ru" href={`${websiteDomain}/ru/${path}`} />
+              <link rel="alternate" hrefLang="zh" href={`${websiteDomain}/zh/${path}`} />
               <link rel="alternate" hrefLang="x-default" href={`${websiteDomain}/${path}`} />
 
               <meta property="og:title" content={META_CONTENT_LINKNAME[key][language].ogTitle} />
@@ -82,7 +61,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
               <meta name="twitter:title" content={META_CONTENT_LINKNAME[key][language].twitterTitle} />
               <meta name="twitter:description" content={META_CONTENT_LINKNAME[key][language].twitterDescription} />
               <meta name="twitter:image" content={language === 'en' ? `${websiteDomain}/images/${META_CONTENT_LINKNAME[key][language].imageUrl}` : `${websiteDomain}/${language}/images/${META_CONTENT_LINKNAME[key][language].imageUrl}`} />
-              <script type="application/ld+json">
+              <Script strategy='beforeInteractive' type="application/ld+json">
                 {JSON.stringify({
                   "@context": "http://schema.org",
                   "@type": "WebPage",
@@ -92,7 +71,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
                   "description": META_CONTENT_LINKNAME[key][language]["schema"]["description"],
                   "inLanguage": { language }
                 }, null, 2)}
-              </script>
+              </Script>
             </>
           )
         )}
@@ -154,13 +133,10 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
 
 
 
-
-
         {/* 
-        //! 1step => Canonical falan siralamasi 
-        //* 2step => Keywords title degisende siralamani goruyarag push ele 
         //! 3step => Mobilde zendesk olmuyacag  
-        //* 4step => Cruise taxi 3dene sekili
+        //!Arasdir meta tag lari 
+        //!Arasdir Zendesk linkini
         */}
 
       </Head>

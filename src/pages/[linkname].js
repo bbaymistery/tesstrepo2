@@ -228,7 +228,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     // Adjust pathname and language based on initial language
     const adjusted = adjustPathnameForLanguage(pathname, pageStartLanguage, cookies);
-    console.log({ adjusted });
 
     pathname = adjusted.pathname;
     pageStartLanguage = adjusted.pageStartLanguage;

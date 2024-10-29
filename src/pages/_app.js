@@ -134,7 +134,7 @@ export const MyApp = ({ Component, pageProps }) => {
 
   return (<Provider store={store}>
     <main style={{ fontFamily: myFont.style.fontFamily }}>
-      <Component {...pageProps} />
+      <Component {...pageProps} pathname={router.pathname} />
     </main>
   </Provider>);
 }
