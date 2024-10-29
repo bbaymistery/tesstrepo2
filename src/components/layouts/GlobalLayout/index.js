@@ -37,7 +37,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
     const handleLoad = () => {
       console.log("11");
 
-      setTimeout(loadChatWidget, 3000); // Delay loading chat widget by 3000ms after load
+      setTimeout(loadChatWidget, 1500); // Delay loading chat widget by 3000ms after load
     };
 
     window.addEventListener('load', handleLoad);

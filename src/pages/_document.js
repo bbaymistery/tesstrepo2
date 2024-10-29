@@ -114,10 +114,10 @@ class CustomDocument extends Document {
                     //yesil chat  7336181
                     */}
                     {/* {this.renderGoogleTagManagerScript('AW-1036671229')}  */}
-                    {/* {this.renderGoogleTagManagerScript('UA-7336181-1')} */}
+                    {this.renderGoogleTagManagerScript('UA-7336181-1')}
 
                     {/* This script initializes  (GTM) by creating a data layer, setting the GTM start time, and asynchronously loading the GTM script with the container ID 'GTM-M8WXW8KC'. */}
-                    {/* <script dangerouslySetInnerHTML={{
+                    <script dangerouslySetInnerHTML={{
                         __html: `
                        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -125,13 +125,17 @@ class CustomDocument extends Document {
                        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                        })(window,document,'script','dataLayer','GTM-M8WXW8KC')
                       ` }}>
-                    </script> */}
-
+                    </script>
+                    <link rel="preload" href="/images/others/advisorTrip.webp" as="image" type="image/webp" />
                     <link rel="stylesheet" href={this.props?.__NEXT_DATA__.page === "/" ? "/fontawesome/css/all.min.css" : "/fontawesomeAll/css/all.min.css"} />
-
-
                 </Head>
                 <body>
+
+
+                    <noscript>
+                        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M8WXW8KC" height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe>
+                    </noscript>
+
                     <Main />
                     <NextScript />
                 </body>
