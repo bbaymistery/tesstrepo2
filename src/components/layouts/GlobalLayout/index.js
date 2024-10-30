@@ -19,6 +19,15 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
     const loadChatWidget = () => {
       if (window.innerWidth > 990) {
         // If the window width is below 990px, do not load the chat widget
+
+        window.zESettings = {
+          webWidget: {
+            chat: {
+              connectOnPageLoad: false, // Set to true if you want to auto-connect
+            }
+          }
+        };
+
         const script1 = document.createElement('script');
         console.log("script1", script1);
         script1.id = "ze-snippet";
@@ -37,7 +46,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
     const handleLoad = () => {
       console.log("11");
 
-      setTimeout(loadChatWidget, 1500); // Delay loading chat widget by 3000ms after load
+      setTimeout(loadChatWidget, 2000); // Delay loading chat widget by 3000ms after load
     };
 
     window.addEventListener('load', handleLoad);
