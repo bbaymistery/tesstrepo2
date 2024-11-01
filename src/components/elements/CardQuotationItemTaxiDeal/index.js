@@ -87,7 +87,10 @@ const CardQuotationItemTaxiDeal = (params = {}) => {
     const setQuotationHandleClick = async (params = {}) => {
         let { quotation } = params
         checkJourneyTypeAndAddQuotationToReducer({ journeyType, quotation, index, router, dispatch, language, isTaxiDeal, quotations, env })
-        if (isTaxiDeal) {
+        //!nneww Pathname yox idi direk yazilirdi 
+        // console.log({ previousUrlsetQuotationHandleClick: previousUrl });
+
+        if (isTaxiDeal && previousUrl) {
 
             try {
                 const body = { language, checkRedirect: true, taxiDealPathname: previousUrl, withoutExprectedPoints: false, }

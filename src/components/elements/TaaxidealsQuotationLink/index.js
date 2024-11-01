@@ -8,10 +8,6 @@ import { fetchPathnamePageDatas } from '../../../helpers/fetchPathnamePageDatas'
 import { useRouter } from 'next/router';
 
 function TestA(props) {
-
-    console.log({ env: props.props.env });
-
-
     const state = useSelector(state => state.pickUpDropOffActions)
     let { reservations, params: { journeyType, quotations, language: reduxLanguage } } = state
 

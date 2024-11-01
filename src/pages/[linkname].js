@@ -130,68 +130,71 @@ async function handleQuotationLink(language, pathname, schemas, env) {
     let pickUps = []
     let dropoffs = []
     let review = {}
+    console.log({ pathnamehandleQuotationLink: pathname });
 
-    const body = { language, checkRedirect: true, taxiDealPathname: pathname, withoutExprectedPoints: true, }
-    let { breadcrumbs } = urlToTitle({ url: pathname, pathnamePage: true })
+    //!nneww Pathname yox idi direk yazilirdi 
+    if (pathname) {
+        const body = { language, checkRedirect: true, taxiDealPathname: pathname, withoutExprectedPoints: true, }
+        let { breadcrumbs } = urlToTitle({ url: pathname, pathnamePage: true })
 
-    const url = `${env.apiDomain}/api/v1/taxi-deals/details`;
-    const { status, data } = await postDataAPI({ url, body });
+        const url = `${env.apiDomain}/api/v1/taxi-deals/details`;
+        const { status, data } = await postDataAPI({ url, body });
 
-    if (status === 205) return { redirect: { destination: data.redirectPathname, permanent: false } };
+        if (status === 205) return { redirect: { destination: data.redirectPathname, permanent: false } };
 
 
-    if (status === 200) {
-        // getJsonSizeInKB(data)
+        if (status === 200) {
+            // getJsonSizeInKB(data)
+            let {
+                distance,
+                duration,
+                quotationOptions,
+                taxiDeal: { pickupPoints, dropoffPoints, pageTitle = "", headTitle = "", description = "", keywords = "", returnPathname = "", pageContent = "", returnHeadTitle = "", returnPageTitle = "", pathname: linkurl, metaTags = [] } } = data
 
-        let {
-            distance,
-            duration,
-            quotationOptions,
-            taxiDeal: { pickupPoints, dropoffPoints, pageTitle = "", headTitle = "", description = "", keywords = "", returnPathname = "", pageContent = "", returnHeadTitle = "", returnPageTitle = "", pathname: linkurl, metaTags = [] } } = data
+            // select first item from all points
+            pickUps = pickupPoints?.length >= 1 ? [pickupPoints[0]] : []
+            dropoffs = dropoffPoints?.length >= 1 ? [dropoffPoints[0]] : []
 
-        // select first item from all points
-        pickUps = pickupPoints?.length >= 1 ? [pickupPoints[0]] : []
-        dropoffs = dropoffPoints?.length >= 1 ? [dropoffPoints[0]] : []
+            const newPageContent = pageContent?.replace(/__website_domain__/g, "https://www.airport-pickups-london.com/");
+            review.bestRating = data?.taxiDeal?.schema.Product.aggregateRating.bestRating || 5
+            review.ratingValue = data?.taxiDeal?.schema.Product.aggregateRating.ratingValue || 4.95
+            review.reviewCount = data?.taxiDeal?.schema.Product.aggregateRating.reviewCount || 1988
 
-        const newPageContent = pageContent?.replace(/__website_domain__/g, "https://www.airport-pickups-london.com/");
-        review.bestRating = data?.taxiDeal?.schema.Product.aggregateRating.bestRating || 5
-        review.ratingValue = data?.taxiDeal?.schema.Product.aggregateRating.ratingValue || 4.95
-        review.reviewCount = data?.taxiDeal?.schema.Product.aggregateRating.reviewCount || 1988
+            let schemaOfTaxiDeals = data?.taxiDeal?.schema || []
+            schemaOfTaxiDeals = Object.keys(schemaOfTaxiDeals).map(key => ({ [key]: schemaOfTaxiDeals[key] }));//array of objects [b:{ab:"1"},c:{ab:"2"},d:{ab:"3"}]
+            schemaOfTaxiDeals = schemaOfTaxiDeals.map(obj => Object.values(obj)[0]);//Output: ["1", "2", "3"]
 
-        let schemaOfTaxiDeals = data?.taxiDeal?.schema || []
-        schemaOfTaxiDeals = Object.keys(schemaOfTaxiDeals).map(key => ({ [key]: schemaOfTaxiDeals[key] }));//array of objects [b:{ab:"1"},c:{ab:"2"},d:{ab:"3"}]
-        schemaOfTaxiDeals = schemaOfTaxiDeals.map(obj => Object.values(obj)[0]);//Output: ["1", "2", "3"]
+            // Cache the data
+            let finalData = {
+                data: "",
+                pickUps,
+                dropoffs,
+                keywords,
+                language,
+                pageTitle,
+                headTitle,
+                description,
+                returnPathname,
+                schemaOfTaxiDeals,
+                pageContent: newPageContent,
+                returnHeadTitle,
+                returnPageTitle,
+                distance,
+                duration,
+                quotationOptions,
+                schemas,
+                breadcrumbs,
+                linkurl,
+                metaTags,
+                review,
+                isItQuationLink: true
+            }
+            return { props: finalData }
 
-        // Cache the data
-        let finalData = {
-            data: "",
-            pickUps,
-            dropoffs,
-            keywords,
-            language,
-            pageTitle,
-            headTitle,
-            description,
-            returnPathname,
-            schemaOfTaxiDeals,
-            pageContent: newPageContent,
-            returnHeadTitle,
-            returnPageTitle,
-            distance,
-            duration,
-            quotationOptions,
-            schemas,
-            breadcrumbs,
-            linkurl,
-            metaTags,
-            review,
-            isItQuationLink: true
         }
-        return { props: finalData }
-
-    }
-    else {
-        return { props: { data: "not found", } }
+        else {
+            return { props: { data: "not found", } }
+        }
     }
 }
 //?biz burada metatile metaDescriptionlari fethcContente gore alib gonderirirk Her sayfa icin ayri bi sekilde gider

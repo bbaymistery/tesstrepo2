@@ -3,7 +3,7 @@ import { postDataAPI } from "./fetchDatas";
 import { urlToTitle } from "./letters";
 
 export const fetchPathnamePageDatas = async (urls) => {
-  const env = await fetchConfig(); // Fetch the env config
+    const env = await fetchConfig(); // Fetch the env config
     
     let cache = {}
     const allLanguages = ["en", "tr", "ar", "es", "zh", "it", "ru"]
