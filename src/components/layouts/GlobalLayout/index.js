@@ -60,6 +60,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
     <>
       <Head>
         <title>{title}</title>
+        <meta charSet="UTF-8" />
         <meta key="keywords" name="keywords" content={keywords} />
         <meta key="description" name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -135,9 +136,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
 
         <meta property="og:site_name" content="Airport Pickups London" />
         <meta property="og:type" content="website" />
-        {/* Browser Compatibility */}
-        <meta httpEquiv="X-UA-Compatible" content="IE=9" />
-        <meta httpEquiv="x-ua-compatible" content="IE=EmulateIE9" />
+
         {/* No follow */}
         <meta name="googlebot" content="noindex" />
         <meta name="robots" content="noindex" />
