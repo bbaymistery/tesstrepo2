@@ -620,7 +620,7 @@ export const META_CONTENT_LINKNAME = {
             }
         }
     },
-    DOVE: {
+    DOVER: {
         en: {
             ogTitle: "Dover Cruise Port Taxi - Airport Pickups London",
             ogDescription: "Get reliable taxi services to and from Dover Cruise Port with Airport Pickups London. Travel stress-free with professional drivers at competitive rates.",
