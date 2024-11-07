@@ -26,7 +26,7 @@ const INITIAL_STATE = {
     buggerListTotalPrice: 0,
 
     passengersForm: [{ firstname: "", lastname: "", email: "", phone: "" }],
-    passengersFormAdults: [{ firstname: "", lastname: "", email: "", phone: "" }],
+    passengersFormAdults: [{ firstname: "", lastname: "", phone: "" }],
     passengersFormChildren: [],
     flightDetails: {
         airline: "",

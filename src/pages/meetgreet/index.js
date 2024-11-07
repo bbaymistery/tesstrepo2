@@ -17,7 +17,12 @@ import MeetGreetPassengerDetails from '../../components/elements/MeetGreetPassen
 let keywords = "London Airport Meet and Greet, Airport Pickups, Heathrow, Gatwick, Stansted, Luton, City Airport, Corporate Services, Stress-Free Arrivals"
 let title = "Airport Pick Ups London Meet and Greet"
 let description = "London Airport Meet and Greet Service for stress-free arrivals at Heathrow, Gatwick, Stansted, Luton, and City airports. Corporate services available."
-
+const INITIAL_FLIGHT_CLASS_OPTIONS = [
+    { id: "-- Select Flight Class --", value: "-- Select Flight Class --" },
+    { id: "Economy", value: "Economy" },
+    { id: "Business", value: "Business" },
+    { id: "First", value: "First" }
+]
 const MeetGreet = (props) => {
     let { bggray = false } = props
     const router = useRouter()
@@ -29,8 +34,8 @@ const MeetGreet = (props) => {
     let { params: { direction, language } } = state
 
     const meetAndGreetState = useSelector(state => state.meetAndGreetActions)
-    let { seatLists, passengersFormChildren, passengersFormAdults, totalPrice, meetgreetDate, meetgreetActiveBtn, terminalName, buggerLists, seatListPrice, flightDetails, bookersDetails } = meetAndGreetState
-    let { airline, flightNumber, flightClass, noOfLuggageBags } = flightDetails
+    let { seatLists, passengersFormChildren, passengersFormAdults, totalPrice, meetgreetDate, meetgreetActiveBtn, terminalName, buggerLists, seatListPrice, flightDetails, bookersDetails, selectedService } = meetAndGreetState
+    let { airline, flightNumber, flightClass, noOfLuggageBags, flightTime } = flightDetails
     let { firstname, lastname, email, mobileNumber } = bookersDetails
 
 
@@ -40,20 +45,7 @@ const MeetGreet = (props) => {
     const [errorHolderForChildren, setErrorHolderForChildren] = useState([])
     const [errorHolderFlightDetails, setErrorHolderFlightDetails] = useState([]);//activeStep1
     const [errorHolderBookerDetails, setErrorHolderBookersDetails] = useState([]);//activeStep1
-
-    const [flightClassDropdownLabels, setFlightClassDropdownLabels] = useState([
-        { id: "-- Select Flight  Class --", value: "-- Select Flight  Class --", },
-        { id: "Economy", value: "Economy", },
-        { id: "Business", value: "Business", },
-        { id: "First", value: "First", },
-    ])
-
-    const [iframeStripe, setIframeStripe] = useState("");
-    const [dataTokenForWebSocket, setDataTokenForWebSocket] = useState("");
-    const [statusToken, setStatusToken] = useState("");
-    const [popUpWindow, setPopUpWindow] = useState("")//for paypal
-
-    const [cashPaymentModal, setCashPaymentModal] = useState(false)
+    const [flightClassDropdownLabels, setFlightClassDropdownLabels] = useState(INITIAL_FLIGHT_CLASS_OPTIONS)
 
     //for passengers information
     const onchangePassengerHandler = (e, index, childOrAdult) => {
@@ -62,7 +54,6 @@ const MeetGreet = (props) => {
         dispatch({ type: "SET_PASSENGERS_FROM", data: { name, value, index, childOrAdult } })
     };
     const onchangeNumberLuggageHandler = (e) => {
-
         const { name, value } = e.target;
         // Handle the case of a negative number (you can show an error message or take appropriate action)
         if (name === "noOfLuggageBags") if (parseFloat(value) < 0) return;
@@ -94,10 +85,6 @@ const MeetGreet = (props) => {
 
         // Check for any errors with statusCode 400
         if (allErrors.some(error => error.statusCode === 400)) return;
-        // for (const key of errorKeys) {
-        //     if (errors[key].statusCode === 400) return;
-        // }
-
         // If no errors, move to the next step
         if (activeStep < 3) {
             setActiveStep((activeStep) => activeStep + 1);
@@ -108,10 +95,8 @@ const MeetGreet = (props) => {
         if (activeStep === 0) {
             router.back();
         } else {
-
             setActiveStep((activeStep) => activeStep - 1)
         }
-
     }
 
     const handleDecrementBugger = (idx, incordec) => dispatch({ type: 'SET_BUGGER_PORTER', data: { idx, incordec } })
@@ -120,82 +105,249 @@ const MeetGreet = (props) => {
     const onchangeFlightClassHandler = e => dispatch({ type: "SET_FLIGHT_CLASS", data: { newFlightClass: e.target.value } })
     const onChangeSetDateTimeHandler = (params = {}) => dispatch({ type: 'SET_FLIGHT_TIME', data: { ...params } })
     const onchangeBookerDetailsHandler = (params = {}) => dispatch({ type: 'SET_BOOKER_DETAILS', data: { ...params } })
+    console.log({ passengersFormAdults });
 
-    //*payment methods
-    const cashMethod = (params = {}) => {
-        // let { token, paymentType } = params
-        // // if it is cash payment you have set payment type first of all then send archive
-        // // fetchArchieveToken({ token: "", paymentType: "", stage: "CLICK_OVER_CASH_BUTTON" })
-        // dispatch({ type: "SET_PAYMENT_TYPE_AND_TOKEN", data: { token, paymentType } })
-        // setIframeStripe("")//CLOSE OFRAME INSIDE OF Page (in case of if it was opened )
-        // setStatusToken("");//it will trigger interval and will make request
-        // router.push("/reservations-document")
+    const generatePassengerDetails = (passengersFormAdults) => {
+        return passengersFormAdults
+            .map((item, idx) => `
+            <div style="margin-bottom: 10px;">
+              <div style="display: flex; justify-content: space-between;">
+                <p style="font-weight: bold; color: #051036; font-size: 14px; margin: 0;font-family: system-ui">${idx + 1}. Passenger Name</p>
+                <p style="color: #333; font-size: 14px;margin:4px 0px">${item.firstname}</p>
+              </div>
+              
+              <div style="display: flex; justify-content: space-between;padding-left: 15px;">
+                <p style="font-weight: bold; color: #051036; font-size: 14px; margin: 0;font-family: system-ui">Passenger Last Name</p>
+                <p style="color: #333; font-size: 14px;margin:4px 0px">${item.lastname}</p>
+              </div>
+              
+              <div style="display: flex; justify-content: space-between;padding-left: 15px;">
+                <p style="font-weight: bold; color: #051036; font-size: 14px; margin: 0;font-family: system-ui">Phone Number </p>
+                <p style="color: #333; font-size: 14px;margin:4px 0px">${item.phone}</p>
+              </div>
+            </div>
+          `)
+            .join('');
     };
-    const stripeMethod = (params = {}) => {
-        // let { id, quotations, passengerEmail, url } = params
-        // if (!iframeStripe) {
-        //     // if it is card payment you have set payment type first of all then send archive then
-        //     // fetchArchieveToken({ token: "", paymentType: 7, stage: "CLICK_OVER_CARD_BUTTON" })
-        //     const method = "POST"
-        //     const body = JSON.stringify({
-        //         quotations,
-        //         type: id,
-        //         language: "en",
-        //         passengerEmail,
-        //         "session-id": sessionToken,
-        //         mode: "sandbox",
-        //     })
-        //     const headers = { "Content-Type": "application/json" }
-        //     const config = { method, headers, body, };
-        //     try {
-        //         fetch(url, config)
-        //             .then((res) => res.json())
-        //             .then((data) => {
 
-        //                 setDataTokenForWebSocket(data); //we use inside interval in order to detect it is which payment
-        //                 setStatusToken(data?.webSocketToken); //it will trigger interval and will make request
-        //                 setIframeStripe(data?.href);
-        //                 openPopUpWindow({ statusOfWindowCloseOrOpen: "close", url: "" })
-        //                 setPopUpWindow("")
-
-        //             })
-        //             .catch((error) => {
-
-        //                 window.handelErrorLogs(error, 'APL PaymentMethods Component - stripeMethod function fetching catch blog  ', { config, url })
-        //             });
-        //     } catch (error) {
-        //         window.handelErrorLogs(error, ' APL PaymentMethods Component - stripeMethod function try catch blog ', { id, quotations, passengerEmail, url })
-        //     }
-        // }
+    const generateChildPassengerDetails = (children) => {
+        return children
+            .map((item, idx) => `
+            <div style="margin-bottom: 10px;">
+              <div style="display: flex; justify-content: space-between;">
+                <p style="font-weight: bold; color: #051036; font-size: 14px;margin: 0;font-family: system-ui">${idx + 1}. Passenger Name</p>
+                <p style="color: #333; font-size: 14px;margin:4px 0px">${item.firstname}</p>
+              </div>
+              
+              <div style="display: flex; justify-content: space-between; padding-bottom: 10px;padding-left: 15px; ">
+                <p style="font-weight: bold; color: #051036; font-size: 14px;margin: 0;font-family: system-ui">Passenger Last Name</p>
+                <p style="color: #333; font-size: 14px;margin:4px 0px">${item.lastname}</p>
+              </div>
+            </div>
+          `)
+            .join('');
     };
-    //this function includes all the methods of payments
-    const startPayment = (id) => {
+
+    // Use the function to generate the HTML for all adults
+    const adultsHTML = generatePassengerDetails(passengersFormAdults);
+    const childrenHTML = generateChildPassengerDetails(passengersFormChildren)
+    const generateOrderSummary = (orderDetails) => {
+        return `
+          <div style="text-align: center; font-weight: bold; font-size: 19px; margin-bottom: 10px;">
+            Order Summary
+          </div>
+      
+          <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <p style=" margin:4px 0px; color:#13357B; font-weight: bold;">Adults ${orderDetails.adults}</p>
+          </div>
+      
+          <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <p style=" margin: 4px 0px; color:#13357B; font-weight: bold;">Children ${orderDetails.children} <span style="color:#555;font-weight: normal;"> (£${seatListPrice})</span></p>
+       
+          </div>
+      
+          <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <p style=" margin: 4px 0px; color:#13357B; font-weight: bold;">Infants ${orderDetails.infants}</p>
+          </div>
+         <div style=" margin-top: 10px; border-top: 1px solid #ddd; padding-top: 10px;"> </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <p style="margin: 4px 0px; color:#13357B; font-weight: bold;">Porter</p>
+            <p style="margin: 4px 0px; color:#13357B;">£${orderDetails.porterPrice}</p>
+          </div>
+         <div style=" margin-top: 10px; border-top: 1px solid #ddd; padding-top: 10px;"> </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <p style="margin: 4px 0px; color:#13357B; font-weight: bold;">Buggy</p>
+            <p style="margin: 4px 0px; color:#13357B;">£${orderDetails.buggyPrice}</p>
+          </div>
+         <div style=" margin-top: 10px; border-top: 1px solid #ddd; padding-top: 10px;"> </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <p style="margin: 4px 0px; color:#13357B; font-weight: bold;">Additional Assistant</p>
+            <p style="margin: 4px 0px; color:#13357B;">£${orderDetails.additionalAssistantPrice}</p>
+          </div>
+      
+          <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 10px; border-top: 1px solid #ddd; padding-top: 10px;">
+            <p style="margin: 4px 0px; color:#13357B;">Total Price</p>
+            <p style="margin: 4px 0px; color:#13357B;">£${orderDetails.totalPrice}</p>
+          </div>
+        `;
+    };
+
+    // Sample data for order details
+    const orderDetails = {
+        adults: seatLists[0].minNum,
+        children: seatLists[1].minNum,
+        infants: seatLists[2].minNum,
+        porterPrice: buggerLists[0].minNum * buggerLists[0].price,
+        buggyPrice: buggerLists[1].minNum * buggerLists[1].price,
+        additionalAssistantPrice: buggerLists[2].minNum * buggerLists[2].price,
+        totalPrice,
+        seatListPrice
+    };
+
+    // Generate the Order Summary HTML
+    const orderSummaryHTML = generateOrderSummary(orderDetails);
+    const htmlTemplate = `
+     <!DOCTYPE html>
+    <html>
+    <body style="font-family: Arial, sans-serif;">
+      <div style="max-width:750px; margin: 0 auto; padding: 20px;  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+    <div style="background-color: #f8f8f8; padding: 10px; text-align: center;">
+        <h2 style="margin: 0;">Booking Confirmation</h2>
+        <p>Heathrow Meet And Assist</p>
+        <p>Airport Pickups London</p>
+    </div>
+    <!-- Content Grid -->
+    <div style="display: flex;justify-content: space-between;padding: 10px 10px;border: 1px solid #ddd;margin: 10px 0px;border-radius: 10px;">
+      <!-- Service Details Column -->
+      <div style="width: 48%;">
+        <h3 style="font-weight: bold; font-size: 19px; color: #051036; margin-bottom: 15px;">Service Details</h3>
+        <p style="margin: 5px 0;font-family: system-ui"><strong style="font-weight:500 ;">Selected Service:</strong> {{selectedService}}</p>
+        <p style="margin: 5px 0;font-family: system-ui"><strong style="font-weight:500 ;">Airport:</strong>{{terminalName}}</p>
+        <p style="margin: 5px 0;font-family: system-ui"><strong style="font-weight:500 ;">Additional Assistant:</strong></p>
+        <ul style="list-style-type: disc; margin: 5px 0 10px 20px; padding: 0; color: #0073e6;">
+          <li>Buggy {{buggy}}</li>
+          <li>Porter {{porter}}</li>
+          <li>Heathrow Meet And Assist {{additionalAssistant}}</li>
+        </ul>
+        <p style="margin: 5px 0;font-family: system-ui"><strong style="font-weight:500 ;">Pickup Date And Time:</strong>{{pickupTime}}</p>
+      </div>
+      <!-- Travelers Column -->
+      <div style="width: 48%;">
+        <h3 style="font-weight: bold; font-size: 19px; color: #051036; margin-bottom: 15px;">Travelers</h3>
+        <p style="margin: 5px 0;font-family: system-ui"><strong style="font-weight:500 ;">Adults Above 12 Years Old:</strong> 2</p>
+        <p style="margin: 5px 0;font-family: system-ui"><strong style="font-weight:500 ;">Children From 2 To 12 Years Old:</strong> 3</p>
+        <p style="margin: 5px 0;font-family: system-ui"><strong style="font-weight:500 ;">Infants Below 2 Years Old:</strong> 1</p>
+      </div>
+    </div>
+    <!-- Content Grid Finished-->
 
 
-        // try {
-        //     //general settings FOR PAYMENTS
-        //     const paymentPagePath = JSON.parse(paymentTypes.filter((payment) => payment.id === id)[0].pagePath).path;
+    <!-- Flight Details Section -->
+    <div style="padding: 10px 10px;border: 1px solid #ddd;margin: 10px 0px;border-radius: 10px;">
+
+      <div style="text-align: center; font-weight: bold;  margin-bottom: 10px; margin-top: 10px;font-size:19px">
+        Flight Details
+      </div>
+      
+      <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+        <p  style="font-weight: bold; color: #051036; margin: 0; font-size: 14px; font-family: system-ui">Airline</p>
+        <p style="color: #333;margin:4px 0px">{{airline}}</p>
+      </div>
+
+     
+      <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+        <p  style="font-weight: bold; color: #051036; margin: 0; font-size: 14px;font-family: system-ui">Flight No</p>
+        <p style="color: #333;margin:4px 0px">{{flightNumber}}</p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+        <p  style="font-weight: bold; color: #051036; margin: 0; font-size: 14px;font-family: system-ui">Flight Class</p>
+        <p style="color: #333;margin:4px 0px">{{flightClass}}</p>
+      </div>
+      
+
+      <div style="display: flex; justify-content: space-between; margin-bottom: 2px; border-bottom: 1px solid #ddd;padding-bottom: 10px;">
+        <p  style="font-weight: bold; color: #051036; margin: 0; font-size: 14px;font-family: system-ui">No of Suitcases</p>
+        <p style="color: #333;margin:4px 0px">{{noOfSuitcases}}</p>
+      </div>
+     
+
+      <!--  Reservation Contact Details -->
+      <div style="text-align: center; font-weight: bold; font-size: 19px; margin-bottom: 10px;margin-top: 10px;">
+       Reservation Contact Details
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+        <p style="font-weight: bold; color: #051036; font-size: 14px; margin: 0;font-family: system-ui">Passenger Name</p>
+        <p style="color: #333; font-size: 14px;margin:4px 0px";">{{firstname}}</p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+        <p style="font-weight: bold; color: #051036; font-size: 14px; margin: 0;font-family: system-ui">Passenger Last Name</p>
+        <p style="color: #333; font-size: 14px;margin:4px 0px;">{{lastname}}</p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+        <p style="font-weight: bold; color: #051036; font-size: 14px; margin: 0;font-family: system-ui">Passenger Email</p>
+        <p style="color: #333; font-size: 14px; margin:4px 0px;">{{email}}</p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-bottom: 5px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+        <p style="font-weight: bold; color: #051036; font-size: 14px; margin: 0;font-family: system-ui">Phone Number</p>
+        <p style="color: #333; font-size: 14px;margin:4px 0px;">{{mobileNumber}}</p>
+      </div>
+
+       <!--  Adults -->
+      <div style="text-align: center; font-weight: bold; font-size: 19px; margin-bottom: 10px;margin-top: 10px;">
+       Adults
+      </div>
+     ${adultsHTML}
+      <!--  Children  -->
+      <div style="text-align: center; font-weight: bold; font-size: 19px; margin-bottom: 10px;margin-top: 10px;">
+       Children
+      </div>
+      ${childrenHTML}
+    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; border-bottom: 1px solid #ddd; padding-bottom: 10px;"></div>
+
+       ${orderSummaryHTML}
+      </div>
+      </div>
+    </body>
+    </html>
+  `;
 
 
-        //     const url = `${env.apiDomain}${paymentPagePath}`;
-        //     let quotations = parseInt(journeyType) === 0 ? [reservations[0].quotation] : [reservations[0].quotation, reservations[1].quotation];
-        //     let passengerEmail = reservations[0].passengerDetails.email;
-        //     let passengerPhoneNumber = reservations[0].passengerDetails.phone;
 
-        //     //Payment methods
-        //     if (id === 1) cashMethod({ token: "", paymentType: id })
-        //     if (id === 5) paypalMethod({ id, quotations, passengerEmail, url });
-        //     if (id === 7) stripeMethod({ id, quotations, passengerEmail, url });
-        // } catch (error) {
-        //     window.handelErrorLogs(error, 'APL PaymentMethods Component -startPayment function trys catch blog', { id })
+    const handleConfirmClick = async () => {
+        //here i want use htmltemplate and see the output how it looks 
+        // Open a new window and write the HTML content
+        //The date will be changed > 
+        const filledTemplate = htmlTemplate
+            .replace('{{selectedService}}', selectedService)
+            .replace('{{date}}', meetgreetDate.split(" ")[0].replace(/(\d+)\-(\d+)-(\d+)/, "$3-$2-$1"))
+            .replace('{{adults}}', seatLists[0].minNum)
+            .replace('{{children}}', seatLists[1].minNum)
+            .replace('{{infants}}', seatLists[2].minNum)
+            .replace('{{terminalName}}', terminalName)
+            .replace('{{airline}}', airline)
+            .replace('{{pickupTime}}', `${meetgreetDate.split(" ")[0].replace(/(\d+)\-(\d+)-(\d+)/, "$3-$2-$1")} ${flightDetails.flightTime}`)
+            .replace('{{flightNumber}}', flightNumber)
+            .replace('{{flightClass}}', flightClass)
+            .replace('{{buggy}}', buggerLists[1].minNum)
+            .replace('{{porter}}', buggerLists[0].minNum)
+            .replace('{{additionalAssistant}}', buggerLists[2].minNum)
+            .replace('{{noOfSuitcases}}', noOfLuggageBags)
+            .replace('{{firstname}}', firstname)
+            .replace('{{lastname}}', lastname)
+            .replace('{{email}}', email)
+            .replace('{{mobileNumber}}', mobileNumber);
 
-        // }
-    }
-    //this function triggering modal status of cash payment
-    const popupmodalTrigger = (par) => {
-        setCashPaymentModal(true)
-        setIframeStripe("")
-    }
+        const newWindow = window.open('', '_blank');
+        newWindow.document.write(filledTemplate);
+        newWindow.document.close();
+    };
+
+
 
     useEffect(() => {
         // Check if the new label is not undefined or null
@@ -227,7 +379,7 @@ const MeetGreet = (props) => {
                                     {/* //!step 0   Initial step */}
                                     {activeStep === 0 ?
                                         <div className={styles.passengers}>
-                                            <p className={styles.passengers_title}> {appData?.words["strPassengers"]} </p>
+                                            <p className={styles.passengers_title} style={{ textTransform: "capitalize" }}> {appData?.words["strJourneyPassengerDetails"]} </p>
                                             {passengersFormAdults.map((guest, idx) => {
                                                 let errors = errorHolderForAdults[idx]
                                                 return <div key={idx} className={styles.passengers_details_div}>
@@ -246,11 +398,11 @@ const MeetGreet = (props) => {
                                                         </div>
                                                     </div>
                                                     <div className={styles.passengers_details}>
-                                                        <div className={styles.input_div}>
+                                                        {/* <div className={styles.input_div}>
                                                             <TextInput
                                                                 label={appData?.words["appContactUsEmailAddress"]} type="text" name="email" onChange={e => onchangePassengerHandler(e, idx, "adults")} value={guest.email}
                                                                 errorMessage={(errors?.errorMessage && !emailRegex?.test(email)) ? errors.errorMessage : ""} />
-                                                        </div>
+                                                        </div> */}
                                                         <div className={styles.input_div}>
                                                             <TextInput
                                                                 label={appData?.words["strPhoneNumber"]} type="text" name="phone" onChange={e => onchangePassengerHandler(e, idx, "adults")} value={guest.phone}
@@ -292,7 +444,6 @@ const MeetGreet = (props) => {
                                                 {buttonLabelsNames[meetgreetActiveBtn] === "Arrival" && ` ${appData?.words["strArrival"]} ${formatDate(meetgreetDate, language)}`}
                                                 {buttonLabelsNames[meetgreetActiveBtn] === "Departure" && ` ${appData?.words["strDeparture"]} ${formatDate(meetgreetDate, language)}`}
                                                 {buttonLabelsNames[meetgreetActiveBtn] === "Connecting" && ` ${appData?.words["strConnecting"]} ${formatDate(meetgreetDate, language)}`}
-
                                             </p>
                                             <div className={styles.flight_details_inputs_div}>
                                                 <div className={styles.dropdown_div}>
@@ -369,9 +520,9 @@ const MeetGreet = (props) => {
                                     {/* //!step 2   Third step */}
                                     {activeStep === 2 ?
                                         <div className={styles.bookers}>
-                                            <p className={styles.bookers_title}> Payment </p>
+                                            <p className={styles.bookers_title}> {appData?.words["strYourBookingDetails"]} </p>
                                             <div className={styles.bookers_details_div}>
-                                                <p>{appData?.words["strYourBookingDetails"]}</p>
+                                                {/* <p>{appData?.words["strYourBookingDetails"]}</p> */}
                                                 <div className={styles.bookers_details}>
                                                     <div className={styles.input_div}>
                                                         <TextInput
@@ -426,15 +577,6 @@ const MeetGreet = (props) => {
                                 <div className={styles.right}>
                                     <div className={styles.right_content}>
                                         <p>{appData?.words["strOrderSummary"]}</p>
-                                        <div className={styles.border}> </div>
-                                        {buttonLabelsNames[meetgreetActiveBtn] === "Arrival" && <li className={styles.arrival}> <span>{appData?.words["strArrival"]} : </span> {appData?.words["strMeetandGreetIncluded"]}</li>}
-                                        {buttonLabelsNames[meetgreetActiveBtn] === "Departure" && <li className={styles.arrival}> <span>{appData?.words["strDeparture"]} : </span>{appData?.words["strMeetandGreetIncluded"]}</li>}
-                                        {buttonLabelsNames[meetgreetActiveBtn] === "Connecting" && <li className={styles.arrival}>   <span>{appData?.words["strConnecting"]} : </span> {appData?.words["strMeetandGreetIncluded"]}</li>}
-
-                                        <li className={styles.terminal}>{terminalName}</li>
-                                        <li className={styles.date}>{formatDate(meetgreetDate, language)}</li>
-                                        <li className={styles.adults}>  {appData?.words["strAdults"]}  {seatLists[0].minNum},  {appData?.words["strChildren"]} {seatLists[1].minNum},  {appData?.words["strInfants"]} {seatLists[2].minNum}</li>
-                                        <div className={styles.border}> </div>
                                         <div className={styles.total}>
                                             <p style={{ alignItems: 'center' }}>
                                                 <span style={{ textAlign: "justify", }}>
@@ -443,78 +585,37 @@ const MeetGreet = (props) => {
                                                     {seatLists[1].minNum > 0 ? ` ${appData?.words["strChildren"]} ${seatLists[1].minNum} ` : <></>}
                                                     <br />
                                                     {seatLists[2].minNum > 0 ? ` ${appData?.words["strInfants"]} ${seatLists[2].minNum}` : <></>}
-
                                                 </span>
                                                 <span>£{seatListPrice}</span>
                                             </p>
 
                                             {buggerLists[0].minNum * buggerLists[0].price > 0 ?
                                                 <p>
-                                                    <span>{appData?.words["strPorter"]} </span>
+                                                    <span>{appData?.words["strPorter"]} {buggerLists[0].minNum} </span>
                                                     <span>£{buggerLists[0].minNum * buggerLists[0].price}</span>
                                                 </p>
                                                 : <></>}
-
                                             {buggerLists[1].minNum * buggerLists[1].price > 0 ?
                                                 <p>
-                                                    <span>{appData?.words["strBuggy"]} </span>
+                                                    <span>{appData?.words["strBuggy"]} {buggerLists[1].minNum} </span>
                                                     <span>£{buggerLists[1].minNum * buggerLists[1].price}</span>
                                                 </p>
                                                 : <></>}
                                             {buggerLists[2].minNum * buggerLists[2].price > 0 ?
                                                 <p>
-                                                    <span>{appData?.words["strAdditionalAssistant"]} </span>
+                                                    <span>{appData?.words["strAdditionalAssistant"]} {buggerLists[2].minNum} </span>
                                                     <span>£{buggerLists[2].minNum * buggerLists[2].price}</span>
                                                 </p>
                                                 : <></>}
-
-
-
                                             <p className={styles.total_price}><span>{appData?.words["strTotalPrice"]}</span><span>£{totalPrice}</span>    </p>
                                         </div>
                                     </div>
                                     {activeStep === 3 ?
-
-
                                         <div className={`${styles.payment_details}`}>
                                             <div className={styles.header} direction={String(direction === 'rtl')}>
                                                 <div className={styles.header_top}>
-                                                    <h2 className={`${styles.header_top_title} ${direction}`} > {appData?.words["strHowWouldYouLikeToPay"]}</h2>
-                                                    <div className={styles.border}> </div>
+                                                    <button onClick={handleConfirmClick}>Click To Confirm</button>
                                                 </div>
-                                            </div>
-
-                                            <div className={styles.payment_list}>
-                                                {iframeStripe?.length > 0 ? <iframe src={iframeStripe} className={styles.iframe} allow="payment" ></iframe> : <React.Fragment></React.Fragment>}
-
-                                                <div className={`${styles.items_buttons}`}>
-                                                    <div onClick={popupmodalTrigger} title={appData?.words["strToDriverCashTitle"]} className={` ${styles.item} ${styles.item_1}`}   >
-                                                        <p>{appData?.words["strToDriverCashTitle"]}</p>
-                                                        <img src="/images/others/pp.jpg" alt="" />
-                                                    </div>
-
-                                                    <div onClick={() => startPayment(7)} title={appData?.words["strPaybycard"]} className={`${styles.item} ${styles.item_4}`}   >
-                                                        <p>{appData?.words["strPaybycard"]} </p>
-                                                        <img src="/images/others/vsMaster.jpg" alt="" />
-                                                    </div>
-                                                </div>
-
-                                                {cashPaymentModal ?
-                                                    <div className={`${styles.content_modal} ${styles.appear}`}>
-                                                        <div className={`${styles.confirmation_box} `}>
-                                                            <div className={styles.header}>
-                                                                <p>{appData?.words["strConfirmation"]}</p>
-                                                                <i onClick={() => setCashPaymentModal(false)} className="fa-solid fa-xmark"></i>
-                                                            </div>
-                                                            <div className={styles.body}>
-                                                                <p>{appData?.words["strYouHaveChosenToPayByCash"]} .</p>
-                                                            </div>
-                                                            <div className={styles.footer}>
-                                                                <button onClick={() => startPayment(1)} className="btn btn_primary"> {appData?.words["strBookNow"]}</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    : <></>}
                                             </div>
                                         </div>
                                         : <></>}

@@ -9,7 +9,7 @@
 //Pick-up From
 //Tour Duration
 //Tour Date
-
-
+//Travelers
+//Reservation Contact Details
 //Heathrow Airport to Central London Taxi Prices
 //From London to Airport

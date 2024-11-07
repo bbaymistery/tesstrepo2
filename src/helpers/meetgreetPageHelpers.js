@@ -1,5 +1,5 @@
 export const buttonLabelsNames = ['Arrival', 'Departure', 'Connecting'];
-export const stepsNames = ['strPassengers', 'strFlight', 'strPayment', 'strConfirmation'];
+export const stepsNames = ['strPassengers', 'strFlight', 'strYourBookingDetails', 'strConfirmation'];
 // export const stepsNames = ['Passengers', 'Flight', 'Payment', 'Confirmation'];
 
 // export const dropdownAirlineLabels = [
@@ -52,10 +52,11 @@ export const passengerDetailsErrorAdults = (passengersForm, appData) => {
         } else if (passenger?.phone === "") {
             error.statusCode = 400;
             error.errorMessage = appData?.words["strRequired"];
-        } else if (passenger?.email?.trim() === "" || !emailRegex?.test(passenger?.email)) {
-            error.statusCode = 400;
-            error.errorMessage = appData?.words["strRequired"];
         }
+        //  else if (passenger?.email?.trim() === "" || !emailRegex?.test(passenger?.email)) {
+        //     error.statusCode = 400;
+        //     error.errorMessage = appData?.words["strRequired"];
+        // }
         errors.push(error);
     }
     return errors;

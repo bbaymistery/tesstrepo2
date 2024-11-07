@@ -378,7 +378,7 @@ const ReservationsDocument = (props) => {
                                     </div>
                                 </div>
                                 <div className={styles.document_details_section}>
-                                    <div className={styles.btn_div}><button style={{ marginBottom: '2rem' }} onClick={generatePdf} className='btn btn_primary '>Downland The Confirmation</button></div>
+                                    <div className={styles.btn_div}><button style={{ marginBottom: '2rem' }} onClick={generatePdf} className='btn btn_primary '>{appData.words["strDownload"]}</button></div>
                                 </div>
                             </div>
                             :
