@@ -61,7 +61,6 @@ const nextConfig = {
         source,
         destination,
         permanent: true, // Set as permanent redirect
-        caseSensitive: true,
       };
     }).filter(Boolean); // Filter out null values for skipped routes
   },
