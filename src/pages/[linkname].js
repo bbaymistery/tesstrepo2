@@ -46,6 +46,7 @@ const NavbarLinkName = (props) => {
         }
     }, [linkname, dispatch, language]); // Add linkname and dispatch to the dependency array
 
+    console.log({ props });
 
 
     return (isItQuationLink ? <TaaxidealsQuotationLink props={props} /> :
@@ -126,15 +127,15 @@ async function handleStandardContent(pathname, cookie, pageStartLanguage, schema
 }
 
 //for taxid eals pickups and drop offs
-async function handleQuotationLink(language, pathname, schemas, env) {
+async function handleQuotationLink(language, pathname, schemas, env, ipAddress, userAgent) {
     let pickUps = []
     let dropoffs = []
     let review = {}
-    console.log({ pathnamehandleQuotationLink: pathname });
 
     //!nneww Pathname yox idi direk yazilirdi 
     if (pathname) {
-        const body = { language, checkRedirect: true, taxiDealPathname: pathname, withoutExprectedPoints: true, }
+        const body = { language, checkRedirect: true, taxiDealPathname: pathname, withoutExprectedPoints: true, visitorIpAddress: ipAddress, "userAgent": userAgent, bodyOfRequest: "", methodOfRequest: "" }
+
         let { breadcrumbs } = urlToTitle({ url: pathname, pathnamePage: true })
 
         const url = `${env.apiDomain}/api/v1/taxi-deals/details`;
@@ -187,7 +188,9 @@ async function handleQuotationLink(language, pathname, schemas, env) {
                 linkurl,
                 metaTags,
                 review,
-                isItQuationLink: true
+                isItQuationLink: true,
+                ipAddress,
+                userAgent,
             }
             return { props: finalData }
 
@@ -211,8 +214,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         res.end();
         return { props: { data: "not found", } }
     }
-
-
 
     let cookies = parseCookies(req.headers.cookie);
     let { pathname } = parse(req.url, true)
@@ -239,10 +240,15 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     let isItQuationLink = false
     if (!taxiPricesLinks.includes(pathname)) isItQuationLink = true
 
+    // Extract the IP address
+    const forwarded = req.headers['x-forwarded-for']
+    const ipAddress = typeof forwarded === 'string' ? forwarded.split(/, /)[0] : req.socket.remoteAddress
 
+    // Extract the User Agent
+    const userAgent = req.headers['user-agent'] || '';
     if (!isItQuationLink) {
         return handleStandardContent(pathname, req.headers.cookie, pageStartLanguage, schemas, pathnameUrlWHenChangeByTopbar, env);
     } else {
-        return handleQuotationLink(pageStartLanguage, pathname, schemas, env);
+        return handleQuotationLink(pageStartLanguage, pathname, schemas, env, ipAddress, userAgent);
     }
 });
