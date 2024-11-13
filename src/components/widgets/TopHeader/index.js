@@ -113,11 +113,11 @@ const Header = () => {
               </a>
               {width > 1200 ? <DesktopMenu appData={translatedAppData} journeyType={journeyType} language={language} /> : <></>}
               {/* mobile  */}
-              {openMenu ?
-                <MobileMenu openMenu={openMenu} handleClickNavLinkMobileMenuNotList={handleClickNavLinkMobileMenuNotList} language={language} handleClickNavLinkMobileMenuList={handleClickNavLinkMobileMenuList} appData={translatedAppData} />
-                : <></>}
             </div>
           </div>
+          {openMenu ?
+            <MobileMenu openMenu={openMenu} handleClickNavLinkMobileMenuNotList={handleClickNavLinkMobileMenuNotList} language={language} handleClickNavLinkMobileMenuList={handleClickNavLinkMobileMenuList} appData={translatedAppData} />
+            : <></>}
 
           <div className={styles.right_items}>
             {/* eliminate cursor  */}

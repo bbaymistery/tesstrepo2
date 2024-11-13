@@ -12,7 +12,7 @@ const MobileMenu = (({ handleClickNavLinkMobileMenuNotList, language, handleClic
                 {navigatorMobile.map((item, index) => {
                     let { path, innerText, list, type, title, firstChild, strInnerText } = item
                     return (
-                        <li key={innerText} className={`${styles.li_item} ${type === "list" ? styles.has_children : ""}`} id="navLink">
+                        <li key={innerText}  id="navLink">
                             <Link onClick={() => handleClickNavLinkMobileMenuNotList({ index })} href={`${language === 'en' ? `${path}` : `${language}${path}`}`} title={appData?.words[title]} className={`${!path.length ? styles.nocursor : ""}  ${firstChild ? styles.first_child_a : ""} `} >
                                 <span>{appData?.words[strInnerText]}</span>
                                 {/* <span>{index === 0 ? appData?.words[innerText] : innerText}</span> */}
@@ -26,7 +26,7 @@ const MobileMenu = (({ handleClickNavLinkMobileMenuNotList, language, handleClic
                                             <li onClick={() => {
                                                 handleClickNavLinkMobileMenuList({ hasTaxiDeals });
                                                 router.push(`${language === 'en' ? `${listPath}` : `/${language}${listPath}`}`)
-                                            }} key={listInnerText} className={`${styles.li_item} ${!listPath.length ? styles.nocursor : ""}  `}>
+                                            }} key={listInnerText} className={`${!listPath.length ? styles.nocursor : ""} `}>
                                                 <p title={appData?.words[listTitle]} tabIndex="-1">
                                                     <span>{appData?.words[strInnerText]}</span>
 
