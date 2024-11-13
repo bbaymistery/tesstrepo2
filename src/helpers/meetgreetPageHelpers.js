@@ -1,20 +1,6 @@
 export const buttonLabelsNames = ['Arrival', 'Departure', 'Connecting'];
 export const stepsNames = ['strPassengers', 'strFlight', 'strYourBookingDetails', 'strConfirmation'];
-// export const stepsNames = ['Passengers', 'Flight', 'Payment', 'Confirmation'];
 
-// export const dropdownAirlineLabels = [
-//     { id: "-- Select Airline --", value: "-- Select Airline --", },
-//     { id: "1", value: "1", },
-//     { id: "3", value: "3", },
-//     { id: "4", value: "4", },
-//     { id: "5", value: "5", }
-// ];
-// export const dropdownFlightClass = [
-//     { id: "-- Select Flight  Class --", value: "-- Select Flight  Class --", },
-//     { id: "Economy", value: "Economy", },
-//     { id: "Business", value: "Business", },
-//     { id: "First", value: "First", },
-// ];
 export const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 //FOR STEP _1
@@ -53,10 +39,6 @@ export const passengerDetailsErrorAdults = (passengersForm, appData) => {
             error.statusCode = 400;
             error.errorMessage = appData?.words["strRequired"];
         }
-        //  else if (passenger?.email?.trim() === "" || !emailRegex?.test(passenger?.email)) {
-        //     error.statusCode = 400;
-        //     error.errorMessage = appData?.words["strRequired"];
-        // }
         errors.push(error);
     }
     return errors;

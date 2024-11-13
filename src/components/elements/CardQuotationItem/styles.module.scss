@@ -88,8 +88,6 @@
        flex-basis: 65%;
        position: relative;
        margin-top: 16px;
-       // border: 1px solid rgb(83, 210, 25);
-
        @media (max-width: 990px) {
            flex-basis: 100%;
 
@@ -188,11 +186,7 @@
 
            }
 
-           .column_first[data="1"] {
-               @media (max-width: 420px) {
-                   //    background-size: 130% !important;
-               }
-           }
+          
 
            .column_second {
                flex: 0.48;
@@ -461,7 +455,6 @@
 
            .column_third {
                flex: 0.20;
-               //    padding: 0px 15px;
                padding-right: 15px;
                justify-content: space-between;
                display: flex;
@@ -515,9 +508,7 @@
                        display: none;
                    }
 
-                   @media (max-width: 360px) {
-                       //    margin-top: 0px;
-                   }
+            
                }
 
                .total {
@@ -549,7 +540,6 @@
                }
 
                .selectedBtn {
-                   //    background-color: darken($primary, 25%) !important;
                    background-color: #041b47 !important;
                    color: white !important;
 
@@ -572,7 +562,6 @@
            }
        }
 
-       //itembtns
 
        .card_item:hover {
            border-color: $border2;

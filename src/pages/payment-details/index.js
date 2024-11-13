@@ -57,11 +57,11 @@ const PaymentDetails = (props) => {
         // This function will be triggered when the user tries to leave the page
         const beforeUnloadHandler = async (e) => {
             // When we click to close the browser
-            // setTimeout(() => { fetchArchieveToken({ stage: "PLAN_TO_CLOSE_PAYMENT_PAGE" }) }, 10);
+            setTimeout(() => { fetchArchieveToken({ stage: "PLAN_TO_CLOSE_PAYMENT_PAGE" }) }, 10);
 
             // In case it is cancelled
             if (window.event.cancelable) {
-                // setTimeout(() => { fetchArchieveToken({ stage: "PAYMENT_PAGE_NOT_CLOSED" }) }, 450);
+                setTimeout(() => { fetchArchieveToken({ stage: "PAYMENT_PAGE_NOT_CLOSED" }) }, 450);
             }
 
             if (confirmation) {
@@ -116,7 +116,7 @@ const PaymentDetails = (props) => {
 
 
     useEffect(() => {
-        // fetchArchieveToken({ stage: "LANDED_INTO_PAYMENT_PAGE" })
+        fetchArchieveToken({ stage: "LANDED_INTO_PAYMENT_PAGE" })
 
     }, [])
 

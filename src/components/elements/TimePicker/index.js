@@ -10,7 +10,6 @@ import styles from './TimePicker.module.scss'; // Adjust the path as needed
 const TimePicker = (props) => {
     let { label, splitedHour, splitedMinute, hours, minutes, onChangeSetDateTime = () => { }, direction = "ltr",headingStyle = {}, } = props
     const onChangeHandler = (e, hourOrMinute) => {
-        // onChangeSetDateTime({ value: e.target.value, hourOrMinute, journeyType: 0 }); // Assuming journeyType is needed and set to 0 for simplicity
     };
 
     return (

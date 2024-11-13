@@ -43,7 +43,6 @@ function TestA(props) {
             dispatch({ type: "ADD_NEW_POINT_AT_PATHNAME", data: { pickupPoints, dropoffPoints, index: 0 } })
         }
         const urls = [`/${returnPathname.split("/")[2]}`, linkurl]
-        // fetchPathnamePageDatas(urls, setFetchDatas, `page-${reduxLanguage}-${linkurl}`);
         fetchPathnamePageDatas(urls);
 
         //returnPathname

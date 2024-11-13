@@ -77,7 +77,7 @@ const PaymentMethods = (props) => {
   const cashMethod = (params = {}) => {
     let { token, paymentType } = params
     // if it is cash payment you have set payment type first of all then send archive
-    // fetchArchieveToken({ token: "", paymentType: "", stage: "CLICK_OVER_CASH_BUTTON" })
+    fetchArchieveToken({ token: "", paymentType: "", stage: "CLICK_OVER_CASH_BUTTON" })
     dispatch({ type: "SET_PAYMENT_TYPE_AND_TOKEN", data: { token, paymentType } })
     setIframeStripe("")//CLOSE OFRAME INSIDE OF Page (in case of if it was opened )
     setStatusToken("");//it will trigger interval and will make request
@@ -88,7 +88,7 @@ const PaymentMethods = (props) => {
     let { id, quotations, passengerEmail, url } = params
     if (!iframeStripe) {
       // if it is card payment you have set payment type first of all then send archive then
-      // fetchArchieveToken({ token: "", paymentType: 7, stage: "CLICK_OVER_CARD_BUTTON" })
+      fetchArchieveToken({ token: "", paymentType: 7, stage: "CLICK_OVER_CARD_BUTTON" })
       const method = "POST"
       const body = JSON.stringify({
         quotations,
@@ -96,7 +96,6 @@ const PaymentMethods = (props) => {
         language: "en",
         passengerEmail,
         "session-id": sessionToken,
-        mode: "sandbox",
       })
       const headers = { "Content-Type": "application/json" }
       const config = { method, headers, body, };
@@ -125,7 +124,7 @@ const PaymentMethods = (props) => {
 
     let { id, quotations, passengerEmail, url } = params
     // if it is card payment you have set payment type first of all then send archive then
-    // fetchArchieveToken({ token: "", paymentType: 5, stage: "CLICK_OVER_CARD_BUTTON" })
+    fetchArchieveToken({ token: "", paymentType: 5, stage: "CLICK_OVER_CARD_BUTTON" })
     const method = "POST"
     const headers = { "Content-Type": "application/json" }
     const body = JSON.stringify({
@@ -134,7 +133,6 @@ const PaymentMethods = (props) => {
       language: "en",
       passengerEmail,
       "session-id": sessionToken,
-      mode: "sandbox",
     })
     const config = { method, headers, body, };
 
@@ -210,7 +208,7 @@ const PaymentMethods = (props) => {
             window.scroll({ top: 0, left: 0, behavior: "smooth", });
 
             if (dataTokenForWebSocket?.href?.includes("stripe")) {
-              // fetchArchieveToken({ token: resp.data.token, paymentType: 7, stage: "GET_SUCCESS_CARD_PAYMENT" })
+              fetchArchieveToken({ token: resp.data.token, paymentType: 7, stage: "GET_SUCCESS_CARD_PAYMENT" })
               dispatch({ type: "SET_PAYMENT_TYPE_AND_TOKEN", data: { token: resp.data.token, paymentType: 7 } })
               setIframeStripe("");
               setStatusToken("");
@@ -219,7 +217,7 @@ const PaymentMethods = (props) => {
             }
 
             if (dataTokenForWebSocket?.href?.includes("paypal")) {
-              // fetchArchieveToken({ token: resp.data.token, paymentType: 5, stage: "GET_SUCCESS_CARD_PAYMENT" })
+              fetchArchieveToken({ token: resp.data.token, paymentType: 5, stage: "GET_SUCCESS_CARD_PAYMENT" })
               dispatch({ type: "SET_PAYMENT_TYPE_AND_TOKEN", data: { token: resp.data.token, paymentType: 5 } })
               openPopUpWindow({ statusOfWindowCloseOrOpen: "close", url: "" })
               setStatusToken("");

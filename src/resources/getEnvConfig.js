@@ -25,7 +25,3 @@ export async function fetchConfig() {
     return getEnvConfig(config);
 }
 
-/*
-          apiDomain: "https://api.london-tech.com",
-apiDomain: "https://api-backup.london-tech.com",
-*/

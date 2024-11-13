@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const Tours = (props) => {
-    let { bggray = false, insideGlobalLayout = true ,env} = props
+    let { bggray = false, insideGlobalLayout = true, env } = props
     const state = useSelector(state => state.pickUpDropOffActions)
     let { params: { direction, language } } = state
     const { appData } = useSelector(state => state.initialReducer)
@@ -24,7 +24,7 @@ const Tours = (props) => {
         }
     };
 
-    
+
 
     useEffect(() => {
         fecthPoints(language)

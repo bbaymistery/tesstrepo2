@@ -1,16 +1,14 @@
 import GlobalLayout from "../components/layouts/GlobalLayout";
 import Hero from "../components/widgets/Hero";
 import dynamic from 'next/dynamic'
-import { useEffect, useState } from "react";
 const TaxiDeals = dynamic(() => import('../components/widgets/TaxiDeals'), { loading: () => <div>Loading...</div> });
 const Testimonials = dynamic(() => import('../components/widgets/Testimonials'),);
-const CarsSlider = dynamic(() => import('../components/widgets/CarsSlider'),);
+// const CarsSlider = dynamic(() => import('../components/widgets/CarsSlider'),);
 const SeaportTransfers = dynamic(() => import('../components/widgets/SeaportTransfers'),);
 import { parse } from 'url';
 import Tours from "./tours";
 import { fetchContent } from "../helpers/fetchContent";
 import { checkLanguageAttributeOntheUrl } from "../helpers/checkLanguageAttributeOntheUrl";
-// import { fetchConfig } from "../resources/getEnvConfig";
 
 const structuredSchema = {
   "@context": "http://schema.org/",
@@ -99,28 +97,6 @@ const breadcumbSchema = {
 
 export default function Home(props) {
   let { metaTitle, keywords, metaDescription, pageContent } = props
-  const [hasScrolled, setHasScrolled] = useState(false);
-  const handleScroll = () => {
-    if (!hasScrolled) setHasScrolled(true);
-  };
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasScrolled]);
-
-  // const fetchC = async (par) => {
-  //   await fetch("http://ip-api.com/json").then((response) => {
-  //     return response.json()
-  //   }).then((data) => {
-
-  //   })
-  // }
-  // useEffect(() => {
-  //   fetchC()
-  // }, [])
-
-  // birileri buyur harfler yazarsa sen onu kucuge cevir * bunu arasdir  / 
-
   return (
     <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true} >
 
@@ -128,7 +104,7 @@ export default function Home(props) {
       <TaxiDeals env={props.env} />
       <SeaportTransfers bggray={true} />
       <Tours insideGlobalLayout={false} env={props.env} />
-      {hasScrolled && <CarsSlider bggray={true} />}
+      {/* {hasScrolled && <CarsSlider bggray={true} />} */}
       <Testimonials bggray={false} pageContent={pageContent} />
     </GlobalLayout>
   )

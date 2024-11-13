@@ -122,11 +122,11 @@ const ReservationsDocument = (props) => {
 
                 if (typeof response === "object" && response.status === 200) {
                     setReservId(response.data["reservations-ids"] ? response.data["reservations-ids"] : null);
-                    // fetchArchieveToken({ id: response.data["reservations-ids"], stage: "GET_RESERVATION_ID" });
+                    fetchArchieveToken({ id: response.data["reservations-ids"], stage: "GET_RESERVATION_ID" });
 
                 } else {
                     //if fail it means we dont have any reservation id So we made it null
-                    // fetchArchieveToken({ id: [[null], [null]], stage: "GET_SERVER_RESPONED" });
+                    fetchArchieveToken({ id: [[null], [null]], stage: "GET_SERVER_RESPONED" });
                     let location = "else part fetch response  https://api.london-tech.com/api/v1/reservation"
                     let message = 'Apl reservations-document Component - submitDataToGetReservId function fetch_response_ else part '
                     let options = { requestOptions, response, body }
@@ -143,7 +143,7 @@ const ReservationsDocument = (props) => {
     // scrolling from top
     useEffect(() => { submitDataToGetReservId() }, [])
     useEffect(() => {
-        // if (reservId) fetchArchieveToken({ id: reservId, stage: "RENDER_RESERVATION_DETAILS" });
+        if (reservId) fetchArchieveToken({ id: reservId, stage: "RENDER_RESERVATION_DETAILS" });
     }, [reservId]);
     useEffect(() => {
         const confirmationMessage = "If you leave the page, all data will be deleted.";

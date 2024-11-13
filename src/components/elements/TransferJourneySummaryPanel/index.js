@@ -12,9 +12,7 @@ const TransferJourneySummaryPanel = (props) => {
     const { appData } = useSelector(state => state.initialReducer)
     //cartypes object for card item as {1:{image:'sds, name:Economy}}
     const carObject = appData?.carsTypes?.reduce((obj, item) => ({ ...obj, [item.id]: item, }), {});
-    //https://www.tripadvisor.co.uk/Attraction_Review-g186338-d11966434-Reviews-Airport_Pickups_London-London_England.html
 
-    console.log({ selectedPickupPoints, selectedDropoffPoints });
 
     // Check if distance exists, remove 'mile', and convert to km
     const distanceInMiles = quotations[index].distance ? parseFloat(quotations[index].distance.replace(' mile', '')) : null;

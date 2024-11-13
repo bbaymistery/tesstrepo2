@@ -123,7 +123,6 @@
                                     .select_time_div {
                                         display: flex;
                                         color: #5d646d;
-                                        // width: 135px;
                                         color: rgba(#130b37, 1);
                                         font-weight: 500;
 
@@ -141,7 +140,6 @@
                                         gap: 16px;
 
                                         .booking_form_hour_minute_wrapper {
-                                            // max-width: 145px;
                                             width: 100%;
                                             position: relative;
 
@@ -150,17 +148,10 @@
                                             }
 
                                             select {
-                                                //   -webkit-appearance: none;
                                                 border: none;
-                                                // border-bottom: 1px solid rgba(93, 100, 109, 0.1);
                                                 width: 100%;
                                                 font-size: 15px;
                                                 background-color: white;
-
-                                                // padding: 7px 10px;
-                                                @media(max-width:990px) {
-                                                    //   -webkit-appearance: menulist;
-                                                }
 
                                                 &:focus {
                                                     outline: 0px !important;

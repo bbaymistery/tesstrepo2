@@ -8,12 +8,6 @@ import { checkLanguageAttributeOntheUrl } from '../../helpers/checkLanguageAttri
 import { parse } from 'url';
 
 const leftLinks = [
-    // {
-    //     id: 1,
-    //     linkName: "General Terms of Use",
-    //     translateName: "strTermsOfUse",
-    //     pagePathname: 'Terms'
-    // },
     {
         id: 2,
         linkName: "Privacy policy",

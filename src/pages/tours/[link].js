@@ -83,13 +83,17 @@ const TourContentDetails = (props) => {
                     <div className={`${styles.description_container} page_section`}>
                         <div className={`page_section_container mb-2  ${styles.page_section_container}`} >
                             <div className={styles.links}>
-                                <p >{appData?.words["strNavHome"]} </p>
-                                <p > {`>`} </p>
-                                <p >{breadcrumbTitle} </p>
+                                <p>
+                                    <a href="/">{appData?.words["strNavHome"]}</a>
+                                </p>
+                                <p> {`>`} </p>
+                                <p>
+                                    <a href="/tours">
+                                        {breadcrumbTitle}
+                                    </a>
+                                </p>
                                 {loadAlert ? <></> : <p > {`>`} </p>}
-                                {loadAlert ?
-                                    "..."
-                                    : <p >{thumbnailTitle} </p>}
+                                {loadAlert ? "..." : <p >{thumbnailTitle} </p>}
                             </div>
 
                         </div>

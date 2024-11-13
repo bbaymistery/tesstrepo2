@@ -14,8 +14,6 @@ import { parse } from 'url'
 import Error404 from './404/index'
 import { checkLanguageAttributeOntheUrl } from '../helpers/checkLanguageAttributeOntheUrl';
 import { Airports, CruisePorts } from '../constants/navigatior';
-// import { generateCanonicalAlternates } from '../helpers/canolicalAlternates';
-
 import { urlToTitle } from '../helpers/letters';
 import { parseCookies } from '../helpers/cokieesFunc';
 import { taxiPricesLinks } from './../constants/navigatior'
@@ -46,7 +44,6 @@ const NavbarLinkName = (props) => {
         }
     }, [linkname, dispatch, language]); // Add linkname and dispatch to the dependency array
 
-    console.log({ props });
 
 
     return (isItQuationLink ? <TaaxidealsQuotationLink props={props} /> :
@@ -87,7 +84,6 @@ function createBreadcrumbSchema(pathname) {
 function adjustPathnameForLanguage(pathname, pageStartLanguage, cookies) {
 
     if (pageStartLanguage === 'en') {
-
         pathname = pathname.replace(/^\/_next\/data\/[^/]+\//, '/').replace(/\.[^/.]+$/, '').replace(/\.json$/, '');
         pageStartLanguage = cookies['lang'] || 'en';  // Default to 'en' if no lang cookie is present
     } else {
@@ -115,8 +111,6 @@ async function handleStandardContent(pathname, cookie, pageStartLanguage, schema
                 keywords,
                 pageContent,
                 metaDescription,
-                // canonicalAlternates: [],
-                // mainCanonical,
                 schemas,
                 isItQuationLink: false
             }
@@ -131,21 +125,14 @@ async function handleQuotationLink(language, pathname, schemas, env, ipAddress, 
     let pickUps = []
     let dropoffs = []
     let review = {}
-
     //!nneww Pathname yox idi direk yazilirdi 
     if (pathname) {
         const body = { language, checkRedirect: true, taxiDealPathname: pathname, withoutExprectedPoints: true, visitorIpAddress: ipAddress, "userAgent": userAgent, bodyOfRequest: "", methodOfRequest: "" }
-
         let { breadcrumbs } = urlToTitle({ url: pathname, pathnamePage: true })
-
         const url = `${env.apiDomain}/api/v1/taxi-deals/details`;
         const { status, data } = await postDataAPI({ url, body });
-
         if (status === 205) return { redirect: { destination: data.redirectPathname, permanent: false } };
-
-
         if (status === 200) {
-            // getJsonSizeInKB(data)
             let {
                 distance,
                 duration,
@@ -188,9 +175,7 @@ async function handleQuotationLink(language, pathname, schemas, env, ipAddress, 
                 linkurl,
                 metaTags,
                 review,
-                isItQuationLink: true,
-                ipAddress,
-                userAgent,
+                isItQuationLink: true
             }
             return { props: finalData }
 
@@ -214,6 +199,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         res.end();
         return { props: { data: "not found", } }
     }
+
+
 
     let cookies = parseCookies(req.headers.cookie);
     let { pathname } = parse(req.url, true)
@@ -240,7 +227,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     let isItQuationLink = false
     if (!taxiPricesLinks.includes(pathname)) isItQuationLink = true
 
-    // Extract the IP address
+   // Extract the IP address
     const forwarded = req.headers['x-forwarded-for']
     const ipAddress = typeof forwarded === 'string' ? forwarded.split(/, /)[0] : req.socket.remoteAddress
 

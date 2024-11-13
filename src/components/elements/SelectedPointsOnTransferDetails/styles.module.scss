@@ -66,7 +66,6 @@ $bg_light: rgb(245, 247, 252);
                 color: $black3;
                 font-size: 15px;
                 font-weight: 500;
-                // font-family: $font-jost;
                 flex: 1;
 
                 @media (max-width: 520px) {
@@ -78,8 +77,6 @@ $bg_light: rgb(245, 247, 252);
         }
 
         .insideInputs {
-            // margin-top: .75rem;
-
             .insideInputs_input {
                 display: flex;
                 flex-direction: column;

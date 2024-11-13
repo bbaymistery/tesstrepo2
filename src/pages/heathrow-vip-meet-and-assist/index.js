@@ -28,7 +28,6 @@ const HeathrowVipMeet = (props) => {
     const router = useRouter()
     const dispatch = useDispatch()
     //buttons
-    // const buttonRefs = [useRef(null), useRef(null), useRef(null)];
     let { bggray = false } = props;
     const { appData } = useSelector(state => state.initialReducer)
 

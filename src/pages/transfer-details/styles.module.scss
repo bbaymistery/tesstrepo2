@@ -18,7 +18,6 @@ $checkbox-selected: $primary; // Primary colour
 
         //!this styles belongs to taxi deals
         .taxideals_subcontainer {
-            // margin-bottom: 3.5rem;
             border-radius: 4px;
             position: relative;
 
@@ -70,7 +69,6 @@ $checkbox-selected: $primary; // Primary colour
                             font-weight: 500;
                             margin-bottom: 5px;
                             font-size: 22px;
-                            // font-family: $font-jost;
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
@@ -127,11 +125,8 @@ $checkbox-selected: $primary; // Primary colour
 
                             .taxideals_select_div {
                                 position: relative;
-                                // box-shadow: rgb(50 50 93 / 10%) 0px 50px 100px -20px, rgb(0 0 0 / 10%) 0px 30px 60px -30px, rgb(10 37 64 / 15%) 0px -2px 6px 0px inset;
                                 border-radius: 4px;
-                                // padding-right: 4px;
                                 padding: 4px 4px;
-                                // margin-top: -2px;
                                 padding-right: 6px;
                                 display: flex;
                                 border: 1px solid $border;
@@ -199,7 +194,6 @@ $checkbox-selected: $primary; // Primary colour
                                 .popup_header[f="true"] {
                                     display: flex;
                                     align-items: center;
-                                    // padding-left: 14px;
                                     padding-top: 12px;
                                     padding-bottom: 10px;
                                     padding-left: 3px;
@@ -214,16 +208,12 @@ $checkbox-selected: $primary; // Primary colour
 
                                     p {
                                         font-size: 19px;
-                                        // font-family: $font-jost;
                                         font-weight: 500;
                                         color: #000;
                                     }
                                 }
 
-                                //[popupp="false"][direction="false"]
-                                //[popupp="false"][direction="true"]
-                                //[popupp="true"][direction="false"]
-                                //[popupp="true"][direction="true"]
+
                                 .input_delete_field_icon[popupp="false"][direction="false"] {
                                     top: 7px;
                                     font-size: 13px;
@@ -321,10 +311,8 @@ $checkbox-selected: $primary; // Primary colour
                                     }
 
                                     &::placeholder {
-                                        // text-transform: capitalize;
                                         color: $label_text_color;
                                         font-weight: 400;
-                                        // font-family: $font-jost;
                                         font-size: 13px;
                                     }
                                 }
@@ -336,10 +324,7 @@ $checkbox-selected: $primary; // Primary colour
                                 }
 
                                 input[f="false"] {
-                                    // border-bottom: 1px solid #efefef !important;
                                     padding: 1px 2px;
-
-
                                 }
 
                                 //normal english or turkish
@@ -815,7 +800,6 @@ $checkbox-selected: $primary; // Primary colour
                             }
 
                             .points {
-                                // border: 1px solid red;
                                 min-height: 70px;
                                 flex: 1;
 
@@ -823,7 +807,6 @@ $checkbox-selected: $primary; // Primary colour
                                     font-size: 16px;
                                     color: rgb(105, 116, 136);
                                     font-weight: 500;
-                                    // font-family: $font-jost;
                                     margin-bottom: 10px;
                                 }
 
@@ -1062,7 +1045,6 @@ $checkbox-selected: $primary; // Primary colour
                                 max-width: 163px !important;
                                 width: 163px;
                                 font-size: 15px;
-                                // font-family: $font-jost;
                                 letter-spacing: 1px;
                                 text-transform: capitalize;
 
@@ -1114,7 +1096,6 @@ $checkbox-selected: $primary; // Primary colour
                 max-width: 163px !important;
                 width: 163px;
                 font-size: 15px;
-                // font-family: $font-jost;
                 letter-spacing: 1px;
                 text-transform: capitalize;
 
@@ -1187,7 +1168,6 @@ $checkbox-selected: $primary; // Primary colour
                 max-width: 163px !important;
                 width: 163px;
                 font-size: 15px;
-                // font-family: $font-jost;
                 letter-spacing: 1px;
                 text-transform: capitalize;
 
@@ -1266,7 +1246,6 @@ $checkbox-selected: $primary; // Primary colour
         font-weight: 500;
         margin-bottom: 15px;
         font-size: 22px;
-        // font-family: $font-jost;
     }
 
     .return_pas_details_header {
@@ -1288,7 +1267,6 @@ $checkbox-selected: $primary; // Primary colour
                 padding-left: 10px;
                 font-size: 14px;
                 font-weight: 500;
-                // font-family: $font-jost;
             }
 
 

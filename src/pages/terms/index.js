@@ -2,28 +2,12 @@ import React from 'react'
 import GlobalLayout from '../../components/layouts/GlobalLayout'
 import styles from "./styles.module.scss"
 import GeneralTerms from './GeneralTerms';
-// import PrivacyTerms from './PrivacyTerms'
 import { useSelector } from 'react-redux'
 import { fetchContent } from '../../helpers/fetchContent'
 import { checkLanguageAttributeOntheUrl } from '../../helpers/checkLanguageAttributeOntheUrl'
 import { parse } from 'url';
 
-const leftLinks = [
-    {
-        id: 1,
-        linkName: "General Terms of Use",
-        translateName: "strTermsOfUse",
-        pagePathname: 'Terms'
-    },
-    // {
-    //     id: 2,
-    //     linkName: "Privacy policy",
-    //     pagePathname: "Privacy_Policy",
-    //     translateName: "strPrivacyPolicy",
 
-    // },
-
-]
 const structuredSchema = {
     "@context": "http://schema.org/",
     "@type": "TaxiService",
@@ -95,29 +79,13 @@ const Terms = (props) => {
     const state = useSelector(state => state.pickUpDropOffActions);
     const { params: { direction } } = state;
 
-    const { appData } = useSelector(state => state.initialReducer)
-
-
 
     return (
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true}>
             <div className={`${styles.terms} ${direction} page`} bggray={String(bggray === "true")}>
                 <div className={`${styles.terms_section} page_section`}>
                     <div className={`${styles.terms_section_container} page_section_container`}>
-                        <div className={styles.left}>
-                            <div className={`${styles.link_content}`} style={{ padding: '1.5rem' }}>
-                                {leftLinks.map((link, index) => {
-                                    return <div key={index} className={`${styles.link_content_item}`}>
-                                        <button>
-                                            {appData?.words[link.translateName]}
-                                        </button>
-                                    </div>
-                                })}
-                            </div>
-                        </div>
-
                          <GeneralTerms pageContent={pageContent} /> 
-                        {/* {isActiveId === 2 ? <PrivacyTerms pageContent={pageContent} /> : <></>} */}
                     </div>
                 </div>
             </div>

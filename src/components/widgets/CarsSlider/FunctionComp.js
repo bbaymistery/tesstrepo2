@@ -88,7 +88,6 @@ const CarsSlider = () => {
       return;
     }
     e.preventDefault();
-    // itemsCarWrapperRef.current.style.cursor = "auto";
 
     setState({ ...state, isScrolling: false });
   };

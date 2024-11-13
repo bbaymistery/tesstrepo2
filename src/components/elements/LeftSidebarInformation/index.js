@@ -29,7 +29,6 @@ const LeftSidebarInformation = ({ direction, appData, showAllInclusive = true, s
                     <li className={styles.wp}>
                         <img src="/images/others/WhatsAppp.webp" alt="Airport Pickups Support" />
                         <a target="_blank" href="https://wa.me/7387901028">
-                        {/* <a target="_blank" href="https://wa.me/447387901028"> */}
                             +44 73 8790 1028
                         </a>
                     </li>

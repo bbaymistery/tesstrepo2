@@ -218,7 +218,6 @@
                                     span {
                                         //!change
                                         font-size: 16px;
-                                        // font-family: $font-jost;
                                         color: rgb(5, 16, 54);
 
                                         @media (max-width: 1200px) {
@@ -242,7 +241,6 @@
                                     &:nth-child(3) {
                                         @media (max-width: 380px) {
                                             margin-left: 4px;
-
                                             img {
                                                 margin-left: -2px;
                                             }
@@ -268,7 +266,6 @@
                                     display: flex;
                                     align-items: center;
                                     font-size: 15px;
-                                    // font-family: $font-jost;
                                     font-weight: 500;
                                     color: rgb(0, 128, 9);
                                     color: $dark-1;

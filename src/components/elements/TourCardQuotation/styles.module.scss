@@ -6,7 +6,6 @@
        flex-basis: 65%;
        position: relative;
        margin-top: 16px;
-       // border: 1px solid rgb(83, 210, 25);
 
        @media (max-width: 990px) {
            flex-basis: 100%;
@@ -106,14 +105,7 @@ img{
 }
            }
 
-           //    .column_first[data="1"] {
-           //        @media (max-width: 420px) {
-           //            background-size: 130% !important;
-           //        }
-           //    }
-           //    .column_first[data="3"] {
-           //        background-size: 130% !important;
-           // }
+   
            .column_second {
                flex: 0.48;
                height: 100%;
@@ -320,7 +312,6 @@ text-transform: capitalize;
                }
 
                .selectedBtn {
-                   //    background-color: darken($dark-1, 25%) !important;
                    background-color: $dark-2 !important;
                    color: white !important;
 
@@ -511,7 +502,6 @@ text-transform: capitalize;
                                    }
 
                                    font-weight: 500;
-                                   // font-family: $font-jost;
                                    font-size: 15px;
 
                                    &:before {
@@ -743,7 +733,6 @@ text-transform: capitalize;
 
 
                                .booking_form_hour_minute_wrapper {
-                                   // max-width: 145px;
                                    width: 100%;
                                    position: relative;
                                    border: 0px;
@@ -860,7 +849,6 @@ text-transform: capitalize;
        .animated {
            opacity: 1;
            transition: height 0.3s linear, opacity .2s .3s linear;
-           //    margin-top: 1rem;
            visibility: visible;
        }
    }
@@ -868,13 +856,10 @@ text-transform: capitalize;
    .taxideal_result_container {
        flex-basis: 71%;
 
-       @media (max-width:1150px) {
-           //   flex-basis: 75%;
-       }
+
 
        .description {
            padding: 40px 20px;
-           //    background-color: #edf4fe;
            background-color: #fff;
            margin-top: 40px;
            border-radius: 4px;

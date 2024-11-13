@@ -108,8 +108,43 @@ const TaxiDealViewContent = ({ points, dealsName, islinknamecomponent, language 
                             <a data-id="a" title={item?.pageTitle} href={`${item.pathname}`} className={`${styles.card}`} key={item.id} onClick={() => sessionStorage.removeItem('pathnameLinkCache')}>
                                 <div className={styles.card_image_div}>
                                     {dealsName === 'dover' || dealsName === 'southampton' || dealsName === 'portsmouth' || dealsName === 'harwich' ?
-                                        <Image src={`${cruisePortimages?.[index]?.image}`} className={styles.img} fill alt={item.pageTitle} sizes="(max-width: 768px) 30vw, (max-width: 1200px) 50vw" />
-                                        : <Image src={`${taxidealsImages?.[index]?.image}`} className={styles.img} fill alt={item.pageTitle} sizes="(max-width: 768px) 30vw, (max-width: 1200px) 50vw" />}
+                                        <Image
+                                            src={`${cruisePortimages?.[index]?.image}`}
+                                            className={styles.img}
+                                            fill
+                                            alt={item.pageTitle}
+                                            quality={40}
+                                            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 40vw, 20vw"
+                                            priority={index < 4}
+                                            loading={index < 4 ? "eager" : "lazy"}
+                                        />
+                                        : <Image
+                                            src={`${taxidealsImages?.[index]?.image}`}
+                                            className={styles.img}
+                                            fill
+                                            alt={item.pageTitle}
+                                            quality={40}
+                                            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 40vw, 20vw"
+                                            priority={index < 4}
+                                            loading={index < 4 ? "eager" : "lazy"}
+                                        />
+                                    }
+
+                                    {/* {dealsName === 'dover' || dealsName === 'southampton' || dealsName === 'portsmouth' || dealsName === 'harwich' ?
+                                        <Image
+                                            src={`${cruisePortimages?.[index]?.image}`}
+                                            className={styles.img}
+                                            fill alt={item.pageTitle}
+                                            quality={60}
+                                            sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                                        />
+                                        : <Image
+                                            src={`${taxidealsImages?.[index]?.image}`}
+                                            className={styles.img}
+                                            alt={item.pageTitle}
+                                            fill
+                                            priority
+                                        />} */}
 
                                 </div>
                                 <div className={styles.card_body}>

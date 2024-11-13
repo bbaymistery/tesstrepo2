@@ -23,7 +23,6 @@ const pushToQuotationsResultPage = (params = {}) => {
     let { dispatch, router, log, journeyType, language } = params
     dispatch({ type: "GET_QUOTATION", data: { results: log, journeyType } })
     router.push(`${language === 'en' ? "/quotation-results" : `${language}/quotation-results`}`)
-    // router.push("/quotation-results")
 }
 const Hero = (props) => {
 
@@ -254,11 +253,15 @@ const Hero = (props) => {
 
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
-
-        e.target.style.opacity = 0
+        if (window.innerWidth < 990) {
+            document.body.style.overflow = "hidden";
+            e.target.style.opacity = 0
+            console.log(`#content${index}${destination}`);
+            let navbarElement = document.querySelector("#navbar_container")
+            navbarElement.style.display = "none"
+        }
         setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
         const container = document?.querySelector(`#content${index}${destination}`);
-
         e.target.style.opacity = 1
         setTimeout(() => {
             window.scroll({
@@ -291,9 +294,12 @@ const Hero = (props) => {
 
     const closeModal = (params = {}) => {
         let { index, destination } = params
+        document.body.style.overflow = "unset";
         let inputField = document.getElementById(`${destination}_input_focused_${index}`)
         inputField.style.opacity = 1
         setInternalState({ [`${destination}-search-focus-${index}`]: false, [`${destination}-search-value-${index}`]: "", [`collecting-${destination}-points-${index}`]: [] })
+        let navbarElement = document.querySelector("#navbar_container");
+        navbarElement.style.display = "flex";
     }
     //when we go quotation page then go back In that case we should check
     //if we have points or not.
@@ -529,19 +535,19 @@ const Hero = (props) => {
                     <div className={styles.advertisiment_images}>
                         <a rel="noreferrer" href="https://www.tripadvisor.co.uk/Attraction_Review-g186338-d11966434-Reviews-Airport_Pickups_London-London_England.html" target={"_blank"} >
                             <div className={`${styles.review_trip_advisor} ${width < 768 ? "" : "bottom_to_top_animation2"}`} style={{ animationDelay: '.5s', animationDuration: '1s' }}>
-                                <Image fill priority style={{ objectFit: 'contain' }} sizes="(max-width: 768px) 100vw" src="/images/others/advisorTrip.webp" alt="Airport Pickups London Tripadvisor" />
+                                <Image loading={"eager"} fill priority style={{ objectFit: 'contain' }} sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw" src="/images/others/advisorTrip.webp" alt="Airport Pickups London Tripadvisor" />
                             </div>
                         </a>
 
                         <a rel="noreferrer" href="https://www.trustpilot.com/review/airport-pickups-london.com" target={"_blank"} >
                             <div className={`${styles.review_trip_advisor} ${width < 768 ? "" : "bottom_to_top_animation2"}`} style={{ animationDelay: '0.75s', animationDuration: '1s' }}>
-                                <Image fill priority style={{ objectFit: 'contain' }} sizes="(max-width: 768px) 100vw" src="/images/others/Excellent.webp" alt=" Airport Pickups London Trustpilot " />
+                                <Image loading={"eager"} fill priority style={{ objectFit: 'contain' }} sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw" src="/images/others/Excellent.webp" alt=" Airport Pickups London Trustpilot " />
                             </div>
                         </a>
 
                         <a rel="noreferrer" href="https://www.reviews.co.uk/company-reviews/store/airport-pickups-london-com" target={"_blank"} >
                             <div className={`${styles.review_trip_advisor} ${width < 768 ? "" : "bottom_to_top_animation2"}`} style={{ animationDelay: '1s', animationDuration: '1s' }}>
-                                <Image fill priority style={{ objectFit: 'contain' }} sizes="(max-width: 768px) 100vw" src="/images/others/Reviews.webp" alt="Airport Pickups London Review" />
+                                <Image loading={"eager"} fill priority style={{ objectFit: 'contain' }} sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw" src="/images/others/Reviews.webp" alt="Airport Pickups London Review" />
                             </div>
                         </a>
                     </div>

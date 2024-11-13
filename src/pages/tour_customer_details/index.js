@@ -94,14 +94,7 @@ const TourCustomerDetails = (props) => {
             dispatch({ type: 'SET_TRANSFER_DETAILS', data: { name, value, index: 0, updateBothJourneyCheckBox: passengerDetailsStatus } })
     }
 
-    // let passengerDetails = { firstname, phone, email }
-    // let errorHolder = tourSchemaValidator({ passengerDetails, pickupPoint });
-
-    // setInternalState({ errorHolder })
-    // if (errorHolder.status === 200) {
-    //     router.push(`${language === 'en' ? "/tour_payment_details" : `/${language}/tour_payment_details`}`)
-
-    // }
+  
     const checkValidation = (e) => {
 
         let newReservations = reservations.map(reservation => {

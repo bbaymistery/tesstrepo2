@@ -92,7 +92,6 @@
                             margin-left: 6px;
                             color: rgb(115, 115, 115);
                             font-size: 20px;
-                            // font-family: $font-jost;
                             text-transform: capitalize;
                         }
                     }
@@ -103,12 +102,9 @@
                         width: 100%;
                         font-size: 24px;
                         text-transform: capitalize;
-                        // font-family: $font-jost;
-
                         @media(max-width:990px) {
                             margin: 24px 0px 24px 4px !important;
                         }
-
                     }
 
                     .tr_journey_title {
@@ -117,7 +113,6 @@
                         width: 100%;
                         font-size: 24px;
                         text-transform: capitalize;
-                        // font-family: $font-jost;
                     }
 
                     .points[direction="true"] {
@@ -252,8 +247,7 @@
                                 .popup_header[f="true"] {
                                     display: flex;
                                     align-items: center;
-                                    // padding-left: 14px;
-                                    padding-top: 12px;
+                                    padding-top: 19px;
                                     padding-bottom: 10px;
                                     padding-left: 3px;
 
@@ -267,16 +261,12 @@
 
                                     p {
                                         font-size: 19px;
-                                        // font-family: $font-jost;
                                         font-weight: 500;
                                         color: #000;
                                     }
                                 }
 
-                                //[popupp="false"][direction="false"]
-                                //[popupp="false"][direction="true"]
-                                //[popupp="true"][direction="false"]
-                                //[popupp="true"][direction="true"]
+                
                                 .input_delete_field_icon[popupp="false"][direction="false"] {
                                     top: 0px;
                                     font-size: 13px;
@@ -404,9 +394,10 @@
                                 }
 
                                 input[f="true"] {
-                                    border: 1px solid #efefef;
+                                    border: 1px solid $border;
                                     border-radius: 4px;
                                     padding: 10px;
+                                    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
                                 }
 
                                 input[f="false"] {
@@ -759,7 +750,6 @@
 
 
                                 .booking_form_hour_minute_wrapper {
-                                    // max-width: 145px;
                                     width: 100%;
                                     position: relative;
                                     border: 0px;

@@ -81,7 +81,6 @@ const Header = () => {
     if (hasTaxiDeals) {
       dispatch({ type: "SET_NAVBAR_TAXI_DEALS", data: { hasTaxiDeals } });
     }
-    // dispatch({ type: "RESET_SELECTED_POINTS", data: { journeyType } })
     toggleMenu();
   }, [dispatch, journeyType, toggleMenu]);
 

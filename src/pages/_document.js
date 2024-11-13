@@ -67,21 +67,7 @@ class CustomDocument extends Document {
         ));
     }
 
-    // renderGoogleTagManagerScript(id) {
-    //     return (
-    //         <>
-    //             <script async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></script>
-    //             <script dangerouslySetInnerHTML={{
-    //                 __html: `
-    //                 window.dataLayer = window.dataLayer || [];
-    //                 function gtag(){dataLayer.push(arguments);}
-    //                 gtag('js', new Date());
-    //                 gtag('config', '${id}');`
-    //             }}>
-    //             </script>
-    //         </>
-    //     );
-    // }
+
     render() {
         //here i am destructing props which i passed  with MyApp.getInitialProps
         let { schemaOfTaxiDeals, schemas, metaTags = [], toursDatas } = this?.props?.__NEXT_DATA__?.props?.pageProps
@@ -100,59 +86,53 @@ class CustomDocument extends Document {
             <Html lang="en">
                 <Head >
 
-                    {/* //render schemas home page or taxi deals  */}
                     {this.renderSchemaScripts(schemaOfTaxiDeals)}
                     {this.renderSchemaScripts(schemasOfPages)}
-
-
-                    {/* {mainCanonical?.length > 0 && <link rel="canonical" href={mainCanonical} />} */}
-
                     {this.createMetaTagElements(metaTags)}
 
-                    {/* below tags copied from aplcars.com website  */}
-                    {/* <!-- Global site tagn (gtag.js) - Google Ads: 1036671229 -->
-                    //yesil chat  7336181
-                    */}
-                    {/* {this.renderGoogleTagManagerScript('AW-1036671229')}  */}
-                    {/* {this.renderGoogleTagManagerScript('UA-7336181-1')} */}
 
-                    {/* This script initializes  (GTM) by creating a data layer, setting the GTM start time, and asynchronously loading the GTM script with the container ID 'GTM-M8WXW8KC'. */}
-                    {/* <script dangerouslySetInnerHTML={{
-                        __html: `
-                       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                       j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                       })(window,document,'script','dataLayer','GTM-M8WXW8KC')
-                      ` }}>
-                    </script> */}
+
                     <script dangerouslySetInnerHTML={{
                         __html: `
-                   (function(w,d,s,l,i){
-    w[l]=w[l]||[];
-    w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
-    var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l !== 'dataLayer' ? '&l='+l : '';
-    j.async = true;
-    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-    f.parentNode.insertBefore(j, f);
-  })(window, document, 'script', 'dataLayer', 'GTM-M8WXW8KC');
+                          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                            })(window,document,'script','dataLayer','GTM-M8WXW8KC');
                       ` }}>
                     </script>
-
-
-
                     <link rel="preload" href="/images/others/advisorTrip.webp" as="image" type="image/webp" />
                     <link rel="stylesheet" href={this.props?.__NEXT_DATA__.page === "/" ? "/fontawesome/css/all.min.css" : "/fontawesomeAll/css/all.min.css"} />
                 </Head>
                 <body>
 
+                    {/* Inline script directly in the body */}
+                    <script
+                        dangerouslySetInnerHTML={{
+                            __html: `
+                                    (function() {
+                                        // Check viewport width
+                                        if (window.innerWidth > 990) {
+                                        // Load Zendesk snippet script
+                                        var zendeskScript = document.createElement('script');
+                                        zendeskScript.id = 'ze-snippet';
+                                        zendeskScript.src = 'https://static.zdassets.com/ekr/snippet.js?key=473f7b02-4850-4045-8010-1fedf9752180';
+                                        zendeskScript.async = true;
+                                        document.body.appendChild(zendeskScript);
 
+                                        // Load custom chat widget script
+                                        var chatWidgetScript = document.createElement('script');
+                                        chatWidgetScript.src = 'https://www.airport-pickups-london.com/js/chat_widget.js?112';
+                                        chatWidgetScript.async = true;
+                                        document.body.appendChild(chatWidgetScript);
+                                        }
+                                    })();
+            `,
+                        }}
+                    />
                     <noscript>
                         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M8WXW8KC" height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe>
                     </noscript>
-
                     <Main />
                     <NextScript />
                 </body>

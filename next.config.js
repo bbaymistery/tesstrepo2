@@ -17,7 +17,7 @@ async function getRoutes() {
 
   let linknameRoutes = [{ source: `/:lang(${allLangaugesAsString})/:path`, destination: '/:path', locale: false, }]
 
-  let toursRoutes = [{ source: `/:lang(${allLangaugesAsString})/tours/:link`, destination: '/tours/:link', locale: false, } ]
+  let toursRoutes = [{ source: `/:lang(${allLangaugesAsString})/tours/:link`, destination: '/tours/:link', locale: false, }]
 
   // Rewrite rule to prevent doubling the language prefix
   let specificToursPageRoutes = [
@@ -47,7 +47,7 @@ const nextConfig = {
     mapApiKey: "AIzaSyDulwIwncfuxBve8MKXPIIPmPLRve6ySw8",
     NEXT_PUBLIC_GOOGLE_ANALYTICS: "G-S02J90JMSB",
   },
-  // "assetPrefix": "https://https://aplairtest.netlify.app//",
+  // "assetPrefix": "https://www.airport-pickups-london.com/",
   async rewrites() {
     const rules = await getRoutes();
     return rules;
@@ -70,6 +70,7 @@ const nextConfig = {
       { hostname: 'www.airport-pickups-london.com' },
       { hostname: 'api-backup.london-tech.com' },
     ],
+    formats: ['image/webp',],
   },
 }
 

@@ -2,12 +2,11 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from "./styles.module.scss"
-import TaxiDealViewContent from './TaxiDealViewContent'
-import useRipple from '../../../hooks/useRipple'
-import { useRef } from 'react'
 import dynamic from 'next/dynamic'
 import { titleStringOfHastaxiDeals } from '../../../helpers/titleStringOfHasTaxiDeals'
+import { Skeleton } from '../../elements/Skeleton'
 const PointsModal = dynamic(() => import('../../elements/PointsModal'));
+const TaxiDealViewContent = dynamic(() => import('./TaxiDealViewContent'));
 const tabsBttons = [
     {
         name: "strHeathrowTaxiPrices",
@@ -50,8 +49,8 @@ const TaxiDeals = (props) => {
     const [fromLondonToAirport, setfromLondonToAirport] = useState([])
     const [tabs, setTabs] = useState(0)
     const [taxiPoints, setTaxiPoints] = useState([])
-    const refs = tabsBttons.map(() => useRef(null));
-    const ripples = refs.map((ref) => useRipple(ref));
+
+
 
     const { appData } = useSelector(state => state.initialReducer)
 
@@ -142,27 +141,44 @@ const TaxiDeals = (props) => {
                 <div className={`${styles.taxideals_section} page_section`}>
                     <div className={`${styles.taxideals_section_container} page_section_container`}>
                         {taxiPoints.length > 1 ?
-                            (<div className={styles.title}>
-                                <h1>{appData?.words[`${titleStringOfHastaxiDeals(hasTaxiDeals)}`]}</h1>
-                                {islinknamecomponent ? "" : <p>{appData?.words["strAllinclusiveprices"]}</p>}
-                            </div>) : <></>}
+                            (
+                                <div className={styles.title}>
+                                    <h1>{appData?.words[`${titleStringOfHastaxiDeals(hasTaxiDeals)}`]}</h1>
+                                    {islinknamecomponent ? "" : <p>{appData?.words["strAllinclusiveprices"]}</p>}
+                                </div>
+
+                            ) : <div style={{ display: 'flex', justifyContent: "center", alignItems: "center", }}>
+                                <div style={{ height: "39px", width: "250px", background: "#eae6e6", marginBottom: "3rem" }}>
+                                    <Skeleton width={"100%%"} height="100%" />
+                                </div>
+                            </div>}
+
+
                         {showTabs ?
                             <div className={`${styles.tabs} `}>
                                 {tabsBttons.map((btn, index) => {
-                                    return (<button onClick={() => tabsHandler({ index, dealsNameProp: btn.dealsName })} className={`${tabs === index ? styles.active : ""} btn`} key={index} ref={refs[index]}   >
-                                        <div className="ripple-wrapper">{ripples[index]}</div>
-                                        {appData.words[btn.name]}
-                                    </button>)
+                                    return (taxiPoints.length > 1 ?
+                                        <button onClick={() => tabsHandler({ index, dealsNameProp: btn.dealsName })} className={`${tabs === index ? styles.active : ""} btn`} key={index} >
+                                            {appData.words[btn.name]}
+                                        </button>
+                                        :
+                                        <div style={{ height: "45px", width: "160px", background: "#eae6e6", }}>
+                                            <Skeleton width={"100%"} height="100%" />
+                                        </div>)
                                 })}
-                            </div> : <></>}
-                        {taxiPoints.length > 1 ? <TaxiDealViewContent language={language} islinknamecomponent={islinknamecomponent} points={taxiPoints} dealsName={hasTaxiDeals} /> : <div className={styles.no_result}>There is no result on Taxi Deals</div>}
-                        {taxiPoints.length > 1 ?
+                            </div>
+                            : <></>}
+                        {taxiPoints.length > 1 ? <>
+                            <TaxiDealViewContent language={language} islinknamecomponent={islinknamecomponent} points={taxiPoints} dealsName={hasTaxiDeals} />
                             <div className={styles.btn_div}>
                                 <button className='btn_hover_reverse_primary' onClick={() => { setModal() }}>
                                     {appData?.words["strViewAll"]}
                                     <i className="fa-solid fa-arrow-right"></i>
                                 </button>
-                            </div> : <></>}
+                            </div>
+                        </> : <div style={{ height: "300px", background: "#eae6e6" }}>
+                            <Skeleton width={"100%"} height="100%" />
+                        </div>}
                     </div>
                 </div>
             </div >

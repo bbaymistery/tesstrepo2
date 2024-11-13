@@ -6,7 +6,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    top: 107px;
+    top: 110px;
     right: 0px;
     width: 100%;
     padding: 0px 12px;
@@ -27,7 +27,6 @@
         overflow-x: hidden;
     }
 
-    //RESULTS
     ul {
         overflow-y: scroll;
         top: calc(100% + 10px);
@@ -68,7 +67,6 @@
         div {
 
             .groupName {
-                // padding: 4px 9px;
                 padding: 4px 17px;
                 color: #000;
                 flex-direction: row;
@@ -159,11 +157,9 @@
                     transition: all 0.3s ease;
                     width: 100%;
                     font-size: 14px;
-                    // font-family: $font-jost;
                     padding-bottom: 0px !important;
 
                     &:hover {
-                        // color: rgb(51, 51, 242);
                         color: darken($light-1, 25%);
                     }
 
@@ -181,7 +177,6 @@
         }
     }
 
-    //no results
     .no_results_ul {
 
         li {
@@ -198,7 +193,6 @@
                 color: rgb(115, 115, 115);
                 padding-left: 10px;
                 font-weight: 400 !important;
-                // font-family: $font-jost;
                 font-size: 13px !important;
 
                 a {

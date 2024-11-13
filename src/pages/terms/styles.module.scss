@@ -16,53 +16,7 @@
                 flex-direction: column;
             }
 
-            .left {
-                padding: 15px;
-                width: 25%;
 
-                @media(max-width:1400px) {
-                    width: 30%;
-                }
-
-                @media(max-width:990px) {
-                    width: 100%;
-                }
-
-                .link_content {
-
-                    border: 1px solid $border;
-                    border-radius: 4px;
-                    position: sticky;
-                    top: 120px;
-
-                    @media(max-width:990px) {
-                        position: relative;
-                        top: 0px;
-                    }
-
-                    .link_content_item_active {
-                        font-weight: 500;
-                    }
-
-                    .link_content_item {
-                        padding-top: 5px;
-                        padding-bottom: 5px;
-                        padding-left: 15px;
-                        padding-right: 15px;
-
-                        button {
-                            padding: 0;
-                            margin: 0;
-                            border: 0;
-                            border-radius: 0;
-                            background-color: transparent;
-                            text-decoration: none;
-                            cursor: pointer;
-                            text-transform: capitalize;
-                        }
-                    }
-                }
-            }
 
             .right {
                 padding: 15px;

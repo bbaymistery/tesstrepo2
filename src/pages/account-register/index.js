@@ -44,8 +44,7 @@ const AccountRegister = (props) => {
         if (recaptchaToken) {
             const method = "POST"
             const headers = { "Content-Type": "application/json" }
-            // const removedUrl = 'https://api.london-tech.com/api/v1/corporate-account/add?passRecaptcha=true';
-            const url = `${env.apiDomain}/api/v1/corporate-account/add?passRecaptcha=true&mode=sandbox`;
+            const url = `${env.apiDomain}/api/v1/corporate-account/add`;
             const body = {
                 "name": companyName,
                 "address": address,
@@ -68,7 +67,7 @@ const AccountRegister = (props) => {
                     console.log(jsonResponse); // Handle the response data as needed
                     setLoadingFetch(false)
                     if (jsonResponse.status === 100 || jsonResponse.status === 200) {
-                        router.push(`${language === 'en' ? "/account-register" : `${language}/account-register`}`)
+                        router.push(`${language === 'en' ? "/account-register-results" : `${language}/account-register-results`}`)
                     } else {
                         alert("Something went wrong please try again")
                     }

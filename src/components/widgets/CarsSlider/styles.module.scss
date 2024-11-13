@@ -47,7 +47,6 @@
         .body {
             padding-top: 50px;
 
-            // overflow: hidden;
             &_content {
                 padding: 0px 15px;
                 position: relative;
@@ -57,7 +56,6 @@
                     position: relative;
                     display: flex;
                     justify-content: space-between;
-                    // background-color: red;
                     overflow-x: scroll;
                     transition: .5s ease-in-out;
 
@@ -156,13 +154,11 @@
                                     &:hover {
                                         color: $primary;
                                         transition: all 0.4s;
-                                        // cursor: pointer;
                                     }
                                 }
 
                                 &_attributes {
 
-                                    // padding-bottom: 12px;
                                     .card_atr_ul[direction="true"] {
                                         justify-content: flex-end;
 
@@ -206,7 +202,6 @@
                         }
                     }
 
-                    // }
 
 
 

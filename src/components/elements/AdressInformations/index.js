@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from "./styles.module.scss"
-//for contact us
 const AdressInformations = ({ direction, appData }) => {
     return (
         <div className={styles.right}>

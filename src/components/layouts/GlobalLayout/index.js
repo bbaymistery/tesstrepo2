@@ -14,47 +14,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
   const state = useSelector(state => state.pickUpDropOffActions);
   const { params: { language } } = state;
   const websiteDomain = "https://www.airport-pickups-london.com";
-  useEffect(() => {
 
-    const loadChatWidget = () => {
-      if (window.innerWidth > 990) {
-        // If the window width is below 990px, do not load the chat widget
-
-        window.zESettings = {
-          webWidget: {
-            chat: {
-              connectOnPageLoad: false, // Set to true if you want to auto-connect
-            }
-          }
-        };
-
-        const script1 = document.createElement('script');
-        console.log("script1", script1);
-        script1.id = "ze-snippet";
-        script1.src = "https://static.zdassets.com/ekr/snippet.js?key=473f7b02-4850-4045-8010-1fedf9752180";
-        script1.async = true;
-        document.head.appendChild(script1); // Append to head
-
-        const script2 = document.createElement('script');
-        script2.src = "https://www.airport-pickups-london.com/js/chat_widget.js?112";
-        script2.async = true;
-        document.head.appendChild(script2); // Append to head
-      }
-
-    };
-
-    const handleLoad = () => {
-      console.log("11");
-
-      setTimeout(loadChatWidget, 2000); // Delay loading chat widget by 3000ms after load
-    };
-
-    window.addEventListener('load', handleLoad);
-
-    return () => {
-      window.removeEventListener('load', handleLoad);
-    };
-  }, []);
 
   return (
     <>
@@ -63,9 +23,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         <meta charset="UTF-8" />
         <meta key="keywords" name="keywords" content={keywords} />
         <meta key="description" name="description" content={description} />
-        {/* <meta name="viewport" content="width=device-width, initial-scale=1" /> */}
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 "></meta>
         {/* //alternates for terms abouts us aand other Static pages We dont need schema so we didnt include*/}
         {Object.entries(STATIC_ROUTES).map(([key, path]) =>
           router.pathname === path && (
@@ -138,9 +96,9 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         <meta property="og:site_name" content="Airport Pickups London" />
         <meta property="og:type" content="website" />
 
-        {/* No follow */}
-        <meta name="googlebot" content="noindex" />
-        <meta name="robots" content="noindex" />
+        {/* Allow indexing and following links */}
+        <meta name="googlebot" content="index, follow" />
+        <meta name="robots" content="index, follow" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@Airport_Pickups" />
