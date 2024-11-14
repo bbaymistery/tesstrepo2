@@ -982,9 +982,6 @@ let urls = {
   "/Search.asp": "/",
   "/drivers.html": "/drivers-wanted",
   "/Agency/new-booking.asp": "/",
-  "/agency": "/",
-  //!movile redirections
-  "https://m.airport-pickups-london.com/City-Airport/london/taxi-from-chelsea.html": "/chelsea-to-gatwick-taxi",
-
+  "/agency": "/"
 }
 module.exports = { urls };
