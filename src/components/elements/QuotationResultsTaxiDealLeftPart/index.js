@@ -6,14 +6,13 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 const Map = dynamic(() => import('../../../pages/quotation-results/Map'));
 
-const QuotationResultsTaxiDealLeftPart = () => {
+const QuotationResultsTaxiDealLeftPart = ({ polylinePath, markerPoints, env }) => {
     const [taxidealMapStatus, setTaxidealMapStatus] = useState(false)
     const state = useSelector(state => state.pickUpDropOffActions)
     let { params } = state
-    let { direction, quotations, } = params
+    let { direction, } = params
 
     const { appData } = useSelector(state => state.initialReducer)
-
     return (
         <div className={styles.quotation_panel_istaxideal}>
             {taxidealMapStatus ?
@@ -23,7 +22,7 @@ const QuotationResultsTaxiDealLeftPart = () => {
                             <div onClick={() => setTaxidealMapStatus(false)} className={styles.close_div}>
                                 <i className="fa-sharp fa-solid fa-xmark"></i>
                             </div>
-                            <Map datas={quotations[0]} isTaxiDeal={true} />
+                            <Map datas={{ markerPoints, polylinePath }} isTaxiDeal={true} env={env} />
                         </div>
                     </OutsideClickAlert>
                 </div>

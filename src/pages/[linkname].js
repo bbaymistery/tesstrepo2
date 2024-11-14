@@ -137,6 +137,8 @@ async function handleQuotationLink(language, pathname, schemas, env, ipAddress, 
                 distance,
                 duration,
                 quotationOptions,
+                markerPoints,
+                polylinePath,
                 taxiDeal: { pickupPoints, dropoffPoints, pageTitle = "", headTitle = "", description = "", keywords = "", returnPathname = "", pageContent = "", returnHeadTitle = "", returnPageTitle = "", pathname: linkurl, metaTags = [] } } = data
 
             // select first item from all points
@@ -175,6 +177,8 @@ async function handleQuotationLink(language, pathname, schemas, env, ipAddress, 
                 linkurl,
                 metaTags,
                 review,
+                markerPoints,
+                polylinePath,
                 isItQuationLink: true
             }
             return { props: finalData }
@@ -227,7 +231,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     let isItQuationLink = false
     if (!taxiPricesLinks.includes(pathname)) isItQuationLink = true
 
-   // Extract the IP address
+    // Extract the IP address
     const forwarded = req.headers['x-forwarded-for']
     const ipAddress = typeof forwarded === 'string' ? forwarded.split(/, /)[0] : req.socket.remoteAddress
 

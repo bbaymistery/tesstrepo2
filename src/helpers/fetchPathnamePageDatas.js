@@ -4,7 +4,7 @@ import { urlToTitle } from "./letters";
 
 export const fetchPathnamePageDatas = async (urls) => {
     const env = await fetchConfig(); // Fetch the env config
-    
+
     let cache = {}
     const allLanguages = ["en", "tr", "ar", "es", "zh", "it", "ru"]
     try {
@@ -24,6 +24,8 @@ export const fetchPathnamePageDatas = async (urls) => {
                             distance,
                             duration,
                             quotationOptions,
+                            markerPoints,
+                            polylinePath,
                             taxiDeal: {
                                 pickupPoints = [],
                                 dropoffPoints = [],
@@ -36,7 +38,8 @@ export const fetchPathnamePageDatas = async (urls) => {
                                 returnHeadTitle = "",
                                 returnPageTitle = "",
                                 pathname: linkurl,
-                                metaTags = [] } } = data
+                                metaTags = [] }
+                        } = data
 
                         // select first item from all points
                         let pickUps = pickupPoints?.length >= 1 ? [pickupPoints[0]] : []
@@ -92,6 +95,8 @@ export const fetchPathnamePageDatas = async (urls) => {
                             breadcrumbs,
                             linkurl,
                             metaTags,
+                            markerPoints,
+                            polylinePath,
                             review
                         }
                         //here i want to save cacheKey and cache[cacheKey  

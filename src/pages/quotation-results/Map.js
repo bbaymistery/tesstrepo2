@@ -13,7 +13,7 @@ const OverlayView = (props) => {
  * @props { rightLabel = "left", label, index, color, position }
  */
 const MarkerWithLabel = (props) => {
-  let { rightLabel = false, label, index, color, position, isTaxiDeal ,env} = props;
+  let { rightLabel = false, label, index, color, position, isTaxiDeal, env } = props;
 
   return (
     <>
@@ -28,7 +28,7 @@ const MarkerWithLabel = (props) => {
     </>
   );
 };
-const Map = ({ datas, selectedPickPoints, selectedDroppOfPoints, isTaxiDeal = false,env}) => {
+const Map = ({ datas, selectedPickPoints, selectedDroppOfPoints, isTaxiDeal = false, env }) => {
   const { isLoaded, loadError } = useLoadScript({ googleMapsApiKey: process.env.mapApiKey })
   const [points, setPoints] = useState([]);
 
@@ -106,6 +106,7 @@ const Map = ({ datas, selectedPickPoints, selectedDroppOfPoints, isTaxiDeal = fa
                 position={coord}
                 isTaxiDeal={isTaxiDeal}
                 index={letters[index]}
+                env={env}
               />)}
           </GoogleMap>
       }

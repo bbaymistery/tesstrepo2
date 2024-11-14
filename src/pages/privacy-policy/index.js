@@ -6,18 +6,6 @@ import { useSelector } from 'react-redux'
 import { fetchContent } from '../../helpers/fetchContent'
 import { checkLanguageAttributeOntheUrl } from '../../helpers/checkLanguageAttributeOntheUrl'
 import { parse } from 'url';
-
-const leftLinks = [
-    {
-        id: 2,
-        linkName: "Privacy policy",
-        pagePathname: "Privacy_Policy",
-        translateName: "strPrivacyPolicy",
-
-    },
-
-]
-
 const structedSchema2 = {
     "@context": "http://schema.org",
     "@type": "NewsArticle",
@@ -50,31 +38,17 @@ const structedSchema2 = {
     },
     "description": "Airport Pickups London Privacy Policy"  // Update description to reflect the privacy policy
 };
-
-
 const PrivacyPolicy = (props) => {
     let { bggray = false } = props;
     let { metaTitle, keywords, metaDescription, pageContent } = props
     const state = useSelector(state => state.pickUpDropOffActions);
     const { params: { direction } } = state;
-    const { appData } = useSelector(state => state.initialReducer)
 
     return (
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true}>
             <div className={`${styles.terms} ${direction} page`} bggray={String(bggray === "true")}>
                 <div className={`${styles.terms_section} page_section`}>
                     <div className={`${styles.terms_section_container} page_section_container`}>
-                        <div className={styles.left}>
-                            <div className={`${styles.link_content}`} style={{ padding: '1.5rem' }}>
-                                {leftLinks.map((link, index) => {
-                                    return <div key={index} className={`${styles.link_content_item}`}>
-                                        <button>
-                                            {appData?.words[link.translateName]}
-                                        </button>
-                                    </div>
-                                })}
-                            </div>
-                        </div>
                         <PrivacyTerms pageContent={pageContent} />
                     </div>
                 </div>

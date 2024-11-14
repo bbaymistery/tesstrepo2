@@ -20,15 +20,9 @@
 
             .right {
                 padding: 15px;
-                width: 75%;
+                width:100%;
 
-                @media(max-width:1400px) {
-                    width: 70%;
-                }
-
-                @media(max-width:990px) {
-                    width: 100%;
-                }
+        
 
                 .right_content {
 

@@ -6,8 +6,6 @@ import { useSelector } from 'react-redux'
 import { fetchContent } from '../../helpers/fetchContent'
 import { checkLanguageAttributeOntheUrl } from '../../helpers/checkLanguageAttributeOntheUrl'
 import { parse } from 'url';
-
-
 const structuredSchema = {
     "@context": "http://schema.org/",
     "@type": "TaxiService",
@@ -71,15 +69,11 @@ const structedSchema2 = {
     },
     "description": "Airport Pickups London Booking Terms And Conditions"
 }
-
-
 const Terms = (props) => {
     let { bggray = false } = props;
     let { metaTitle, keywords, metaDescription, pageContent } = props
     const state = useSelector(state => state.pickUpDropOffActions);
     const { params: { direction } } = state;
-
-
     return (
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true}>
             <div className={`${styles.terms} ${direction} page`} bggray={String(bggray === "true")}>

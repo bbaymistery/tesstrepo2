@@ -19,7 +19,7 @@ function TestA(props) {
 
     let
         { data = "",
-            pickUps = [], dropoffs = [],
+            pickUps = [], dropoffs = [], polylinePath = [], markerPoints = [],
             keywords = [], pageTitle = "", headTitle = "", description = "", returnPathname = "",
             pageContent = "", returnHeadTitle = "", returnPageTitle = "", duration = "", distance = "", quotationOptions = [], breadcrumbs = [], linkurl = "", review = {} } = fetchdatas
 
@@ -61,6 +61,7 @@ function TestA(props) {
 
 
     }, [reduxLanguage])
+    
 
     return <QuotationResultsTaxiDeal
         isTaxiDeal={true}
@@ -80,6 +81,8 @@ function TestA(props) {
         linkurl={linkurl}
         review={review}
         env={props.props.env}
+        polylinePath={polylinePath}
+        markerPoints={markerPoints}
     />
 }
 

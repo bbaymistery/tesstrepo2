@@ -26,7 +26,9 @@ const QuotationResultsTaxiDeal = (props) => {
         breadcrumbs,
         linkurl,
         review,
-        env
+        env,
+        polylinePath,
+        markerPoints
     } = props//those props comes from ...pathname
 
     const state = useSelector(state => state.pickUpDropOffActions)
@@ -68,7 +70,7 @@ const QuotationResultsTaxiDeal = (props) => {
                 <div className={`${styles.quotation_section_container} page_section_container`}>
                     <div >
                         <div className={`${direction} ${styles.main_container_taxideal}`}>
-                            <QuotationResultsTaxiDealLeftPart />
+                            <QuotationResultsTaxiDealLeftPart polylinePath={polylinePath} markerPoints={markerPoints} env={env} />
                             <CardQuotationItemTaxiDeal
                                 index={0}
                                 distance={distance}
