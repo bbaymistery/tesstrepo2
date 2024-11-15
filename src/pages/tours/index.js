@@ -1,4 +1,4 @@
-import React, { useEffect,  useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styles from "./styles.module.scss"
 import GlobalLayout from '../../components/layouts/GlobalLayout'
@@ -74,7 +74,7 @@ const Tours = (props) => {
                 </div>
             </div>
         </GlobalLayout> :
-        <div  className={`${styles.tours} ${direction} page`} bggray={String(bggray)} style={{ backgroundColor: `${String(bggray) === "true" ? "#f5f5f5" : "white"}`, marginTop: `${!insideGlobalLayout ? '0px !important' : ""}` }}>
+        <div className={`${styles.tours} ${direction} page`} bggray={String(bggray)} style={{ backgroundColor: `${String(bggray) === "true" ? "#f5f5f5" : "white"}`, marginTop: `${!insideGlobalLayout ? '0px !important' : ""}` }}>
             <div className={`${styles.tours_section} page_section`}>
                 <div className={`${styles.tours_section_container} page_section_container`} >
                     <div className={styles.title}>
@@ -92,9 +92,15 @@ const Tours = (props) => {
                                             </div>
                                             <div className={styles.card_body}>
                                                 <h2>{item.pageTitle}</h2>
-                                                <div className={styles.start_from}>
-                                                    <div className={styles.start_from_text_left}>{appData.words["strStartFrom"]} </div>
-                                                    <div className={styles.start_from_text_right}> {item?.price} </div>
+                                                <div className={styles.card_desc}>
+                                                    <div className={styles.card_desc_subtitle}>
+                                                        <div className={styles.card_detail_btn_box}>
+                                                            <div className={styles.detail_btn}>{(appData || {})?.words["strReadMore"]}</div>
+                                                            <p className={styles.detail_arrow_icon}>
+                                                                <i className="fa-solid fa-angle-right"></i>
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                             </div>
