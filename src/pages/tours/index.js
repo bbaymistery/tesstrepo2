@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect,  useState } from 'react'
 import { useSelector } from 'react-redux'
 import styles from "./styles.module.scss"
 import GlobalLayout from '../../components/layouts/GlobalLayout'
@@ -13,8 +13,14 @@ const Tours = (props) => {
     let description = "Daily Tours and excursions for London. London to Bath-Stonehenge-Cambridge-Oxford daily tours."
     let title = "Tour-Airport Pickups London"
     let keywords = "Travel tour,airport pickups Tour"
-
+    // useState to control "View All" state
+    const [viewAll, setViewAll] = useState(false);
     const [toursData, setToursData] = useState([])
+    const displayedTours = viewAll ? toursData : toursData.slice(0, 4);
+
+    const handleViewAllClick = () => {
+        setViewAll(!viewAll);
+    };
     const fecthPoints = async (language) => {
         let url = `${env.apiDomain}/api/v1/tours-deals/list?language=${language}`;
         let response = await fetch(url);
@@ -25,10 +31,13 @@ const Tours = (props) => {
     };
 
 
-
+    //!Daily tour expand collapse 
+    //!yazilari kucult /heathrowdaki gibi
     useEffect(() => {
         fecthPoints(language)
     }, [language])
+
+
 
     return (insideGlobalLayout ?
         <GlobalLayout keywords={keywords} title={title} description={description} footerbggray={true}>
@@ -40,24 +49,22 @@ const Tours = (props) => {
                         </div>
                         <div className={styles.cards_content}>
                             <div className={styles.cards}>
-                                {
-                                    toursData.map((item, _) => {
-                                        return (
-                                            <Link href={`${language === "en" ? "" : `${language}`}${item.pathname}`} title={item?.pageTitle} className={`${styles.card}`} key={item.tourDealId}>
-                                                <div className={styles.card_image_div}>
-                                                    <Image src={`${item.images[0]}`} className={styles.img} fill alt={item.headTitle} sizes="(max-width: 768px) 100vw, 50vw" />
+                                {toursData.slice(0, 4).map((item, _) => {
+                                    return (
+                                        <Link href={`${language === "en" ? "" : `${language}`}${item.pathname}`} title={item?.pageTitle} className={`${styles.card}`} key={item.tourDealId}>
+                                            <div className={styles.card_image_div}>
+                                                <Image src={`${item.images[0]}`} className={styles.img} fill alt={item.headTitle} sizes="(max-width: 768px) 100vw, 50vw" />
+                                            </div>
+                                            <div className={styles.card_body}>
+                                                <h2>{item.pageTitle}</h2>
+                                                <div className={styles.start_from}>
+                                                    <div className={styles.start_from_text_left}>{appData.words["strStartFrom"]} </div>
+                                                    <div className={styles.start_from_text_right}> {item?.price} </div>
                                                 </div>
-                                                <div className={styles.card_body}>
-                                                    <h2>{item.pageTitle}</h2>
-                                                    <div className={styles.start_from}>
-                                                        <div className={styles.start_from_text_left}>{appData.words["strStartFrom"]} </div>
-                                                        <div className={styles.start_from_text_right}> {item?.price} </div>
-                                                    </div>
-
-                                                </div>
-                                            </Link>
-                                        )
-                                    })
+                                            </div>
+                                        </Link>
+                                    )
+                                })
                                 }
                             </div>
 
@@ -67,9 +74,9 @@ const Tours = (props) => {
                 </div>
             </div>
         </GlobalLayout> :
-        <div className={`${styles.tours} ${direction} page`} bggray={String(bggray)} style={{ backgroundColor: `${String(bggray) === "true" ? "#f5f5f5" : "white"}`, marginTop: `${!insideGlobalLayout ? '0px !important' : ""}` }}>
+        <div  className={`${styles.tours} ${direction} page`} bggray={String(bggray)} style={{ backgroundColor: `${String(bggray) === "true" ? "#f5f5f5" : "white"}`, marginTop: `${!insideGlobalLayout ? '0px !important' : ""}` }}>
             <div className={`${styles.tours_section} page_section`}>
-                <div className={`${styles.tours_section_container} page_section_container`}>
+                <div className={`${styles.tours_section_container} page_section_container`} >
                     <div className={styles.title}>
                         <h1>{appData.words["strDailyTours"]}</h1>
                     </div>
@@ -77,7 +84,7 @@ const Tours = (props) => {
                     <div className={styles.cards_content}>
                         <div className={styles.cards}>
                             {
-                                toursData.map((item, _) => {
+                                displayedTours.map((item, _) => {
                                     return (
                                         <a href={`${language === "en" ? "" : `${language}`}${item.pathname}`} title={item?.pageTitle} className={`${styles.card}`} key={item.tourDealId}>
                                             <div className={styles.card_image_div}>
@@ -95,6 +102,12 @@ const Tours = (props) => {
                                     )
                                 })
                             }
+                        </div>
+                        <div className={styles.btn_div}>
+                            <button className="btn_hover_reverse_primary" onClick={handleViewAllClick}   >
+                                {viewAll ? appData?.words["strViewLess"] || "View Less" : appData?.words["strViewAll"] || "View All"}
+                                <i className="fa-solid fa-arrow-right"></i>
+                            </button>
                         </div>
 
                     </div>

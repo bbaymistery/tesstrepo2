@@ -22,10 +22,42 @@
             }
 
             .cards_content {
+                .btn_div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 3rem;
+
+                    button {
+                        padding: 10px 20px;
+                        color: $blue-1;
+                        font-weight: 500;
+                        font-size: 16px;
+                        border: 1px solid $blue-1;
+                        border-radius: 4px;
+                        transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: $blue-1;
+                            color: white;
+                        }
+
+                        i {
+                            transform: rotate(-45deg);
+                        }
+                    }
+                }
+
                 .cards {
                     display: grid;
                     gap: 2rem;
                     grid-template-columns: 1fr 1fr 1fr 1fr;
+
 
                     .card:hover {
                         .card_image_div {

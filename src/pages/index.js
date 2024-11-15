@@ -3,13 +3,13 @@ import Hero from "../components/widgets/Hero";
 import dynamic from 'next/dynamic'
 const TaxiDeals = dynamic(() => import('../components/widgets/TaxiDeals'), { loading: () => <div>Loading...</div> });
 const Testimonials = dynamic(() => import('../components/widgets/Testimonials'),);
-// const CarsSlider = dynamic(() => import('../components/widgets/CarsSlider'),);
+const CarsSlider = dynamic(() => import('../components/widgets/CarsSlider'),);
 const SeaportTransfers = dynamic(() => import('../components/widgets/SeaportTransfers'),);
 import { parse } from 'url';
 import Tours from "./tours";
 import { fetchContent } from "../helpers/fetchContent";
 import { checkLanguageAttributeOntheUrl } from "../helpers/checkLanguageAttributeOntheUrl";
-import LoadChatWidgetButton from "../components/elements/LoadChatWidgetButton";
+import { useEffect, useState } from "react";
 
 const structuredSchema = {
   "@context": "http://schema.org/",
@@ -97,16 +97,25 @@ const breadcumbSchema = {
 
 
 export default function Home(props) {
-  let { metaTitle, keywords, metaDescription, pageContent } = props
+  let { metaTitle, keywords, metaDescription, pageContent } = props;
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const handleScroll = () => {
+    if (!hasScrolled) setHasScrolled(true);
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasScrolled]);
+
   return (
     <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true} >
-      <LoadChatWidgetButton />
+
       <Hero env={props.env} />
       <TaxiDeals env={props.env} />
       <SeaportTransfers bggray={true} />
       <Tours insideGlobalLayout={false} env={props.env} />
-      {/* {hasScrolled && <CarsSlider bggray={true} />} */}
-      <Testimonials bggray={false} pageContent={pageContent} />
+      <Testimonials bggray={true} pageContent={pageContent} />
+      {hasScrolled && <CarsSlider bggray={false} />}
     </GlobalLayout>
   )
 }
