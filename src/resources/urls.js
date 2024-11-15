@@ -1476,15 +1476,6 @@ let urls = {
   "/Stansted/taxi-from-tunbridgewells-to-stansted.html": "/tunbridge-wells-to-stansted-taxi",
   "/Stansted/taxi-from-warwick-to-stansted.html": "/warwick-to-stansted-taxi",
   "/terms.html": "/terms",
-  "/Tours/cambridge-daily-tour": "/tours/cambridge-daily-tour",
-  "/Tours/canterbury-and-leeds-castle-tour": "/tours/canterbury-and-leeds-castle-tour",
-  "/Tours/london-tour-full-day": "/tours/london-tour-full-day",
-  "/Tours/london-tour-half-day": "/tours/london-tour-half-day",
-  "/Tours/oxford-and-blenheim-palace-tour": "/tours/oxford-and-blenheim-palace-tour",
-  "/Tours/stonehenge-and-bath": "/tours/stonehenge-and-bath",
-  "/Tours/windsor-and-london-tour": "/tours/windsor-and-london-tour",
-  "/Tours/": "/tours",
-  "/tours/": "/tours",
   "/manage-booking/default.html": "/manage-booking.html"
 
 }

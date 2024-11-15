@@ -104,8 +104,8 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         <meta property="og:type" content="website" />
 
         {/* Allow indexing and following links */}
-        <meta name="googlebot" content="index, follow" />
-        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="noindex, nofollow" />
+        <meta name="robots" content="noindex, nofollow" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@Airport_Pickups" />
