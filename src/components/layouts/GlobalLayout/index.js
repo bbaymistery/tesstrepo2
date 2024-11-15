@@ -14,13 +14,17 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
   const state = useSelector(state => state.pickUpDropOffActions);
   const { params: { language } } = state;
   const websiteDomain = "https://www.airport-pickups-london.com";
-
+ // Use useEffect to update the <html lang> attribute dynamically
+ useEffect(() => {
+  if (language) {
+    document.documentElement.lang = language;
+  }
+}, [language]);
 
   return (
     <>
       <Head>
         <title>{title}</title>
-        <meta charset="UTF-8" />
         <meta key="keywords" name="keywords" content={keywords} />
         <meta key="description" name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 "></meta>
