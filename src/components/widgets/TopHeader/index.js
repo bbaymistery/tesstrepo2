@@ -112,9 +112,9 @@ const Header = () => {
                 <span>Airport Pickups London</span>
               </a>
               {width > 1200 ? <DesktopMenu appData={translatedAppData} journeyType={journeyType} language={language} /> : <></>}
-              {/* mobile  */}
             </div>
           </div>
+          {/* mobile  */}
           {openMenu ?
             <MobileMenu openMenu={openMenu} handleClickNavLinkMobileMenuNotList={handleClickNavLinkMobileMenuNotList} language={language} handleClickNavLinkMobileMenuList={handleClickNavLinkMobileMenuList} appData={translatedAppData} />
             : <></>}

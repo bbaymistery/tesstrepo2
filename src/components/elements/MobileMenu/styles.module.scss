@@ -1,111 +1,111 @@
-@import '../../../styles/variables';
-@import '../../../styles/_fonts';
+    @import '../../../styles/variables';
+    @import '../../../styles/_fonts';
 
-.header_content_menu_mobile {
-    display: none;
+    .header_content_menu_mobile {
+        display: none;
 
-    @media(max-width:1280px) {
-        display: block;
-        position: absolute;
-        top: 76px;
-        left: 0;
-        right: 0;
-        opacity: 0;
-        visibility: hidden;
-        height: 100vh;
-    }
+        @media(max-width:1280px) {
+            display: block;
+            position: absolute;
+            top: 76px;
+            left: 0;
+            right: 0;
+            opacity: 0;
+            visibility: hidden;
+            height: 100vh;
+        }
 
-    .menu_content_ul {
-        height: 100vh;
-        overflow-y: scroll;
-    }
+        .menu_content_ul {
+            height: 100vh;
+            overflow-y: scroll;
+        }
 
-    ul {
-        padding: 10px;
+        ul {
+            padding: 10px;
 
-        li {
-            a {
-                &:hover {
-                    color: lighten($primary, 15%);
-                    background-color: rgba(53, 84, 209, 0.05);
-                    transition: 0.4s ease;
+            li {
+                a {
+                    &:hover {
+                        color: lighten($primary, 15%);
+                        background-color: rgba(53, 84, 209, 0.05);
+                        transition: 0.4s ease;
+                    }
                 }
-            }
 
-            a {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 6px 8px;
+                a {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 6px 8px;
 
-                span {
-                    font-size: 18px;
-                    text-transform: capitalize;
-                    font-weight: 500;
+                    span {
+                        font-size: 18px;
+                        text-transform: capitalize;
+                        font-weight: 500;
+                    }
                 }
             }
         }
     }
-}
 
-.header_content_menu_mobile.active_header_content_menu_mobile {
-    opacity: 1;
-    visibility: visible;
-    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-    background: white;
+    .header_content_menu_mobile.active_header_content_menu_mobile {
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        background: white;
 
-    ul {
+        ul {
 
-        .has_children {
+            .has_children {
 
-            // airports uzerine gelende arxa fonu beyaz olsun ve ul icindeki span rengi gara olsu
-            ul {
-                li {
-                    &:hover {
-                        color: $blue-1;
-
-
-                    }
-                }
-            }
-
-            // airports uzerine gelende arxa fonu beyaz olsun ve ul icindeki span rengi gara olsu
-            &:hover {
-                background-color: white !important;
-
+                // airports uzerine gelende arxa fonu beyaz olsun ve ul icindeki span rengi gara olsu
                 ul {
                     li {
-                        a {
-                            span {
-                                // background-color: red;
-                                color: $dark-1;
+                        &:hover {
+                            color: $blue-1;
+
+
+                        }
+                    }
+                }
+
+                // airports uzerine gelende arxa fonu beyaz olsun ve ul icindeki span rengi gara olsu
+                &:hover {
+                    background-color: white !important;
+
+                    ul {
+                        li {
+                            a {
+                                span {
+                                    // background-color: red;
+                                    color: $dark-1;
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            .hoverUl {
-                padding-top: 0px;
-            }
-        }
-
-        li {
-            .nocursor {
-                pointer-events: none;
-
-                span {
-                    cursor: auto !important;
+                .hoverUl {
+                    padding-top: 0px;
                 }
             }
 
-            .first_child_a {
-                background-color: rgba(53, 84, 209, 0.09);
-                padding: 8px;
-                color: $blue-1;
-            }
+            li {
+                .nocursor {
+                    pointer-events: none;
 
-            a {}
+                    span {
+                        cursor: auto !important;
+                    }
+                }
+
+                .first_child_a {
+                    background-color: rgba(53, 84, 209, 0.09);
+                    padding: 8px;
+                    color: $blue-1;
+                }
+
+                a {}
+            }
         }
     }
-}
