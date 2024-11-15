@@ -6,9 +6,8 @@ import AdressInformations from '../../components/elements/AdressInformations'
 import useRipple from '../../hooks/useRipple'
 import store from '../../store/store'
 import { createWrapper } from 'next-redux-wrapper'
-import { urlWithLangAtribute } from '../../helpers/urlWithLangAtrribute'
+// import { urlWithLangAtribute } from '../../helpers/urlWithLangAtrribute'
 import { useRouter } from 'next/router'
-import { useConfirm } from '../../hooks/useConfirm'
 let title = "APPLICATION FOR CREDIT ACCOUNT"
 let keywords = ""
 let description = "Airport Pickups London agency registration form"
@@ -34,8 +33,8 @@ const AccountRegisterResults = (props) => {
 
     //in order having confirmation message
     //go back go forward and when change language we r not gonna have any confirmation
-    const { nexturls, previousUrls, currentUrls } = urlWithLangAtribute({ languages: appData.languages, previousUrl: 'tohome', nextUrl: "/", currentUrl: router.asPath })
-    const confirmationAlert = useConfirm({ previousUrl: previousUrls, nextUrl: nexturls, currentUrls, message: "Registration Completed Successfully. Do you want to leave this page?" })
+    // const { nexturls, previousUrls, currentUrls } = urlWithLangAtribute({ languages: appData.languages, previousUrl: 'tohome', nextUrl: "/", currentUrl: router.asPath })
+    // const confirmationAlert = useConfirm({ previousUrl: previousUrls, nextUrl: nexturls, currentUrls, message: "Registration Completed Successfully. Do you want to leave this page?" })
 
     useEffect(() => {
         const disableBackButton = () => {

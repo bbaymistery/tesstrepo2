@@ -106,30 +106,7 @@ class CustomDocument extends Document {
                 </Head>
                 <body>
 
-                    {/* Inline script directly in the body */}
-                    <script
-                        dangerouslySetInnerHTML={{
-                            __html: `
-                                    (function() {
-                                        // Check viewport width
-                                        if (window.innerWidth > 990) {
-                                        // Load Zendesk snippet script
-                                        var zendeskScript = document.createElement('script');
-                                        zendeskScript.id = 'ze-snippet';
-                                        zendeskScript.src = 'https://static.zdassets.com/ekr/snippet.js?key=473f7b02-4850-4045-8010-1fedf9752180';
-                                        zendeskScript.async = true;
-                                        document.body.appendChild(zendeskScript);
-
-                                        // Load custom chat widget script
-                                        var chatWidgetScript = document.createElement('script');
-                                        chatWidgetScript.src = 'https://www.airport-pickups-london.com/js/chat_widget.js?112';
-                                        chatWidgetScript.async = true;
-                                        document.body.appendChild(chatWidgetScript);
-                                        }
-                                    })();
-            `,
-                        }}
-                    />
+          
                     <noscript>
                         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M8WXW8KC" height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe>
                     </noscript>

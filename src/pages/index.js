@@ -9,6 +9,7 @@ import { parse } from 'url';
 import Tours from "./tours";
 import { fetchContent } from "../helpers/fetchContent";
 import { checkLanguageAttributeOntheUrl } from "../helpers/checkLanguageAttributeOntheUrl";
+import LoadChatWidgetButton from "../components/elements/LoadChatWidgetButton";
 
 const structuredSchema = {
   "@context": "http://schema.org/",
@@ -99,7 +100,7 @@ export default function Home(props) {
   let { metaTitle, keywords, metaDescription, pageContent } = props
   return (
     <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={true} >
-
+      <LoadChatWidgetButton />
       <Hero env={props.env} />
       <TaxiDeals env={props.env} />
       <SeaportTransfers bggray={true} />
