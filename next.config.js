@@ -78,7 +78,7 @@ const nextConfig = {
     ],
     formats: ['image/webp',],
   },
-  distDir: 'build',
+  distDir: 'next',
 }
 
 module.exports = nextConfig

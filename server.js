@@ -3,7 +3,7 @@ const { parse } = require("url");
 const next = require("next");
 
 const dev = false //process.env.NODE_ENV !== "production";
-const app = next({ dev, dir: '.', conf: { distDir: 'build' }});
+const app = next({ dev, dir: '.', conf: { distDir: 'next' }});
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
