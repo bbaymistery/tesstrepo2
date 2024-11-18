@@ -3,7 +3,7 @@ const { parse } = require("url");
 const next = require("next");
 
 const dev = false //process.env.NODE_ENV !== "production";
-const app = next({ dev, dir: '.', conf: { distDir: 'next' }});
+const app = next({ dev });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
@@ -20,7 +20,7 @@ app.prepare().then(() => {
     } else {
       handle(req, res, parsedUrl);
     }
-  }).listen(2000, (err) => {
+  }).listen(process.env.PORT || 3500, (err) => {
     if (err) throw err;
   });
 });
