@@ -5,12 +5,12 @@ import { quotationImagesObjWebp } from '../../../constants/quotationImages'
 import styles from "./styles.module.scss"
 import { useRouter } from 'next/router'
 const TourJourneySummaryPanel = (props) => {
-    let { quotation, pickupPointAddress = "", splitedDate, splitedHour, splitedMinute, selectedTour } = props
+    let { quotation, pickupPointAddress = "", splitedDate, splitedHour, splitedMinute, selectedTour, language } = props
 
     let state = useSelector((state) => state.pickUpDropOffActions)
     let { params: { direction } } = state
-    let { reservations,  } = state
-    let {selectedPickupPoints,} = reservations[0]
+    let { reservations, } = state
+    let { selectedPickupPoints, } = reservations[0]
 
     const router = useRouter();
     const { appData } = useSelector(state => state.initialReducer)
@@ -28,8 +28,8 @@ const TourJourneySummaryPanel = (props) => {
                     <div d={quotation.carId}
                         className={`${styles.img_div}
                           ${quotation.carId === 6 || quotation.carId === 5 ? styles.cardIdSix : ""} 
-                          ${quotation.carId === 3  ? styles.cardIdThree : ""} 
-                          ${quotation.carId === 18  ? styles.cardEighteen : ""} 
+                          ${quotation.carId === 3 ? styles.cardIdThree : ""} 
+                          ${quotation.carId === 18 ? styles.cardEighteen : ""} 
                           ${quotation.carId === 4 ? styles.carIdFour : ""}
                            ${quotation.carId === 2 ? styles.carIdTwo : ""}`}
                         style={{ backgroundImage: `url(${quotationImagesObjWebp[quotation?.carId]?.image})` }}>
@@ -47,7 +47,11 @@ const TourJourneySummaryPanel = (props) => {
                                 {/* {appData?.words["strFrom2"]}: */}
                                 {appData?.words["strPickupAddress"]}:
                             </h5>
-                            {selectedPickupPoints.map((pickup, i) => { return <li style={{borderBottom:"0px"}} key={i}><span>{`${i + 1}. `}  {pickup.address}</span></li> })}
+                            {selectedPickupPoints.map((point, i) => {
+                                return <li style={{ borderBottom: "0px" }} key={i}>
+                                    <span>{`${i + 1}. `}  {language === 'en' ? point.address.includes(point.postcode) ? `${point.address}` : `${point.address} ${point.postcode}` : `${point.translatedAddress} ${point.postcode}`}</span>
+                                </li>
+                            })}
                             <li >
                                 <span style={{ fontSize: "17px" }}>
                                     {pickupPointAddress}
@@ -90,17 +94,18 @@ const TourJourneySummaryPanel = (props) => {
                         <span>{carObject[quotation.carId]?.transferType}</span>
                     </div>
                     <div className={styles.duration}>
-                        <span>{appData?.words["strMax"]}</span>
-                        <span>
-                            {appData.words["strCarFeatureMaxSuitcases"].replace("{{}}", carObject[quotation.carId]?.suitcases)}
-                        </span>
+                        <div>{appData?.words["strVehicleCapacity"]}</div>
+                        <div>
+                            <span>
+                                {` ${appData.words["strNoofPassengers"]} ${carObject[quotation.carId]?.pax}`}
+                            </span>
+                            <span>
+                                {` ${appData.words["strNoofSuitcases"]} ${carObject[quotation.carId]?.suitcases}`}
+                            </span>
+
+                        </div>
                     </div>
-                    <div className={styles.duration}>
-                        <span>{appData?.words["strMax"]}</span>
-                        <span>
-                            {appData.words["strCarFeatureMaxPassengers"].replace("{{}}", carObject[quotation.carId]?.pax)}
-                        </span>
-                    </div>
+
                     <a href="#" onClick={goBack} style={{ textTransform: "capitalize" }}>
                         {appData?.words["strChangeCar"]}
                     </a>

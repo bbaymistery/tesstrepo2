@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from "./styles.module.scss"
 import RadioButton from './RadioButton'
 import { useRouter } from 'next/router'
-import React, { useCallback, useEffect, } from 'react'
+import React, { useCallback, useEffect, useState, } from 'react'
 import Image from 'next/image';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import dynamic from 'next/dynamic'
@@ -32,7 +32,7 @@ const Hero = (props) => {
     const state = useSelector(state => state.pickUpDropOffActions)
     let { reservations, params } = state
     let { sessionToken: reducerSessionToken, journeyType, direction, language, hasTaxiDeals } = params
-
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
     const { appData } = useSelector(state => state.initialReducer)
     let [internalState, setInternalState] = React.useReducer((s, o) => ({ ...s, ...o }), {
         'pickup-search-value-0': '',
@@ -311,6 +311,13 @@ const Hero = (props) => {
         }
         // bu rendere sebeb olur
         dispatch({ type: "CHECHK_FLIGHT_WAITING_TIME", data: { journeyType } })
+
+        const navigationEntries = performance.getEntriesByType("navigation");
+        const isInitialLoad = navigationEntries.length > 0 && navigationEntries[0].type === "navigate";
+
+        if (isInitialLoad && document.documentElement.clientWidth < 767) {
+            window.scrollTo({ top: 10, left: 0, behavior: "smooth" });
+        }
     }, [])
     let size = useWindowSize();
     let { width } = size

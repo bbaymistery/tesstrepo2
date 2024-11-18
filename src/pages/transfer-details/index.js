@@ -578,7 +578,7 @@ const TransferDetails = (props) => {
                                                         </div>
                                                         : <></>}
                                                 </div>
-                                                {quotations[0].taxiDeal ? <></> : <TransferJourneySummaryPanel journeyType={journeyType} index={index} splitedHour={splitedHour} splitedMinute={splitedMinute} splitedDate={splitedDate} quotation={quotation} selectedDropoffPoints={selectedDropoffPoints} selectedPickupPoints={selectedPickupPoints} />}
+                                                {quotations[0].taxiDeal ? <></> : <TransferJourneySummaryPanel language={language} journeyType={journeyType} index={index} splitedHour={splitedHour} splitedMinute={splitedMinute} splitedDate={splitedDate} quotation={quotation} selectedDropoffPoints={selectedDropoffPoints} selectedPickupPoints={selectedPickupPoints} />}
                                             </div>
                                             {index === 1 || (index === 0 && +journeyType === 0) ?
                                                 <div className={`${direction === 'rtl' ? styles.directionbuttons_for_gap : styles.buttons_for_gap}  ${quotations[0]?.taxiDeal ? styles.taxideal_buttons : ""}`} >

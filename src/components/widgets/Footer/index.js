@@ -62,7 +62,7 @@ const Footer = (props) => {
                   </a>
                 </li>
                 <li>
-                  <a href={`${language === 'en' ? `/terms` : `/${language}/terms`}`} title={(appData || {}).words["strPrivacyPolicy"]}  >
+                  <a href={`${language === 'en' ? `/privacy-policy` : `/${language}/privacy-policy`}`} title={(appData || {}).words["strPrivacyPolicy"]}  >
                     {(appData || {}).words["strPrivacyPolicy"]}
                   </a>
                 </li>

@@ -47,9 +47,9 @@ export const fetchPathnamePageDatas = async (urls) => {
 
                         const newPageContent = pageContent?.replace(/__website_domain__/g, "https://www.airport-pickups-london.com/");
                         let review = {}
-                        review.bestRating = data?.taxiDeal?.schema.Product.aggregateRating.bestRating || 5
-                        review.ratingValue = data?.taxiDeal?.schema.Product.aggregateRating.ratingValue || 4.95
-                        review.reviewCount = data?.taxiDeal?.schema.Product.aggregateRating.reviewCount || 1988
+                        review.bestRating = data?.taxiDeal?.schema?.Product ? data?.taxiDeal?.schema?.Product?.aggregateRating?.bestRating : 5
+                        review.ratingValue = data?.taxiDeal?.schema?.Product ? data?.taxiDeal?.schema?.Product?.aggregateRating?.ratingValue : 4.95
+                        review.reviewCount = data?.taxiDeal?.schema?.Product ? data?.taxiDeal?.schema?.Product?.aggregateRating?.reviewCount : 1988
 
                         let schemaOfTaxiDeals = data?.taxiDeal?.schema || []
                         schemaOfTaxiDeals = Object.keys(schemaOfTaxiDeals).map(key => ({ [key]: schemaOfTaxiDeals[key] }));//array of objects [b:{ab:"1"},c:{ab:"2"},d:{ab:"3"}]

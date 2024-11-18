@@ -49,7 +49,7 @@ const Tours = (props) => {
                         </div>
                         <div className={styles.cards_content}>
                             <div className={styles.cards}>
-                                {toursData.slice(0, 4).map((item, _) => {
+                                {toursData.map((item, _) => {
                                     return (
                                         <Link href={`${language === "en" ? "" : `${language}`}${item.pathname}`} title={item?.pageTitle} className={`${styles.card}`} key={item.tourDealId}>
                                             <div className={styles.card_image_div}>
@@ -57,10 +57,17 @@ const Tours = (props) => {
                                             </div>
                                             <div className={styles.card_body}>
                                                 <h2>{item.pageTitle}</h2>
-                                                <div className={styles.start_from}>
-                                                    <div className={styles.start_from_text_left}>{appData.words["strStartFrom"]} </div>
-                                                    <div className={styles.start_from_text_right}> {item?.price} </div>
+                                                <div className={styles.card_desc}>
+                                                    <div className={styles.card_desc_subtitle}>
+                                                        <div className={styles.card_detail_btn_box}>
+                                                            <div className={styles.detail_btn}>{(appData || {})?.words["strReadMore"]}</div>
+                                                            <p className={styles.detail_arrow_icon}>
+                                                                <i className="fa-solid fa-angle-right"></i>
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                             </div>
                                         </Link>
                                     )

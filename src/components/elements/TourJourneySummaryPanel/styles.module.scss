@@ -122,7 +122,8 @@
             .cardIdThree {
                 background-size: 100% !important;
             }
-            .cardEighteen{
+
+            .cardEighteen {
 
                 background-size: 100% !important;
             }
@@ -239,10 +240,12 @@
                 display: flex;
                 justify-content: space-between;
                 text-transform: capitalize;
+                align-items: center;
 
-                span:nth-child(2) {
-                    font-weight: 400;
-                    font-size: 15px;
+                div:nth-child(2) {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
                 }
 
             }

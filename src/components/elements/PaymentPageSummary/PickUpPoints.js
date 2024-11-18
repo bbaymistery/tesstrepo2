@@ -9,7 +9,7 @@ const PickUpPoints = ({ selectedPickupPoints, direction, language }) => {
       {selectedPickupPoints?.map((point, i) => {
         return (
           <div className={pointsStyle.details_bottom_container} key={i}>
-            <p className={pointsStyle.point_adress} direction={String(direction === 'rtl')}>{i + 1}.{language === 'en' ? point.address : point.translatedAddress}</p>
+            <p className={pointsStyle.point_adress} direction={String(direction === 'rtl')}>{i + 1}.{language === 'en' ? point.address.includes(point.postcode) ? `${point.address}` : `${point.address} ${point.postcode}` : `${point.translatedAddress} ${point.postcode}`}</p>
             {/*  //! for flight  */}
             {point?.flightDetails?.flightNumber && (
 

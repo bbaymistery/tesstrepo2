@@ -7,12 +7,14 @@ const DropOffPoints = ({ selectedDropoffPoints, direction, language }) => {
   return (
     <div className={pointsStyle.details}>
       {selectedDropoffPoints?.map((point, i) => {
+            const addressText = language === 'en' ? point.address.includes(point.postcode) ? `${point.address}` : `${point.address} ${point.postcode}` : `${point.translatedAddress} ${point.postcode}`
+
         return (
           <div className={pointsStyle.details_bottom_container} key={i}>
 
             <div className={pointsStyle.details_header_div} direction={String(direction === 'rtl')}>
               <p className={pointsStyle.left}>{appData?.words["strTo"]} </p>
-              <p className={`${pointsStyle.point_adress} ${pointsStyle.right}`}>{language === 'en' ? point.address : point.translatedAddress}</p>
+              <p className={`${pointsStyle.point_adress} ${pointsStyle.right}`}>{addressText}</p>
 
             </div>
             {/*  //! for flight  */}

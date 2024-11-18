@@ -130,7 +130,7 @@ const CardQuotationItem = (params = {}) => {
         </span>
       </h2> : <React.Fragment></React.Fragment>}
       <div className={`${styles.result_container}`}>
-        <HeaderOfResults duration={duration} distance={distance} />
+        <HeaderOfResults duration={duration} distance={distance } language={language} />
         {/* make visible for selected item */}
         {journeyType === 1 && index === 0 && <div>
           {datas.map((item, index) => {

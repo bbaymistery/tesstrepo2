@@ -3,8 +3,9 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { quotationImagesObjWebp } from '../../../constants/quotationImages'
 import styles from "./styles.module.scss"
+import { splitAndTranslateDuration } from '../../../helpers/splitHelper'
 const TransferJourneySummaryPanel = (props) => {
-    let { index, quotation, selectedPickupPoints, selectedDropoffPoints, splitedDate, splitedHour, splitedMinute, isTaxiDeal = false, journeyType } = props
+    let { index, quotation, selectedPickupPoints, selectedDropoffPoints, splitedDate, splitedHour, splitedMinute, isTaxiDeal = false, journeyType, language } = props
 
     let state = useSelector((state) => state.pickUpDropOffActions)
     let { params: { quotations, direction } } = state
@@ -17,6 +18,9 @@ const TransferJourneySummaryPanel = (props) => {
     // Check if distance exists, remove 'mile', and convert to km
     const distanceInMiles = quotations[index].distance ? parseFloat(quotations[index].distance.replace(' mile', '')) : null;
     const distanceInKm = distanceInMiles ? (distanceInMiles * 1.60934).toFixed(2) : null;
+
+    // Format the duration based on the language
+    const formattedDuration = splitAndTranslateDuration(quotations[index].duration, language, appData);
 
     return (
         <div className={`${styles.journey_summary_panel} ${isTaxiDeal ? styles.journey_summary_panel_taxi_deal : ""}`}>
@@ -91,7 +95,7 @@ const TransferJourneySummaryPanel = (props) => {
                         </div>
                         <div className={styles.duration}>
                             <span>{appData?.words["strJourneyDurationTitle"]}</span>
-                            <span>{quotations[index].duration}</span>
+                            <span>{formattedDuration}</span>
                         </div>
                     </div>
                     <div style={{ border: 'none' }} className={styles.total_journey}>
@@ -100,16 +104,16 @@ const TransferJourneySummaryPanel = (props) => {
                             <span>{carObject[quotation.carId]?.transferType}</span>
                         </div>
                         <div className={styles.duration}>
-                            <span>{appData?.words["strMax"]}</span>
-                            <span>
-                                {appData.words["strCarFeatureMaxSuitcases"].replace("{{}}", carObject[quotation.carId]?.suitcases)}
-                            </span>
-                        </div>
-                        <div className={styles.duration}>
-                            <span>{appData?.words["strMax"]}</span>
-                            <span>
-                                {appData.words["strCarFeatureMaxPassengers"].replace("{{}}", carObject[quotation.carId]?.pax)}
-                            </span>
+                            <div>{appData?.words["strVehicleCapacity"]}</div>
+                            <div>
+                                <span>
+                                    {` ${appData.words["strNoofPassengers"]} ${carObject[quotation.carId]?.pax}`}
+                                </span>
+                                <span>
+                                    {` ${appData.words["strNoofSuitcases"]} ${carObject[quotation.carId]?.suitcases}`}
+                                </span>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -142,10 +146,20 @@ const TransferJourneySummaryPanel = (props) => {
                                 <h5>
                                     {appData?.words["strFrom2"]}:
                                 </h5>
-                                {selectedPickupPoints.map((pickup, i) => { return <li key={i}><span>{isTaxiDeal ? "" : `${i + 1}. `}  {pickup.address}</span></li> })}
+                                {selectedPickupPoints.map((point, i) => {
+                                    return <li key={i}>
+                                        <span>
+                                            {isTaxiDeal ? "" : `${i + 1}. `}   {language === 'en' ? point.address.includes(point.postcode) ? `${point.address}` : `${point.address} ${point.postcode}` : `${point.translatedAddress} ${point.postcode}`}
+                                        </span></li>
+                                })}
                                 <div className={styles.space}> </div>
                                 <h5>{appData?.words["strTo"]}:</h5>
-                                {selectedDropoffPoints.map((dropoff, i) => { return <li key={i + 15}><span>{isTaxiDeal ? "" : `${i + 1}. `} {dropoff.address}</span></li> })}
+                                {selectedDropoffPoints.map((point, i) => {
+                                    return <li key={i + 15}>
+                                        <span>
+                                            {isTaxiDeal ? "" : `${i + 1}. `} {language === 'en' ? point.address.includes(point.postcode) ? `${point.address}` : `${point.address} ${point.postcode}` : `${point.translatedAddress} ${point.postcode}`}
+                                        </span></li>
+                                })}
                                 <h5>{appData?.words["strOn"]}:</h5>
                                 <li>
                                     <span>
@@ -175,7 +189,7 @@ const TransferJourneySummaryPanel = (props) => {
                         </div>
                         <div className={styles.duration}>
                             <span>{appData?.words["strJourneyDurationTitle"]}</span>
-                            <span>{quotations[index].duration}</span>
+                            <span>{formattedDuration}</span>
                         </div>
                     </div>
 
@@ -185,16 +199,16 @@ const TransferJourneySummaryPanel = (props) => {
                             <span>{carObject[quotation.carId]?.transferType}</span>
                         </div>
                         <div className={styles.duration}>
-                            <span>{appData?.words["strMax"]}</span>
-                            <span>
-                                {appData.words["strCarFeatureMaxSuitcases"].replace("{{}}", carObject[quotation.carId]?.suitcases)}
-                            </span>
-                        </div>
-                        <div className={styles.duration}>
-                            <span>{appData?.words["strMax"]}</span>
-                            <span>
-                                {appData.words["strCarFeatureMaxPassengers"].replace("{{}}", carObject[quotation.carId]?.pax)}
-                            </span>
+                            <div>{appData?.words["strVehicleCapacity"]}</div>
+                            <div>
+                                <span>
+                                    {` ${appData.words["strNoofPassengers"]} ${carObject[quotation.carId]?.pax}`}
+                                </span>
+                                <span>
+                                    {` ${appData.words["strNoofSuitcases"]} ${carObject[quotation.carId]?.suitcases}`}
+                                </span>
+
+                            </div>
                         </div>
                         {quotations[0].taxiDeal ? <></> : <Link href="/quotation-results" style={{ textTransform: "capitalize" }}> {appData?.words["strChangeCar"]} </Link>}
                     </div>

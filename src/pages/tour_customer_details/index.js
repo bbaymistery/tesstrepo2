@@ -262,7 +262,7 @@ const TourCustomerDetails = (props) => {
                                             </div>
                                         </div>
                                     </div>
-                                    {<TourJourneySummaryPanel pickupPointAddress={pickupPointAddress} splitedHour={splitedHour} splitedMinute={splitedMinute} splitedDate={splitedDate} quotation={quotation} selectedTour={selectedTour} />}
+                                    {<TourJourneySummaryPanel language={language} pickupPointAddress={pickupPointAddress} splitedHour={splitedHour} splitedMinute={splitedMinute} splitedDate={splitedDate} quotation={quotation} selectedTour={selectedTour} />}
 
                                 </div>
                                 <div className={`${direction === 'rtl' ? styles.directionbuttons_for_gap : styles.buttons_for_gap}  `} >

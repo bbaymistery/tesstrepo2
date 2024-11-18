@@ -20,6 +20,7 @@ import { taxiPricesLinks } from './../constants/navigatior'
 import TaaxidealsQuotationLink from '../components/elements/TaaxidealsQuotationLink';
 import { postDataAPI } from '../helpers/fetchDatas';
 import { fetchConfig } from '../resources/getEnvConfig';
+import { urls } from '../resources/urls';
 
 const NavbarLinkName = (props) => {
 
@@ -30,6 +31,8 @@ const NavbarLinkName = (props) => {
 
     const { linkname } = router.query;
     let { metaTitle = "", keywords = "", metaDescription = "", pageContent = "", data = "", isItQuationLink = false } = props || {}
+    console.log({ data });
+
     if (data === "not found") return <Error404 />
 
     useEffect(() => {
@@ -146,9 +149,9 @@ async function handleQuotationLink(language, pathname, schemas, env, ipAddress, 
             dropoffs = dropoffPoints?.length >= 1 ? [dropoffPoints[0]] : []
 
             const newPageContent = pageContent?.replace(/__website_domain__/g, "https://www.airport-pickups-london.com/");
-            review.bestRating = data?.taxiDeal?.schema.Product.aggregateRating.bestRating || 5
-            review.ratingValue = data?.taxiDeal?.schema.Product.aggregateRating.ratingValue || 4.95
-            review.reviewCount = data?.taxiDeal?.schema.Product.aggregateRating.reviewCount || 1988
+            review.bestRating = data?.taxiDeal?.schema?.Product ? data?.taxiDeal?.schema?.Product?.aggregateRating?.bestRating : 5
+            review.ratingValue = data?.taxiDeal?.schema?.Product ? data?.taxiDeal?.schema?.Product?.aggregateRating?.ratingValue : 4.95
+            review.reviewCount = data?.taxiDeal?.schema?.Product ? data?.taxiDeal?.schema?.Product?.aggregateRating?.reviewCount : 1988
 
             let schemaOfTaxiDeals = data?.taxiDeal?.schema || []
             schemaOfTaxiDeals = Object.keys(schemaOfTaxiDeals).map(key => ({ [key]: schemaOfTaxiDeals[key] }));//array of objects [b:{ab:"1"},c:{ab:"2"},d:{ab:"3"}]
@@ -197,6 +200,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     const { resolvedUrl } = etc;
     const lowerCaseUrl = resolvedUrl.toLowerCase();
+
     if (resolvedUrl !== lowerCaseUrl) {
         res.setHeader('Location', lowerCaseUrl);
         res.statusCode = 301;
@@ -209,6 +213,18 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     let cookies = parseCookies(req.headers.cookie);
     let { pathname } = parse(req.url, true)
 
+
+    //redirect pages which dont have asp
+    const destination = urls[pathname];
+    // Eğer eşleşen bir URL varsa, yönlendirme yapın
+    if (destination) {
+        return {
+            redirect: {
+                destination: destination,
+                permanent: true, // Kalıcı yönlendirme (301) olarak ayarlayabilirsiniz
+            },
+        };
+    }
     //language congiguration based on the url (http://localhost:3500/it/gatwick-taxi-prices  if he pres enter we get lang) at first time
     let pageStartLanguage = checkLanguageAttributeOntheUrl(req?.url)
     // Extract query parameters

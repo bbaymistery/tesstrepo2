@@ -14,7 +14,7 @@ const CarInfo = (props) => {
 
     return (
         <div className={styles.car_info} direction={String(direction === 'rtl')}>
-            <h3>{tourDetailsStatus ?selectedTour.title : index === 0 ? appData?.words["strYourBookingDetails"] : appData?.words["strReturnJourneyDetails"]}</h3>
+            <h3>{tourDetailsStatus ? selectedTour.title : index === 0 ? appData?.words["strYourBookingDetails"] : appData?.words["strReturnJourneyDetails"]}</h3>
             <div className={styles.sections}>
                 <div className={`${styles.section} ${styles.first_column}`}>
                     <div className={styles.img_div}>
@@ -34,12 +34,12 @@ const CarInfo = (props) => {
                         <p className={styles.text_1}>{appData?.words["strcVehicleCapacity"]}</p>
                         <p className={styles.text_2}>
                             <span>
-                                {appData?.words["strCarFeatureMaxPassengers"].replace("{{}}", carObject[quotation.carId]?.pax)}
-
+                                {appData?.words["strNoofPassengers"]} {carObject[quotation.carId]?.pax}
                             </span>
+
                             <br />
                             <span>
-                                {appData?.words["strCarFeatureMaxPassengers"].replace("{{}}", carObject[quotation.carId]?.suitcases)}
+                                {appData?.words["strNoofSuitcases"]} {carObject[quotation.carId]?.suitcases}
                             </span>
                         </p>
                     </div>

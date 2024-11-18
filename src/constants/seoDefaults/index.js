@@ -88,7 +88,8 @@ export const STATIC_ROUTES = {
     TOURS: '/tours',
     PORTER: '/heathrow-porter-service',
     VIP: '/heathrow-vip-meet-and-assist',
-    CONTACT: '/contact-us'
+    CONTACT: '/contact-us',
+    REGISTER_ACCOUNT: '/account-register',
 };
 
 export const LINKNAME_ROUTES = {

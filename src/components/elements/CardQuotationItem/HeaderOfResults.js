@@ -1,13 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./styles.module.scss";
+import { splitAndTranslateDuration } from "../../../helpers/splitHelper";
 
-const HeaderOfResults = ({ distance, duration }) => {
+const HeaderOfResults = ({ distance, duration, language }) => {
   const { appData } = useSelector(state => state.initialReducer);
 
   // Check if distance exists, remove 'mile', and convert to km
   const distanceInMiles = distance ? parseFloat(distance.replace(' mile', '')) : null;
   const distanceInKm = distanceInMiles ? (distanceInMiles * 1.60934).toFixed(2) : null;
+  // Format the duration based on the language
+
+
+  const formattedDuration = splitAndTranslateDuration(duration, language, appData);
 
   return (
     <div className={` ${styles.quotation_header}`}>
@@ -22,7 +27,7 @@ const HeaderOfResults = ({ distance, duration }) => {
         {duration ? (
           <li>
             <span><i className={`fa-solid fa-check ${styles.li_icon}`}></i></span>{" "}
-            <span className={styles.left}>{appData?.words["strJourneyDurationTitle"]}</span> : <span>{duration}</span>
+            <span className={styles.left}>{appData?.words["seMinuteWord"]}</span> : <span>{formattedDuration}</span>
           </li>
         ) : (<> </>)}
 

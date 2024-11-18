@@ -13,7 +13,7 @@ import { fetchConfig } from '../../../resources/getEnvConfig';
 
 const SelectedPointOnTransferDetails = (props) => {
     //index it is a destination if 0 it means pick up
-    let { selectedPoints, journeyType, type, pointsError = props.selectedPoints.map(obj => ({})), language, isTaxiDeal = false, isTours = false,env } = props;
+    let { selectedPoints, journeyType, type, pointsError = props.selectedPoints.map(obj => ({})), language, isTaxiDeal = false, isTours = false, env } = props;
     const { appData } = useSelector(state => state.initialReducer)
     const dispatch = useDispatch()
 
@@ -33,7 +33,9 @@ const SelectedPointOnTransferDetails = (props) => {
                             {
                                 isTaxiDeal ? <></> : <div className={styles.list}>
                                     {imageObjects && <img className={styles.list_image} src={`${env.apiDomain}${imageObjects[point?.pcatId]}`} alt={point.address} />}
-                                    <p className={styles.list_description}>{language === 'en' ? point?.address : point?.translatedAddress}</p>
+                                    <p className={styles.list_description}>
+                                        {language === 'en' ? point.address.includes(point.postcode) ? `${point.address}` : `${point.address} ${point.postcode}` : `${point.translatedAddress} ${point.postcode}`}
+                                    </p>
                                 </div>
                             }
                             {/* index it is a destination if 0 it means pick up  */}

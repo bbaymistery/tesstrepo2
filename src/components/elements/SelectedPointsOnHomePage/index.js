@@ -34,7 +34,7 @@ const SelectedPointsOnHomePage = (params = {}) => {
 
     return (<div className={`${styles.selected_points} ${isTaxiDeal ? styles.isTaxiDeal_selected_points : ""} ${hasOneItem ? styles.hasoneitem_taxideals : ""}`}>
         {points.map((point, index) => {
-            const addressText = language === 'en' ?  point.address.includes(point.postcode)? `${point.address}`  : `${point.address} ${point.postcode}`:point.translatedAddress
+            const addressText = language === 'en' ? point.address.includes(point.postcode) ? `${point.address}` : `${point.address} ${point.postcode}` : `${point.translatedAddress} ${point.postcode}`
 
             return (
                 <div key={index} className={styles.point_div} direction={String(direction === "rtl")} title={`${language === 'en' ? point.address : point.translatedAddress}`}>

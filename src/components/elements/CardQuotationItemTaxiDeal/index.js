@@ -6,6 +6,7 @@ import { quotationImagesObjWebp } from '../../../constants/quotationImages';
 import Image from 'next/image';
 import TaxiDealsContents from '../TaxiDealsContents';
 import { postDataAPI } from '../../../helpers/fetchDatas';
+import { splitAndTranslateDuration } from '../../../helpers/splitHelper';
 const checkJourneyTypeAndAddQuotationToReducer = (params = {}) => {
     //by this index  we r gonna assure in which journey we should add quotation
     //by journey type we r gonn assure should we directly pass to next page or not
@@ -114,6 +115,8 @@ const CardQuotationItemTaxiDeal = (params = {}) => {
             checkJourneyTypeAndAddQuotationToReducer({ journeyType, quotation, index, router, dispatch, language, isTaxiDeal, quotations })
         }
     };
+    // Format the duration based on the language
+    const formattedDuration = splitAndTranslateDuration(duration, language, appData);
 
     useEffect(() => {
         const imgTagRegex = /<img\s+[^>]*src="([^"]*)"[^>]*>/g;
@@ -170,7 +173,7 @@ const CardQuotationItemTaxiDeal = (params = {}) => {
         <div className={`${styles.quotation_header}`}>
             <ul>
                 {distance ? <li><span><i className={`fa-solid fa-check ${styles.li_icon}`}></i></span>{appData?.words["strDistance"]} : <span>{distance}</span></li> : (<></>)}
-                {duration ? <li><span><i className={`fa-solid fa-check ${styles.li_icon}`}></i></span><span className={styles.left} >{appData?.words["strJourneyDurationTitle"]}</span>:<span>{duration}</span></li> : (<></>)}
+                {duration ? <li><span><i className={`fa-solid fa-check ${styles.li_icon}`}></i></span><span className={styles.left} >{appData?.words["strJourneyDurationTitle"]}</span>:<span>{formattedDuration}</span></li> : (<></>)}
                 <li><span><i className={`fa-solid fa-check ${styles.li_icon}`}></i></span>  {appData?.words["strWeConstantlyMonitorAllFlights"]}</li>
                 <li><span><i className={`fa-solid fa-check ${styles.li_icon}`}></i></span> <span className={styles.strong}>{appData?.words["strAllInclusivePrices"]}</span> {appData?.words["strMeetandGreetIncludedForAirport"]} </li>
             </ul>

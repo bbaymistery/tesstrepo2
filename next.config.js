@@ -52,17 +52,24 @@ const nextConfig = {
     return rules;
   },
   async redirects() {
-    return Object.entries(urls).map(([source, destination]) => {
-      if (destination === '<check-point>') {
-        return null; // Skipping those routes marked as '<check-point>'
-      }
-      return {
-        source,
-        destination,
-        permanent: true, // Set as permanent redirect
-      };
-    }).filter(Boolean); // Filter out null values for skipped routes
-  },
+    const isExcluded = (source) => {
+      const lowerCaseSource = String(source).toLowerCase();
+      return !lowerCaseSource.includes('/news') && !lowerCaseSource.includes('/blog');
+    };
+
+    // Filter and map ASP URLs
+    const aspUrls = Object.entries(urls).filter(([source]) => isExcluded(source)).map(([source, destination]) => ({ source, destination, permanent: true, }));
+
+    // Filter and map HTML URLs
+    const htmlUrls = Object.entries(urls).filter(([source]) => isExcluded(source)).map(([source, destination]) => ({ source: source.includes('.asp') ? source.replace('.asp', '.html') : source, destination, permanent: true, }));
+
+    // Extra redirects (if any)
+    const axtraReDirection = [];
+
+    // Combine all redirects
+    return [...aspUrls, ...htmlUrls, ...axtraReDirection];
+  }
+  ,
   images: {
     remotePatterns: [
       { hostname: 'api.london-tech.com' },
@@ -71,6 +78,7 @@ const nextConfig = {
     ],
     formats: ['image/webp',],
   },
+  distDir: 'build',
 }
 
 module.exports = nextConfig
