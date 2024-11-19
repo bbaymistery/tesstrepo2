@@ -13,6 +13,7 @@ import Image from 'next/image';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import dynamic from 'next/dynamic'
 import { titleStringOfHastaxiDeals } from '../../../helpers/titleStringOfHasTaxiDeals';
+import useScrollLock from '../../../hooks/useScrollLock';
 const SelectedPointsOnHomePage = dynamic(() => import('../../elements/SelectedPointsOnHomePage'))
 const HandleSearchResults = dynamic(() => import('../../elements/HandleSearchResults'))
 const WaveLoading = dynamic(() => import('../../elements/LoadingWave'))
@@ -32,7 +33,9 @@ const Hero = (props) => {
     const state = useSelector(state => state.pickUpDropOffActions)
     let { reservations, params } = state
     let { sessionToken: reducerSessionToken, journeyType, direction, language, hasTaxiDeals } = params
-    const [isInitialLoad, setIsInitialLoad] = useState(true);
+    const { lockScroll, unlockScroll } = useScrollLock();
+
+    // const [isInitialLoad, setIsInitialLoad] = useState(true);
     const { appData } = useSelector(state => state.initialReducer)
     let [internalState, setInternalState] = React.useReducer((s, o) => ({ ...s, ...o }), {
         'pickup-search-value-0': '',
@@ -253,12 +256,13 @@ const Hero = (props) => {
 
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
+        lockScroll()
         if (window.innerWidth < 990) {
-            document.body.style.overflow = "hidden";
+            // document.body.style.overflow = "hidden";
             e.target.style.opacity = 0
-            console.log(`#content${index}${destination}`);
-            let navbarElement = document.querySelector("#navbar_container")
-            navbarElement.style.display = "none"
+            // console.log(`#content${index}${destination}`);
+            // let navbarElement = document.querySelector("#navbar_container")
+            // navbarElement.style.display = "none"
         }
         setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
         const container = document?.querySelector(`#content${index}${destination}`);
@@ -294,12 +298,13 @@ const Hero = (props) => {
 
     const closeModal = (params = {}) => {
         let { index, destination } = params
-        document.body.style.overflow = "unset";
+        // document.body.style.overflow = "unset";
+        unlockScroll()
         let inputField = document.getElementById(`${destination}_input_focused_${index}`)
         inputField.style.opacity = 1
         setInternalState({ [`${destination}-search-focus-${index}`]: false, [`${destination}-search-value-${index}`]: "", [`collecting-${destination}-points-${index}`]: [] })
-        let navbarElement = document.querySelector("#navbar_container");
-        navbarElement.style.display = "flex";
+        // let navbarElement = document.querySelector("#navbar_container");
+        // navbarElement.style.display = "flex";
     }
     //when we go quotation page then go back In that case we should check
     //if we have points or not.
@@ -312,12 +317,12 @@ const Hero = (props) => {
         // bu rendere sebeb olur
         dispatch({ type: "CHECHK_FLIGHT_WAITING_TIME", data: { journeyType } })
 
-        const navigationEntries = performance.getEntriesByType("navigation");
-        const isInitialLoad = navigationEntries.length > 0 && navigationEntries[0].type === "navigate";
+        // const navigationEntries = performance.getEntriesByType("navigation");
+        // const isInitialLoad = navigationEntries.length > 0 && navigationEntries[0].type === "navigate";
 
-        if (isInitialLoad && document.documentElement.clientWidth < 767) {
-            window.scrollTo({ top: 10, left: 0, behavior: "smooth" });
-        }
+        // if (isInitialLoad && document.documentElement.clientWidth < 767) {
+        //     window.scrollTo({ top: 10, left: 0, behavior: "smooth" });
+        // }
     }, [])
     let size = useWindowSize();
     let { width } = size
