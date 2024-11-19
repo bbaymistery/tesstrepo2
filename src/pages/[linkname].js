@@ -216,6 +216,9 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     //redirect pages which dont have asp
     const destination = urls[pathname];
+    console.log({destination});
+    console.log({pathname});
+    
     // Eğer eşleşen bir URL varsa, yönlendirme yapın
     if (destination) {
         return {
