@@ -19,6 +19,7 @@ const WaveLoading = dynamic(() => import('../../elements/LoadingWave'))
 const Loading = dynamic(() => import('../../elements/Loading'))
 const Features = dynamic(() => import('../Features'))
 
+
 const pushToQuotationsResultPage = (params = {}) => {
     let { dispatch, router, log, journeyType, language } = params
     dispatch({ type: "GET_QUOTATION", data: { results: log, journeyType } })
@@ -250,10 +251,7 @@ const Hero = (props) => {
             readyToCollectQuotations({ dispatch, setInternalState, router, journeyType, reservations, language });
         }
     }, [reservations, appData, setInternalState, readyToCollectQuotations, dispatch, router, journeyType, language]);
-    const smoothScrollToElement = (element) => {
-        const elementTop = element.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: elementTop, behavior: "smooth" });
-    };
+
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
         if (window.innerWidth < 990) {
@@ -262,14 +260,14 @@ const Hero = (props) => {
             console.log(`#content${index}${destination}`);
             let navbarElement = document.querySelector("#navbar_container")
             navbarElement.style.display = "none"
+            setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
+            const container = document?.querySelector(`#content${index}${destination}`);
+            e.target.style.opacity = 1
+            const containerOffset = container?.offsetTop || 0;
+            setTimeout(() => {
+                window.scrollTo({ top: containerOffset, behavior: 'smooth' });
+            }, 100);
         }
-        setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
-        e.target.style.opacity = 1
-        setTimeout(() => {
-            const container = document.querySelector(`#content${index}${destination}`);
-            smoothScrollToElement(container);
-            e.target.style.opacity = 1;
-        }, 100);
     }
     const handleAddNewInput = (params = {}) => {
         let { index, destination } = params
@@ -317,9 +315,9 @@ const Hero = (props) => {
         console.log({ isInitialLoad, navigationEntries });
 
         if (isInitialLoad && document.documentElement.clientWidth < 767) {
-            window.scrollTo({ top: 30, left: 0, behavior: "smooth" });
+            window.scrollTo(0, 1); // Sayfayı 1px yukarı kaydır
+            window.scrollTo(0, 0); // Eski konuma geri dön
         }
-
 
     }, [])
     let size = useWindowSize();
