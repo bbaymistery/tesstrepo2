@@ -64,7 +64,12 @@ const nextConfig = {
     const htmlUrls = Object.entries(urls).filter(([source]) => isExcluded(source)).map(([source, destination]) => ({ source: source.includes('.asp') ? source.replace('.asp', '.html') : source, destination, permanent: true, }));
 
     // Extra redirects (if any)
-    const axtraReDirection = [];
+    const axtraReDirection = [
+      {
+        source: '/Blog/:path*',
+        destination: '/blog/:path*', // Match the lowercase route
+        permanent: true,
+      },];
 
     // Combine all redirects
     return [...aspUrls, ...htmlUrls, ...axtraReDirection];
