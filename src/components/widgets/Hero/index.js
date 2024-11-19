@@ -256,8 +256,8 @@ const Hero = (props) => {
 
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
-        lockScroll()
         if (window.innerWidth < 990) {
+            lockScroll()
             // document.body.style.overflow = "hidden";
             e.target.style.opacity = 0
             // console.log(`#content${index}${destination}`);
