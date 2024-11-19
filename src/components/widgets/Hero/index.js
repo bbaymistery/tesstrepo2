@@ -321,7 +321,7 @@ const Hero = (props) => {
         const isInitialLoad = navigationEntries.length > 0 && navigationEntries[0].type === "navigate";
 
         if (isInitialLoad && document.documentElement.clientWidth < 767) {
-            window.scrollTo({ top: 10, left: 0, behavior: "smooth" });
+            window.scrollTo({ top: 32, left: 0, behavior: "smooth" });
         }
     }, [])
     let size = useWindowSize();
