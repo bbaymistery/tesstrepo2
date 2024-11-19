@@ -29,6 +29,10 @@ async function getRoutes() {
 
     // Case for specific tour pages without language prefix
     { source: `/tours/:link`, destination: '/tours/:link', locale: false },
+    {
+      source: '/blog/:path*',
+      destination: '/Blog/:path*', // Case-insensitive handling
+    },
   ];
 
 
@@ -64,12 +68,7 @@ const nextConfig = {
     const htmlUrls = Object.entries(urls).filter(([source]) => isExcluded(source)).map(([source, destination]) => ({ source: source.includes('.asp') ? source.replace('.asp', '.html') : source, destination, permanent: true, }));
 
     // Extra redirects (if any)
-    const axtraReDirection = [
-      {
-        source: '/Blog/:path*',
-        destination: '/blog/:path*', // Match the lowercase route
-        permanent: true,
-      },];
+    const axtraReDirection = [];
 
     // Combine all redirects
     return [...aspUrls, ...htmlUrls, ...axtraReDirection];
