@@ -214,7 +214,17 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     let { pathname } = parse(req.url, true)
 
 
-
+    //redirect pages which dont have asp
+    const destination = urls[pathname];
+    // Eğer eşleşen bir URL varsa, yönlendirme yapın
+    if (destination) {
+        return {
+            redirect: {
+                destination: destination,
+                permanent: true, // Kalıcı yönlendirme (301) olarak ayarlayabilirsiniz
+            },
+        };
+    }
     //language congiguration based on the url (http://localhost:3500/it/gatwick-taxi-prices  if he pres enter we get lang) at first time
     let pageStartLanguage = checkLanguageAttributeOntheUrl(req?.url)
     // Extract query parameters
