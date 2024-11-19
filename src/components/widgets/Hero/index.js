@@ -13,12 +13,33 @@ import Image from 'next/image';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import dynamic from 'next/dynamic'
 import { titleStringOfHastaxiDeals } from '../../../helpers/titleStringOfHasTaxiDeals';
-import useScrollLock from '../../../hooks/useScrollLock';
 const SelectedPointsOnHomePage = dynamic(() => import('../../elements/SelectedPointsOnHomePage'))
 const HandleSearchResults = dynamic(() => import('../../elements/HandleSearchResults'))
 const WaveLoading = dynamic(() => import('../../elements/LoadingWave'))
 const Loading = dynamic(() => import('../../elements/Loading'))
 const Features = dynamic(() => import('../Features'))
+const adjustForKeyboard = () => {
+    if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        const originalHeight = window.innerHeight;
+        const onResize = () => {
+            const newHeight = window.innerHeight;
+            if (newHeight < originalHeight) {
+                // Keyboard is open
+                document.body.style.height = `${newHeight}px`;
+                document.body.style.overflow = 'hidden'; // Optional: Prevent scrolling
+            } else {
+                // Keyboard is closed
+                document.body.style.height = '';
+                document.body.style.overflow = ''; // Allow normal scrolling again
+            }
+        };
+
+        window.addEventListener("resize", onResize);
+
+        // Cleanup function to remove the listener when the component unmounts
+        return () => window.removeEventListener("resize", onResize);
+    }
+};
 
 const pushToQuotationsResultPage = (params = {}) => {
     let { dispatch, router, log, journeyType, language } = params
@@ -33,9 +54,7 @@ const Hero = (props) => {
     const state = useSelector(state => state.pickUpDropOffActions)
     let { reservations, params } = state
     let { sessionToken: reducerSessionToken, journeyType, direction, language, hasTaxiDeals } = params
-    const { lockScroll, unlockScroll } = useScrollLock();
-
-    // const [isInitialLoad, setIsInitialLoad] = useState(true);
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
     const { appData } = useSelector(state => state.initialReducer)
     let [internalState, setInternalState] = React.useReducer((s, o) => ({ ...s, ...o }), {
         'pickup-search-value-0': '',
@@ -257,12 +276,11 @@ const Hero = (props) => {
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
         if (window.innerWidth < 990) {
-            lockScroll()
-            // document.body.style.overflow = "hidden";
+            document.body.style.overflow = "hidden";
             e.target.style.opacity = 0
-            // console.log(`#content${index}${destination}`);
-            // let navbarElement = document.querySelector("#navbar_container")
-            // navbarElement.style.display = "none"
+            console.log(`#content${index}${destination}`);
+            let navbarElement = document.querySelector("#navbar_container")
+            navbarElement.style.display = "none"
         }
         setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
         const container = document?.querySelector(`#content${index}${destination}`);
@@ -298,13 +316,12 @@ const Hero = (props) => {
 
     const closeModal = (params = {}) => {
         let { index, destination } = params
-        // document.body.style.overflow = "unset";
-        unlockScroll()
+        document.body.style.overflow = "unset";
         let inputField = document.getElementById(`${destination}_input_focused_${index}`)
         inputField.style.opacity = 1
         setInternalState({ [`${destination}-search-focus-${index}`]: false, [`${destination}-search-value-${index}`]: "", [`collecting-${destination}-points-${index}`]: [] })
-        // let navbarElement = document.querySelector("#navbar_container");
-        // navbarElement.style.display = "flex";
+        let navbarElement = document.querySelector("#navbar_container");
+        navbarElement.style.display = "flex";
     }
     //when we go quotation page then go back In that case we should check
     //if we have points or not.
@@ -318,11 +335,15 @@ const Hero = (props) => {
         dispatch({ type: "CHECHK_FLIGHT_WAITING_TIME", data: { journeyType } })
 
         const navigationEntries = performance.getEntriesByType("navigation");
-        const isInitialLoad = navigationEntries.length > 0 && navigationEntries[0].type === "navigate";
+        const isInitialLoad = navigationEntries.length > 0 && (navigationEntries[0].type === "navigate" || navigationEntries[0].type === "reload");
+        console.log({ isInitialLoad, navigationEntries });
 
         if (isInitialLoad && document.documentElement.clientWidth < 767) {
-            window.scrollTo({ top: 32, left: 0, behavior: "smooth" });
+            window.scrollTo({ top: 30, left: 0, behavior: "smooth" });
         }
+
+        const cleanup = adjustForKeyboard(); // Call the function and get the cleanup callback
+        return cleanup; // Clean up the event listener on unmount
     }, [])
     let size = useWindowSize();
     let { width } = size

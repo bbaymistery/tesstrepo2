@@ -1,9 +1,8 @@
-
+import { useRouter } from 'next/router';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 import styles from "./styles.module.scss"
-import useScrollLock from '../../../hooks/useScrollLock';
 
 //!when we get search result: there pcatId is :  from greater to less    like >>   4 3 2 1
 //!arrange points maake that from less to more  like >> 1 2 3 4
@@ -72,7 +71,7 @@ const HandleSearchResults = (params = {}) => {
         //take this  f12(collectingPoints); >>//{0: Array(30), 1: Array(4)} to turn this   //f12(newOrderedItems); // [Array(4), Array(30)]
         newOrderedItems = moveZeroosToTheEndMakeAnArray({ keyss, collectingPoints });
     }
-    const { lockScroll, unlockScroll } = useScrollLock();
+    const router = useRouter()
     const dispatch = useDispatch()
     const state = useSelector(state => state.pickUpDropOffActions)
     let { params: { direction }, reservations } = state
@@ -106,7 +105,6 @@ const HandleSearchResults = (params = {}) => {
     let { width } = size
 
     const handleAddItemToSelectList = (params = {}) => {
-        unlockScroll()
         let { point, destination } = params
         //setting postcode adressess
         if (point.pcatId === 5) {
@@ -156,9 +154,9 @@ const HandleSearchResults = (params = {}) => {
         let points = reservations[index][`selected${destination === 'pickup' ? 'Pickup' : 'Dropoff'}Points`]
         reservations[index][`selected${destination === 'pickup' ? 'Pickup' : 'Dropoff'}Points`] = [...points, point]
 
-        // let navbarElement = document.querySelector("#navbar_container");
-        // navbarElement.style.display = "flex";
-        // document.body.style.overflow = "unset";
+        let navbarElement = document.querySelector("#navbar_container");
+        navbarElement.style.display = "flex";
+        document.body.style.overflow = "unset";
 
         getQuotations()
     }
