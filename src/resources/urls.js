@@ -1,4 +1,6 @@
 let urls = {
+  "/news": "/News",
+  "/blog": "/Blog",
   "/Heathrow/Heathrow-Taxi-Prices.asp": "/heathrow-taxi-prices",
   "/Gatwick/Gatwick-Taxi-Prices.asp": "/gatwick-taxi-prices",
   "/City-Airport/London-City-Taxi-Prices.asp": "/london-city-taxi-prices",
@@ -1468,8 +1470,8 @@ let urls = {
   "/Stansted/taxi-from-warwick-to-stansted.html": "/warwick-to-stansted-taxi",
   "/terms.html": "/terms",
   "/manage-booking/default.html": "/manage-booking.html",
-  "/track-my-taxi.asp":"/track-my-taxi",
+  "/track-my-taxi.asp": "/track-my-taxi",
   "/Managebooking/Managebooking.asp  ": "/manage-booking.html",
-  "/tr/Londra-turu.asp":"/tr/tours/london-tour-full-day"
+  "/tr/Londra-turu.asp": "/tr/tours/london-tour-full-day"
 }
 module.exports = { urls };
