@@ -260,14 +260,13 @@ const Hero = (props) => {
             console.log(`#content${index}${destination}`);
             let navbarElement = document.querySelector("#navbar_container")
             navbarElement.style.display = "none"
-            setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
-            const container = document?.querySelector(`#content${index}${destination}`);
-            e.target.style.opacity = 1
-            const containerOffset = container?.offsetTop || 0;
-            setTimeout(() => {
-                window.scrollTo({ top: containerOffset, behavior: 'smooth' });
-            }, 100);
         }
+        setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
+        const container = document?.querySelector(`#content${index}${destination}`);
+        e.target.style.opacity = 1
+        setTimeout(() => {
+            window.scrollTo({ top: container, behavior: 'smooth' });
+        }, 100);
     }
     const handleAddNewInput = (params = {}) => {
         let { index, destination } = params
@@ -315,11 +314,24 @@ const Hero = (props) => {
         console.log({ isInitialLoad, navigationEntries });
 
         if (isInitialLoad && document.documentElement.clientWidth < 767) {
-            window.scrollTo(0, 1); // Sayfayı 1px yukarı kaydır
-            window.scrollTo(0, 0); // Eski konuma geri dön
+            // window.scrollTo({ top: 30, left: 0, behavior: "smooth" });
+            window.scrollTo(0, 30); // Sayfayı 1px yukarı kaydır
+            window.scrollTo(0, 30); // Eski konuma geri dön
         }
 
+
     }, [])
+    useEffect(() => {
+        const handleTouchStart = () => {
+            console.log('Touch detected!'); // İlk dokunmayı doğrula
+        };
+
+        window.addEventListener('touchstart', handleTouchStart, { passive: false });
+
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart);
+        };
+    }, []);
     let size = useWindowSize();
     let { width } = size
 
