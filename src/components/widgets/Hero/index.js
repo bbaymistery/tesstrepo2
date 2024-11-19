@@ -18,28 +18,6 @@ const HandleSearchResults = dynamic(() => import('../../elements/HandleSearchRes
 const WaveLoading = dynamic(() => import('../../elements/LoadingWave'))
 const Loading = dynamic(() => import('../../elements/Loading'))
 const Features = dynamic(() => import('../Features'))
-const adjustForKeyboard = () => {
-    if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        const originalHeight = window.innerHeight;
-        const onResize = () => {
-            const newHeight = window.innerHeight;
-            if (newHeight < originalHeight) {
-                // Keyboard is open
-                document.body.style.height = `${newHeight}px`;
-                document.body.style.overflow = 'hidden'; // Optional: Prevent scrolling
-            } else {
-                // Keyboard is closed
-                document.body.style.height = '';
-                document.body.style.overflow = ''; // Allow normal scrolling again
-            }
-        };
-
-        window.addEventListener("resize", onResize);
-
-        // Cleanup function to remove the listener when the component unmounts
-        return () => window.removeEventListener("resize", onResize);
-    }
-};
 
 const pushToQuotationsResultPage = (params = {}) => {
     let { dispatch, router, log, journeyType, language } = params
@@ -272,7 +250,10 @@ const Hero = (props) => {
             readyToCollectQuotations({ dispatch, setInternalState, router, journeyType, reservations, language });
         }
     }, [reservations, appData, setInternalState, readyToCollectQuotations, dispatch, router, journeyType, language]);
-
+    const smoothScrollToElement = (element) => {
+        const elementTop = element.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: elementTop, behavior: "smooth" });
+    };
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
         if (window.innerWidth < 990) {
@@ -283,14 +264,11 @@ const Hero = (props) => {
             navbarElement.style.display = "none"
         }
         setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
-        const container = document?.querySelector(`#content${index}${destination}`);
         e.target.style.opacity = 1
         setTimeout(() => {
-            window.scroll({
-                top: container,
-                left: 0,
-                behavior: "smooth",
-            });
+            const container = document.querySelector(`#content${index}${destination}`);
+            smoothScrollToElement(container);
+            e.target.style.opacity = 1;
         }, 100);
     }
     const handleAddNewInput = (params = {}) => {
@@ -342,8 +320,7 @@ const Hero = (props) => {
             window.scrollTo({ top: 30, left: 0, behavior: "smooth" });
         }
 
-        const cleanup = adjustForKeyboard(); // Call the function and get the cleanup callback
-        return cleanup; // Clean up the event listener on unmount
+
     }, [])
     let size = useWindowSize();
     let { width } = size
