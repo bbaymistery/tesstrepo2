@@ -316,7 +316,7 @@ const Hero = (props) => {
         if (isInitialLoad && document.documentElement.clientWidth < 767) {
             // window.scrollTo({ top: 30, left: 0, behavior: "smooth" });
             window.scrollTo(0, 30); // Sayfayı 1px yukarı kaydır
-            window.scrollTo(0, 30); // Eski konuma geri dön
+            window.scrollTo(0, 0); // Eski konuma geri dön
         }
 
 
