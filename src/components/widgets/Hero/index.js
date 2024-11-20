@@ -255,19 +255,16 @@ const Hero = (props) => {
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
         if (window.innerWidth < 990) {
-            document.body.style.overflow = "hidden";
-            e.target.style.opacity = 0
-            console.log(`#content${index}${destination}`);
             let navbarElement = document.querySelector("#navbar_container")
             navbarElement.style.display = "none"
+            e.target.style.opacity = 0
+            setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
+            const container = document?.querySelector(`#content${index}${destination}`);
+            e.target.style.opacity = 1
+            setTimeout(() => { window.scroll({ top: container?.offsetTop, left: 0, behavior: "smooth", }) }, 100);
         }
-        setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
-        const container = document?.querySelector(`#content${index}${destination}`);
-        e.target.style.opacity = 1
-        setTimeout(() => {
-            window.scrollTo({ top: container, behavior: 'smooth' });
-        }, 100);
     }
+
     const handleAddNewInput = (params = {}) => {
         let { index, destination } = params
         setInternalState({ [`show-${destination}-extra-point-${index}`]: false, [`${destination}-search-focus-${index}`]: true })
