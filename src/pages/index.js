@@ -114,8 +114,8 @@ export default function Home(props) {
       <TaxiDeals env={props.env} />
       <SeaportTransfers bggray={true} />
       <Tours insideGlobalLayout={false} env={props.env} />
-      {hasScrolled && <CarsSlider bggray={true} />}
-      <Testimonials bggray={false} pageContent={pageContent} />
+      <Testimonials bggray={true} pageContent={pageContent} />
+      {hasScrolled && <CarsSlider bggray={false} />}
     </GlobalLayout>
   )
 }

@@ -6,8 +6,7 @@ class CustomDocument extends Document {
     // This is a static method in the CustomDocument class that fetches initial properties before rendering the document.
     static async getInitialProps(ctx) {
         // Initialize an empty object to hold page-specific props.
-        let languageProp = ctx?.query?.language
-        let pageProps = { languageProp };
+        let pageProps = {};
 
         // Store the original renderPage function from the context.
         const originalRenderPage = ctx.renderPage;
@@ -71,7 +70,7 @@ class CustomDocument extends Document {
 
     render() {
         //here i am destructing props which i passed  with MyApp.getInitialProps
-        let { schemaOfTaxiDeals, schemas, metaTags = [], toursDatas, hasLanguage } = this?.props?.__NEXT_DATA__?.props?.pageProps
+        let { schemaOfTaxiDeals, schemas, metaTags = [], toursDatas } = this?.props?.__NEXT_DATA__?.props?.pageProps
         let schemasOfPages = schemas || []//home page Terms and the rest page has different schemas 
 
 
@@ -81,8 +80,10 @@ class CustomDocument extends Document {
             metaTags = toursDatas.metaTags
         }
 
+
+
         return (
-            <Html lang={hasLanguage ? hasLanguage : "en"}>
+            <Html lang="en">
                 <Head >
 
                     {this.renderSchemaScripts(schemaOfTaxiDeals)}

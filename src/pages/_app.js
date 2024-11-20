@@ -16,11 +16,7 @@ const myFont = localFont({ src: '../../public/googleFonts/92zatBhPNqw73oTd4g.wof
 export const MyApp = ({ Component, pageProps }) => {
 
   const router = useRouter()
-  //next js doesnt allow addd ? in the redirect or next config.js so i considered redirect here
-  if (router.asPath === "/Search.asp?q=%7Bsearch_term_string%7D" || router.asPath === "/js/chat_widget.js?112") {
-    router.push("/")
-    window.location.replace("/");
-  }
+
 
   //localhost:3500//test
   // Check if 'asPath' contains two or more consecutive slashes
@@ -40,7 +36,9 @@ export const MyApp = ({ Component, pageProps }) => {
     let allAppDatas = JSON.parse(sessionStorage.getItem('allAppDatas'))
 
     if (language.length === 2 && allAppDatas) {
-      dispatch({ type: "SET_NEW_APPDATA", data: allAppDatas?.[language] ? allAppDatas?.[language] : allAppDatas?.["en"], initialStateReducer: store.getState().initialReducer })
+      dispatch({ type: "SET_NEW_APPDATA", data: allAppDatas?.[language], initialStateReducer: store.getState().initialReducer })
+
+
     } else {
       //ilk basda tek sefer calisicak sonra yukarisi calisir
       dispatch({ type: "SET_NEW_APPDATA", data: appData, initialStateReducer: store.getState().initialReducer })
@@ -50,9 +48,8 @@ export const MyApp = ({ Component, pageProps }) => {
     appData?.languages.map((item, idx) => (language === item.value) ? index = idx : idx)
     let direction = language === 'ar' ? "rtl" : "ltr"
     localStorage.setItem("direction", JSON.stringify(direction));
-    const exists = appData.languages.some(lang => lang.value === language);
 
-    dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: exists ? language : "en", direction, langIndex: index } })
+    dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: language, direction, langIndex: index } })
 
   }, [dispatch, appData,])
 
@@ -130,14 +127,13 @@ export const MyApp = ({ Component, pageProps }) => {
     else {
       setLanguage({ language: hasLanguage !== 'en' ? hasLanguage : language, hydrate: false })
     }
-
   }, [router.asPath])
 
 
 
   return (<Provider store={store}>
     <main style={{ fontFamily: myFont.style.fontFamily }}>
-      <Component {...pageProps} />
+      <Component {...pageProps}  />
     </main>
   </Provider>);
 }

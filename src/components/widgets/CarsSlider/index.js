@@ -1,167 +1,213 @@
-import React, { useState, useEffect, useRef } from "react";
-import { carsItems } from "../../../constants/carss"; // Importing the car items array
-import styles from "./styles.module.scss"; // Importing styles
-import Image from "next/image";
-import { useSelector } from "react-redux";
-
-const CarsSlider = (props) => {
-  let { bggray } = props
-  const { appData } = useSelector(state => state.initialReducer)
-  const state = useSelector(state => state.pickUpDropOffActions)
-  let { params: { direction, } } = state
-  const sliderRef = useRef(null); // Reference for the slider DOM element
-  const [visibleItems, setVisibleItems] = useState(3); // Number of visible items in the slider
-  const [currentIndex, setCurrentIndex] = useState(visibleItems); // Current index of the slider (start with first visible set)
-  const [isTransitioning, setIsTransitioning] = useState(false); // Boolean to control smooth transitions
-
-  // Adjust the number of visible items based on the screen size
-  useEffect(() => {
-    const updateVisibleItems = () => {
-      if (window.innerWidth < 480) {
-        setVisibleItems(1); // Show 1 item for small screens
-      } else if (window.innerWidth < 768) {
-        setVisibleItems(2); // Show 2 items for medium screens
-      } else {
-        setVisibleItems(3); // Default to 3 items for larger screens
-      }
+import React from "react";
+import styles from "./styles.module.scss";
+import CarItem from "./CarItem";
+import { connect } from "react-redux";
+const itemsCarWrapperRef = React.createRef(null); //in order to click right or left and change lsider
+const sliderRef = React.createRef(null); //total all sliders length (width)
+const sliderConRef = React.createRef(null);
+class CarsSlider extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isScrolling: false,
+      clientX: 0,
+      scrollX: 0,
+      steps: 2,
+      selectedStep: 1,
+      visibleItems: sliderConRef?.current?.clientWidth / 400,
     };
-    updateVisibleItems(); // Run on component mount
-    window.addEventListener("resize", updateVisibleItems); // Update on screen resize
-    return () => window.removeEventListener("resize", updateVisibleItems); // Cleanup on unmount
-  }, []);
+  }
 
-  // Duplicate the first and last few items to enable infinite scrolling
-  const items = [
-    ...carsItems.slice(-visibleItems), // Add last few items at the beginning
-    ...carsItems,
-    ...carsItems.slice(0, visibleItems), // Add first few items at the end
-  ];
-
-  const totalItems = items.length; // Total number of items including duplicates
-
-  // Handle transition end to reset the slider position for infinite scrolling
-  const handleTransitionEnd = () => {
-    setIsTransitioning(false);
-    if (currentIndex <= 0) {
-      // If the current index is less than or equal to 0, reset to the last real items
-      setCurrentIndex(carsItems.length);
-    } else if (currentIndex >= carsItems.length + visibleItems) {
-      // If the current index exceeds the total items, reset to the first real items
-      setCurrentIndex(visibleItems);
+  componentDidMount() {
+    this.getPoint();
+    window.addEventListener("resize", () => {
+      this.getPoint();
+    });
+  }
+  // click to left arrow
+  scrollDirection(direction) {
+    const el = itemsCarWrapperRef.current;
+    let { selectedStep, steps } = this.state;
+    if (direction === "right") {
+      selectedStep--;
+      if (selectedStep < 1) {
+        selectedStep = 1;
+      }
+    } else {
+      selectedStep++;
+      if (selectedStep > steps) {
+        selectedStep = steps;
+      }
     }
-  };
-
-  // Move to the next or previous set of items
-  const handleNavigation = (direction) => {
-    if (isTransitioning) return; // Prevent navigation during a transition
-    setIsTransitioning(true);
-    setCurrentIndex((prev) => prev + direction * visibleItems); // Move by the number of visible items
-  };
-
-  // Dragging functionality
-  const [startX, setStartX] = useState(0); // Store the initial mouse position
-  const [dragging, setDragging] = useState(false); // Boolean to track dragging state
-
-  const handleMouseDown = (e) => {
-    setDragging(true);
-    setStartX(e.pageX); // Store the mouse position on drag start
-  };
-
-  const handleMouseMove = (e) => {
-    if (!dragging) return;
-    const xDifference = e.pageX - startX; // Calculate how far the mouse has moved
-    if (xDifference > 50) {
-      handleNavigation(-1); // If moved to the right, navigate backward
-      setDragging(false); // End dragging
-    } else if (xDifference < -50) {
-      handleNavigation(1); // If moved to the left, navigate forward
-      setDragging(false); // End dragging
+    el.scrollTo({
+      left:
+        el.scrollLeft +
+        (direction == "right" ? -400 : 400) * this.state.visibleItems,
+      behavior: "smooth",
+    });
+    this.setState({ selectedStep });
+  }
+  onMouseMove(e) {
+    if (
+      itemsCarWrapperRef &&
+      itemsCarWrapperRef.current &&
+      !itemsCarWrapperRef.current.contains(e.target)
+    ) {
+      return;
     }
-  };
+    e.preventDefault();
+    const { clientX, scrollX, isScrolling, selectedStep } = state;
+    //changing => when 6 items visible and we have 6 dots
+    if (isScrolling) {
+      itemsCarWrapperRef.current.scrollLeft = scrollX + e.clientX - clientX;
+      let sX = scrollX + e.clientX - clientX;
+      let cX = e.clientX;
+      this.setState({
+        scrollX: sX,
+        clientX: cX,
+      });
+    }
+  }
+  onMouseUp(e) {
+    if (
+      itemsCarWrapperRef &&
+      itemsCarWrapperRef.current &&
+      !itemsCarWrapperRef.current.contains(e.target)
+    ) {
+      return;
+    }
+    e.preventDefault();
+    this.setState({ isScrolling: false });
+  }
+  onMouseDown(e) {
+    if (
+      itemsCarWrapperRef &&
+      itemsCarWrapperRef.current &&
+      !itemsCarWrapperRef.current.contains(e.target)
+    ) {
+      return;
+    }
+    e.preventDefault();
+    // itemsCarWrapperRef.current.style.cursor = "grabbing";
+    this.setState({ isScrolling: true, clientX: e.clientX });
+  }
+  getPoint() {
+    let silderConWidth;
+    if (sliderConRef?.current?.clientWidth) {
+      silderConWidth = sliderConRef?.current?.clientWidth;
+    }
+    let items = 3;
+    if (sliderConRef?.current?.clientWidth > 1200) {
+      items = Math.floor(silderConWidth / 400);
+    } else if (sliderConRef?.current?.clientWidth < 1200) {
+      items = Math.floor(silderConWidth / 320); //290+30
+    } else if (sliderConRef?.current?.clientWidth < 992) {
+      items = Math.ceil(silderConWidth / 350);
+    } else if (sliderConRef?.current?.clientWidth < 768) {
+      items = Math.floor(silderConWidth / 540);
+    }
+    let silderWidth;
+    if (sliderRef?.current?.clientWidth) {
+      silderWidth = sliderRef?.current?.clientWidth;
+    }
+    let steps = Math.floor(silderWidth / (400 * items)) + 1;
+    if (steps === 4) {
+      steps = 3;
+    }
+    if (steps > 6) {
+      steps = 6;
+    }
+    this.setState({ visibleItems: items, steps: steps });
+  }
+  changeSlideWithNavigationButton(i) {
+    let left = this.state.visibleItems * 400 * i;
+    //responsivness whenever card image width and container change
+    if (sliderConRef?.current?.clientWidth < 960) {
+      left = this.state.visibleItems * 360 * i;
+    }
+    if (sliderConRef?.current?.clientWidth < 720) {
+      left = this.state.visibleItems * 540 * i;
+    }
+    if (sliderConRef?.current?.clientWidth < 540) {
+      left = this.state.visibleItems * 360 * i;
+    }
+    if (sliderConRef?.current?.clientWidth < 500) {
+      left = this.state.visibleItems * 425 * i;
+    }
 
-  const handleMouseUp = () => setDragging(false); // Stop dragging on mouse release
+    if (sliderConRef?.current?.clientWidth < 415) {
+      left = this.state.visibleItems * 430 * i;
+    }
 
-  // Calculate the number of dots for pagination
-  const totalDots = Math.ceil(carsItems.length / visibleItems);
+    if (sliderConRef?.current?.clientWidth < 391) {
+      left = this.state.visibleItems * 370 * i;
+    }
+    if (sliderConRef?.current?.clientWidth < 361) {
+      left = this.state.visibleItems * 360 * i;
+    }
+    document.getElementById("slider").scrollTo({
+      left: left,
+      behavior: "smooth",
+    });
 
-  // Update the slider index when clicking on a dot
-  const handleDotClick = (index) => {
-    setIsTransitioning(true);
-    setCurrentIndex(index * visibleItems + visibleItems); // Navigate to the corresponding items
-  };
-
-  return (
-    <div className={styles.car_section} bggray={String(bggray)}>
-      <h1 className={styles.header_title}>{appData.words["strOurFleet"]} </h1>
-      <div className={styles.car_section_container}>
-        <div className={styles.sliderContainer}>
-          {/* Left Arrow  //! Move left on click */}
-          <button className={`${styles.arrow} ${styles.leftArrow}`} onClick={() => handleNavigation(-1)}  >
-            ◀
-          </button>
-
-          {/* Slider */}
-          {/* Start dragging ,Handle dragging movement ,Stop dragging ,Stop dragging when mouse leaves the area*/}
-          <div className={styles.sliderWrapper} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp} >
-            {/* Transform=>// Move slider based on currentIndex  &&  Reset position after transition onTransitionEnd*/}
-            <div className={styles.slider} ref={sliderRef} style={{ transform: `translateX(-${(100 / visibleItems) * currentIndex}%)`, transition: isTransitioning ? "transform 0.5s ease" : "none", }} onTransitionEnd={handleTransitionEnd}     >
-              {items.map((item, index) => (
-                // Adjust item width based on visible items
-                <div key={index} className={styles.sliderItem} style={{ flex: `0 0 ${100 / visibleItems}%` }}   >
-                  <div className={styles.card}>
-                    {/* Using Next.js Image */}
-                    <div className={styles.imageWrapper}>
-                      <Image
-                        src={item.carImage} // The source URL of the image
-                        alt={item.carName} // Alt text for accessibility
-                        fill// Use "fill" to fill the parent container
-                        style={{ objectFit: "contain" }} // Maintain aspect ratio and cover the space
-                        className={styles.cardImage} // Class for styling
-                      />
-                    </div>
-
-                    <div className={styles.card_body}>
-                      <h2 className={`${direction} ${styles.card_body_title}`}>{item.carName}</h2>
-                      <div className={styles.card_body_attributes}>
-                        <ul className={styles.card_atr_ul} direction={String(direction === "rtl")}>
-                          <li className={styles.card_atr_li}>
-                            <i className={`fa-solid fa-users ${styles.li_icon}`}></i>
-                            <span className={styles.li_desc}>
-                              {`${appData?.words?.["strNoofPassengers"] || "Passengers"} ${item.passenger}`}
-                            </span>
-                          </li>
-                        </ul>
-                        <ul className={styles.card_atr_ul} direction={String(direction === "rtl")}>
-                          <li className={`${styles.card_atr_li} ${styles.card_atr_li_suitcase}`}>
-                            <i className={`fa-solid fa-suitcase ${styles.li_icon}`}></i>
-                            <span className={`${styles.li_desc}`}>
-                              {`${appData?.words?.["strNoofSuitcases"] || "Suitcases"} ${item.suitcase}`}
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              ))}
-            </div>
+    //set active blue dot
+    this.setState({ selectedStep: i + 1 });
+  }
+  componentWillUnmount() {
+    this.getPoint();
+    try {
+      window.removeEventListener("mousedown");
+      window.removeEventListener("mouseup");
+      window.removeEventListener("mousemove");
+      window.removeEventListener("resize", getPoint);
+    } catch (error) { }
+  }
+  render() {
+    const { bggray = false, noborder = false } = this.props;
+    return (
+      <div className={styles.car_section} bggray={String(bggray)} style={{ border: `${noborder ? "none" : "1px solid transparent"}` }} >
+        <div className={styles.car_container} ref={sliderConRef}>
+          <div className={styles.header}>
+            <h1 className={styles.header_title}>{this.props.appData.words["strOurFleet"] || 'Our Fleet'}</h1>
           </div>
-
-          {/* Right Arrow  //! Move right on click */}
-          <button className={`${styles.arrow} ${styles.rightArrow}`} onClick={() => handleNavigation(1)}  >  ▶ </button>
-
-          {/* Pagination Dots */}
-          <div className={styles.dots}>
-            {/* Navigate to items on dot click */}
-            {Array.from({ length: totalDots }).map((_, index) => (
-              <div key={index} className={`${styles.dot} ${index === Math.floor((currentIndex - visibleItems) / visibleItems) ? styles.activeDot : ""}`} onClick={() => handleDotClick(index)} />
-            ))}
+          <div className={styles.body}>
+            <div className={styles.body_content}>
+              {/* ///bu scroll olunan oludugu ucun bunu alirix saga sola firradiriq */}
+              <div className={styles.content_car_wrap} ref={itemsCarWrapperRef} id="slider"   >
+                <CarItem sliderRef={sliderRef} />
+              </div>
+              {/* !navigations When we click to change slider  */}
+              <div className={styles.content_nav}>
+                <div className={styles.owl_prev} onClick={(e) => this.scrollDirection("right")}     >
+                  <i className={`fa-solid fa-angle-left ${styles.prev_icon}`}    ></i>
+                </div>
+                <div className={styles.owl_next} onClick={(e) => this.scrollDirection("left")}     >
+                  <i className={`fa-solid fa-angle-right ${styles.next_icon}`}    ></i>
+                </div>
+              </div>
+              <div className={styles.content_dots}>
+                {this.state.steps &&
+                  Array.from(new Array(this.state.steps)).map((x, i) => {
+                    return (
+                      <div key={i} onClick={() => this.changeSlideWithNavigationButton(i)} className={`${styles.dot} ${this.state.selectedStep === i + 1 ? styles.dotActive : ""}`}  ></div>
+                    );
+                  })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
+// This function maps the Redux state to the component's props
+const mapStateToProps = (state) => ({
+  appData: state.initialReducer.appData,
+});
 
-export default CarsSlider;
+// Connect the CarsSlider component to Redux using the connect function
+export default connect(mapStateToProps)(CarsSlider);
+
+CarsSlider.defaultProps = {
+  bggray: false
+};

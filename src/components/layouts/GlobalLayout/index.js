@@ -15,11 +15,11 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
   const { params: { language } } = state;
   const websiteDomain = "https://www.airport-pickups-london.com";
 
-  //CHANGE HTML ATTRIBUTE BASED O LANGUGAE
+  // Use useEffect to update the <html lang> attribute dynamically
   useEffect(() => {
     if (language) {
       document.documentElement.lang = language;
-    } else {
+    }else{
       document.documentElement.lang = "en";
 
     }
@@ -30,7 +30,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         <title>{title}</title>
         <meta key="keywords" name="keywords" content={keywords} />
         <meta key="description" name="description" content={description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 " />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 "></meta>
         {/* //alternates for terms abouts us aand other Static pages We dont need schema so we didnt include*/}
         {Object.entries(STATIC_ROUTES).map(([key, path]) =>
           router.pathname === path && (
@@ -104,7 +104,6 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         <meta property="og:type" content="website" />
 
         {/* Allow indexing and following links */}
-        {/* No follow */}
         <meta name="googlebot" content="noindex" />
         <meta name="robots" content="noindex" />
 
