@@ -9,6 +9,7 @@
     "live": "SET NODE_ENV=production && node server.js"
   },
   "dependencies": {
+    "@netlify/plugin-nextjs": "^5.8.1",
     "@next/font": "13.1.1",
     "@react-google-maps/api": "^2.19.3",
     "html2canvas": "^1.4.1",
