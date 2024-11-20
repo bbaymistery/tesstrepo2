@@ -31,7 +31,6 @@ const NavbarLinkName = (props) => {
 
     const { linkname } = router.query;
     let { metaTitle = "", keywords = "", metaDescription = "", pageContent = "", data = "", isItQuationLink = false } = props || {}
-    console.log({ data });
 
     if (data === "not found") return <Error404 />
 
@@ -51,7 +50,7 @@ const NavbarLinkName = (props) => {
 
     return (isItQuationLink ? <TaaxidealsQuotationLink props={props} /> :
         <GlobalLayout keywords={keywords} title={metaTitle} description={metaDescription} footerbggray={false}>
-            <Hero islinknamecomponent={true} bggray={false} />
+            <Hero islinknamecomponent={true} bggray={false} env={env} />
             <TaxiDeals env={env} showTabs={false} bggray={false} islinknamecomponent={true} />
             {pageContent.length > 0 ? <LinkNameDescription pageContent={pageContent} language={language} /> : ""}
             <CarsSlider bggray={true} />
@@ -132,6 +131,7 @@ async function handleQuotationLink(language, pathname, schemas, env, ipAddress, 
     if (pathname) {
         const body = { language, checkRedirect: true, taxiDealPathname: pathname, withoutExprectedPoints: true, visitorIpAddress: ipAddress, "userAgent": userAgent, bodyOfRequest: "", methodOfRequest: "" }
         let { breadcrumbs } = urlToTitle({ url: pathname, pathnamePage: true })
+
         const url = `${env.apiDomain}/api/v1/taxi-deals/details`;
         const { status, data } = await postDataAPI({ url, body });
         if (status === 205) return { redirect: { destination: data.redirectPathname, permanent: false } };
@@ -216,9 +216,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     //redirect pages which dont have asp
     const destination = urls[pathname];
-    console.log({destination});
-    console.log({pathname});
-    
     // Eğer eşleşen bir URL varsa, yönlendirme yapın
     if (destination) {
         return {

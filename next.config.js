@@ -29,10 +29,6 @@ async function getRoutes() {
 
     // Case for specific tour pages without language prefix
     { source: `/tours/:link`, destination: '/tours/:link', locale: false },
-    {
-      source: '/blog/:path*',
-      destination: '/Blog/:path*', // Case-insensitive handling
-    },
   ];
 
 
@@ -82,6 +78,7 @@ const nextConfig = {
     ],
     formats: ['image/webp',],
   },
+  distDir: 'build',
 }
 
 module.exports = nextConfig

@@ -19,7 +19,6 @@ const WaveLoading = dynamic(() => import('../../elements/LoadingWave'))
 const Loading = dynamic(() => import('../../elements/Loading'))
 const Features = dynamic(() => import('../Features'))
 
-
 const pushToQuotationsResultPage = (params = {}) => {
     let { dispatch, router, log, journeyType, language } = params
     dispatch({ type: "GET_QUOTATION", data: { results: log, journeyType } })
@@ -33,7 +32,6 @@ const Hero = (props) => {
     const state = useSelector(state => state.pickUpDropOffActions)
     let { reservations, params } = state
     let { sessionToken: reducerSessionToken, journeyType, direction, language, hasTaxiDeals } = params
-    const [isInitialLoad, setIsInitialLoad] = useState(true);
     const { appData } = useSelector(state => state.initialReducer)
     let [internalState, setInternalState] = React.useReducer((s, o) => ({ ...s, ...o }), {
         'pickup-search-value-0': '',
@@ -156,7 +154,6 @@ const Hero = (props) => {
     const onChangeHanler = useCallback((params = {}) => {
         let { index, value, destination } = params
         let { passengerDetails: { token: passengerDetailsToken } } = reservations[0]
-
         //hinder user  to add some Characters
         if (ifHasUnwantedCharacters(value)) return
 
@@ -255,19 +252,17 @@ const Hero = (props) => {
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
         if (window.innerWidth < 990) {
-            document.body.style.overflow = "hidden";
-            e.target.style.opacity = 0
-            console.log(`#content${index}${destination}`);
             let navbarElement = document.querySelector("#navbar_container")
             navbarElement.style.display = "none"
+            e.target.style.opacity = 0
+            setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
+            const container = document?.querySelector(`#content${index}${destination}`);
+            e.target.style.opacity = 1
+            setTimeout(() => { window.scroll({ top: container?.offsetTop, left: 0, behavior: "smooth", }) }, 100);
         }
-        setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
-        const container = document?.querySelector(`#content${index}${destination}`);
-        e.target.style.opacity = 1
-        setTimeout(() => {
-            window.scrollTo({ top: container, behavior: 'smooth' });
-        }, 100);
     }
+    console.log(internalState);
+
     const handleAddNewInput = (params = {}) => {
         let { index, destination } = params
         setInternalState({ [`show-${destination}-extra-point-${index}`]: false, [`${destination}-search-focus-${index}`]: true })
@@ -291,7 +286,6 @@ const Hero = (props) => {
 
     const closeModal = (params = {}) => {
         let { index, destination } = params
-        document.body.style.overflow = "unset";
         let inputField = document.getElementById(`${destination}_input_focused_${index}`)
         inputField.style.opacity = 1
         setInternalState({ [`${destination}-search-focus-${index}`]: false, [`${destination}-search-value-${index}`]: "", [`collecting-${destination}-points-${index}`]: [] })
@@ -310,27 +304,12 @@ const Hero = (props) => {
         dispatch({ type: "CHECHK_FLIGHT_WAITING_TIME", data: { journeyType } })
 
         const navigationEntries = performance.getEntriesByType("navigation");
-        const isInitialLoad = navigationEntries.length > 0 && (navigationEntries[0].type === "navigate" || navigationEntries[0].type === "reload");
-        console.log({ isInitialLoad, navigationEntries });
+        const isInitialLoad = navigationEntries.length > 0 && navigationEntries[0].type === "navigate";
 
         if (isInitialLoad && document.documentElement.clientWidth < 767) {
-            // window.scrollTo({ top: 30, left: 0, behavior: "smooth" });
-            window.scrollTo(0, 10); // Sayfayı 1px yukarı kaydır
+            window.scrollTo({ top: 10, left: 0, behavior: "smooth" });
         }
-
-
     }, [])
-    useEffect(() => {
-        const handleTouchStart = () => {
-            console.log('Touch detected!'); // İlk dokunmayı doğrula
-        };
-
-        window.addEventListener('touchstart', handleTouchStart, { passive: false });
-
-        return () => {
-            window.removeEventListener('touchstart', handleTouchStart);
-        };
-    }, []);
     let size = useWindowSize();
     let { width } = size
 
