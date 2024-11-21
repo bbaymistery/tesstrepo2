@@ -18,6 +18,7 @@ const InfoModal = ({ content }) => {
   const setToFalse = () => {
     dispatch({ type: "SET_MODAL_INFO", data: { trueOrFalse: false } });
     document.body.style.overflow = "unset";
+    document.body.style.position = "relative";
   };
   return (
     <div className={` ${styles.modal} `}>

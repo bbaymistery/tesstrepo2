@@ -254,6 +254,7 @@ const Hero = (props) => {
 
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
+        document.body.style.position = "fixed";
         document.body.style.overflow = "hidden";
         if (window.innerWidth < 990) {
             let navbarElement = document.querySelector("#navbar_container")
@@ -290,6 +291,7 @@ const Hero = (props) => {
     const closeModal = (params = {}) => {
         let { index, destination } = params
         document.body.style.overflow = "unset";
+        document.body.style.position = "relative";
         let inputField = document.getElementById(`${destination}_input_focused_${index}`)
         inputField.style.opacity = 1
         setInternalState({ [`${destination}-search-focus-${index}`]: false, [`${destination}-search-value-${index}`]: "", [`collecting-${destination}-points-${index}`]: [] })

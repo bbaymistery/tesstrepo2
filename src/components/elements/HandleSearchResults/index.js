@@ -155,7 +155,7 @@ const HandleSearchResults = (params = {}) => {
         reservations[index][`selected${destination === 'pickup' ? 'Pickup' : 'Dropoff'}Points`] = [...points, point]
 
         let navbarElement = document.querySelector("#navbar_container");
-        navbarElement.style.display = "flex";
+        navbarElement.style.position = "relative";
         document.body.style.overflow = "unset";
 
         getQuotations()
