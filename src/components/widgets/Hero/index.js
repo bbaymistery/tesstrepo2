@@ -260,8 +260,15 @@ const Hero = (props) => {
             e.target.style.opacity = 0
             setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
             const container = document?.querySelector(`#content${index}${destination}`);
-            e.target.style.opacity = 1
-            setTimeout(() => { window.scroll({ top: container?.offsetTop, left: 0, behavior: "smooth", }) }, 100);
+
+
+            setTimeout(() => {
+                e.target.style.opacity = 1
+                window.scroll({
+                    top: 0, left: 0, behavior: "smooth",
+
+                })
+            }, 100);
         }
     }
 
