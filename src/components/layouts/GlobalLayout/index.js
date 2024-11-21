@@ -30,7 +30,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         <title>{title}</title>
         <meta key="keywords" name="keywords" content={keywords} />
         <meta key="description" name="description" content={description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* //alternates for terms abouts us aand other Static pages We dont need schema so we didnt include*/}
         {Object.entries(STATIC_ROUTES).map(([key, path]) =>
           router.pathname === path && (
