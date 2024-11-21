@@ -305,29 +305,8 @@ const Hero = (props) => {
         }
         // bu rendere sebeb olur
         dispatch({ type: "CHECHK_FLIGHT_WAITING_TIME", data: { journeyType } })
-
-        const navigationEntries = performance.getEntriesByType("navigation");
-        const isInitialLoad = navigationEntries.length > 0 && (navigationEntries[0].type === "navigate" || navigationEntries[0].type === "reload");
-        console.log({ isInitialLoad, navigationEntries });
-
-        if (isInitialLoad && document.documentElement.clientWidth < 767) {
-            // window.scrollTo({ top: 30, left: 0, behavior: "smooth" });
-            window.scrollTo(0, 10); // Sayfayı 1px yukarı kaydır
-        }
-
-
     }, [])
-    useEffect(() => {
-        const handleTouchStart = () => {
-            console.log('Touch detected!'); // İlk dokunmayı doğrula
-        };
 
-        window.addEventListener('touchstart', handleTouchStart, { passive: false });
-
-        return () => {
-            window.removeEventListener('touchstart', handleTouchStart);
-        };
-    }, []);
     let size = useWindowSize();
     let { width } = size
 
