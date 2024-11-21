@@ -254,6 +254,7 @@ const Hero = (props) => {
 
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
+        document.body.style.overflow = "hidden";
         if (window.innerWidth < 990) {
             let navbarElement = document.querySelector("#navbar_container")
             navbarElement.style.display = "none"
