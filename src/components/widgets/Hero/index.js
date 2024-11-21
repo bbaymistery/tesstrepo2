@@ -259,16 +259,9 @@ const Hero = (props) => {
             navbarElement.style.display = "none"
             e.target.style.opacity = 0
             setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
-            const container = document?.querySelector(`#content${index}${destination}`);
 
-
-            setTimeout(() => {
-                e.target.style.opacity = 1
-                window.scroll({
-                    top: 0, left: 0, behavior: "smooth",
-
-                })
-            }, 100);
+            e.target.style.opacity = 1
+            setTimeout(() => { window.scroll({ top: 0, left: 0, behavior: "smooth", }) }, 100);
         }
     }
 
