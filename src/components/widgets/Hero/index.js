@@ -360,6 +360,7 @@ const Hero = (props) => {
                                                         placeholder={appData?.words["seLocationPlaceholder"]}
                                                         value={internalState[`pickup-search-value-${index}`]}
                                                         autoFocus={internalState[`pickup-search-focus-${index}`]}
+                                                        onFocus={e => setFocusToInput({ e, destination: "pickup", index })}
                                                         f={String(internalState[`pickup-search-focus-${index}`])} //giving a style if we focused
                                                         onChange={(e) => onChangeHanler({ index, destination: 'pickup', value: e.target.value })}
                                                         className={`${direction} ${reservationError?.selectedPickupPoints?.length > 0 && !internalState[`pickup-search-value-${index}`] && selectedPickupPoints.length === 0 ? styles.error_input : ""}`}
@@ -402,6 +403,7 @@ const Hero = (props) => {
                                                         placeholder={appData?.words["seLocationPlaceholder"]}
                                                         value={internalState[`dropoff-search-value-${index}`]}
                                                         autoFocus={internalState[`dropoff-search-focus-${index}`]}
+                                                        onFocus={e => setFocusToInput({ e, destination: "dropoff", index })}
                                                         f={String(internalState[`dropoff-search-focus-${index}`])} //giving a style if we focused
                                                         onChange={(e) => onChangeHanler({ index, destination: 'dropoff', value: e.target.value })}
                                                         className={`${direction} ${reservationError?.selectedDropoffPoints?.length > 0 && !internalState[`dropoff-search-value-${index}`] && selectedDropoffPoints.length === 0 ? styles.error_input : ""}`}
