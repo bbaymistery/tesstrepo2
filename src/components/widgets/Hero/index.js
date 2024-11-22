@@ -253,8 +253,10 @@ const Hero = (props) => {
 
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
-        let mainContainer = document.querySelector("#general_main_container");
-        mainContainer.style.overflow = "hidden";
+        if (window.innerWidth < 990) {
+            let mainContainer = document.querySelector("#general_main_container");
+            mainContainer.style.overflow = "hidden";
+        }
         e.target.style.opacity = 0
 
         setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
@@ -274,8 +276,8 @@ const Hero = (props) => {
             [`collecting-${destination}-points-${index}`]: [],
             [`show-${destination}-extra-point-${index}`]: true,
         })
-        
-     
+
+
         let mainContainer = document.querySelector("#general_main_container");
         mainContainer.style.overflow = "unset";
     }
