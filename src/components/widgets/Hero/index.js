@@ -319,11 +319,9 @@ const Hero = (props) => {
         // bu rendere sebeb olur
         dispatch({ type: "CHECHK_FLIGHT_WAITING_TIME", data: { journeyType } })
 
-        const navigationEntries = performance.getEntriesByType("navigation");
-        const isInitialLoad = navigationEntries.length > 0 && navigationEntries[0].type === "navigate";
-
-        if (isInitialLoad && document.documentElement.clientWidth < 767) {
-            window.scrollTo({ top: 10, left: 0, behavior: "smooth" });
+       
+        if (500 > document.documentElement.clientWidth) {
+            window.scrollTo({ top: 26, left: 0, behavior: "smooth", });
         }
     }, [])
     let size = useWindowSize();
