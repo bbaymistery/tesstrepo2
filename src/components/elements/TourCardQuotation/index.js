@@ -158,7 +158,7 @@ const TourCardQuotation = (params = {}) => {
                   <p>
                     <span>Pick-up From :</span>
                     <span className={styles.desc}>
-                      Any London Address (Full address will be requested on the following page)
+                     Full address will be requested on the following page
                     </span>
                   </p>
                   <p>

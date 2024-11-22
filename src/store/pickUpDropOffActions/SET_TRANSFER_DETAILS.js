@@ -8,12 +8,12 @@ function SET_TRANSFER_DETAILS(params = {}) {
 
     if (name === "passengersNumber") {
         if (journeyType === 1 && updateBothJourneyCheckBox) {
-            newState.reservations[0].transferDetails = { ...transferDetails, [name]: parseInt(value) }
-            newState.reservations[1].transferDetails = { ...transferDetails, [name]: parseInt(value) }
+            newState.reservations[0].transferDetails = { ...newState.reservations[0].transferDetails, [name]: parseInt(value) }
+            newState.reservations[1].transferDetails = { ...newState.reservations[1].transferDetails, [name]: parseInt(value) }
         } else {
             newState.reservations[index].transferDetails = { ...transferDetails, [name]: parseInt(value) }
         }
-    } else if (name ==="specialRequests") {
+    } else if (name === "specialRequests") {
         newState.reservations[index].transferDetails = { ...transferDetails, [name]: value }
     }
     return newState;
