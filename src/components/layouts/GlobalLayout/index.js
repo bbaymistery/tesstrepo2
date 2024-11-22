@@ -15,11 +15,11 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
   const { params: { language } } = state;
   const websiteDomain = "https://www.airport-pickups-london.com";
 
-  // Use useEffect to update the <html lang> attribute dynamically
+  //CHANGE HTML ATTRIBUTE BASED O LANGUGAE
   useEffect(() => {
     if (language) {
       document.documentElement.lang = language;
-    }else{
+    } else {
       document.documentElement.lang = "en";
 
     }
@@ -30,18 +30,18 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         <title>{title}</title>
         <meta key="keywords" name="keywords" content={keywords} />
         <meta key="description" name="description" content={description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 " />
         {/* //alternates for terms abouts us aand other Static pages We dont need schema so we didnt include*/}
         {Object.entries(STATIC_ROUTES).map(([key, path]) =>
           router.pathname === path && (
             <React.Fragment key={key}>
-              <link rel="canonical" href={`${websiteDomain}${path}`} />
+              <link rel="canonical" href={language === 'en' ? `${websiteDomain}${path}` : `${websiteDomain}/${language}${path}`} />
               <link rel="alternate" hrefLang="tr" href={`${websiteDomain}/tr${path}`} />
               <link rel="alternate" hrefLang="ar" href={`${websiteDomain}/ar${path}`} />
               <link rel="alternate" hrefLang="es" href={`${websiteDomain}/es${path}`} />
               <link rel="alternate" hrefLang="it" href={`${websiteDomain}/it${path}`} />
               <link rel="alternate" hrefLang="ru" href={`${websiteDomain}/ru${path}`} />
-              <link rel="alternate" hrefLang="zh" href={`${websiteDomain}/zh${path}`} />
+              <link rel="alternate" hrefLang="zh-Hans" href={`${websiteDomain}/zh${path}`} />
               <link rel="alternate" hrefLang="x-default" href={`${websiteDomain}${path}`} />
             </React.Fragment>
           )
@@ -98,14 +98,12 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
         <meta name="copyright" content={`Copyright Airport-pickups-london.com ${currentYear}. All rights reserved.`} />
         <meta name="resource-type" content="document" />
         <meta name="author" content="Airport-pickups-london.com" />
-        <meta name="language" content="en" />
-
         <meta property="og:site_name" content="Airport Pickups London" />
         <meta property="og:type" content="website" />
 
         {/* Allow indexing and following links */}
-        <meta name="googlebot" content="noindex" />
-        <meta name="robots" content="noindex" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="robots" content="index, follow" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@Airport_Pickups" />

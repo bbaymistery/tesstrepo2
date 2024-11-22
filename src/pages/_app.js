@@ -16,7 +16,11 @@ const myFont = localFont({ src: '../../public/googleFonts/92zatBhPNqw73oTd4g.wof
 export const MyApp = ({ Component, pageProps }) => {
 
   const router = useRouter()
-
+  //next js doesnt allow addd ? in the redirect or next config.js so i considered redirect here
+  if (router.asPath === "/Search.asp?q=%7Bsearch_term_string%7D" || router.asPath === "/js/chat_widget.js?112") {
+    router.push("/")
+    window.location.replace("/");
+  }
 
   //localhost:3500//test
   // Check if 'asPath' contains two or more consecutive slashes
@@ -36,9 +40,7 @@ export const MyApp = ({ Component, pageProps }) => {
     let allAppDatas = JSON.parse(sessionStorage.getItem('allAppDatas'))
 
     if (language.length === 2 && allAppDatas) {
-      dispatch({ type: "SET_NEW_APPDATA", data: allAppDatas?.[language], initialStateReducer: store.getState().initialReducer })
-
-
+      dispatch({ type: "SET_NEW_APPDATA", data: allAppDatas?.[language] ? allAppDatas?.[language] : allAppDatas?.["en"], initialStateReducer: store.getState().initialReducer })
     } else {
       //ilk basda tek sefer calisicak sonra yukarisi calisir
       dispatch({ type: "SET_NEW_APPDATA", data: appData, initialStateReducer: store.getState().initialReducer })
@@ -47,9 +49,10 @@ export const MyApp = ({ Component, pageProps }) => {
     let index
     appData?.languages.map((item, idx) => (language === item.value) ? index = idx : idx)
     let direction = language === 'ar' ? "rtl" : "ltr"
-    localStorage.setItem("direction", JSON.stringify(direction));
+    localStorage?.setItem("direction", JSON.stringify(direction));
+    const exists = appData?.languages?.some(lang => lang.value === language);
 
-    dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: language, direction, langIndex: index } })
+    dispatch({ type: "SET_NEW_LANGUAGE", data: { languageKey: exists ? language : "en", direction, langIndex: index } })
 
   }, [dispatch, appData,])
 
@@ -127,13 +130,14 @@ export const MyApp = ({ Component, pageProps }) => {
     else {
       setLanguage({ language: hasLanguage !== 'en' ? hasLanguage : language, hydrate: false })
     }
+
   }, [router.asPath])
 
 
 
   return (<Provider store={store}>
     <main style={{ fontFamily: myFont.style.fontFamily }}>
-      <Component {...pageProps}  />
+      <Component {...pageProps} />
     </main>
   </Provider>);
 }
@@ -146,18 +150,14 @@ MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component
 
   const env = await fetchConfig();
 
-  const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
+  let pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
   //language congiguration based on the url (http://localhost:3500/it/gatwick-taxi-prices  if he pres enter we get lang)
   let lang = checkLanguageAttributeOntheUrl(ctx?.req?.url)
   let appDataInitial = store.getState().initialReducer?.appData
   let paymentTypesInitial = store.getState().initialReducer?.paymentTypes
-
-
-  // Fetch app data and payment types only if not already fetched
-  //yani localhost3500/it yazb enter basdigimizda ctx?.req?.url=>"/it " olur O zamanbu calismalidi Tek sefer calismasi icin includes json ile yoxladig
-  //vunki language degisende (navbardan )  ctx?.req?.url =>icinde json olur ||| url: '/_next/data/development/index.json
-  //Tek seferlik calismasi ucun bele yazdiq
-  //Onnan sor her dil degisende  setLanguage fonksyonu ile eski appDatalari getirirk Hansiniki  fetchAllLanguages ile sesion storage eklemisik
+  // Pathname kontrolü
+  const excludePaths = ['/news', '/blog'];
+  const isExcluded = excludePaths.some((path) => ctx?.req?.url.toLowerCase().startsWith(path));
 
   // Fetch app data and payment types
   if (ctx?.req?.url) {
@@ -173,10 +173,22 @@ MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component
     appDataInitial = response[1];
     paymentTypesInitial = response[0].data;
 
-    // Dispatch values to Redux store
-    store.dispatch({ type: "GET_APP_DATA", data: { appData: appDataInitial, paymentTypes: paymentTypesInitial, }, });
+    if (isExcluded) {
+      // Eğer rota /News veya /blog ile başlıyorsa verileri null yap
+      store.dispatch({ type: "GET_APP_DATA", data: { appData: null, paymentTypes: null, } });
+    } else {
+      // Dispatch values to Redux store
+      store.dispatch({ type: "GET_APP_DATA", data: { appData: appDataInitial, paymentTypes: paymentTypesInitial, } });
+    }
+
   }
-  return { pageProps: { ...pageProps, appData: appDataInitial, hasLanguage: lang || "en", env } }
+
+  if (isExcluded) {
+    pageProps = { hasLanguage: "en", appData: null, paymentTypes: null, }
+  } else {
+    pageProps = { appData: appDataInitial, hasLanguage: lang || "en", env, }
+  }
+  return { pageProps: { ...pageProps, } };
 
 });
 export default wrapper.withRedux(MyApp);

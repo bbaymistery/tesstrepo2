@@ -102,53 +102,50 @@ const Header = () => {
 
 
   return (
-    <div className={styles.nav_container} id="navbar_container" >
-      <header className={styles.header} >
-        <div className={styles.header_container}>
-          <div className={styles.header_flex_div}>
-            <div className={styles.left_items}>
-              <div className={styles.left_items_flex_div}>
-                <a href={language === 'en' ? '/' : `/${language}`} className={`${styles.logo_tag}`}  >
-                  <Image src={logoImage} alt="Airport-pickups-london Logo" width={30} height={30} priority />
-                  <span>Airport Pickups London</span>
-                </a>
-                {width > 1200 ? <DesktopMenu appData={translatedAppData} journeyType={journeyType} language={language} /> : <></>}
+    <header className={styles.header} id="navbar_container" >
+      <div className={styles.header_container}>
+        <div className={styles.header_flex_div}>
+          <div className={styles.left_items}>
+            <div className={styles.left_items_flex_div}>
+              <a href={language === 'en' ? '/' : `/${language}`} className={`${styles.logo_tag}`}  >
+                <Image src={logoImage} alt="Airport-pickups-london Logo" width={30} height={30} priority />
+                <span>Airport Pickups London</span>
+              </a>
+              {width > 1200 ? <DesktopMenu appData={translatedAppData} journeyType={journeyType} language={language} /> : <></>}
+            </div>
+          </div>
+          {/* mobile  */}
+          {openMenu ?
+            <MobileMenu openMenu={openMenu} handleClickNavLinkMobileMenuNotList={handleClickNavLinkMobileMenuNotList} language={language} handleClickNavLinkMobileMenuList={handleClickNavLinkMobileMenuList} appData={translatedAppData} />
+            : <></>}
+
+          <div className={styles.right_items}>
+            {/* eliminate cursor  */}
+            <div className={`${styles.language_dropdown}`} style={{ cursor: `${(router.asPath === "/drivers-wanted" || router.asPath === "/sitemap") ? " default" : ""}` }}>
+              <div className={styles.top} >
+                <div className={styles.img_div} onClick={setOpenLanguageDropdown} data-name="language">
+                  <Image src={`/languages/${language}.gif`} width={20} height={11} priority alt={language} data-name="language" />
+                </div>
+                <span data-name="language" onClick={setOpenLanguageDropdown} className={styles.lang_text}>
+                  {appData?.languages[reducerLangIndex]?.innerText}
+                  {(router.asPath === "/drivers-wanted" || router.asPath === "/sitemap") ? <></> : <i className="fa-solid fa-angle-down"></i>}
+                </span>
+                {languageStatus ?
+                  <OutsideClickAlert onOutsideClick={outsideClickDropDown}>
+                    <DropDownAllLanguages languageStatus={languageStatus} handleLanguage={handleLanguage} />
+                  </OutsideClickAlert> : <></>}
               </div>
             </div>
-            {/* mobile  */}
-            {openMenu ?
-              <MobileMenu openMenu={openMenu} handleClickNavLinkMobileMenuNotList={handleClickNavLinkMobileMenuNotList} language={language} handleClickNavLinkMobileMenuList={handleClickNavLinkMobileMenuList} appData={translatedAppData} />
-              : <></>}
 
-            <div className={styles.right_items}>
-              {/* eliminate cursor  */}
-              <div className={`${styles.language_dropdown}`} style={{ cursor: `${(router.asPath === "/drivers-wanted" || router.asPath === "/sitemap") ? " default" : ""}` }}>
-                <div className={styles.top} >
-                  <div className={styles.img_div} onClick={setOpenLanguageDropdown} data-name="language">
-                    <Image src={`/languages/${language}.gif`} width={20} height={11} priority alt={language} data-name="language" />
-                  </div>
-                  <span data-name="language" onClick={setOpenLanguageDropdown} className={styles.lang_text}>
-                    {appData?.languages[reducerLangIndex]?.innerText}
-                    {(router.asPath === "/drivers-wanted" || router.asPath === "/sitemap") ? <></> : <i className="fa-solid fa-angle-down"></i>}
-                  </span>
-                  {languageStatus ?
-                    <OutsideClickAlert onOutsideClick={outsideClickDropDown}>
-                      <DropDownAllLanguages languageStatus={languageStatus} handleLanguage={handleLanguage} />
-                    </OutsideClickAlert> : <></>}
-                </div>
-              </div>
-
-              {width > 1200 ? <TopHeaderWhiteLeftButtons language={language} appData={translatedAppData} /> : <></>}
-              <div onClick={toggleMenu} className={`${styles.menu}`} id="menu"   >
-                {!openMenu ? <i className="fa-solid fa-bars"></i> : <i className="fa-solid fa-xmark"></i>}
-              </div>
+            {width > 1200 ? <TopHeaderWhiteLeftButtons language={language} appData={translatedAppData} /> : <></>}
+            <div onClick={toggleMenu} className={`${styles.menu}`} id="menu"   >
+              {!openMenu ? <i className="fa-solid fa-bars"></i> : <i className="fa-solid fa-xmark"></i>}
             </div>
           </div>
         </div>
+      </div>
 
-      </header>
-
-    </div>
+    </header>
   );
 };
 

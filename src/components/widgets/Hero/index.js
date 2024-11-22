@@ -19,7 +19,6 @@ const WaveLoading = dynamic(() => import('../../elements/LoadingWave'))
 const Loading = dynamic(() => import('../../elements/Loading'))
 const Features = dynamic(() => import('../Features'))
 
-
 const pushToQuotationsResultPage = (params = {}) => {
     let { dispatch, router, log, journeyType, language } = params
     dispatch({ type: "GET_QUOTATION", data: { results: log, journeyType } })
@@ -33,7 +32,6 @@ const Hero = (props) => {
     const state = useSelector(state => state.pickUpDropOffActions)
     let { reservations, params } = state
     let { sessionToken: reducerSessionToken, journeyType, direction, language, hasTaxiDeals } = params
-    const [isInitialLoad, setIsInitialLoad] = useState(true);
     const { appData } = useSelector(state => state.initialReducer)
     let [internalState, setInternalState] = React.useReducer((s, o) => ({ ...s, ...o }), {
         'pickup-search-value-0': '',
@@ -156,6 +154,7 @@ const Hero = (props) => {
     const onChangeHanler = useCallback((params = {}) => {
         let { index, value, destination } = params
         let { passengerDetails: { token: passengerDetailsToken } } = reservations[0]
+        console.log({ params });
 
         //hinder user  to add some Characters
         if (ifHasUnwantedCharacters(value)) return
@@ -254,19 +253,15 @@ const Hero = (props) => {
 
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
-        document.body.style.position = "fixed";
-        document.body.style.overflow = "hidden";
-        if (window.innerWidth < 990) {
-            let navbarElement = document.querySelector("#navbar_container")
-            navbarElement.style.display = "none"
-            e.target.style.opacity = 0
-            setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
-            const container = document?.querySelector(`#content${index}${destination}`);
-            e.target.style.opacity = 1
-            setTimeout(() => { window.scroll({ top: 0, left: 0, behavior: "smooth", }) }, 10);
-        }
+        // document.body.style.overflow = "hidden";
+        e.target.style.opacity = 0
+        // console.log(`#content${index}${destination}`);
+        // let navbarElement = document.querySelector("#navbar_container")
+        // navbarElement.style.display = "none"
+        setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
+        e.target.style.opacity = 1
+        setTimeout(() => { window.scroll({ top: 0, left: 0, behavior: "smooth", }); }, 100);
     }
-
     const handleAddNewInput = (params = {}) => {
         let { index, destination } = params
         setInternalState({ [`show-${destination}-extra-point-${index}`]: false, [`${destination}-search-focus-${index}`]: true })
@@ -280,6 +275,8 @@ const Hero = (props) => {
             [`collecting-${destination}-points-${index}`]: [],
             [`show-${destination}-extra-point-${index}`]: true,
         })
+        let navbarElement = document.querySelector("#navbar_container");
+        navbarElement.style.display = "flex";
     }
 
     const outsideClick = ({ destination, index }) => {
@@ -290,8 +287,13 @@ const Hero = (props) => {
 
     const closeModal = (params = {}) => {
         let { index, destination } = params
+        setInternalState({
+            [`${destination}-search-value-${index}`]: "",
+            [`${destination}-search-focus-${index}`]: false,
+            [`collecting-${destination}-points-${index}`]: [],
+            [`show-${destination}-extra-point-${index}`]: true,
+        })
         document.body.style.overflow = "unset";
-        document.body.style.position = "relative";
         let inputField = document.getElementById(`${destination}_input_focused_${index}`)
         inputField.style.opacity = 1
         setInternalState({ [`${destination}-search-focus-${index}`]: false, [`${destination}-search-value-${index}`]: "", [`collecting-${destination}-points-${index}`]: [] })
@@ -308,8 +310,14 @@ const Hero = (props) => {
         }
         // bu rendere sebeb olur
         dispatch({ type: "CHECHK_FLIGHT_WAITING_TIME", data: { journeyType } })
-    }, [])
 
+        const navigationEntries = performance.getEntriesByType("navigation");
+        const isInitialLoad = navigationEntries.length > 0 && navigationEntries[0].type === "navigate";
+
+        if (isInitialLoad && document.documentElement.clientWidth < 767) {
+            window.scrollTo({ top: 10, left: 0, behavior: "smooth" });
+        }
+    }, [])
     let size = useWindowSize();
     let { width } = size
 
@@ -320,8 +328,8 @@ const Hero = (props) => {
                 <div className={`${styles.hero_section_container} page_section_container`}>
                     <div className={styles.points_content}>
                         <div className={styles.main_search}>
-                            <div className={`${!islinknamecomponent ? styles.title_div_islinnkname : styles.title_div}`}>
-                                <h1 style={{ textTransform: "capitalize" }} className={`${styles.title} ${direction} `}>
+                            <div className={`${!islinknamecomponent ? 's' : styles.title_div}`}>
+                                <h1 className={`${styles.title} ${direction} `}>
                                     {islinknamecomponent ? <span>{appData?.words[`${titleStringOfHastaxiDeals(hasTaxiDeals)}`]}</span> : <span>{appData?.words["searchEngineTitle"]}</span>}
                                 </h1>
                             </div>
@@ -336,6 +344,86 @@ const Hero = (props) => {
                                 const [splitedDate] = splitDateTimeStringIntoDate(transferDateTimeString) || []
                                 return (
                                     <div key={index}>
+                                        {width < 990 ? <OutsideClickAlert onOutsideClick={(e) => outsideClick({ destination: "pickup", index })}>
+                                            <div id={`content${index}pickup`} className={`${styles["input_div_pop_up"]} ${styles['search-input-container']}`} f={String(internalState[`pickup-search-focus-${index}`])} >
+                                                <div className={`${styles.popup_header} ${direction}`} f={String(internalState[`pickup-search-focus-${index}`])}>
+                                                    <i className={`fa-solid fa-xmark ${styles.close_icon}`} onClick={(e) => closeModal({ index, destination: "pickup" })}></i>
+                                                    <p className={direction}>{appData?.words["strFromWithQuestionMark"]} </p>
+                                                </div>
+                                                {selectedPickupPoints.length === 0 || (!internalState[`show-pickup-extra-point-${index}`] && selectedPickupPoints.length > 0) ?
+                                                    <input
+                                                        type="text"
+                                                        autoComplete="off"
+                                                        id={`pickup_input_focused_${index}`}//this is for scrolling top when ever we focus on mobile
+                                                        placeholder={appData?.words["seLocationPlaceholder"]}
+                                                        value={internalState[`pickup-search-value-${index}`]}
+                                                        autoFocus={internalState[`pickup-search-focus-${index}`]}
+                                                        f={String(internalState[`pickup-search-focus-${index}`])} //giving a style if we focused
+                                                        onChange={(e) => onChangeHanler({ index, destination: 'pickup', value: e.target.value })}
+                                                        className={`${direction} ${reservationError?.selectedPickupPoints?.length > 0 && !internalState[`pickup-search-value-${index}`] && selectedPickupPoints.length === 0 ? styles.error_input : ""}`}
+                                                    /> : <React.Fragment></React.Fragment>}
+                                                {/* loading icon inside input */}
+                                                {internalState[`pickup-search-loading-${index}`] ?
+                                                    <div className={styles.loading_div} direction={String(direction === "rtl")} popupp={String(internalState[`pickup-search-focus-${index}`])}      >
+                                                        <Loading />
+                                                    </div> : <React.Fragment></React.Fragment>}
+                                                {/* error icon inside input */}
+                                                {reservationError?.selectedPickupPoints?.length > 0 && !internalState[`pickup-search-value-${index}`] && selectedPickupPoints.length === 0 ?
+                                                    <div className={`${styles.error_icon}`} popupp={String(internalState[`pickup-search-focus-${index}`])} direction={String(direction === "rtl")}>
+                                                        <i title={reservationError?.selectedPickupPoints} className="fa-solid fa-circle-exclamation"></i>
+                                                    </div> : <React.Fragment></React.Fragment>}
+                                                {/* //delete field icon inside input  */}
+                                                {(!internalState[`show-pickup-extra-point-${index}`] && selectedPickupPoints.length > 0 && !internalState[`pickup-search-loading-${index}`]) ?
+                                                    <i onClick={(e) => deleteField({ destination: "pickup", index })} popupp={String(internalState[`pickup-search-focus-${index}`])} direction={String(direction === "rtl")} className={`fa-solid fa-delete-left ${styles.input_delete_field_icon}`}></i>
+                                                    : <React.Fragment></React.Fragment>}
+                                                {/* if !internalState[`pickup-search-value-${index}`] then our handleSearchResults will be belong to styles.book.input */}
+                                                {!Array.isArray(internalState[`collecting-pickup-points-${index}`]) ?
+                                                    //setInternalState>>>after adding item we set input field  to empty and add extradiv to true
+                                                    <HandleSearchResults env={env} language={language} index={index} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${index}`]} /> : <React.Fragment></React.Fragment>}
+
+                                            </div>
+                                        </OutsideClickAlert> : <></>}
+
+
+                                        {/*  //!Popuop for drop off points */}
+                                        {width < 990 ? <OutsideClickAlert onOutsideClick={(e) => outsideClick({ destination: "dropoff", index })}>
+                                            <div id={`content${index}dropoff`} d={`content${index}`} className={`${styles["input_div_pop_up"]} ${styles['search-input-container']}`} f={String(internalState[`dropoff-search-focus-${index}`])} >
+                                                <div className={`${styles.popup_header} ${direction}`} f={String(internalState[`dropoff-search-focus-${index}`])}>
+                                                    <i className={`fa-solid fa-xmark ${styles.close_icon}`} onClick={(e) => closeModal({ index, destination: "dropoff" })}></i>
+                                                    <p className={direction}>{appData?.words["strWhereWithQuestionMark"]} </p>
+                                                </div>
+                                                {selectedDropoffPoints.length === 0 || (!internalState[`show-dropoff-extra-point-${index}`] && selectedDropoffPoints.length > 0) ?
+                                                    <input
+                                                        type="text"
+                                                        autoComplete="off"
+                                                        id={`dropoff_input_focused_${index}`}//this is for scrolling top when ever we focus on mobile
+                                                        placeholder={appData?.words["seLocationPlaceholder"]}
+                                                        value={internalState[`dropoff-search-value-${index}`]}
+                                                        autoFocus={internalState[`dropoff-search-focus-${index}`]}
+                                                        f={String(internalState[`dropoff-search-focus-${index}`])} //giving a style if we focused
+                                                        onChange={(e) => onChangeHanler({ index, destination: 'dropoff', value: e.target.value })}
+                                                        className={`${direction} ${reservationError?.selectedDropoffPoints?.length > 0 && !internalState[`dropoff-search-value-${index}`] && selectedDropoffPoints.length === 0 ? styles.error_input : ""}`}
+                                                    /> : <React.Fragment></React.Fragment>}
+                                                {/* loading icon inside input */}
+                                                {internalState[`dropoff-search-loading-${index}`] ? <div className={styles.loading_div} popupp={String(internalState[`dropoff-search-focus-${index}`])} direction={String(direction === "rtl")}>  <Loading />  </div> : <React.Fragment></React.Fragment>}
+
+                                                {/* error icon inside input */}
+                                                {reservationError?.selectedDropoffPoints?.length > 0 && !internalState[`dropoff-search-value-${index}`] && selectedDropoffPoints.length === 0 ?
+                                                    <div className={`${styles.error_icon}`} popupp={String(internalState[`dropoff-search-focus-${index}`])} direction={String(direction === "rtl")}>
+                                                        <i title={reservationError?.selectedDropoffPoints} className="fa-solid fa-circle-exclamation"></i>
+                                                    </div> : <React.Fragment></React.Fragment>}
+
+                                                {/* //delete field icon inside input  */}
+                                                {(!internalState[`show-dropoff-extra-point-${index}`] && selectedDropoffPoints.length > 0 && !internalState[`dropoff-search-loading-${index}`]) ?
+                                                    <i onClick={(e) => deleteField({ destination: "dropoff", index })} popupp={String(internalState[`dropoff-search-focus-${index}`])} direction={String(direction === "rtl")} className={`fa-solid fa-delete-left ${styles.input_delete_field_icon}`}></i>
+                                                    : <React.Fragment></React.Fragment>}
+                                                {/* results when we get points */}
+                                                {!Array.isArray(internalState[`collecting-dropoff-points-${index}`]) ?
+                                                    <HandleSearchResults env={env} language={language} index={index} destination="dropoff" setInternalState={setInternalState} collectingPoints={internalState[`collecting-dropoff-points-${index}`]} /> : <React.Fragment></React.Fragment>}
+                                            </div>
+                                        </OutsideClickAlert> : <></>}
+
+
                                         {reservations.length > 1 && index == 0 ? <div className={`${styles.tr_journey_title} ${direction}`}>{appData?.words["seGoingDetails"]}</div> : <React.Fragment></React.Fragment>}
                                         {index == 1 ? <div className={`${styles.return_journey_title} ${direction}`}>{appData?.words["seReturnDetails"]}</div> : <React.Fragment></React.Fragment>}
                                         <div className={`${styles.points} ${direction}`} direction={String(direction === "rtl")}>
@@ -352,47 +440,41 @@ const Hero = (props) => {
                                                         <i className={`fa-solid fa-plus ${styles.add_point_icon}`}  ></i>
                                                         <p className={styles.add_point_text}>{appData?.words["strAddExtraPoint"]}</p>
                                                     </div> : <React.Fragment></React.Fragment>}
-                                                <OutsideClickAlert onOutsideClick={(e) => outsideClick({ destination: "pickup", index })}>
-                                                    <div id={`content${index}pickup`} d={`content${index}`} className={`${styles.input_div} ${styles['search-input-container']}`} f={String(internalState[`pickup-search-focus-${index}`])} >
-                                                        <div className={`${styles.popup_header} ${direction}`} f={String(internalState[`pickup-search-focus-${index}`])}>
-                                                            <i className={`fa-solid fa-xmark ${styles.close_icon}`} onClick={(e) => closeModal({ index, destination: "pickup" })}></i>
-                                                            <p className={direction}>{appData?.words["strFromWithQuestionMark"]} </p>
-                                                        </div>
-                                                        {selectedPickupPoints.length === 0 || (!internalState[`show-pickup-extra-point-${index}`] && selectedPickupPoints.length > 0) ?
-                                                            <input
-                                                                type="text"
-                                                                autoComplete="off"
-                                                                id={`pickup_input_focused_${index}`}//this is for scrolling top when ever we focus on mobile
-                                                                placeholder={appData?.words["seLocationPlaceholder"]}
-                                                                value={internalState[`pickup-search-value-${index}`]}
-                                                                autoFocus={internalState[`pickup-search-focus-${index}`]}
-                                                                f={String(internalState[`pickup-search-focus-${index}`])} //giving a style if we focused
-                                                                onFocus={e => setFocusToInput({ e, destination: "pickup", index })}
-                                                                onChange={(e) => onChangeHanler({ index, destination: 'pickup', value: e.target.value })}
-                                                                className={`${direction} ${reservationError?.selectedPickupPoints?.length > 0 && !internalState[`pickup-search-value-${index}`] && selectedPickupPoints.length === 0 ? styles.error_input : ""}`}
-                                                            /> : <React.Fragment></React.Fragment>}
-                                                        {/* loading icon inside input */}
-                                                        {internalState[`pickup-search-loading-${index}`] ?
-                                                            <div className={styles.loading_div} direction={String(direction === "rtl")} popupp={String(internalState[`pickup-search-focus-${index}`])}      >
-                                                                <Loading />
-                                                            </div> : <React.Fragment></React.Fragment>}
-                                                        {/* error icon inside input */}
-                                                        {reservationError?.selectedPickupPoints?.length > 0 && !internalState[`pickup-search-value-${index}`] && selectedPickupPoints.length === 0 ?
-                                                            <div className={`${styles.error_icon}`} popupp={String(internalState[`pickup-search-focus-${index}`])} direction={String(direction === "rtl")}>
-                                                                <i title={reservationError?.selectedPickupPoints} className="fa-solid fa-circle-exclamation"></i>
-                                                            </div> : <React.Fragment></React.Fragment>}
-                                                        {/* //delete field icon inside input  */}
-                                                        {(!internalState[`show-pickup-extra-point-${index}`] && selectedPickupPoints.length > 0 && !internalState[`pickup-search-loading-${index}`]) ?
-                                                            <i onClick={(e) => deleteField({ destination: "pickup", index })} popupp={String(internalState[`pickup-search-focus-${index}`])} direction={String(direction === "rtl")} className={`fa-solid fa-delete-left ${styles.input_delete_field_icon}`}></i>
-                                                            : <React.Fragment></React.Fragment>}
-                                                        {/* if !internalState[`pickup-search-value-${index}`] then our handleSearchResults will be belong to styles.book.input */}
-                                                        {!Array.isArray(internalState[`collecting-pickup-points-${index}`]) ?
-                                                            //setInternalState>>>after adding item we set input field  to empty and add extradiv to true
-                                                            <HandleSearchResults env={env} language={language} index={index} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${index}`]} /> : <React.Fragment></React.Fragment>}
+                                                <div className={`${styles.input_div} `}  >
 
-                                                    </div>
+                                                    {selectedPickupPoints.length === 0 || (!internalState[`show-pickup-extra-point-${index}`] && selectedPickupPoints.length > 0) ?
+                                                        <input
+                                                            type="text"
+                                                            autoComplete="off"
+                                                            id={`pickup_input_focused_${index}`}//this is for scrolling top when ever we focus on mobile
+                                                            placeholder={appData?.words["seLocationPlaceholder"]}
+                                                            value={internalState[`pickup-search-value-${index}`]}
+                                                            autoFocus={internalState[`pickup-search-focus-${index}`]}
+                                                            onFocus={e => setFocusToInput({ e, destination: "pickup", index })}
+                                                            onChange={(e) => onChangeHanler({ index, destination: 'pickup', value: e.target.value })}
+                                                            className={`${direction} ${reservationError?.selectedPickupPoints?.length > 0 && !internalState[`pickup-search-value-${index}`] && selectedPickupPoints.length === 0 ? styles.error_input : ""}`}
+                                                        /> : <React.Fragment></React.Fragment>}
+                                                    {/* loading icon inside input */}
+                                                    {internalState[`pickup-search-loading-${index}`] ?
+                                                        <div className={styles.loading_div} direction={String(direction === "rtl")} popupp={String(internalState[`pickup-search-focus-${index}`])}      >
+                                                            <Loading />
+                                                        </div> : <React.Fragment></React.Fragment>}
+                                                    {/* error icon inside input */}
+                                                    {reservationError?.selectedPickupPoints?.length > 0 && !internalState[`pickup-search-value-${index}`] && selectedPickupPoints.length === 0 ?
+                                                        <div className={`${styles.error_icon}`} popupp={String(internalState[`pickup-search-focus-${index}`])} direction={String(direction === "rtl")}>
+                                                            <i title={reservationError?.selectedPickupPoints} className="fa-solid fa-circle-exclamation"></i>
+                                                        </div> : <React.Fragment></React.Fragment>}
+                                                    {/* //delete field icon inside input  */}
+                                                    {(!internalState[`show-pickup-extra-point-${index}`] && selectedPickupPoints.length > 0 && !internalState[`pickup-search-loading-${index}`]) ?
+                                                        <i onClick={(e) => deleteField({ destination: "pickup", index })} popupp={String(internalState[`pickup-search-focus-${index}`])} direction={String(direction === "rtl")} className={`fa-solid fa-delete-left ${styles.input_delete_field_icon}`}></i>
+                                                        : <React.Fragment></React.Fragment>}
+                                                    {/* if !internalState[`pickup-search-value-${index}`] then our handleSearchResults will be belong to styles.book.input */}
+                                                    {!Array.isArray(internalState[`collecting-pickup-points-${index}`]) ?
+                                                        //setInternalState>>>after adding item we set input field  to empty and add extradiv to true
+                                                        <HandleSearchResults env={env} language={language} index={index} destination="pickup" setInternalState={setInternalState} collectingPoints={internalState[`collecting-pickup-points-${index}`]} /> : <React.Fragment></React.Fragment>}
 
-                                                </OutsideClickAlert>
+                                                </div>
+
 
                                             </div>
                                             <div className={`${styles.search_menu} ${styles.second_column}`}>
@@ -408,43 +490,37 @@ const Hero = (props) => {
                                                         <i className={`fa-solid fa-plus ${styles.add_point_icon}`}  ></i>
                                                         <p className={styles.add_point_text}>{appData?.words["strAddExtraPoint"]}</p>
                                                     </div> : <React.Fragment></React.Fragment>}
-                                                <OutsideClickAlert onOutsideClick={(e) => outsideClick({ destination: "dropoff", index })}>
-                                                    <div id={`content${index}dropoff`} d={`content${index}`} className={`${styles.input_div} ${styles['search-input-container']}`} f={String(internalState[`dropoff-search-focus-${index}`])} >
-                                                        <div className={`${styles.popup_header} ${direction}`} f={String(internalState[`dropoff-search-focus-${index}`])}>
-                                                            <i className={`fa-solid fa-xmark ${styles.close_icon}`} onClick={(e) => closeModal({ index, destination: "dropoff" })}></i>
-                                                            <p className={direction}>{appData?.words["strWhereWithQuestionMark"]} </p>
-                                                        </div>
-                                                        {selectedDropoffPoints.length === 0 || (!internalState[`show-dropoff-extra-point-${index}`] && selectedDropoffPoints.length > 0) ?
-                                                            <input
-                                                                type="text"
-                                                                autoComplete="off"
-                                                                id={`dropoff_input_focused_${index}`}//this is for scrolling top when ever we focus on mobile
-                                                                placeholder={appData?.words["seLocationPlaceholder"]}
-                                                                value={internalState[`dropoff-search-value-${index}`]}
-                                                                autoFocus={internalState[`dropoff-search-focus-${index}`]}
-                                                                f={String(internalState[`dropoff-search-focus-${index}`])} //giving a style if we focused
-                                                                onFocus={e => setFocusToInput({ e, destination: "dropoff", index })}
-                                                                onChange={(e) => onChangeHanler({ index, destination: 'dropoff', value: e.target.value })}
-                                                                className={`${direction} ${reservationError?.selectedDropoffPoints?.length > 0 && !internalState[`dropoff-search-value-${index}`] && selectedDropoffPoints.length === 0 ? styles.error_input : ""}`}
-                                                            /> : <React.Fragment></React.Fragment>}
-                                                        {/* loading icon inside input */}
-                                                        {internalState[`dropoff-search-loading-${index}`] ? <div className={styles.loading_div} popupp={String(internalState[`dropoff-search-focus-${index}`])} direction={String(direction === "rtl")}>  <Loading />  </div> : <React.Fragment></React.Fragment>}
+                                                <div className={`${styles.input_div}`}  >
 
-                                                        {/* error icon inside input */}
-                                                        {reservationError?.selectedDropoffPoints?.length > 0 && !internalState[`dropoff-search-value-${index}`] && selectedDropoffPoints.length === 0 ?
-                                                            <div className={`${styles.error_icon}`} popupp={String(internalState[`dropoff-search-focus-${index}`])} direction={String(direction === "rtl")}>
-                                                                <i title={reservationError?.selectedDropoffPoints} className="fa-solid fa-circle-exclamation"></i>
-                                                            </div> : <React.Fragment></React.Fragment>}
+                                                    {selectedDropoffPoints.length === 0 || (!internalState[`show-dropoff-extra-point-${index}`] && selectedDropoffPoints.length > 0) ?
+                                                        <input
+                                                            type="text"
+                                                            autoComplete="off"
+                                                            id={`dropoff_input_focused_${index}`}//this is for scrolling top when ever we focus on mobile
+                                                            placeholder={appData?.words["seLocationPlaceholder"]}
+                                                            value={internalState[`dropoff-search-value-${index}`]}
+                                                            autoFocus={internalState[`dropoff-search-focus-${index}`]}
+                                                            onFocus={e => setFocusToInput({ e, destination: "dropoff", index })}
+                                                            onChange={(e) => onChangeHanler({ index, destination: 'dropoff', value: e.target.value })}
+                                                            className={`${direction} ${reservationError?.selectedDropoffPoints?.length > 0 && !internalState[`dropoff-search-value-${index}`] && selectedDropoffPoints.length === 0 ? styles.error_input : ""}`}
+                                                        /> : <React.Fragment></React.Fragment>}
+                                                    {/* loading icon inside input */}
+                                                    {internalState[`dropoff-search-loading-${index}`] ? <div className={styles.loading_div} popupp={String(internalState[`dropoff-search-focus-${index}`])} direction={String(direction === "rtl")}>  <Loading />  </div> : <React.Fragment></React.Fragment>}
 
-                                                        {/* //delete field icon inside input  */}
-                                                        {(!internalState[`show-dropoff-extra-point-${index}`] && selectedDropoffPoints.length > 0 && !internalState[`dropoff-search-loading-${index}`]) ?
-                                                            <i onClick={(e) => deleteField({ destination: "dropoff", index })} popupp={String(internalState[`dropoff-search-focus-${index}`])} direction={String(direction === "rtl")} className={`fa-solid fa-delete-left ${styles.input_delete_field_icon}`}></i>
-                                                            : <React.Fragment></React.Fragment>}
-                                                        {/* results when we get points */}
-                                                        {!Array.isArray(internalState[`collecting-dropoff-points-${index}`]) ?
-                                                            <HandleSearchResults env={env} language={language} index={index} destination="dropoff" setInternalState={setInternalState} collectingPoints={internalState[`collecting-dropoff-points-${index}`]} /> : <React.Fragment></React.Fragment>}
-                                                    </div>
-                                                </OutsideClickAlert>
+                                                    {/* error icon inside input */}
+                                                    {reservationError?.selectedDropoffPoints?.length > 0 && !internalState[`dropoff-search-value-${index}`] && selectedDropoffPoints.length === 0 ?
+                                                        <div className={`${styles.error_icon}`} popupp={String(internalState[`dropoff-search-focus-${index}`])} direction={String(direction === "rtl")}>
+                                                            <i title={reservationError?.selectedDropoffPoints} className="fa-solid fa-circle-exclamation"></i>
+                                                        </div> : <React.Fragment></React.Fragment>}
+
+                                                    {/* //delete field icon inside input  */}
+                                                    {(!internalState[`show-dropoff-extra-point-${index}`] && selectedDropoffPoints.length > 0 && !internalState[`dropoff-search-loading-${index}`]) ?
+                                                        <i onClick={(e) => deleteField({ destination: "dropoff", index })} popupp={String(internalState[`dropoff-search-focus-${index}`])} direction={String(direction === "rtl")} className={`fa-solid fa-delete-left ${styles.input_delete_field_icon}`}></i>
+                                                        : <React.Fragment></React.Fragment>}
+                                                    {/* results when we get points */}
+                                                    {!Array.isArray(internalState[`collecting-dropoff-points-${index}`]) ?
+                                                        <HandleSearchResults env={env} language={language} index={index} destination="dropoff" setInternalState={setInternalState} collectingPoints={internalState[`collecting-dropoff-points-${index}`]} /> : <React.Fragment></React.Fragment>}
+                                                </div>
                                             </div>
                                             <div className={`${styles.search_menu} ${styles.book_input_date} ${styles.third_column}`}>
                                                 <p className={direction}>{selectedPickupPoints[0]?.pcatId === 1 ? appData?.words["seLandingDate"] : appData?.words["sePickUpDate"]}</p>

@@ -106,6 +106,8 @@ const HandleSearchResults = (params = {}) => {
 
     const handleAddItemToSelectList = (params = {}) => {
         let { point, destination } = params
+        console.log({ point, destination });
+
         //setting postcode adressess
         if (point.pcatId === 5) {
             (async () => {
@@ -154,9 +156,9 @@ const HandleSearchResults = (params = {}) => {
         let points = reservations[index][`selected${destination === 'pickup' ? 'Pickup' : 'Dropoff'}Points`]
         reservations[index][`selected${destination === 'pickup' ? 'Pickup' : 'Dropoff'}Points`] = [...points, point]
 
-        let navbarElement = document.querySelector("#navbar_container");
-        navbarElement.style.position = "relative";
-        document.body.style.overflow = "unset";
+        // let navbarElement = document.querySelector("#navbar_container");
+        // navbarElement.style.display = "flex";
+        // document.body.style.overflow = "unset";
 
         getQuotations()
     }

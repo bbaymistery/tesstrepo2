@@ -34,7 +34,7 @@ const TourCardQuotation = (params = {}) => {
   const [activeAccordion, setActiveAccordion] = useState(null)//BY DEFAULT ALL OF TEM WILL BE CLOSED
   const [splitedDate, setSplitedDate] = useState(currentDate())
   const setQuotationHandleClick = (params = {}) => {
- 
+
     let { quotation } = params
     let selectedTour = {
       quotationOptions: datas,
@@ -43,7 +43,7 @@ const TourCardQuotation = (params = {}) => {
       duration,
       price: quotation.price,
       urlImage: quotationImagesObjWebp[quotation?.carId]?.image,
-      title:pageTitle
+      title: pageTitle
     }
 
     dispatch({ type: "SET_TOUR_QUOTATION", data: { selectedTour } })
@@ -90,8 +90,8 @@ const TourCardQuotation = (params = {}) => {
         {datas?.map((item, index) => {
 
           return (
-            <div key={index+1000} className={`${activeAccordion === item.carId ? styles.selectedAccordionCard : ""}`}>
-              <div  className={`${getClassNameResult(selectedQuotation, item)} `} >
+            <div key={index + 1000} className={`${activeAccordion === item.carId ? styles.selectedAccordionCard : ""}`}>
+              <div className={`${getClassNameResult(selectedQuotation, item)} `} >
                 {item ?
                   <div data={quotationImagesObjWebp[item?.carId]?.id} className={styles.column_first}>
                     <Image src={quotationImagesObjWebp[item?.carId]?.image} alt="Car Image" width={300} height={120} style={{ objectFit: "contain", }} priority />
@@ -120,11 +120,21 @@ const TourCardQuotation = (params = {}) => {
                       </div>
                     </div >
                     <div className={styles.car_features}>
-                      <div className={styles.feature_column}><span><span>{carObject?.[item?.carId]?.suitcases}</span> Suitcases</span></div>
+                      <div className={styles.feature_column}>
+                        <span className={styles.car_span}>
+                          {appData?.words["strcVehicleCapacity"]}
+                        </span>
+                      </div>
                       <div className={styles.feature_column}>
                         <span>
-                          <span>{carObject?.[item?.carId]?.pax}</span>
                           {appData?.words["strPassengers"]}
+                          <span>{carObject?.[item?.carId]?.pax}</span>
+                        </span>
+                      </div>
+                      <div className={styles.feature_column}>
+                        <span>
+                          {appData?.words["carsSuitcases"]}
+                          <span>{carObject?.[item?.carId]?.suitcases}</span>
                         </span>
                       </div>
                     </div >

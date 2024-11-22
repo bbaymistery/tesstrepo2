@@ -15,8 +15,6 @@ const PointsModal = ({ points, title, fromAirportToLondon, fromLondonToAirport, 
     const setToFalse = () => {
         dispatch({ type: "SET_POINTS_MODAL", data: { trueOrFalse: false } });
         document.body.style.overflow = "unset";
-        document.body.style.position = "relative";
-
     };
 
     //observer animation
@@ -46,8 +44,6 @@ const PointsModal = ({ points, title, fromAirportToLondon, fromLondonToAirport, 
         if (clickedOutside) {
             dispatch({ type: "SET_POINTS_MODAL", data: { trueOrFalse: false } });
             document.body.style.overflow = "unset";
-            document.body.style.position = "relative";
-
         }
     }, [clickedOutside])
 
@@ -98,7 +94,7 @@ const PointsModal = ({ points, title, fromAirportToLondon, fromLondonToAirport, 
                 <br />
                 <br />
                 <h3>
-                    {dealsName === 'heathrow' && appData.words["strCentralLondontoHeathrowTaxi"]}
+                {dealsName === 'heathrow' && appData.words["strCentralLondontoHeathrowTaxi"]}
                     {dealsName === 'gatwick' && appData.words["strCentralLondontoGatwickTaxi"]}
                     {dealsName === 'stansted' && appData.words["strCentralLondontoStanstedTaxi"]}
                     {dealsName === 'luton' && appData.words["strCentralLondontoLutonTaxi"]}

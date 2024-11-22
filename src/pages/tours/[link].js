@@ -38,6 +38,7 @@ const TourContentDetails = (props) => {
         snapshots,
         shortDescription
     } = props.toursDatas
+
     const informationDivRef = useRef(null);
     const [shouldShowModal, setshouldShowModal] = useState(false)
     const [index, setIndex] = React.useState(0);
@@ -193,14 +194,14 @@ const TourContentDetails = (props) => {
                                     </div>
                                 </div>
                                 <h3 className={styles.snapshot_title}>
-                                    Tour Snapshot
+                                    {appData?.words["strTourSnapshot"]}
                                 </h3>
                                 <div className={styles.snapshot_icons_content}>
                                     {Array.isArray(snapshots) && snapshots.slice(0, 4).map((snapshot, index) => (
                                         <div key={index} className={styles.snapshot_icons_div}>
                                             <i className={`${snapshot.icon}`}></i>
                                             <div className={styles.snapshot_icons_div_description}>
-                                                {loadAlert ? "..." : snapshot.innerText}
+                                                {loadAlert ? "..." : appData?.words[snapshot.alias]}
                                             </div>
                                         </div>
                                     ))}
