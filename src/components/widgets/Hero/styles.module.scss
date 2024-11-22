@@ -237,7 +237,11 @@
                                 @media(max-width:990px) {
                                     padding-right: 0px;
                                     padding-bottom: 4px;
-
+                                    flex-basis: 100%;
+                                    max-width: 100%;
+                                    width: 100%;
+                                    flex-grow: 0;
+                                    flex-shrink: 0;
                                 }
 
                                 .popup_header[f="false"] {

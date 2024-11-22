@@ -136,7 +136,7 @@ export const MyApp = ({ Component, pageProps }) => {
 
 
   return (<Provider store={store}>
-    <main style={{ fontFamily: myFont.style.fontFamily,}} id="general_main_container" >
+    <main style={{ fontFamily: myFont.style.fontFamily,}} >
       <Component {...pageProps} />
     </main>
   </Provider>);
