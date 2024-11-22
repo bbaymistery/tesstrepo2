@@ -253,11 +253,10 @@ const Hero = (props) => {
 
     const setFocusToInput = (params = {}) => {
         let { e, destination, index } = params
-        // document.body.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
         e.target.style.opacity = 0
         // console.log(`#content${index}${destination}`);
-        // let navbarElement = document.querySelector("#navbar_container")
-        // navbarElement.style.display = "none"
+
         setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
         e.target.style.opacity = 1
         setTimeout(() => { window.scroll({ top: 0, left: 0, behavior: "smooth", }); }, 100);
@@ -275,8 +274,8 @@ const Hero = (props) => {
             [`collecting-${destination}-points-${index}`]: [],
             [`show-${destination}-extra-point-${index}`]: true,
         })
-        let navbarElement = document.querySelector("#navbar_container");
-        navbarElement.style.display = "flex";
+        document.body.style.overflow = "unset";
+
     }
 
     const outsideClick = ({ destination, index }) => {
@@ -297,8 +296,9 @@ const Hero = (props) => {
         let inputField = document.getElementById(`${destination}_input_focused_${index}`)
         inputField.style.opacity = 1
         setInternalState({ [`${destination}-search-focus-${index}`]: false, [`${destination}-search-value-${index}`]: "", [`collecting-${destination}-points-${index}`]: [] })
-        let navbarElement = document.querySelector("#navbar_container");
-        navbarElement.style.display = "flex";
+        // let navbarElement = document.querySelector("#navbar_container");
+        // navbarElement.style.display = "flex";
+
     }
     //when we go quotation page then go back In that case we should check
     //if we have points or not.
