@@ -318,7 +318,10 @@ const Hero = (props) => {
         }
         // bu rendere sebeb olur
         dispatch({ type: "CHECHK_FLIGHT_WAITING_TIME", data: { journeyType } })
-
+        // dispatch({ type: "CHECHK_FLIGHT_WAITING_TIME", data: { journeyType } })
+        // dispatch({ type: "CHECHK_FLIGHT_WAITING_TIME", data: { journeyType } })
+        // dispatch({ type: "CHECHK_FLIGHT_WAITING_TIME", data: { journeyType } })
+ 
        
         if (500 > document.documentElement.clientWidth) {
             window.scrollTo({ top: 26, left: 0, behavior: "smooth", });
