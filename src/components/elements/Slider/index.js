@@ -2,7 +2,7 @@ import Image from "next/image.js";
 import styles from "./styles.module.scss";
 //!tour slider
 const Slider = (props) => {
-  let { setshouldShowModal, insideModal = false, index = 0, gotoPreviousSlider = () => { }, gotoNextSlider = () => { }, sliderItems } = props
+  let { setshouldShowModal, insideModal = false, index = 0, gotoPreviousSlider = () => { }, gotoNextSlider = () => { }, sliderItems ,appData} = props
   return (
     // eslint-disable-next-line react/no-unknown-property
     <div className={`${styles.slider_container}`} insidemodal={String(insideModal)}>
@@ -19,7 +19,7 @@ const Slider = (props) => {
                 <div className={styles.intro}>
                   {!insideModal ?
                     <button className="btn" onClick={() => setshouldShowModal(true)}>
-                      See All Photos
+                      {appData?.words["strSeeAllPhotos"]}
                     </button> : <></>}
                 </div>
               </div>

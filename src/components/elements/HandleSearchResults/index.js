@@ -30,7 +30,6 @@ const getPostCodesAndAddToList = (params = {}, callback = () => { }) => {
     const headers = { "Content-Type": "application/json" }
     const method = "POST"
     const body = JSON.stringify({ postcodes: [point.postcode] })
-    console.log({ body });
 
     const config = { method, headers, body };
     fetch(url, config)
@@ -157,8 +156,7 @@ const HandleSearchResults = (params = {}) => {
         let navbarElement = document.querySelector("#navbar_container");
         navbarElement.style.display = "flex";
         document.body.style.overflow = "unset";
-        let general_main_container = document.querySelector("#general_main_container")
-        general_main_container.style.overflow = "unset";
+
         getQuotations()
     }
 

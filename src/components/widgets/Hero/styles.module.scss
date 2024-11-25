@@ -5,10 +5,7 @@
     padding-bottom: 0px;
     padding-top: 0px;
 
-    @media(max-width:1280px) {
-        margin-top: 25px;
-        padding-top: 45px;
-    }
+ 
 
     @media(max-width:700px) {
         padding-bottom: 30px;
@@ -18,9 +15,7 @@
 .hero[islinknamecomponent="false"] {
     padding-bottom: 0px;
 
-    @media(max-width:1280px) {
-        margin-top: 25px;
-    }
+    margin-top: 0px;
 
     @media(max-width:1100px) {
         padding-bottom: 0px;
@@ -38,8 +33,11 @@
 
 
     &_section {
-        padding-top: 30px;
+        padding-top: 100px;
+        @media (max-width:990px) {
+            padding-top: 60px;
 
+        }
         &_container {
             .points_content {
                 .title {
@@ -66,7 +64,7 @@
                     border-radius: 16px;
                     margin-top: 20px;
                     position: relative;
-                    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+                    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
 
 
@@ -102,6 +100,7 @@
                         width: 100%;
                         font-size: 24px;
                         text-transform: capitalize;
+
                         @media(max-width:990px) {
                             margin: 24px 0px 24px 4px !important;
                         }
@@ -270,7 +269,7 @@
                                     }
                                 }
 
-                
+
                                 .input_delete_field_icon[popupp="false"][direction="false"] {
                                     top: 0px;
                                     font-size: 13px;

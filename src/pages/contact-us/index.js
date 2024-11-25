@@ -164,7 +164,6 @@ const ContactUsForm = ({ appData, formValue, onChangeHandler, error, handleSend 
 
 
 const ContactUs = ({ bggray, env }) => {
-    console.log({ env });
 
     const dispatch = useDispatch()
     const state = useSelector(state => state.pickUpDropOffActions)

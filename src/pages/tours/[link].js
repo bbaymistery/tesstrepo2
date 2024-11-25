@@ -131,7 +131,7 @@ const TourContentDetails = (props) => {
                                                 <div className={styles.container_auto_center}>
                                                     <div className={styles.intro}>
                                                         <button className="btn" onClick={() => setshouldShowModal(true)}>
-                                                            See All Photos
+                                                           {appData?.words["strSeeAllPhotos"]}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -145,10 +145,10 @@ const TourContentDetails = (props) => {
                                 <div className={styles.slider}>
                                     {loadAlert ? <div style={{ width: "100%", height: "300px", background: "#eae6e6" }}>
                                         <Skeleton width={"100%"} height="100%" />
-                                    </div> : <Slider setshouldShowModal={setshouldShowModal} index={index} gotoPreviousSlider={gotoPreviousSlider} gotoNextSlider={gotoNextSlider} sliderItems={sliderItems} />}
+                                    </div> : <Slider appData={appData} setshouldShowModal={setshouldShowModal} index={index} gotoPreviousSlider={gotoPreviousSlider} gotoNextSlider={gotoNextSlider} sliderItems={sliderItems} />}
                                 </div>
                                 <ReusableModal shouldShowModal={shouldShowModal} onRequestClose={() => { setshouldShowModal(false) }} >
-                                    <Slider gotoPreviousSlider={gotoPreviousSlider} gotoNextSlider={gotoNextSlider} insideModal={true} index={index} sliderItems={sliderItems} />
+                                    <Slider appData={appData} gotoPreviousSlider={gotoPreviousSlider} gotoNextSlider={gotoNextSlider} insideModal={true} index={index} sliderItems={sliderItems} />
                                     <div className={styles.navigation_modal_slider}>
                                         <span className={styles.prev_btn} onClick={gotoPreviousSlider}>
                                             <i className="fa-solid fa-chevron-left"></i>
@@ -188,7 +188,7 @@ const TourContentDetails = (props) => {
                                         </div>
 
                                         <button className="btn" onClick={handleButtonClick} >
-                                            {appData.words["panelPriceMarkupsCartype"]}
+                                            {appData.words["strPerVehicle"]}
                                             <i className="fa-solid fa-arrow-down"></i>
                                         </button>
                                     </div>
@@ -201,7 +201,7 @@ const TourContentDetails = (props) => {
                                         <div key={index} className={styles.snapshot_icons_div}>
                                             <i className={`${snapshot.icon}`}></i>
                                             <div className={styles.snapshot_icons_div_description}>
-                                                {loadAlert ? "..." : appData?.words[snapshot.alias]}
+                                                {loadAlert ? "..." : index===2 ?appData?.words["strLuxuryCars"]:appData?.words[snapshot.alias]}
                                             </div>
                                         </div>
                                     ))}

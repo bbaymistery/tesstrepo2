@@ -58,7 +58,7 @@ const GlobalLayout = ({ children, title = seoDefaults.title, description = seoDe
               <link rel="alternate" hrefLang="es" href={`${websiteDomain}/es/${path}`} />
               <link rel="alternate" hrefLang="it" href={`${websiteDomain}/it/${path}`} />
               <link rel="alternate" hrefLang="ru" href={`${websiteDomain}/ru/${path}`} />
-              <link rel="alternate" hrefLang="zh" href={`${websiteDomain}/zh/${path}`} />
+              <link rel="alternate" hrefLang="zh-Hans" href={`${websiteDomain}/zh/${path}`} />
               <link rel="alternate" hrefLang="x-default" href={`${websiteDomain}/${path}`} />
 
               <meta property="og:title" content={META_CONTENT_LINKNAME[key][language].ogTitle} />

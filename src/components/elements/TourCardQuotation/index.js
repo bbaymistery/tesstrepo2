@@ -156,15 +156,15 @@ const TourCardQuotation = (params = {}) => {
               <div ref={refHeight} style={{ height: activeAccordion === item.carId ? `${heightEl}` : "0px" }} className={activeAccordion === item.carId ? `${styles.card_item_accrdion_part} ${styles.animated}` : `${styles.card_item_accrdion_part}`}  >
                 <div className={styles.top}>
                   <p>
-                    <span>Pick-up From :</span>
+                    <span>{appData.words["strPickupFrom"]} :</span>
                     <span className={styles.desc}>
-                     Full address will be requested on the following page
+                      {appData.words["strPickupAddressWillBeRequested"]}
                     </span>
                   </p>
                   <p>
-                    <span>Tour Duration :</span>
+                    <span>{appData.words["strTourDuration"]} :</span>
                     <span className={styles.desc}>
-                      Approximately {duration} hours, starting after your selected pickup time.
+                      {appData.words["strApproximatelyStartingFrom"].replace("{{}}", duration)}
                     </span>
                   </p>
                 </div>

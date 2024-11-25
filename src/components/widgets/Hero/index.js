@@ -154,7 +154,6 @@ const Hero = (props) => {
     const onChangeHanler = useCallback((params = {}) => {
         let { index, value, destination } = params
         let { passengerDetails: { token: passengerDetailsToken } } = reservations[0]
-        console.log({ params });
 
         //hinder user  to add some Characters
         if (ifHasUnwantedCharacters(value)) return
@@ -251,28 +250,21 @@ const Hero = (props) => {
         }
     }, [reservations, appData, setInternalState, readyToCollectQuotations, dispatch, router, journeyType, language]);
 
-    const setFocusToInput = (params = {}) => {
+    const setFocusToInput = useCallback((params = {}) => {
         let { e, destination, index } = params
         if (window.innerWidth < 990) {
-            let general_main_container = document.querySelector("#general_main_container")
-            general_main_container.style.overflow = "hidden";
-
             e.target.style.opacity = 0
-            console.log(`#content${index}${destination}`);
             let navbarElement = document.querySelector("#navbar_container")
             navbarElement.style.display = "none"
+            const container = document?.querySelector(`#content${index}${destination}`);
+            setTimeout(() => { e.target.style.opacity = 1 },150);
+            setTimeout(() => { window.scroll({ top: container?.offsetTop, left: 0, behavior: "smooth", }); }, 100);
         }
         setInternalState({ [`${destination}-search-focus-${index}`]: window.innerWidth > 990 ? false : true })
-        const container = document?.querySelector(`#content${index}${destination}`);
-        e.target.style.opacity = 1
-        setTimeout(() => {
-            window.scroll({
-                top: container,
-                left: 0,
-                behavior: "smooth",
-            });
-        }, 100);
-    }
+
+    }, [internalState, params]);
+
+
     const handleAddNewInput = (params = {}) => {
         let { index, destination } = params
         setInternalState({ [`show-${destination}-extra-point-${index}`]: false, [`${destination}-search-focus-${index}`]: true })
@@ -286,8 +278,6 @@ const Hero = (props) => {
             [`collecting-${destination}-points-${index}`]: [],
             [`show-${destination}-extra-point-${index}`]: true,
         })
-        let general_main_container = document.querySelector("#general_main_container")
-        general_main_container.style.overflow = "unset";
     }
 
     const outsideClick = ({ destination, index }) => {
@@ -304,9 +294,6 @@ const Hero = (props) => {
         setInternalState({ [`${destination}-search-focus-${index}`]: false, [`${destination}-search-value-${index}`]: "", [`collecting-${destination}-points-${index}`]: [] })
         let navbarElement = document.querySelector("#navbar_container");
         navbarElement.style.display = "flex";
-
-        let general_main_container = document.querySelector("#general_main_container")
-        general_main_container.style.overflow = "unset";
     }
     //when we go quotation page then go back In that case we should check
     //if we have points or not.
@@ -318,10 +305,12 @@ const Hero = (props) => {
         }
         // bu rendere sebeb olur
         dispatch({ type: "CHECHK_FLIGHT_WAITING_TIME", data: { journeyType } })
- 
-       
-        if (500 > document.documentElement.clientWidth) {
-            window.scrollTo({ top: 26, left: 0, behavior: "smooth", });
+
+        const navigationEntries = performance.getEntriesByType("navigation");
+        const isInitialLoad = navigationEntries.length > 0 && navigationEntries[0].type === "navigate";
+
+        if (isInitialLoad && document.documentElement.clientWidth < 767) {
+            window.scrollTo({ top: 10, left: 0, behavior: "smooth" });
         }
     }, [])
     let size = useWindowSize();
