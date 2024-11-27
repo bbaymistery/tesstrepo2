@@ -1,0 +1,47 @@
+@import '../../../styles/colors';
+
+.link_breadcumb {
+    list-style: none;
+    background: 0 0;
+    padding: 0;
+    font-size: 13px;
+    margin-top: 15px;
+    margin-bottom: 0;
+    display: flex;
+
+    @media (max-width:990px) {
+        // display: flex;
+        flex-direction: column;
+        display: none;
+    }
+
+    .home {
+        display: flex;
+        align-items: center;
+
+        a {
+            color: $yellow;
+            text-transform: capitalize;
+        }
+
+
+    }
+
+    li:not(.home) {
+        display: flex;
+        align-items: center;
+
+        a {
+            text-transform: capitalize;
+            color: #777;
+        }
+
+        &::before {
+            content: '\f105';
+            font-family: FontAwesome;
+            padding: 0 7px;
+            font-size: 10px;
+            color: #ccc;
+        }
+    }
+}

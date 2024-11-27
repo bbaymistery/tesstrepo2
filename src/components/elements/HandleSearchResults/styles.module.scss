@@ -1,0 +1,183 @@
+      @import '../../../styles/colors';
+      $dark: #242424;
+      $primary: #4361ee;
+      $secondary: #5e60ce;
+      $tertiary: #22b0db;
+
+
+
+      .search_results {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+
+          //no results
+          ul {
+
+              .no_results {
+                  display: flex;
+                  align-items: center;
+
+                  i {
+                      border-radius: 50%;
+                      padding-left: 15px;
+                  }
+
+                  p {
+                      color: $black1;
+                      padding-left: 10px;
+
+                      &:hover {
+                          color: $dark;
+                      }
+
+                      a {
+                          color: $primary;
+                      }
+                  }
+              }
+          }
+
+          //RESULTS
+          ul {
+              max-height: 332px;
+              overflow-y: scroll;
+              top: calc(100% + 10px);
+              width: 100%;
+              min-width: 450px;
+              margin: 0;
+              list-style: none;
+              border: 1px solid #a2a4a8;
+              border-top-color: transparent;
+              z-index: 100;
+              background-color: #fff;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+              font-size: 13px;
+
+              @media (max-width:990px) {
+                  top: calc(100% - 11px);
+              }
+
+              @media (max-width:450px) {
+                  min-width: 0px;
+                  max-width: 100%;
+                  font-size: 13px;
+              }
+
+
+
+              &::-webkit-scrollbar {
+                  width: 15px;
+                  background-color: #F5F5F5;
+              }
+
+              &::-webkit-scrollbar-thumb {
+                  background-color: rgba(0, 0, 0, 0.2);
+              }
+
+              div {
+
+                  .groupName {
+                      padding: 4px 9px;
+                      font-family: inherit;
+                      text-transform: uppercase;
+                      font-weight: 700;
+                      color: #000;
+                      display: flex;
+                      flex-direction: row;
+                      justify-content: flex-start;
+                      cursor: not-allowed;
+                      user-select: none;
+
+                      &:hover {
+                          background-color: $lightBlue !important;
+
+                          a {
+                              color: white;
+                          }
+                      }
+
+                      img:not(.googleImage) {
+                          filter: invert(38%) sepia(78%) saturate(415%) hue-rotate(71deg) brightness(98%) contrast(95%);
+
+                      }
+
+                      img {
+                          width: 18px;
+                          height: 18px;
+                          margin: 0px 8px 0px 0px;
+
+                          @media (max-width:450px) {
+                              width: 15px;
+                              height: 15px;
+                          }
+
+                          pointer-events: none;
+                      }
+
+                      a {
+                          font-weight: 500;
+                          letter-spacing: 1.2px;
+                          color: black;
+                          display: inline;
+                          pointer-events: none;
+                      }
+
+                      .googleImage {
+                          width: 28%;
+                          margin-left: 6px;
+                          pointer-events: none;
+                      }
+                  }
+
+                  li {
+                      &:not(:last-child) {
+                          border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                      }
+
+                      padding: 4px 4px;
+                      position: relative;
+                      display: flex;
+                      align-items:center;
+                      cursor: pointer;
+                      transition: .5s ease;
+                      border-bottom: 1px solid rgba(220, 220, 220, 0.3);
+
+                      &:hover {
+                          background-color: $lightBlue;
+
+                          p {
+                              color: white;
+                          }
+
+                          img {
+                              filter: brightness(0) invert(1);
+                          }
+                      }
+
+                      img {
+                          width: 13px;
+                          height: 13px;
+                          margin: 0px 6px;
+
+                          @media (max-width:450px) {
+                              width: 12px;
+                              height: 12px;
+                          }
+                      }
+
+                      p {
+                          display: block;
+                          text-decoration: none;
+                          color: $black3;
+                          font-weight: 500;
+                          transition: all 0.3s ease;
+                          width: 100%;
+                          font-size: 12px;
+                      }
+                  }
+
+              }
+          }
+
+      }

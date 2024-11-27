@@ -1,0 +1,228 @@
+@import '../../../styles/colors';
+$mainBlack:rgb(79, 78, 78);
+$lightGray:rgb(126, 126, 126);
+$borderOrange:rgba(192, 144, 55, 0.204);
+
+.hasReturnQuot {
+    margin-bottom: 2rem;
+    background-color: red;
+}
+
+.details_header {
+
+    .header_card {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        align-items: center;
+        flex-direction: column;
+
+
+
+        i {
+            font-size: 10px;
+        }
+
+        .card_top {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            flex-direction: column;
+
+            .card_info {
+                flex: 1;
+
+
+
+                .right_title {
+                    padding: 10px 0px;
+                    position: relative;
+                    font-weight: 500;
+                    text-align: center;
+                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                    font-weight: bold;
+                    font-size: 24px;
+                    color: $mainBlack;
+                }
+
+                .info {
+                    padding: 0px 0px;
+
+
+
+                    li {
+                        flex-direction: row;
+                        padding: 4px 0px;
+                        letter-spacing: 0.7px;
+                        border-bottom: 2px solid $borderOrange;
+
+                        .details_headerr_li {
+                            display: flex;
+                            align-items: center;
+                            letter-spacing: 1px;
+                            font-size: 13px;
+
+                            p {
+                                display: flex;
+                                align-items: center;
+                                color: $lightGray;
+                                font-weight: 500;
+                            }
+
+                            .li_info {
+                                display: flex;
+                                align-items: center;
+
+                                .property {
+                                    color: $mainBlack;
+
+                                    font-weight: bold;
+
+                                    @media (max-width:350px) {
+                                        font-size: 11px !important;
+                                    }
+                                }
+
+                                .value {
+                                    margin-left: 4px;
+
+                                    @media (max-width:350px) {
+                                        font-size: 11px !important;
+                                    }
+                                }
+                            }
+
+                            i {
+                                margin-right: 5px;
+                            }
+                        }
+
+                        .details {
+                            width: 100%;
+                            flex-direction: column;
+                            display: flex;
+
+                        }
+                    }
+
+                    .details_flex {
+                        display: flex;
+                        flex-direction: row !important;
+                        justify-content: space-between;
+
+                        .desc {
+                            margin-right: 5px !important;
+                        }
+                    }
+                }
+            }
+
+
+
+            .card_right {
+                flex: 1;
+                margin-top: 10px;
+
+                .right_title {
+                    padding: 10px 0px;
+                    position: relative;
+                    font-weight: 500;
+                    letter-spacing: 1.5px;
+
+                    display: none;
+
+                }
+
+                .info {
+                    padding: 0px 0px;
+
+                    li {
+                        flex-direction: row;
+                        padding: 4px 0px;
+                        letter-spacing: 0.7px;
+
+                        &:not(:last-child) {
+                            border-bottom: 2px solid $borderOrange;
+
+                        }
+
+                        .details_headerr_li {
+                            display: flex;
+                            align-items: center;
+                            letter-spacing: 1px;
+                            font-size: 13px;
+                            color: $mainBlack;
+                            font-weight: bold;
+
+                            @media (max-width:350px) {
+                                font-size: 11px !important;
+                            }
+
+                            i {
+                                margin-right: 5px;
+                                color: $lightGray;
+                            }
+
+                        }
+
+                        .details {
+                            width: 100%;
+                            flex-direction: column;
+                            display: flex;
+
+
+                            .details_bottom_container {
+
+                                .details_bottom {
+                                    position: relative;
+                                    display: flex;
+                                    align-items: baseline;
+
+
+                                    .desc {
+                                        margin: 0;
+                                        font-weight: 300;
+                                        display: flex;
+                                        flex-direction: column;
+                                        font-size: 13px;
+                                        padding-left: 6px;
+                                        font-weight: 500;
+                                        color: $lightGray;
+
+                                        @media (max-width:350px) {
+                                            font-size: 11px !important;
+                                        }
+
+
+                                    }
+
+
+                                }
+
+                            }
+                        }
+
+                        .details_flex {
+                            display: flex;
+                            flex-direction: row !important;
+
+                            .desc {
+                                margin-right: 5px !important;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+
+
+        }
+
+
+
+
+    }
+
+
+}

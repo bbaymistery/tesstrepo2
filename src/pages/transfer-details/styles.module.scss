@@ -1,0 +1,148 @@
+@import '../../styles/colors';
+
+$checkbox-size: 20px;
+$checkbox-border: #cecece;
+$checkbox-selected: $yellow; // Primary colour
+
+.tr_page {
+    padding-top: 0px !important;
+
+    &_section {
+
+        &_container {
+            .content {
+                display: flex;
+                gap: 1rem;
+                padding-top: 2rem;
+                //TDP_JouneySummary
+
+                //!bu teref input fieldler olan terefdi(yani left teref)
+
+                @media (max-width:990px) {
+                    flex-direction: column-reverse;
+                }
+
+                &_left {
+                    display: flex;
+                    flex-direction: column;
+                    flex-basis: 30%;
+                }
+
+                .right {
+                    height: 100%;
+                    flex-basis: 65%;
+                    box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px,
+                        rgb(0 0 0 / 23%) 0px 3px 6px;
+
+
+
+                    //you can find scss in TDP_PASSENGERdetails comp
+                    .passenger_details {}
+
+                    .journey_details {}
+
+                    .special_request_div {
+                        position: relative;
+                        width: 100%;
+
+                        .special_div {
+                            padding-left: 17px;
+                            padding-right: 17px;
+                        }
+                    }
+
+                    .textMiddle {
+                        margin-left: 5px;
+                    }
+
+                    .form_checkbox {
+                        position: relative;
+                        display: block;
+                        margin: 0 0 15px;
+                        user-select: none;
+                        padding: 0px 21px;
+                        margin-top: 10px;
+
+                        .checkbox {
+                            position: absolute;
+                            opacity: 0;
+                            user-select: none;
+                            cursor: pointer;
+
+                            // Text
+                            &+label {
+                                display: inline-block;
+                                position: relative;
+                                cursor: pointer;
+                                line-height: $checkbox-size;
+                                padding-left: $checkbox-size + 10;
+                                font-size: 14px;
+                                font-family: sans-serif;
+                                color: #666; // Label colour
+                                user-select: none;
+
+                                // Checkbox
+                                &:before {
+                                    position: absolute;
+                                    display: block;
+                                    left: 0;
+                                    top: 0;
+                                    content: "";
+                                    background: transparent;
+                                    width: $checkbox-size;
+                                    height: $checkbox-size;
+
+                                    box-shadow: inset 0 0 0 1px $checkbox-border;
+                                    border-radius: 4px;
+                                    transition: 200ms ease-in-out all;
+                                }
+
+                                // Tick
+                                &:after {
+                                    position: absolute;
+                                    display: block;
+                                    top: 5px;
+                                    left: 8px;
+                                    content: "";
+                                    width: 3px;
+                                    height: 7px;
+                                    border-right: 2px solid transparent;
+                                    border-bottom: 2px solid transparent;
+                                    transform: rotate(45deg);
+
+                                    transition: 200ms ease-in-out all;
+                                }
+                            }
+
+                            // Hover
+                            &+label:hover {
+                                color: #333;
+                            }
+
+                            // Focus
+                            &+label:focus {
+                                outline: none;
+                            }
+
+                            // Checked
+                            &:checked {
+                                &+label {
+                                    &:before {
+                                        background: $checkbox-selected;
+                                        box-shadow: none;
+                                    }
+
+                                    &:after {
+                                        border-color: white;
+                                    }
+                                }
+                            }
+
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

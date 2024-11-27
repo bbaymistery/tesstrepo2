@@ -1,0 +1,73 @@
+@import '../../styles/colors';
+
+.terms_page {
+    padding-top: 0px;
+    position: relative;
+    padding-bottom: 0px;
+
+    &_section {
+        position: relative;
+
+        &_container {
+            .title {
+                font-size: 75px;
+                margin: 30px 0;
+
+                @media (max-width: 990px) {
+                    font-size: 50px;
+                }
+
+                @media (max-width: 678px) {
+                    font-size: 32px;
+                }
+            }
+
+            .text_content_div {
+                p {
+                    margin-bottom: 4px;
+                }
+           table {
+               margin: 10px 0px;
+           }
+    
+           td,
+           th {
+               border: 1px solid #dddddd;
+               text-align: center;
+               padding: 2px;
+           }
+    
+           th {
+               font-weight: bold;
+               width: 250px;
+           }
+    
+           td {
+               color: black;
+           }
+                h2 {
+                    margin-top: 5px;
+
+                    @media (max-width: 990px) {
+                        font-size: 22px;
+                        font-weight: 500;
+                        margin-top: 16px;
+                        margin-bottom: 10px;
+                    }
+
+                    @media (max-width: 678px) {
+                        font-size: 19px;
+                    }
+                }
+
+                ul {
+                    li {
+                        margin-bottom: 5px;
+                    }
+
+             
+                }
+            }
+        }
+    }
+}

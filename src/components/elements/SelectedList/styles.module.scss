@@ -1,0 +1,150 @@
+@import '../../../styles/colors';
+
+.selected_list {
+
+    .list_container {
+
+        margin-bottom: 1.5rem;
+        background-color: #efefef;
+
+        .list {
+            // margin-top: 1rem;//eger selected pick up points title seklinde larsa bunu ac
+            border: 1px solid rgba(128, 137, 150, 0.2);
+            // border-bottom: none;
+            border-radius: 5px;
+            padding: 10px 15px 10px 15px;
+
+            .list_title_div {
+
+                //from ve con olan teref
+                &_icons {
+
+                    img {
+                        width: 11px;
+                        filter: invert(24%) sepia(22%) saturate(1735%) hue-rotate(92deg) brightness(93%) contrast(92%);
+                    }
+
+                    &_icon {
+                        color: rgb(10, 83, 39);
+
+
+                        i {}
+                    }
+
+                    &_text {
+                        margin-left: 5px;
+                        color: $gray !important;
+                        font-size: 12px;
+                        font-weight: bold;
+                        font-family: Georgia,
+                            'Times New Roman',
+                            Times,
+                            serif;
+
+                    }
+                }
+
+                //Londont terminal 3 yazisi
+                &_title {
+                    color: rgb(14, 41, 25);
+                    margin-top: 4px;
+                    font-weight: bold;
+                    // font-family: Georgia, 'Times New Roman', Times, serif;
+                    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                }
+
+            }
+
+
+            .details_div {
+
+                position: relative;
+
+                // margin-top: 2.8rem;
+
+
+                .select_description {
+                    color: black;
+                    font-size: 13px;
+                    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+                    @media (max-width:990px) {
+                        display: none !important;
+                    }
+
+                    i {
+                        margin-left: 10px;
+                        color: rgb(65, 65, 231);
+                        font-size: 14px;
+                        cursor: pointer;
+
+                        &:hover {
+                            ~ {
+
+                                .flight_hover_text {
+                                    opacity: 1;
+                                    display: block;
+                                }
+                            }
+                        }
+                    }
+
+                    .flight_hover_text {
+                        transition: 0.5s ease-in;
+                        opacity: 0;
+                        display: none;
+                        position: absolute;
+                        top: -235px;
+                        left: -170px;
+                        width: 600px;
+                        z-index: 9999;
+                        border: 4px solid #d3d6d8;
+                        border-radius: 5px;
+
+                        @media (max-width:990px) {
+                            left: -70px;
+                            width: 500px;
+                            width: 100%;
+                            top: -260px;
+                            display: none !important;
+                        }
+
+
+
+                        &_content {
+                            background-color: #e2e3e5;
+                            padding: 10px;
+                            color: #41464b;
+                            ;
+                            position: relative;
+
+                            &::after {
+                                content: '';
+                                position: absolute;
+
+                                border: 10px solid #d3d6d8;
+                                border-left: 10px solid transparent;
+                                border-bottom: 10px solid transparent;
+                                right: 50%;
+                                transform: translateX(50%);
+                                bottom: -22px;
+
+                                @media (max-width:990px) {
+                                    right: 60%;
+                                }
+
+                                @media (max-width:990px) {
+                                    right: 75%;
+                                    display: none;
+
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
+}
