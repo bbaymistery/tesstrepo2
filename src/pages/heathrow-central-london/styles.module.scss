@@ -1,0 +1,31 @@
+@import '../../styles/colors';
+
+.central_page {
+    padding-top: 0px;
+    position: relative;
+
+    &_section {
+        position: relative;
+
+        &_container {
+            .title {
+                font-size: 38px;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+
+                @media (max-width: 768px) {
+                    font-size: 28px;
+                }
+            }
+
+
+            .text_content {
+
+                p {
+                    margin-bottom: 10px;
+                }
+            }
+
+        }
+    }
+}

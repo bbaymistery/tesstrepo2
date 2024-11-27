@@ -1,5 +1,5 @@
-@import './variables';
-
+@import './colors';
+$titleColor:#565656;
 
 * {
     box-sizing: border-box;
@@ -21,44 +21,47 @@ strong {
     font-weight: 700;
 }
 
+em {
+    font-style: italic;
+}
 
 h1,
 h2,
 h3,
 h4,
 h5 {
-    color: $dark-1;
-    font-weight: 400;
+    font-family: Roboto,
+        arial,
+        helvetica,
+        sans-serif;
+    // font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: 0;
+    font-weight: 300;
+    color: $titleColor;
     line-height: 1.3em;
-    text-transform: capitalize;
-}
-
-h1 {
-    font-size: 36px;
 }
 
 h2 {
-    font-size: 28px;
-
-    @media (max-width:468px) {
-        font-size: 21px;
-    }
+    font-size: 39.99px;
 }
 
 h3 {
-    font-size: 24px;
+    font-size: 30.76px;
+    ;
 }
 
 h4 {
     font-size: 23.66px;
 }
 
-b {
-    font-weight: 500;
+a,
+a:visited,
+a:active {
+    text-decoration: none;
 }
 
-
 a {
+    // color: $mainBlack;
     text-decoration: none;
 }
 
@@ -66,12 +69,4 @@ ul {
     list-style: none;
     margin: 0px;
     padding: 0px;
-}
-
-*,
-::after,
-::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
 }

@@ -1,0 +1,128 @@
+@import '../../../styles/colors';
+
+.result_box {
+    position: relative;
+
+    // background-color: red;
+    .popup_header[f="false"] {
+        display: none;
+    }
+
+    .popup_header[f="true"] {
+        display: flex;
+        align-items: center;
+        // padding-left: 14px;
+        padding-top: 12px;
+        padding-bottom: 10px;
+
+        i {
+            margin-right: 11px;
+            font-size: 21px;
+            cursor: pointer;
+            color: black;
+        }
+
+        p {
+            font-size: 19px;
+            font-weight: 500;
+            color: #000;
+        }
+    }
+
+    .search_box {
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        color: wheat;
+        position: absolute;
+        top: 0px;
+        // width: 380px;
+        width: 466px;
+        padding: 4px;
+        z-index: 99999;
+        background-color: white;
+        min-height: 60px;
+        border: 1px solid #b5b5b5;
+        max-height: 200px;
+        // overflow-y: scroll;
+
+        @media (max-width:990px) {
+            width: 100%;
+            top: -32px;
+            height: 75px;
+
+        }
+
+        &::-webkit-scrollbar {
+            width: 5px;
+            height: 8px;
+
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgb(155, 155, 155);
+        }
+
+        .search_box_input_div {
+            display: flex;
+            align-items: center;
+            position: relative;
+
+            overflow: hidden;
+
+            input {
+                outline: none;
+                width: 100%;
+                border: 2px solid black;
+                color: black;
+                padding: 6px 7px;
+                transition: $transition;
+
+                &:focus {
+                    border-radius: 5px;
+                }
+            }
+
+            i {
+                margin-left: -19px;
+                color: #888;
+                font-size: 13px;
+            }
+
+            .loading_div {
+                right: 0px;
+                position: absolute;
+            }
+        }
+
+        .explanation {
+            font-style: italic;
+            display: flex;
+            justify-content: center;
+            color: $black3;
+            padding: 7px 0px;
+
+            @media (max-width:990px) {
+                margin-top: 0.75rem;
+                font-size: 12px;
+                padding: 0px 0px;
+
+            }
+        }
+    }
+
+
+}
+
+@media only screen and (max-width: 990px) {
+    .search-input-container[f="true"] {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        background-color: white !important;
+        z-index: 999999 !important;
+        padding: 14px !important;
+        overflow: hidden;
+    }
+}

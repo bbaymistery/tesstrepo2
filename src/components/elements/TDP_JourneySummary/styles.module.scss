@@ -1,0 +1,85 @@
+@import '.././../../styles/colors';
+
+
+.left {
+    // border: 1px solid red;
+    // flex-basis: 30%;
+
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+        rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    margin-bottom: 2rem;
+
+    @media (max-width:990px) {
+        // box-shadow: none !important;
+        // background-color: red;
+    }
+
+    &_booking_title {
+
+
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #51536d;
+        font-size: 21px;
+        box-shadow: none;
+        padding: 0px 15px;
+        text-align: center;
+        padding-top: 1rem;
+
+        @media (max-width:990px) {
+            // display: flex;
+
+            display: none;
+        }
+    }
+
+
+    @media (max-width:990px) {
+        .cards_div {
+            // display: flex;
+            display: none;
+        }
+    }
+
+
+    //burda carcard scss olur
+
+    //booking summary scss
+}
+
+.flexRow {
+    box-shadow: none !important;
+    margin-bottom: 1rem;
+
+    .left_booking_title {
+        display: none;
+    }
+
+    @media (max-width:990px) {
+        display: none;
+
+
+    }
+
+    .cards_div {
+        display: flex;
+
+    }
+}
+
+.paymentPage {
+    @media (max-width:990px) {
+        .cards_div {
+            display: block !important;
+        }
+    }
+
+    @media (max-width:768px) {
+        display: none;
+    }
+
+    @media (max-width:400px) {
+        display: block;
+    }
+}

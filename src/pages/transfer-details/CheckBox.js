@@ -1,23 +1,64 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { selectCHheckedInput } from "../../store/pickUpDropOffReducer/pickUpDropSelectors";
+import { CHECKED_INPUT_FOR_RETURN } from "../../store/pickUpDropOffReducer/pickUpDropTypes";
 import styles from "./styles.module.scss";
-const CheckBox = ({ textSame, textNotSame, direction }) => {
-  const dispatch = useDispatch()
-  let state = useSelector((state) => state.pickUpDropOffActions)
-  let { params: { passengerDetailsStatus } } = state
+const CheckBox = () => {
+  const dispatch = useDispatch();
+  const checkedInput = useSelector(selectCHheckedInput);
 
-  const onchangeHandler = (e) => dispatch({ type: "SET_SAME_PASSENGER_DETAILS_STATUS", data: { status: !e.currentTarget.previousSibling.checked } })
-
-
+  const handleChangeCheckInput = (e) => {
+    dispatch({
+      type: CHECKED_INPUT_FOR_RETURN,
+      payload: e.currentTarget.previousSibling.checked,
+    });
+  };
   return (
-    <div className={styles.form_checkbox} direction={String(direction === 'rtl')}>
-      <input className={styles.checkbox} type="checkbox" id="checkbox-2" defaultChecked={passengerDetailsStatus} />
-      <label htmlFor="checkbox-2" className={`${!passengerDetailsStatus ? styles.primary_text : styles.red_text}`} onClick={(e) => onchangeHandler(e)}>
-
-        {passengerDetailsStatus ? `${textSame}` : <>{textNotSame}</>}
+    <div className={styles.form_checkbox}>
+      <input
+        className={styles.checkbox}
+        type="checkbox"
+        id="checkbox2"
+        defaultChecked={checkedInput}
+      />
+      <label htmlFor="checkbox2" onClick={handleChangeCheckInput}>
+        the passenger details
+        {checkedInput ? (
+          " are a same"
+        ) : (
+          <span className={styles.textMiddle}>are not same{"  "}</span>
+        )}{" "}
+        for both journey
       </label>
     </div>
   );
 };
 
 export default CheckBox;
+// <div className={styles.checkBtn}>
+//   <input
+//     onChange={handleChangeCheckInput}
+//     type="checkbox"
+//     className={styles.checkBtn__input}
+//     id="check3"
+//     name="check3"
+//     defaultChecked={checkedInput}
+//   />
+//   <label
+//     htmlFor="check3"
+//     className={`
+//     ${styles.checkBtn_label}
+//     ${checkedInput ? styles.pChecked : styles.checkedText}
+//   `}
+//   >
+// the passenger details
+// {checkedInput ? (
+//   " are a same"
+// ) : (
+//   <span className={styles.textMiddle}>
+//     are not same{"  "}
+//   </span>
+// )}{" "}
+// for both journey
+//   </label>
+// </div>

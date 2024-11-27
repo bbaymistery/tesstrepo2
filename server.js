@@ -20,7 +20,7 @@ app.prepare().then(() => {
     } else {
       handle(req, res, parsedUrl);
     }
-  }).listen(process.env.PORT || 3500, (err) => {
+  }).listen(process.env.PORT || 9000, (err) => {
     if (err) throw err;
   });
 });

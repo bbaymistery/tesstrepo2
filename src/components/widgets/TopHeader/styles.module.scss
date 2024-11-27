@@ -1,164 +1,124 @@
-@import '../../../styles/variables';
-@import '../../../styles/_fonts';
+.top_header {
+    padding: 10px 0;
+    max-height: 60px;
+    background-color: #4d4d4d;
 
-.header {
-    position: fixed;
-    z-index: 10001;
-    top: 0px;
-    left: 0px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 90px;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
-    background-color: $primary;
-    margin: 0px !important;
-    user-select: none;
-
-    @media(max-width:1280px) {
-        height: 75.58px;
+    @media (max-width:990px) {
+        max-height: 170px;
     }
 
-    .header_container {
-        padding: 0px 30px;
+    .container {
         width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0px 15px;
 
-        @media(max-width:1367px) {
-            padding: 0px 20px;
+        @media (max-width:1200px) {
+            padding: 0px 0px;
+            max-width: 970px;
         }
 
-        @media(max-width:450px) {
-            padding: 0px 10px;
+        @media (max-width:990px) {
+            max-width: 750px;
+            padding: 0px 0px;
+
         }
 
-        .header_flex_div {
-            display: flex;
-            justify-content: space-between;
+        .content {
 
-            .left_items {
-                @media(max-width:1280px) {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+            @media (max-width:990px) {
+                margin: 0 var(--window-margin);
+                gap: .65rem;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .content_title_a {
+                cursor: pointer;
+                width: 380px;
+                display: inline;
+                z-index: 9999999;
+
+                @media (max-width:768px) {
+                    width: 300px;
                 }
 
-                .left_items_flex_div {
-                    display: flex;
-                    align-items: center;
+                h1 {
+                    margin-bottom: 0px;
+                }
 
-                    @media(max-width:1280px) {
-                        flex-direction: column;
-                    }
+                @media (max-width:990px) {
+                    z-index: 0;
+                }
+            }
 
-                    .logo_tag {
-                        margin-right: 15px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        height: 75.59px;
 
-                        @media(max-width:450px) {
-                            margin-right: 0px;
-                        }
+            .top_header_title {
+                color: white;
+                font-size: 29px;
+                font-weight: 400;
+                margin-top: -4px;
+                z-index: 999;
 
-                        span {
-                            font-size: 25px;
-                            color: #fff;
-                            font-weight: bold;
-                            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-                            margin-left: 10px;
+                &:hover {
+                    color: #ed8323;
+                    transition: 0.3s ease-in-out;
+                }
 
-                            @media(max-width:1430px) {
-                                font-size: 22px;
-                            }
-
-                            @media(max-width:1367px) {
-                                font-size: 19px;
-                            }
-                        }
-
-                    }
-
-                    // it is for desktop
-                    //it is for mobile
+                @media (max-width:990px) {
+                    margin-bottom: 2rem;
+                    font-size: 22px;
                 }
 
 
             }
 
-            .right_items {
-                display: flex;
-                align-items: center;
-                gap: 2rem;
+            .top_header_left {
+                font-size: 14px;
 
-                @media(max-width:1200px) {
-                    gap: 16px;
-                }
-
-                .language_dropdown {
-                    cursor: pointer;
-                    position: relative;
-
-                    .top {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        // padding: 25px 0px;
-
-                        .img_div {
-                            background-color: rgb(216 222 228 / 14%);
-                            padding: 0px 5px;
-                        }
-
-                        span {
-                            margin-left: 10px;
-                            color: white;
-                            i {
-                                font-size: 11px;
-                                margin-left: 10px;
-                            }
-                        }
-
-                        .lang_text {
-                            @media(max-width:1280px) {
-                                display: none;
-                            }
-                        }
-
-                    }
-
-
-                }
-
-
-                // hamburger menu
-                .menu {
-                    width: 22px;
-                    height: 16px;
-                    cursor: pointer;
-                    display: none;
+                .shop_cart {
+                    display: flex;
                     align-items: center;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    position: relative;
+                    justify-content: flex-end;
+                    color: white;
+                    margin-top: -32px;
+                    margin-bottom: 5px;
 
-                    @media (max-width: 1280px) {
-                        display: flex;
+                    @media (max-width:568px) {
+                        margin-right: 30px;
+                        margin-bottom: 10px;
+                        margin-top: -28px;
                     }
-
-                    @media (max-width: 450px) {
-                        margin-right: 5px;
-                    }
-
 
                     i {
-                        font-size: 25px;
-                        color: white;
-                        margin-top: -5px;
+                        margin-right: 5px;
+                        font-size: 12px;
                     }
                 }
 
+                .phoneNumber {
+                    margin-top: -0.4rem;
+                    display: flex;
+                    justify-content: flex-end;
+                    margin-top: 1rem;
 
+                    @media (max-width:990px) {
+                        margin-top: 2.5rem;
+                    }
+
+                    .phone_tag {
+                        font-size: 24px;
+                        color: white;
+
+                        @media (max-width:990px) {
+                            font-size: 19px;
+                        }
+                        @media (max-width:768px) {
+                            font-size: 16px;
+                        }
+                    }
+
+                }
             }
         }
     }

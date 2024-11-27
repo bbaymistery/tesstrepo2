@@ -1,0 +1,19 @@
+@import '../../styles/colors';
+
+.quotation_page {
+    padding-bottom: 50px;
+
+    .quotation_page_section {
+        margin: 0 var(--window-margin);
+
+        .quotation_page_container_return {
+            margin-top: 4rem;
+        }
+
+        .quotation_page_container {
+            @media (max-width:990px) {
+                margin-top: 2rem;
+            }
+        }
+    }
+}

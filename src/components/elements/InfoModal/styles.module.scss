@@ -1,3 +1,5 @@
+@import '../../../styles/colors';
+
 .modal {
     background-color: rgba(0, 0, 0, 0.6);
     position: fixed;
@@ -29,43 +31,24 @@
         padding: 20px !important;
     }
 
-
     &_container {
         max-width: 450px;
         width: 100%;
         background-color: rgba(255, 255, 255, 0.9);
         border-radius: 10px;
+        padding: 15px;
         display: flex;
         flex-direction: column;
-        box-shadow: rgba(225, 225, 225, 0.35) 12px 8px 15px;
         border: 2px solid rgba(0, 0, 255, 1);
         color: black;
         font-weight: 400;
         text-align: center;
+        padding: 15px 20px;
         transition: .5s ease-in-out;
-        max-height: 300px;
-        overflow-y: scroll;
-        position: relative;
-
-        .close_icon {
-            position: sticky;
-            left: 10px;
-            bottom: 264px;
-            cursor: pointer;
-            color: black;
-            display: inline-block;
-            width: 10px;
-            cursor: pointer;
-            color: black;
-        }
-
-        div {
-            padding: 4px 14px
-        }
 
         p {
-            color: rgb(17, 2, 22);
             font-weight: 500;
+
             @media (max-width: 600px) {
                 font-size: 12px;
             }
@@ -81,18 +64,12 @@
             margin-top: .75rem;
             align-items: center;
 
-            button {
-                padding: 8px 20px;
-                border-radius: 6px;
-            }
         }
 
 
 
 
     }
-
-
 }
 
 

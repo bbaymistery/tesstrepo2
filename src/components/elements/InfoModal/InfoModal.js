@@ -1,33 +1,30 @@
-import React, { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useOutsideClick } from "../../../hooks/useOutsideClick";
+import React from "react";
+import { useDispatch } from "react-redux";
+import {
+  SET_MODAL_INFO,
+  SET_WAITING_MODAL_INFO,
+} from "../../../store/showFieldReducer/showFieldTypes";
+
 import styles from "./styles.module.scss";
 const InfoModal = ({ content }) => {
-  const wrapperRef = useRef();
   const dispatch = useDispatch();
-
-
-
-  let clickedOutside = useOutsideClick(wrapperRef);
-  useEffect(() => {
-    if (clickedOutside) dispatch({ type: "SET_MODAL_INFO", data: { trueOrFalse: false } });
-  }, [clickedOutside])
-
-
-
   const setToFalse = () => {
-    dispatch({ type: "SET_MODAL_INFO", data: { trueOrFalse: false } });
+    // setOpenModalInfo(false);
+    dispatch({ type: SET_MODAL_INFO, payload: false });
+    dispatch({ type: SET_WAITING_MODAL_INFO, payload: false });
     document.body.style.overflow = "unset";
   };
   return (
     <div className={` ${styles.modal} `}>
-      <div className={`${styles.modal_container}`} ref={wrapperRef} id="infoModal">
+      <div className={`${styles.modal_container}`}>
         <p>{content?.length ? content : null}</p>
-        <div>{typeof content === "object" ? content : null}  </div>
-        <div className={styles.button_div}><button onClick={setToFalse} className="btn btn_primary ">Close </button></div>
-        <i onClick={setToFalse} className={`fa-solid fa-x ${styles.close_icon}`}></i>
-      </div>
 
+        <div className={styles.button_div}>
+          <button onClick={setToFalse} className="btn_info btn">
+            Okay
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

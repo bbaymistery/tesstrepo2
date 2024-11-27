@@ -1,0 +1,108 @@
+@use "../colors"as *;
+
+.form_group_textarea {
+    width: 100%;
+    position: relative;
+    margin-top: 3rem;
+
+
+    .animation_text_area_icon {
+        z-index: 999;
+        top: -3px;
+        font-size: 13px;
+        left: 15px;
+        position: absolute;
+    }
+}
+
+.textarea_error_message {
+    position: absolute;
+    top: -34px;
+    font-size: 12px;
+    font-weight: 500;
+    // font-family: sans-serif;
+    right: 0px;
+    color: red;
+}
+
+.textarea_animation {
+    display: block;
+    position: relative;
+    top: -5px;
+    width: 100%;
+    font-size: 14px;
+    height: 35px !important;
+    border: none;
+    border-bottom: 1px solid $border_gray;
+    resize: none !important;
+    padding: 5px 8px;
+    font-weight: 500;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus~label {
+        top: -24px;
+        font-size: 13px !important;
+        font-weight: bold;
+        color: $yellow !important;
+    }
+
+    &:valid~label {
+        top: -32px;
+        font-size: 12px;
+        font-weight: bold;
+        color: $gray;
+    }
+
+    &:focus~.bar_textarea {
+        &:before {
+            width: 50%;
+        }
+
+        &:after {
+            width: 50%;
+        }
+    }
+}
+
+.textarea_animation_label {
+    position: absolute;
+    top: -32px;
+    // left: 5px;
+    color: #999;
+    font-size: 13px;
+    font-weight: normal;
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+.bar_textarea {
+    display: block;
+    position: relative;
+    width: 100%;
+
+    &:before {
+        content: "";
+        height: 2px;
+        width: 0;
+        bottom: 3px;
+        position: absolute;
+        background: $yellow;
+        transition: all 0.2s ease;
+        left: 50%;
+    }
+
+    &:after {
+        content: "";
+        height: 2px;
+        width: 0;
+        bottom: 3px;
+
+        position: absolute;
+        background: $yellow;
+        transition: all 0.2s ease;
+        right: 50%;
+    }
+}

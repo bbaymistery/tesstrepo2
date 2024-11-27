@@ -12,7 +12,7 @@ export default function TrackMyTaxi(props) {
       </Head>
       <iframe
         src="https://api.london-tech.com/api/v1/drivers/location?origin=london-heathrow-taxi"
-        style={{ width: "100vw", height: "100vh" }}
+        style={{ width: "100vw", height: "100vh", border: '0px' }}
       ></iframe>
     </React.Fragment>
   );

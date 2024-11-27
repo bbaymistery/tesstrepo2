@@ -3,8 +3,11 @@
 const getEnvConfig = (config) => {
     const isDevelopment = false; // localohst -> true || live -> false
     return {
-        websiteDomain: isDevelopment ? "http://localhost:3500" : "https://www.airport-pickups-london.com",
+        websiteDomain: isDevelopment
+            ? "http://localhost:8000"
+            : "https://www.london-heathrow.taxi",
         apiDomain: config.API_SERVER_ORIGIN || "https://api.london-tech.com", // Use API domain from config
+
         status: {
             success: 200,
             error: 403,
@@ -16,6 +19,7 @@ const getEnvConfig = (config) => {
             notAcceptable: 406,
             internalServerError: 500,
         },
+        a: "Sss"
     };
 };
 
@@ -25,3 +29,7 @@ export async function fetchConfig() {
     return getEnvConfig(config);
 }
 
+/*
+          apiDomain: "https://api.london-tech.com",
+apiDomain: "https://api-backup.london-tech.com",
+*/

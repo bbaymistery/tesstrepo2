@@ -1,0 +1,148 @@
+.bg_holder {
+    position: relative;
+    height: 400px;
+    display: flex;
+
+    &::after {
+        content: " ";
+        height: 100%;
+        width: 100%;
+        opacity: 0.2;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 1);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+    }
+
+    .bg_parallax {
+        background-image: url('/images/planeBackground.webp');
+        width: 100%;
+        height: 100%;
+        background-position: 50% 0;
+        background-attachment: fixed;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+    }
+
+
+
+    .bg_content {
+        position: relative;
+        z-index: 7;
+        max-width: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .bg_container {
+
+            .bg_box {
+                &_title {
+                    color: white;
+                    margin-bottom: 20px;
+
+                    @media (max-width:768px) {
+                        font-size: 28px;
+                        margin-bottom: 2rem;
+                    }
+                }
+
+                .image_div {
+                    img {
+                        @media (max-width: 990px) {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                .badge {
+                    height: 210px;
+                    max-width: 585px;
+                    margin: 0 auto;
+
+                    .iframe {
+                        max-width: 500px;
+                        width: 100%;
+                    }
+                }
+
+
+                .about_title {
+                    // background-color: red;
+                    color: white;
+                    text-align: left;
+                    font-style: italic;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+
+                    @media (max-width: 990px) {
+                        text-align: center;
+                        margin-left: 20px;
+                        margin-right: 20px;
+                    }
+
+                    @media (max-width: 678px) {
+                        font-size: 20px;
+                    }
+                }
+
+                .about_adresses {
+                    font-weight: 500;
+                    font-size: 18px;
+                    text-align: left;
+                    color: white;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    margin-bottom: 2rem;
+
+                    @media (max-width: 990px) {
+                        text-align: center;
+                        margin-left: 20px;
+                        margin-right: 20px;
+                    }
+
+                    @media (max-width: 678px) {
+                        font-size: 15px;
+                    }
+
+                }
+
+                .about_adress_bottom {
+                    font-size: 17px;
+                    text-align: left;
+                    color: white;
+
+                    @media (max-width: 990px) {
+                        text-align: center;
+                        margin-left: 20px;
+                        margin-right: 20px;
+                    }
+
+                    @media (max-width: 678px) {
+                        font-size: 14px;
+                    }
+
+                    @media (max-width: 350px) {
+                        font-size: 13px;
+                    }
+                }
+            }
+
+            .about_bg_box {
+                @media (max-width: 678px) {
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+}
