@@ -1,400 +1,255 @@
-@import '../../styles/colors';
+@import '../../styles/_fonts';
+@import '../../styles/variables';
 
-$mainBlack: rgb(79, 78, 78);
-$lightGray: rgb(126, 126, 126);
-$borderOrange: rgba(192, 144, 55, 0.204);
+.rsv_details {
+    background-color: #fff;
 
-.reserv_page {
-    &_section {
-        &_container {
-            @media (min-width:990px) {
-                max-width: 800px !important;
-            }
+    .rsv_details_section {
+        .rsv_details_section_container {
+            .document_details_section {
+                // border: 1px solid red;
+                max-width: 796px;
+                width: 100%;
+                margin: 0 auto;
 
-            .reserv_content {
-                border: 2px solid $borderOrange;
-                border: 2px solid $borderOrange;
-                display: flex;
-                position: relative;
 
-                @media (max-width:768px) {
-                    flex-direction: column-reverse;
-                    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
-                }
 
-                .logo_div {
-                    position: absolute;
-                    right: 50px;
-                    top: 50px;
-                    transform: translate(-50%);
+                .first_section {
+                    margin: 0 auto;
+                    text-align: center;
 
-                    @media (max-width:768px) {
-                        left: 42%;
-                    }
-
-                    @media (max-width:768px) {
-                        left: 50%;
-                        transform: translate(-50%);
-                        width: 100%;
+                    .icon_div {
+                        background-color: $primary;
+                        width: 80px !important;
+                        height: 80px;
+                        margin: 0 auto;
                         display: flex;
-                        background-color: white;
                         align-items: center;
                         justify-content: center;
-                        flex-direction: column;
+                        border-radius: 50%;
 
-                    }
+                        @media (max-width:899px) {
+                            width: 60px !important;
+                            height: 60px;
 
-                    @media (max-width:450px) {
-                        background-color: white;
-                    }
-
-                    .text {
-                        h1 {
-                            font-size: 25px;
-                            font-weight: bold;
-                            color: $mainBlack;
-                            text-align: center;
-                            margin-bottom: 1rem;
-
-                            @media (max-width:420px) {
-                                font-size: 24px;
-                                margin-bottom: 0.1rem;
+                            i {
+                                color: #fff;
+                                font-size: 22px !important;
                             }
+                        }
+
+                        i {
+                            color: #fff;
+                            font-size: 32px;
                         }
                     }
 
-                    .content {
-                        display: flex;
-                        align-items: center;
-                        gap: 10px;
+                    .succes_message {
+                        font-size: 30px;
+                        // font-family: $font-jost;
+                        margin-top: 20px;
+                        font-weight: 500;
+                        color: $gray-2;
+                        margin-bottom: 0px !important;
 
-                        @media (max-width:768px) {
-                            padding: 6px 15px;
-                            box-shadow: rgba(235, 134, 1, 0.509) 0px 1px 1px 0px;
-
+                        @media (max-width:899px) {
+                            font-size: 24px;
                         }
+                    }
 
-                        @media (max-width:450px) {
-                            margin-top: 1rem;
+                    .succes_message2 {
+                        font-size: 28px;
+                        margin-top: 0px;
+                        font-weight: 500;
+                        color: $gray-2;
+                        margin-bottom: 0px !important;
 
+                        @media (max-width:899px) {
+                            font-size: 22px;
                         }
+                    }
 
-                        .img_div {
-                            img {
-                                @media (max-width:768px) {
-                                    margin-left: -5px;
-                                }
+                    .sub_succes_message {
+                        margin-top: 5px;
+                        font-size: 15px;
+                        color: $gray-3;
 
-                                width: 50px;
-
-                                @media (max-width:450px) {
-                                    width: 35px;
-
-                                }
-                            }
-                        }
-
-                        .text {
-                            h1 {
-                                font-size: 18px;
-                                font-weight: bold;
-                                color: $mainBlack;
-                                margin-bottom: 0;
-
-                                @media (max-width:420px) {
-                                    font-size: 15px;
-                                }
-                            }
-
-                            p {
-                                font-weight: 500;
-                                color: $lightGray;
-                                font-size: 13px;
-
-                                @media (max-width:420px) {
-                                    font-size: 11px;
-                                }
-                            }
+                        @media (max-width:899px) {
+                            font-size: 14px;
                         }
                     }
                 }
 
-                //invoice text
-                .text_invoice {
-                    position: absolute;
-                    top: 70px;
-                    left: 146px;
-                    font-size: 48px;
-                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-                    font-weight: bold;
-                    letter-spacing: 3px;
-                    color: rgb(61, 61, 61);
+                .second_section {
+                    border: 1px dashed $primary;
+                    margin-top: 25px;
+                    padding: 15px 50px 35px 50px;
+                    border-radius: 15px;
 
-                    @media (max-width:1200px) {
-                        left: 156px;
+                    @media(max-width:700px) {
+                        padding: 15px 40px 35px 40px;
                     }
 
-                    @media (max-width:990px) {
-                        left: 140px;
+                    @media (max-width:540px) {
+                        padding: 15px 25px 35px 25px;
                     }
 
-                    @media (max-width:768px) {
-                        display: none;
+                    .title {
+                        font-size: 20px;
+                        color: $gray-1 ;
+                        font-weight: 500;
+                        letter-spacing: 1px;
+                        text-align: center;
+                        margin-bottom: 25px;
+
+
                     }
 
-                    .first_three {
-                        color: white;
-                    }
-
-                    .second_three {
-                        color: $yellow;
-                    }
-                }
-
-                &_left {
-                    flex: 0.3;
-                    padding-left: 15px;
-                    padding-top: 200px;
-                    padding-bottom: 40px;
-                    background-color: $yellow;
-
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-
-                    @media (max-width:768px) {
-                        padding-top: 20px;
-                        padding-left: 0px;
-                    }
-
-                    @media (max-width:768px) {
-                        padding-bottom: 10px;
-                    }
-
-                    .left_break {
-
-                        .break_to_whom {
-                            background-color: white;
-                            padding: 5px 0px 5px 15px;
-                            font-weight: bold;
-                            color: $mainBlack;
-                            margin-bottom: 10px;
-                            font-size: 20px;
-                            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
-                            @media (max-width:768px) {
-                                font-size: 16px;
-                                text-align: center;
-
-                            }
-
-
-                        }
-
-                        p {
-                            font-size: 13px;
-                        }
-
-                        .break_explanation {
-                            padding-left: 15px;
-                            padding-right: 10px;
-                            color: black;
-                            font-weight: 500;
-                            position: relative;
-
-                            @media (max-width:768px) {
-                                text-align: center;
-                                padding-bottom: 10px;
-                            }
-                        }
-
-                        &_expalantion_email {}
-                    }
-                }
-
-                &_right {
-                    padding: 10px 20px;
-                    padding-top: 200px;
-                    flex: 0.7;
-
-                    @media (max-width:450px) {
-                        padding: 0px 14px;
-                        padding-top: 200px;
-                    }
-
-                    .right_header {
+                    .columns {
                         display: flex;
                         justify-content: space-between;
-                        align-items: center;
 
-                        .right_header_left {
-                            .left_box {
-                                font-size: 16px;
-                                display: grid;
-                                grid-template-columns: 110px 1fr;
-
-                                @media (max-width:768px) {
-                                    display: flex;
-                                    gap: 3px;
-                                }
-
-                                @media (max-width:450px) {
-                                    font-size: 14px;
-                                }
-
-                                .box_left {
-                                    color: $mainBlack;
-                                    font-weight: bold;
-                                    padding-right: 5px;
-
-
-                                }
-
-                                .box_right {
-                                    font-size: 14px;
-                                    color: $lightGray;
-                                    font-weight: 500;
-                                }
-                            }
-
-                        }
-
-                        .right_box {
-                            position: relative;
-
-                            .amount_text {
-                                position: absolute;
-                                top: -25px;
-                                text-transform: uppercase;
-                                right: 0px;
-                                font-size: 18px;
-                                font-weight: 500;
-                                color: $mainBlack;
-
-                                @media (max-width:450px) {
-                                    font-size: 14px;
-                                }
-
-                            }
-
-                            .right_box__number {
-                                padding: 10px 10px;
-                                background-color: $yellow;
-                                color: rgb(255, 255, 255);
-                                font-size: 26px;
-                                font-weight: bold;
-
-                                @media (max-width:450px) {
-                                    font-size: 18px;
-                                    padding: 5px 9px;
-                                }
-                            }
-                        }
-                    }
-
-                    .right_passenger_details {
-                        margin-top: 1rem;
-
-                        .passenger_details_header {
-                            h5 {}
-                        }
-                    }
-
-                    .bottom_tot {
-
-                        padding: 6px 0px;
-                        display: flex;
-                        justify-content: space-between;
-                        position: relative;
-
-                        @media (max-width:680px) {
+                        @media(max-width:700px) {
                             flex-direction: column;
                         }
 
-                        @media (max-width:680px) {
-                            &::after {
-                                content: '';
-                                width: 100%;
-                                background-color: rgba(57, 63, 95, 0.13);
-                                height: 2px;
-                                opacity: 0.7;
-                                position: absolute;
-                                bottom: 45px;
-                                left: 0px;
-                                // border-top-right-radius: 50%;
-                                // border-bottom-right-radius: 50%;
-                            }
-                        }
 
-                        .thankyou {
-                            display: flex;
-                            align-items: center;
-                            font-size: 14px;
-                            color: $lightGray;
-                            font-weight: 500;
-                            position: relative;
-
-                            @media (max-width:680px) {
-                                margin-bottom: 1rem;
+                        .column_div {
+                            @media(max-width:700px) {
+                                border-bottom: 1px solid $border;
+                                padding-bottom: 10px;
+                                padding-top: 10px;
                             }
 
-                            i {
-                                font-size: 15px;
-                                margin-right: 5px;
-                                color: black;
-
-                            }
-                        }
-
-                        &_price {
-                            display: flex;
-                            justify-content: flex-end;
-
-                            @media (max-width:768px) {
-                                justify-content: center;
-                            }
-
-                            &_text {
-                                font-size: 22px;
-                                margin-right: 1rem;
-                                color: gray;
-                                font-weight: 500;
-
-                                @media (max-width:500px) {
-                                    font-size: 18px;
+                            .text1 {
+                                font-size: 17px;
+                                color: $black-1;
+                                // font-family: $font-jost;
+                                letter-spacing: 1px;
+text-transform: capitalize;
+                                @media (max-width:899px) {
+                                    font-size: 16px;
                                 }
+
+                                @media (max-width:490px) {
+                                    font-size: 15px;
+                                }
+
+
                             }
 
-                            &_price {
-                                color: #0D233E;
-                                font-weight: bold;
-                                font-size: 30px;
+                            .text2 {
+                                font-size: 18px;
+                                // font-family: $font-jost;
+                                color: $primary;
+                                font-weight: 500;
+                                text-transform: capitalize;
 
-                                @media (max-width:500px) {
-                                    font-size: 22px;
+                                @media (max-width:899px) {
+                                    font-size: 17px;
+                                }
+
+                                @media (max-width:490px) {
+                                    font-size: 16px;
+                                }
+
+                                @media(max-width:420px) {
+                                    font-size: 13px;
                                 }
                             }
                         }
                     }
+                }
+
+                .third_section {
+                    border: 1px solid $border;
+                    border-radius: 15px;
+                    padding: 15px 50px 5px 50px;
+                    margin-top: 40px;
+                    margin-bottom: 40px;
+
+                    @media (max-width:540px) {
+                        padding: 15px 25px 5px 25px;
+                    }
+
+                    .title {
+                        margin-bottom: 10px;
+                        font-size: 20px;
+                        color: $gray-1 ;
+                        font-weight: 500;
+                        letter-spacing: 1px;
+                        // font-family: $font-jost;
+
+                        text-align: center;
+
+                        @media (max-width:540px) {}
+                    }
+
+                    div {
+                        .return_journey_text {
+                            margin-bottom: 10px;
+                            margin-top: 20px;
+                            font-size: 20px;
+                            color: $gray-1 ;
+                            font-weight: 500;
+                            // font-family: $font-jost;
+                            letter-spacing: 1px;
+                        }
+                    }
+
+                    .passenger_info {
+                        display: flex;
+                        justify-content: space-between;
+                        border-bottom: 1px solid $border;
+                        // font-family: $font-jost;
+                        padding: 12px 0px;
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+
+                        .left {
+                            color: $black-2;
+                            font-weight: 400;
+text-transform: capitalize;
+                            @media (max-width:490px) {
+                                font-size: 15px;
+                            }
+
+                        }
+
+                        .right {
+                            font-size: 17px;
+                            font-weight: 500;
+                            color: $primary;
+
+                            @media (max-width:490px) {
+                                font-size: 16px;
+                            }
+
+                            @media(max-width:420px) {
+                                font-size: 13px;
+                            }
+                        }
+
+                    }
+                }
+
+                .btn_div {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    @media (max-width:767px) {}
+
+                    button {
+                        border-radius: 15px !important;
+                        padding: 10px 15px;
+                    }
+
 
                 }
-            }
-        }
-
-        .progress_div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px !important;
-
-            // background-color: red;
-            @media (max-width:600px) {
-                width: 300px !important;
-
             }
         }
     }

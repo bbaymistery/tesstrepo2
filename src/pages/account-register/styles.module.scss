@@ -1,0 +1,218 @@
+@import "../../styles/_fonts";
+@import "../../styles/variables";
+
+.accountRegister[bggray="true"] {
+    background-color: $light-2;
+}
+
+.accountRegister[bggray="false"] {
+    background-color: white !important;
+}
+
+.accountRegister {
+    height: 100%;
+    position: relative;
+    padding-top: 2rem;
+    border: 1px solid $border;
+
+
+    &_section {
+
+        &_container {
+            h1 {
+                margin-bottom: 2rem;
+            }
+
+            .accountRegister_content {
+                display: flex;
+                gap: 2.5rem;
+                justify-content: space-between;
+
+                @media(max-width:1100px) {
+                    flex-direction: column;
+                }
+
+                .accountRegister_content_left {
+                    flex-basis: 65%;
+                    gap: 2rem;
+                    display: flex;
+                    flex-direction: column;
+
+                    .details_div {
+                        border-radius: 4px;
+                        min-height: auto;
+                        padding: 30px 20px;
+                        border: 5px solid lighten($border, 7%);
+
+                        h1 {
+                            font-size: 22px;
+                            margin-bottom: 15px;
+                            font-weight: 500;
+                            color: $dark-1;
+                        }
+
+                        .recaptcha {
+                            display: flex;
+                            justify-content: flex-end;
+                            margin-top: 2rem;
+                        }
+
+                        .amount_credit_title {
+                            text-transform: capitalize;
+                            font-weight: 500;
+                            font-size: 18px;
+                            margin-bottom: 1rem;
+                        }
+
+
+
+                        .input_note {
+                            height: 10px !important;
+                            border: 1px solid red;
+                        }
+
+                        .details {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            grid-gap: 1.5rem;
+
+                            @media(max-width:768px) {
+                                display: flex;
+                                flex-direction: column;
+                            }
+
+                            .input_div {
+                                position: relative;
+
+                                &:nth-child(1) {
+                                    order: 0;
+                                }
+
+                                &:nth-child(2) {
+                                    order: 3;
+                                }
+
+                                &:nth-child(3) {
+                                    order: 4;
+                                }
+
+                                &:nth-child(5) {
+                                    order: 4;
+                                }
+
+                            }
+
+
+
+                            .last_input_item {
+                                grid-column: 1 / span 2;
+
+                                @media(max-width:768px) {
+                                    grid-column: 1;
+                                }
+                            }
+                        }
+
+                        .operation_details {
+                            display: flex;
+                            flex-direction: column;
+                        }
+
+                        .the_checkbox_div {
+                            border: 1px solid $border;
+                            border-radius: 4px;
+                            padding: 0px 15px 0px 15px;
+                            user-select: none;
+
+                            p {
+                                margin-bottom: 0px;
+                                color: darken($label_text_color, 50%) !important;
+                                font-size: 14px;
+                                letter-spacing: 0.4px;
+                                font-weight: 500;
+                            }
+
+                            .radio_input_content {
+                                display: flex !important;
+                                gap: 1rem;
+                                margin-bottom: 4px;
+
+                                div {
+                                    display: flex;
+                                    gap: 5px;
+                                    color: darken($input_text_color, 36%) !important;
+                                    font-weight: 500;
+                                    font-size: 14px;
+
+                                    input,
+                                    label {
+                                        cursor: pointer;
+                                        text-transform: capitalize;
+                                    }
+                                }
+                            }
+                        }
+
+                        .emergency_div {
+                            border: 1px solid $border;
+                            border-radius: 4px;
+                            padding: 0px 15px 0px 15px;
+                            user-select: none;
+
+                            p {
+                                margin-bottom: 0px;
+                                color: $label_text_color !important;
+                                font-size: 14px;
+                            }
+
+                            input {
+                                border: none;
+                                width: 100%;
+                                color: $input_text_color;
+                                font-weight: 500;
+                                font-size: 14px;
+                                outline: none;
+                            }
+                        }
+
+                        .btn_div {
+                            display: flex;
+                            justify-content: flex-end;
+
+                            button {
+                                padding: 5px 15px;
+                                border-radius: 4px;
+                                margin-top: 1rem;
+                                font-size: 17px;
+
+                            }
+                        }
+                    }
+                }
+
+
+                .accountRegister_content_registration_right {
+                    border-radius: 4px;
+                    flex-basis: 35%;
+                    position: sticky;
+                    top: 120px;
+                    height: 100%;
+
+                    @media(max-width:1100px) {
+                        display: none;
+                    }
+
+                    .image_div {
+                        padding: 30px 20px;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}

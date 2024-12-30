@@ -1,0 +1,231 @@
+       @import '../../../styles/variables'
+       ;
+       @import '../../../styles/fonts';
+
+       .form_control {
+           position: relative;
+
+           .form_control_header {
+               display: flex;
+               justify-content: space-between;
+
+               .form_control_header_title {
+                   font-weight: 500;
+                   color: $dark-1 !important;
+                   margin-bottom: 0.1rem;
+               }
+           }
+
+           .form_control_input_div {
+               max-width: 184px;
+               width: 100%;
+               padding: 0.3rem 0.75rem 0.2rem 0.4rem;
+               border: 1px solid $border;
+               border-radius: 4px;
+
+               @media(max-width:990px) {
+                   border-bottom: 1px solid #efefef;
+                   padding-right: 0px;
+                   padding-bottom: 4px;
+                   max-width: 100%;
+               }
+
+               input[type="date"] {
+                   position: relative;
+                   text-align: left;
+                   min-width: 100%;
+                   max-width: 100%;
+                   -webkit-appearance: none;
+                   -moz-appearance: none;
+                   -webkit-border-radius: 0;
+                   -webkit-width: 100%;
+                   min-height: 28px !important;
+                   height: 28px !important;
+                   border: 0;
+                   outline: none;
+                   padding: 1px 2px;
+                   outline-offset: -2px;
+                   background-color: rgb(255, 255, 255);
+
+                   @media (max-width:990px) {
+                       padding: 1px 0px;
+                   }
+
+                   font-weight: 500;
+                   font-size: 15px;
+
+                   &:before {
+                       content: '';
+                       position: absolute;
+                       height: 50%;
+                       border-color: transparent transparent transparent rgba(#5d646d, .5);
+                       border-style: solid;
+                       border-width: 1px;
+                       transform: skewX(-15deg);
+                       top: 6px;
+                       left: 23px;
+
+                       @media (max-width:768px) {
+                           display: none !important;
+                       }
+                   }
+
+                   &:after {
+                       content: '';
+                       position: absolute;
+                       height: 50%;
+                       border-color: transparent transparent transparent rgba(#5d646d, .5);
+                       border-style: solid;
+                       border-width: 1px;
+                       transform: skewX(-15deg);
+                       left: 52px;
+                       top: 6px;
+
+                       @media (max-width:768px) {
+                           display: none !important;
+                       }
+                   }
+               }
+
+
+               /* make the native arrow invisible and stretch it over the whole field so you can click anywhere in the input field to trigger the native datepicker*/
+               input[type="date"]::-webkit-calendar-picker-indicator {
+                   position: absolute;
+                   top: 0;
+                   left: 0;
+                   right: 0;
+                   bottom: 0;
+                   width: auto;
+                   height: auto;
+                   color: transparent;
+                   background: transparent;
+                   user-select: none;
+                   z-index: 1;
+               }
+
+               /* adjust increase/decrease button */
+               input[type="date"]::-webkit-inner-spin-button {
+                   z-index: 1;
+
+               }
+
+               /* adjust clear button */
+               input[type="date"]::-webkit-clear-button {
+                   z-index: 1;
+               }
+
+               //iphonelarda 2 aralik 2022 ni ortaliyan budur
+               input::-webkit-date-and-time-value {
+                   text-align: left;
+                   text-align: -webkit-left;
+                   display: flex;
+                   align-items: center;
+                   height: 100%;
+               }
+
+               input[type="date"]::-webkit-datetime-edit,
+               input[type="date"]::-webkit-inner-spin-button,
+               input[type="date"]::-webkit-clear-button {
+                   color: rgb(253, 253, 253);
+                   position: relative;
+                   left: 0px;
+                   text-align: left;
+               }
+
+               input[type="date"]::-webkit-datetime-edit-year-field {
+                   position: absolute !important;
+                   padding: 0px 7px;
+                   color: rgba(#130b37, 1);
+                   left: 54px;
+
+
+
+               }
+
+               input[type="date"]::-webkit-datetime-edit-month-field {
+                   position: absolute !important;
+                   padding: 0px 7px;
+                   color: rgba(#130b37, 1);
+                   left: 22px;
+               }
+
+
+               input[type="date"]::-webkit-datetime-edit-day-field {
+                   position: absolute !important;
+                   color: rgba(#130b37, 1);
+                   padding: 0px 0px;
+                   left: 0px;
+
+               }
+
+               input::-webkit-datetime-edit-day-field:focus,
+               input::-webkit-datetime-edit-month-field:focus,
+               input::-webkit-datetime-edit-year-field:focus {
+                   background-color: rgb(12, 155, 243);
+                   color: white;
+                   outline: none;
+               }
+
+               // in case if it is arabic language
+
+               input[type="date"].rtl {
+                   &:before {
+                       left: 95px;
+
+                       @media(max-width:1250px) {
+                           left: 73px;
+                       }
+                   }
+
+                   &:after {
+                       left: 67px;
+
+                       @media(max-width:1250px) {
+                           left: 47px;
+                       }
+                   }
+               }
+
+               input[type="date"].rtl::-webkit-datetime-edit-year-field {
+                   left: 18px;
+
+                   @media(max-width:1250px) {
+                       left: 0px;
+                   }
+               }
+
+               input[type="date"].rtl::-webkit-datetime-edit-month-field {
+                   left: 65px;
+
+                   @media(max-width:1250px) {
+                       left: 45px;
+                   }
+               }
+
+               input[type="date"].rtl::-webkit-datetime-edit-day-field {
+                   left: 100px;
+
+                   @media(max-width:1250px) {
+                       left: 80px;
+                   }
+               }
+           }
+
+
+
+           .date_picker_icon {
+               top: 50px;
+               transform: translateY(-100%);
+               right: 13px;
+               font-size: 14px;
+               user-select: none;
+               color: rgba(#130b37, .7);
+               position: absolute;
+               z-index: 0;
+
+               @media(max-width:990px) {
+                   right: 5px;
+
+               }
+           }
+       }

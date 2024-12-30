@@ -1,0 +1,233 @@
+@import '../../../styles/variables';
+
+.car_section[bggray="true"] {
+    background-color: $light-2 !important;
+}
+
+.car_section[bggray="false"] {
+    background-color: white !important;
+}
+
+
+
+.car_section {
+    padding: 4rem 0px;
+    border-bottom: 1px solid $border;
+    padding-bottom: 4.5rem;
+}
+
+.header_title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 3rem;
+}
+
+.car_section_container {
+    height: 340px;
+    display: flex;
+    align-items: center;
+}
+
+/* Container for the entire slider */
+.sliderContainer {
+    position: relative;
+    max-width: 1200px;
+    margin: 10px auto;
+    overflow: hidden;
+
+    /* Hide overflow for smooth scrolling */
+}
+
+/* Wrapper for the slider items */
+.sliderWrapper {
+    overflow: hidden;
+    cursor: grab;
+    /* Indicate draggable behavior */
+}
+
+/* Slider inner container */
+.slider {
+    display: flex;
+    /* Align items in a row */
+    transition: transform 0.5s ease;
+    /* Smooth transition for sliding */
+}
+
+/* Each slider item */
+.sliderItem {
+    flex: 0 0 auto;
+    /* Prevent items from shrinking */
+    padding: 15px;
+}
+
+/* Card styling for each item */
+.card {
+    background: white;
+    // border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 40px 20px 15px 20px;
+    /* Increase padding to add more space */
+    text-align: center;
+    // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    /* Subtle shadow for depth */
+    min-height: 330px;
+
+    /* Optional: Set a minimum height for the entire card */
+    display: flex;
+    /* Enable flexbox */
+    flex-direction: column;
+    /* Stack children vertically */
+    justify-content: space-between;
+    /* Distribute space between image and text */
+}
+
+
+/* New Wrapper for the Next.js Image */
+.imageWrapper {
+    position: relative;
+    /* Required for Next.js Image layout="fill" */
+    width: 100%;
+    /* Ensures the wrapper takes the full width of the card */
+    height: 125px;
+    /* Fixed height for consistent design */
+    overflow: hidden;
+    /* Ensures the image doesn’t overflow the wrapper */
+    border-radius: 5px;
+    /* Same as the card for consistency */
+}
+
+/* Styling for the Next.js Image */
+.cardImage {
+    object-fit: cover;
+    /* Ensure the image covers the wrapper space */
+}
+
+.card_body {
+    padding: 1px;
+
+    &_title {
+        font-weight: 500;
+        line-height: 1.2;
+        font-size: 19px;
+        color: $black-1;
+        text-align: left;
+        margin-bottom: 10px;
+
+        &:hover {
+            color: $primary;
+            transition: all 0.4s;
+        }
+    }
+
+    &_attributes {
+
+        .card_atr_ul[direction="true"] {
+            justify-content: flex-end;
+
+            .card_atr_li {
+                flex-direction: row-reverse;
+                display: flex;
+
+                .li_icon {
+                    padding-right: 0px;
+                    font-size: 15px;
+                    padding-left: 7px;
+                    margin-top: 5px;
+                }
+            }
+        }
+
+        .card_atr_ul {
+            display: flex;
+            align-items: center;
+            padding: 0px;
+
+            .card_atr_li {
+                margin-right: 15px;
+                padding-right: 15px;
+
+                color: #0d233e;
+                font-weight: 400;
+
+                .li_icon {
+                    padding-right: 7px;
+                    font-size: 15px;
+                }
+
+                .li_desc {
+                    text-transform: capitalize;
+
+                }
+
+
+            }
+
+            .card_atr_li_suitcase {
+                margin-left: 2px;
+            }
+        }
+    }
+}
+
+/* Title inside each card */
+.cardTitle {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+/* Arrows for navigation */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* Center vertically */
+    background: $primary;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    font-size: 16px;
+    /* Ensure arrows are above other elements */
+}
+
+.leftArrow {
+    left: 20px;
+}
+
+.rightArrow {
+    right:20px;
+}
+
+/* Pagination dots */
+.dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background: #ddd;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    /* Smooth background change */
+}
+
+/* Active dot styling */
+.activeDot {
+    background: $primary;
+    /* Highlight the active dot */
+}

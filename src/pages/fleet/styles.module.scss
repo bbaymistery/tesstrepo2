@@ -1,0 +1,403 @@
+@import '../../styles/variables';
+@import '../../styles/_fonts';
+
+
+.fleet {
+    background-color:$light-4;
+    padding-bottom: 10px;
+
+    .fleet_section {
+
+        .fleet_section_container {
+            display: flex;
+            gap: 60px;
+            padding: 0px;
+
+            .left_content {
+                flex-basis: 20%;
+
+                display: flex;
+                flex-direction: column;
+
+                @media (max-width: 990px) {
+                    display: none;
+                }
+
+
+            }
+
+            .right_content {
+                flex-basis: 80%;
+
+                @media (max-width: 990px) {
+                    flex-basis: 100%;
+                }
+
+                .fleet_header {
+                    padding: 20px;
+                    border: 1px solid #f7f7f7;
+                    color: $dark-1;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                    font-family: $font-jost;
+
+                    h1 {
+                        @media (max-width: 768px) {
+                            font-size: 30px;
+                        }
+
+                        @media (max-width: 500px) {
+                            font-size: 25px;
+                        }
+
+                        @media (max-width: 475px) {
+                            font-size: 23px;
+                        }
+                    }
+
+                    p {
+                        color: $light-1;
+                    }
+                }
+
+                .card_item {
+                    margin-bottom: 22px;
+                    display: flex;
+                    border-radius: 4px;
+                    transition: .1s linear;
+                    border-top: 1px solid $border;
+                    border-bottom: 1px solid $border;
+                    border-right: 1px solid $border;
+                    background: #fff;
+                    margin-top: 22px;
+
+                    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+                    @media (max-width: 768px) {
+                        flex-direction: column;
+                        border-left: 1px solid transparent;
+                        border-right: 1px solid transparent;
+
+                    }
+
+                    .column_first[data="2"] {
+                        background-size: 70%;
+
+                        @media (max-width: 768px) {
+                            background-size: 35%;
+
+                        }
+
+                        @media (max-width: 500px) {
+                            background-size: 70%;
+
+                        }
+                    }
+
+                    .column_first[data="3"] {
+                        background-size: 70%;
+
+                        @media (max-width: 768px) {
+                            background-size: 35%;
+
+                        }
+
+                        @media (max-width: 500px) {
+                            background-size: 70%;
+
+                        }
+                    }
+
+                    .column_first {
+                        flex: 0.32;
+                        display: flex;
+                        align-items: center;
+                        padding: 0px 15px;
+                        border-radius: 3px;
+                        transition: .5s ease;
+                        justify-content: center;
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 120%;
+                        // background-color: #f9fafb;
+                        border-right: 1px solid$border;
+                        border-left: 1px solid$border;
+
+
+
+
+                        @media (max-width: 768px) {
+                            min-height: 200px;
+                            margin-bottom: 1rem;
+                            background-size: 60%;
+                        }
+
+                        @media (max-width: 700px) {
+                            flex: 0.24;
+                        }
+
+
+
+                        @media (max-width: 500px) {
+                            background-size: 100%;
+                        }
+
+                        @media (max-width: 400px) {
+                            background-size: 120%;
+                        }
+
+                    }
+
+                    .column_first[data="1"] {
+                        @media (max-width: 420px) {
+                            background-size: 130% !important;
+                        }
+                    }
+
+                    .column_second {
+                        flex: 0.68;
+                        height: 100%;
+                        padding: 15px 0px;
+                        padding-left: 1rem;
+
+                        @media (max-width: 1100px) {
+                            padding-left: 15px;
+                            padding-right: 0px;
+                        }
+
+                        @media (max-width: 990px) {
+                            padding-left: 15px;
+                        }
+
+                        @media (max-width: 768px) {
+                            padding: 0px;
+                            padding-left: 15px;
+                            padding-bottom: 10px;
+                        }
+
+                        .column_second_flex_column[direction="true"] {
+                            margin-right: 2rem;
+                        }
+
+                        .column_second_flex_column {
+                            display: flex;
+                            flex-direction: column;
+
+                            .name_and_postcode_div {
+                                .postcode {
+                                    color: $light-1;
+                                    //!change
+                                    font-size: 17px;
+                                }
+
+                                .name {
+                                    margin-top: 5px !important;
+                                    font-weight: 500;
+                                    //!change
+                                    font-size: 20px;
+                                    font-family: $font-jost;
+                                    margin-bottom: 0px !important;
+                                    text-transform: capitalize;
+
+                                    span {
+                                        color: $light-1;
+                                        font-size: 14px;
+                                        font-family: $font-jost;
+                                        margin-left: 4px;
+                                        text-transform: lowercase;
+                                    }
+                                }
+                            }
+
+                            .car_features {
+                                margin-top: 15px;
+                                display: grid;
+                                //!change
+                                grid-template-columns: max-content max-content max-content;
+                                gap: 1rem;
+
+
+                                @media (max-width:990px) {
+                                    gap: .3rem;
+
+                                    grid-template-columns: 1fr 1fr 1fr;
+                                }
+
+
+                                @media (max-width:460px) {
+                                    grid-template-columns: 1fr;
+                                }
+
+                                .meet_greet_icon[direction="true"] {
+                                    flex-direction: row-reverse;
+                                    display: flex;
+                                    justify-content: flex-end;
+                                }
+
+                                .feature_column {
+                                    max-width: 100%;
+                                    width: 100%;
+                                    padding-bottom: 5px;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 5px;
+
+
+
+                                    i {
+                                        color: rgb(5, 16, 54);
+                                        margin-right: 5px;
+                                        margin-left: 5px;
+                                        //!change
+                                        font-size: 16px;
+                                    }
+
+                                    span {
+                                        //!change
+                                        font-size: 16px;
+                                        font-family: $font-jost;
+                                        color: rgb(5, 16, 54);
+
+                                        @media (max-width: 1200px) {
+                                            font-size: 14px;
+                                        }
+
+                                        &:nth-child(1) {
+                                            font-weight: bold;
+                                        }
+
+                                        //passengertext
+                                        &:nth-child(2) {
+                                            font-weight: 500 !important;
+                                        }
+                                    }
+
+
+
+
+                                    //meet gree icon
+                                    &:nth-child(3) {
+                                        @media (max-width: 380px) {
+                                            margin-left: 4px;
+
+                                            img {
+                                                margin-left: -2px;
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                                .meet_greet_icon {
+                                    span {
+                                        text-transform: capitalize;
+                                    }
+                                }
+                            }
+
+                            .apl_features {
+                                margin-top: 10px;
+                                display: flex;
+                                flex-wrap: wrap;
+
+                                @media (max-width: 460px) {
+                                    flex-direction: column;
+                                }
+
+                                .apl_feature {
+                                    max-width: 50%;
+                                    width: 100%;
+                                    padding-bottom: 5px;
+                                    display: flex;
+                                    align-items: center;
+                                    font-size: 15px;
+                                    font-family: $font-jost;
+                                    font-weight: 500;
+                                    color: rgb(0, 128, 9);
+                                    color: $dark-1;
+
+                                    text-transform: capitalize;
+
+                                    @media (max-width: 1200px) {
+                                        font-size: 13px;
+                                    }
+
+                                    @media (max-width: 1100px) {
+                                        &:nth-of-type(odd) {
+                                            max-width: 45%;
+                                        }
+                                    }
+
+                                    @media (max-width: 460px) {
+                                        max-width: 100%;
+
+                                        &:nth-of-type(odd) {
+                                            max-width: 100%;
+                                        }
+                                    }
+
+
+                                    i {
+                                        color: black;
+                                        font-size: 10px;
+                                        margin-right: 5px;
+                                    }
+
+                                    .leftFeatureIcon {
+                                        margin-right: 0px;
+                                        margin-left: 5px;
+                                    }
+                                }
+
+                                .show_more_than360 {
+                                    @media (max-width: 460px) {
+                                        display: none;
+                                    }
+                                }
+
+                                .show_less_than360 {
+                                    display: none;
+
+                                    @media (max-width: 460px) {
+                                        display: block;
+
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+
+
+                .page_content {
+                    margin-bottom: 2rem;
+
+                    p {
+                        padding: 5px 0px;
+                    }
+
+                    h1,
+                    h2,
+                    h3 {
+                        margin-bottom: 5px;
+                        margin-top: 5px;
+                    }
+
+                    strong {
+                        padding: 5px 0px;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+.fleet[bggray="true"] {
+    background-color: $light-2;
+}
+
+.fleet[bggray="false"] {
+    background-color: white !important;
+}

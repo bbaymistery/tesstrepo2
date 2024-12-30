@@ -1,0 +1,83 @@
+@import '../../styles/variables';
+@import '../../styles/_fonts';
+
+
+.sitemap {
+    background-color: $light-4;
+    padding-bottom: 10px;
+
+    .sitemap_section {
+        .sitemap_section_container {
+            display: flex;
+            gap: 60px;
+            padding: 0px;
+            flex-direction: column;
+
+            .sitemap {
+                font-family: Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            .sitemap td,
+            .sitemap th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            .sitemap tr:nth-child(even) {
+                background-color: $light-2;
+            }
+
+            .sitemap tr:hover {
+                background-color: $light-3;
+            }
+
+            .sitemap th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: $dark-4;
+                color: white;
+            }
+
+            .sitemap tr {
+                display: flex;
+
+                @media(max-width:768px) {
+                    flex-direction: column;
+                }
+            }
+
+            .sitemap tr th {
+                width: 100%;
+            }
+
+            .sitemap td {
+                flex: 1;
+                display: flex;
+                justify-content: space-between;
+
+                span {
+                    color: black;
+                    font-weight: 700;
+                }
+
+                button {
+                    background-color: $dark-4;
+                    color: white;
+                    padding: 5px 10px;
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+.fleet[bggray="true"] {
+    background-color: $light-2;
+}
+
+.fleet[bggray="false"] {
+    background-color: white !important;
+}

@@ -1,0 +1,108 @@
+@import '../../styles/variables';
+@import '../../styles/_fonts';
+
+.terms {
+    height: 100%;
+    position: relative;
+    padding-top: 4rem;
+    border: 1px solid $border;
+    border-left: 0px;
+    border-right: 0px;
+    &_section {
+        &_container {
+            display: flex;
+
+            @media(max-width:990px) {
+                flex-direction: column;
+            }
+
+            .right {
+                padding: 15px;
+                width: 100%;
+
+                .right_content {
+
+                    h1 {
+                        font-size: 25px;
+                        font-weight: 500;
+                        margin-bottom: 15px;
+                    }
+
+
+
+
+                    .title_description {
+                        font-size: 15px;
+                        margin-bottom: 2rem;
+                    }
+
+                    h2 {
+                        font-size: 16px;
+                        text-transform: capitalize;
+                        font-weight: 500;
+                        margin-bottom: 20px;
+                        margin-top: 20px;
+                    }
+
+                    ul {
+                        li {
+                            padding-bottom: 5px;
+                        }
+
+                        .second_table {
+                            max-width: 410px;
+                            width: 100%;
+                            height: 148px;
+                            margin: 2rem auto;
+
+                            th {
+                                width: 144;
+                                text-align: center;
+                            }
+
+                            td {
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+
+                .right_content_policy {
+                    ul {
+                        margin-top: 1rem;
+
+                        li {
+                            list-style: inside;
+                            margin-left: 1.5rem;
+                        }
+                    }
+
+                    h2 {}
+
+                    h3,
+                    h4,
+                    h5 {
+                        margin-bottom: .75rem;
+                        margin-top: .75rem;
+                    }
+
+                    p {
+                        a {
+                            color: blue;
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+}
+
+.terms[bggray="true"] {
+    background-color: $light-2;
+}
+
+.terms[bggray="false"] {
+    background-color: white !important;
+}

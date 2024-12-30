@@ -1,76 +1,72 @@
-@import '../../../styles/colors';
+@import '../../../styles/variables';
+@import '../../../styles/fonts';
 
-.form_control {
-    width: 100%;
+.form_input {
     position: relative;
+    display: flex;
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+    width: 100%;
 
-    @media (max-width: 990px) {
+    .form_input_error {
+        position: absolute;
+        top: -21px;
+        color: red !important;
+        font-size: 13px;
+        font-weight: normal !important;
+        text-transform: lowercase !important;
+        font-weight: 500 !important;
+
+        &[direction="false"] {
+            right: 5px;
+        }
+
+        &[direction="true"] {
+            left: 5px;
+        }
+    }
+
+    .label {
+        position: absolute;
+        pointer-events: none;
+        top: 19px;
+        font-size: 13px;
+        padding: 0px 15px;
+        transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+        // font-family: $font-jost;
+        color: $label_text_color;
+        text-transform: capitalize;
+    }
+
+    .textarea {
         width: 100%;
-        margin-bottom: 1rem;
-    }
+        min-height: 54px;
+        border: 1px solid $border;
+        border-radius: 4px;
+        padding: 24px 15px 0px 15px;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+        resize: none;
+        color: $input_text_color;
+        font-weight: 500;
+        font-size: 14px;
 
-    //burasi title kismidir error olan yer ust taraf
-
-    .form_control_header {
-        display: flex;
-        justify-content: space-between;
-
-        .form_control_header_label {
-            color: $gray !important;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .form_control_header_error_message {
-            color: red;
-        }
-    }
-
-    .textarea_div {
-        position: relative;
-        margin-top: 4px;
-
-        .textarea {
-            border: 1px solid rgba(128, 137, 150, 0.2);
-            border-radius: 5px;
-            outline: none;
-            resize: none;
-            width: 100%;
-            padding: 10px 20px 10px 40px;
-
-
-            &:focus {
-                box-shadow: 0 0 10px #fe6b13 !important;
-
+        &:focus,
+        &:valid {
+            &~label {
+                margin-top: -16px;
+                transition: all 0.5s ease;
             }
         }
 
-        .error_textarea_border {
-            border: 1px solid red;
+        &:focus {
+            outline: none;
         }
 
-        .textarea_icon {
-            position: absolute;
-            top: 16px;
-            left: 17px;
-            color: #5d646d;
-            font-size: 14px;
-            z-index: 1;
+        &[err="true"] {
+            border-color: red;
         }
     }
 
-}
-
-.form_group_textarea {
-    margin-top: 4rem;
-
-    label {
-        font-size: 15px !important;
+    &.isTaxiDeal .textarea {
+        border: 5px solid lighten($border, 7%);
     }
-
-    textarea {
-        height: 81px !important;
-        // padding: 10px 0px !important;
-    }
-
 }

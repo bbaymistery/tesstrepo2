@@ -1,0 +1,64 @@
+//*Transitions
+$tr-ease: 0.3s ease-in-out;
+$tr-linear: 0.3s linear;
+$tr-cubic: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+//*colors
+
+
+$gray-1: #424242;
+$gray-2: #3b3b3b;
+$gray-3: #777;
+
+
+
+$black-1: #070707;
+$black-2: #1c1c1c;
+
+
+$dark-1: #051036;
+$dark-2: #0D2857;
+$dark-4: #163C8C;
+
+$border: #DDDDDD;
+$border2: #6e7f8c;
+$primary: #13357B;
+
+$light-1: #697488;
+$light-2: #F5F5F5;
+$light-3: #FBFCFF;
+$light-4: #f5f7fc;
+$blue-1: #3554D1;
+$blue-2: #E5F0FD;
+$yellow1: #F8D448;
+
+$input_text_color: #62666cd7;
+$label_text_color: rgba(105, 116, 136, 0.579);
+
+$checkbox-size: 14px;
+$checkbox-border: #cecece;
+$checkbox-selected: lighten($dark-1, 5%); 
+$disabled: hsla(215, 9%, 55%, 0.15);
+
+$--color-blue-1: #0d6efd;
+$--color-blue-2: #0a58ca;
+$--color-dark-1: #05073C;
+
+
+
+$--color-yellow-1: #FFA800;
+$--color-yellow-2: #E2AD64;
+$--color-yellow-3: #F9AB00;
+
+
+$--color-accent-1: #EB662B;
+$--color-accent-1-dark: #CE5A25;
+$--color-accent-2: #CD4B13;
+
+$--color-light-1: #F5F5F5;
+$--color-light-2: #717171;
+$--color-light-3: #FBFBFB;
+$--color-light-4: #DDD3EC;
+$--color-light-5: #F2F1EC;
+$--color-light-6: #E7E6E6;
+$--color-light-7: #C6C6D2;
+

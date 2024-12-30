@@ -1,80 +1,32 @@
-import React from "react";
+import React from 'react'
+import { useSelector } from 'react-redux';
 import styles from "./styles.module.scss";
+
 /**
- * @TextInput { //? value:string, onChange:function,onFocus:function,onBlur:function, name, title:string, icon:string, className:string,placeholder:string,errorMessage:string}
- **/
-const TextArea = (props) => {
-  let {
-    value = "",
-    onChange = (e) => { },
-    name,
-    icon,
-    placeholder,
-    errorMessage = "",
-    title = "",
-    noErrorMessage,
-    animationTextarea = false,
-    contactUs = false,
-  } = props;
+ * A React component that renders a textarea input field with a label and optional error message.
+ * 
+ * @param {object} props - The component props.
+ * @param {string} props.name - The name of the textarea input field.
+ * @param {string} props.label - The label text for the textarea input field.
+ * @param {string} props.errorMessage - The error message to display if there is an error.
+ * @param {string} props.value - The value of the textarea input field.
+ * @param {function} props.onChange - The function to call when the textarea input field value changes.
+ * @param {boolean} props.isTaxiDeal - A flag indicating whether the textarea is part of a taxi deal.
+ * @param {object} props.inputStyle - Additional styles to apply to the textarea input field.
+ * @param {object} props.labelStyle - Additional styles to apply to the label.
+ */
+const Textarea = (props) => {
+    
+    let { name = "", label = "", errorMessage = "", value = "", onChange = (e) => { }, isTaxiDeal = false ,inputStyle={},labelStyle={}} = props
+    let state = useSelector((state) => state.pickUpDropOffActions)
+    let { params: { direction } } = state
+    return (
+        <section className={`${styles.form_input} ${isTaxiDeal ? styles.isTaxiDeal : ""}`}>
+            {errorMessage ? <p direction={String(direction === 'rtl')} className={`error_message ${styles.form_input_error}`}>{errorMessage}</p> : <React.Fragment></React.Fragment>}
+            <textarea  style={{...inputStyle}} value={value} name={name} onChange={onChange} className={`${styles.textarea} `} err={String(typeof errorMessage === 'string' && errorMessage.length > 0)} />
+            <label  style={{ ...labelStyle}} htmlFor={name} className={styles.label}> {label} </label>
+        </section>
+    )
+}
 
-  return (
-    <>
-      {!animationTextarea ? (
-        <div className={`${styles.form_control} `}>
-          {!noErrorMessage && (
-            <div className={`${styles.form_control_header} `}>
-              <label htmlFor={name} className={styles.form_control_header_label}>{title}</label>
-              <p className={styles.form_control_header_error_message}>
-                {errorMessage && errorMessage}
-              </p>
-            </div>
-          )}
-          <div className={styles.textarea_div}>
-            <i className={`${styles.textarea_icon} fa-solid fa-${icon}`}></i>
-            <textarea
-              placeholder={placeholder}
-              onChange={onChange}
-              name={name}
-              id={name}
-              className={`${styles.textarea} ${errorMessage && styles.error_textarea_border
-                }`}
-              value={value}
-            ></textarea>
-          </div>
-        </div>
-      ) : (
-        <div
-          className={`
-        form_group_textarea
-        ${styles.form_group_textarea}
-        `}
-        >
-          {/* <i className={`animation_text_area_icon fa-solid fa-${icon}`}></i> */}
-          <textarea
-            style={{ resize: "none" }}
-            className={`textarea_animation  ${errorMessage && "border_required"
-              }`}
-            name={name}
-            autoComplete="off"
-            onChange={onChange}
-            value={value}
-          />
-          <span className="highlight"></span>
-          <span className="bar_textarea"></span>
-          <label
-            className={`textarea_animation_label
-            ${contactUs ? styles.contactUs_label : ""}`}
-            htmlFor={name}
-          >
-            {title}
-          </label>
-          <span className={"textarea_error_message"}>
-            {errorMessage && errorMessage}
-          </span>
-        </div>
-      )}
-    </>
-  );
-};
-
-export default TextArea;
+export default Textarea

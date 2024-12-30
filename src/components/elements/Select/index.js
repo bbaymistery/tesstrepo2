@@ -1,138 +1,64 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { SET_WAITING_MODAL_INFO } from "../../../store/showFieldReducer/showFieldTypes";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import FlightWaitingTimeContent from '../FlightWaitingTimeContent';
 import styles from "./styles.module.scss";
+
 /**
- * @TextInput { //? value:string , onChange:function,onFocus:function,onBlur:function,name:string,title:string,icon:string,  placeholder:string,errorMessage:string,isLoading:boolean,default:boolean,readOnly:boolean,}
- **/
+ * A React component that renders a select dropdown with various options and additional functionality.
+ *
+ * @param {object} props - The component props.
+ * @param {string} [props.name] - The name of the select field.
+ * @param {string} [props.value] - The current value of the select field.
+ * @param {string} [props.label] - The label for the select field.
+ * @param {string} [props.errorMessage] - An error message to display if the select field is invalid.
+ * @param {function} [props.onChange] - A callback function to handle changes to the select field.
+ * @param {string} [props.postCodeSelectOption] - A flag to indicate if the select options are post codes.
+ * @param {array} props.data - The data to populate the select options.
+ * @param {boolean} [props.flightSelectOption] - A flag to indicate if the select options are flight numbers.
+ * @param {boolean} [props.flightInfoIcon] - A flag to indicate if a flight information icon should be displayed.
+ * @param {boolean} [props.isTaxiDeal] - A flag to indicate if the select is part of a taxi deal.
+ * @returns {JSX.Element} - The Select component.
+ */
 const Select = (props) => {
-  let {
-    value,
-    onChange = (e) => { },
-    name = "",
-    title = "",
-    icon,
-    placeholder = "",
-    errorMessage = "",
-    data,
-    readOnly = false,
-    defaultValue,
-    noErrorMessage,
-    animationSelect = false,
-    showModalInfo = false,
-    forFlight = false
-  } = props;
-  const dispatch = useDispatch();
-  const handleModal = (e) => {
-    dispatch({ type: SET_WAITING_MODAL_INFO, payload: true });
-  };
-
-
+  
+  let { name = "", value = "", label = "", errorMessage = "", onChange = (e) => { }, postCodeSelectOption = "", data, flightSelectOption = false, flightInfoIcon = false, isTaxiDeal, } = props
+  const dispatch = useDispatch()
+  let state = useSelector((state) => state.pickUpDropOffActions)
+  let { params: { direction } } = state
+  const setModalInfo = (par) => dispatch({ type: "SET_MODAL_INFO", data: { trueOrFalse: true } })
   return (
-    <>
-      {!animationSelect ? (
-        <div className={`${styles.form_control}`}>
-          {!noErrorMessage && (
-            <div className={`${styles.form_control_header} `}>
-              <p className={styles.form_control_header_label}>{title}</p>
-              <p className={styles.form_control_header_error_message}>
-                {errorMessage && errorMessage}
-              </p>
-            </div>
-          )}
-          <div className={styles.select_div}>
-            <i
-              className={`${styles.select_div_left_icon} fa-solid fa-${icon}`}
-            ></i>
-            {
-              <i
-                className={`${styles.select_div_right_icon} fa-solid fa-angle-down`}
-              ></i>
-            }
-            <select
-              name={name}
-              onChange={onChange}
-              className={`${styles.select} ${errorMessage ? styles.error_select_border : ""
-                }
-          `}
-              defaultValue={value}
-              disabled={readOnly}
-            >
-              {defaultValue && (
-                <option value="" id={0}>
-                  {placeholder}
-                </option>
-              )}
-              {Number(data)
-                ? Array(data)
-                  .fill()
-                  .map((x, i) => {
-                    return (
-                      <option key={i + 100000} value={i + 1}>
-                        {`${i + 1}`}
-                      </option>
-                    );
-                  })
-                : data?.map((d, i) => {
-                  return (
-                    <option key={i + 1000} value={d.value} id={d?.id && d?.id}>
-                      {d.value}
-                    </option>
-                  );
-                })}
-            </select>
-          </div>
-        </div>
-      ) : (
-        <div className="select">
+    <div className={styles.select_wrapper}>
+      <label className={`${styles.select} `} direction={String(direction === 'rtl')} err={String(typeof errorMessage === 'string' && errorMessage.length > 0)} >
+        <select direction={String(direction === 'rtl')} className={styles.select__field} required name={name} onChange={onChange} defaultValue={value} >
+          {parseInt(data)
+            ? Array(data).fill().map((x, i) => <option key={i} id={i + 1} value={i + 1} >{i + 1}</option>)
+            : data?.map((d, i) => {
 
-          <select
-            className={`select-text ${errorMessage ? "error-border-select" : ""}`}
-            name={name} onChange={onChange}
-            //  defaultValue={value?.trim() ? value?.trim() : ""}
-            defaultValue={forFlight ? value?.trim() : value}
-          >
-            {defaultValue && (
-              <option value="" id={0}>
-                {placeholder}
-              </option>
-            )}
-            {Number(data)
-              ? Array(data)
-                .fill()
-                .map((x, i) => {
-                  return (
-                    <option key={i + 100} value={i + 1}>
-                      {`${i + 1}`}
-                    </option>
-                  );
-                })
-              : data?.map((d, i) => {
-                // selected={Number(defaultValue) === Number(d.value.split(" ")[0])}
-                //selected={forFlight ? Number(defaultValue) === Number(d?.value?.split(" ")[0]) :value === +d?.id}
-                return (
-                  <option key={i} value={d.value} id={d?.id && d?.id} selected={forFlight ? Number(defaultValue) === Number(d?.value?.split(" ")[0]) : value === +d?.id}>
-                    {d.value}
-                  </option>
-                );
-              })}
-          </select>
-          <span className="select-highlight"></span>
-          <span className="select-bar"></span>
-          <label className="select-label">
-            {title}
-            {showModalInfo && (
-              <i
-                className={`fa-solid fa-circle-info waiting-icon`}
-                onClick={handleModal}
-              ></i>
-            )}
-          </label>
-          {errorMessage ? <span className="error-waiting-pickup-time">{errorMessage}</span> : ""}
-        </div>
-      )}
-    </>
-  );
-};
+              //here we check d.id typeof string for flight number (go to component Checkfor flight )
+              if (typeof d.id === 'string' && typeof d.value === 'string' && flightSelectOption === true) {
+                return <option key={i} value={d.id} > {d.value}</option>
+              }
+              //here we check d.if isInteger for postcodes
+              else if (typeof d.value === 'string' && postCodeSelectOption === true) {
 
-export default Select;
+                return <option key={i} value={d.id} > {d.value}</option>
+              }
+              else {
+
+                <option key={i} id={d.id} value={d.value}> {d.value}</option>
+              }
+            })}
+        </select>
+        {errorMessage ? <p className={styles.form_input_error}>{errorMessage}</p> : <React.Fragment></React.Fragment>}
+
+        <span id="icon" direction={String(direction === 'rtl')} className={styles.select__label} >{label}</span>
+        {/* we dont wanna show by hoveer when we r in taxi deals  */}
+        {!isTaxiDeal && flightInfoIcon ? <div className={`${styles.flightinfo_div}`}>  <FlightWaitingTimeContent />  </div> : <React.Fragment></React.Fragment>}
+      </label>
+      {/* if is taxideal is true then we r gonna show content by modal  */}
+      {flightInfoIcon ? <i direction={String(direction === 'rtl')} className={`fa-solid fa-circle-info ${styles.info_icon}  ${isTaxiDeal ? styles.istaxideal_info_icon : ""}`} onClick={setModalInfo}></i> : <React.Fragment></React.Fragment>}
+    </div>
+  )
+}
+
+export default Select
