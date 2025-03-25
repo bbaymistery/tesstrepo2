@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: https://www.airport-pickups-london.com/sitemap.xml 
