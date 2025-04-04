@@ -1,0 +1,118 @@
+@import '../../styles/variables';
+@import '../../styles/fonts';
+
+.page {
+    position: relative;
+    padding-top: 1px;
+    padding-bottom: 80px;
+
+
+
+
+    &_section {
+        @media (max-width: 1200px) {
+            margin: 0 25px !important;
+        }
+
+        @media (max-width: 450px) {
+            margin: 0 10px !important;
+        }
+
+        &_container {
+            position: relative;
+            max-width: 1200px !important;
+            width: 100%;
+
+            .terms_content {
+                width: 100%;
+
+                &_header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    user-select: none;
+                    font-family: $cursive;
+                    font-weight: 500;
+                    color: rgb(102, 55, 129);
+
+                    .header_icon {
+                        font-size: 20px;
+
+
+                        svg {
+                            width: 100px;
+                        }
+                    }
+
+                    .header_text {
+                        font-size: 40px;
+
+                    }
+                }
+
+                .entry_text {
+                    text-align: center;
+                    margin-top: 3.5rem;
+                    color: #868585ea;
+
+                    span {
+                        &:nth-child(1) {
+                            font-size: 22px;
+                            // color: #000;
+                            color: rgb(102, 55, 129);
+
+                            img {
+                                width: 300px;
+                            }
+                        }
+
+
+                    }
+
+
+
+                }
+            }
+
+            .terms_div {
+                margin-top: 3rem;
+
+                h3 {
+                    // color: rgb(102, 55, 129);
+                    color: $primary;
+                    font-family: $font-inter;
+                    font-size: 24px;
+                    margin-bottom: 10px;
+                    text-transform: capitalize;
+                    margin-top: 1rem;
+
+                    @media (max-width: 450px) {
+                        font-size: 19px;
+                    }
+                }
+
+                ul {
+                    li {
+                        margin-left: 1.3rem;
+
+                        color: #4d4c4cea;
+                        line-height: 24px;
+
+                        @media (max-width: 450px) {
+                            font-size: 14px;
+                        }
+
+                        b {
+                            font-weight: bold;
+                            margin-right: 0.5rem;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+    }
+}

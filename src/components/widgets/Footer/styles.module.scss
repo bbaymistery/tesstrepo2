@@ -1,0 +1,30 @@
+@import '../../../styles/variables';
+@import '../../../styles/_fonts';
+
+.footer_page {
+    height: 30px;
+    position: fixed;
+    width: 100%;
+    background-color: $primary;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999999;
+
+    @media (max-width:768px) {
+        height: 60px;
+        padding: 0px 20px;
+    }
+
+    .footer_page_section {
+        .all_rights {
+            text-align: center;
+            font-size: 12px;
+            color: white;
+            font-family: $roboto ;
+
+            @media (max-width: 550px) {}
+        }
+    }
+}

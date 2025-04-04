@@ -1,0 +1,335 @@
+@import '../../styles/variables';
+@import '../../styles/_fonts';
+
+
+.tr_details {
+    position: relative;
+    margin-left: 60px;
+
+    @media (max-width: 990px) {
+        padding-top: 30px;
+        margin-left: 0px;
+    }
+
+    @media (max-width: 550px) {
+        padding-top: 0px;
+    }
+
+    .tr_details_section {
+        padding-top: 0px;
+        padding-bottom: 50px;
+        position: relative;
+
+        @media (max-width:1500px) {
+            margin: 0px 40px !important;
+        }
+
+        @media (max-width:1300px) {
+            margin: 0px 60px !important;
+        }
+
+        @media (max-width:990px) {
+            margin: 0px 20px !important;
+        }
+
+        @media (max-width:450px) {
+            margin: 0px 10px !important;
+        }
+
+        .tr_details_section_container {
+            @media only screen and (max-width:1200px) {
+                max-width: 1150px !important;
+            }
+
+            .transferdetails_subcontainer {
+                div {
+                    .transferdetails_subcontainer_content {
+                        max-width: 1450px;
+                        width: 100%;
+                        display: flex;
+                        background-color: transparent;
+                        position: relative;
+                        gap: 3rem;
+                        margin: 0 auto;
+                        justify-content: space-between;
+                        z-index: 1;
+
+                        @media (max-width:1450px) {
+                            gap: 1.5rem;
+                        }
+
+                        .transferdetails_subcontainer_content_points_and_passengerdetails {
+                            flex-basis: 65%;
+                            margin-top: 25px;
+                            position: relative;
+                            min-height: 500px;
+                            display: flex;
+                            flex-direction: column;
+
+                            @media (max-width:1500px) {
+                                flex-basis: 60%;
+                            }
+
+
+                            @media (max-width:1300px) {
+                                flex-basis: 100% !important;
+                            }
+
+                            //general classes
+                            .passenger_details_div {
+
+
+                                h2 {
+                                    color: $dark-1;
+                                    font-weight: 500;
+                                    margin-bottom: 15px;
+                                    font-size: 22px;
+                                    font-family: $font-jost;
+
+                                }
+
+                                .return_pas_details_header {
+                                    margin-bottom: 40px;
+                                }
+
+                                .passenger_details {
+                                    display: grid;
+                                    grid-template-columns: 1fr 1fr;
+                                    gap: 1.5rem;
+
+                                    @media (max-width:768px) {
+                                        grid-template-columns: 1fr;
+                                    }
+
+                                    .input_div {
+                                        p {
+                                            color: $primary;
+                                            padding-left: 10px;
+                                            font-size: 14px;
+                                            font-weight: 500;
+                                            font-family: $font-jost;
+                                        }
+
+
+                                    }
+
+
+                                }
+                            }
+
+                            .selected_points_details {
+                                h2 {
+                                    color: $dark-1;
+                                    font-weight: 500;
+                                    margin-bottom: 15px;
+                                    font-size: 22px;
+                                    font-family: $font-jost;
+                                    padding-top: 30px;
+                                    display: flex;
+                                    align-items: center;
+
+                                    i {
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        color: $primary;
+                                        font-size: 16px;
+                                        cursor: pointer;
+                                        margin-left: 10px;
+                                        margin-top: 3px;
+                                        display: none;
+
+                                        @media(max-width:990px) {
+                                            display: block;
+                                        }
+                                    }
+                                }
+
+                                .selecteditems {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    gap: 1.5rem;
+                                    margin-bottom: 1rem;
+
+                                    @media (max-width:768px) {
+                                        grid-template-columns: 1fr;
+                                        display: grid;
+                                    }
+
+                                    .points {
+                                        // border: 1px solid red;
+                                        min-height: 70px;
+                                        flex: 1;
+
+                                        .points_header {
+                                            font-size: 16px;
+                                            color: rgb(105, 116, 136);
+                                            font-weight: 500;
+                                            font-family: $font-jost;
+                                            margin-bottom: 10px;
+                                        }
+
+
+                                    }
+
+
+                                    .selectedlist_points_left {
+                                        z-index: 99999 !important;
+                                    }
+
+                                    .selectedlist_points_right {
+                                        z-index: 11 !important;
+                                    }
+                                }
+
+
+                            }
+
+                            .textarea_div {
+                                margin-top: 1rem;
+                                display: flex;
+                                gap: 2rem;
+                                align-items: flex-start;
+
+                                @media (max-width:768px) {
+                                    flex-direction: column;
+                                }
+                            }
+
+
+
+
+                            .buttons {
+                                display: flex;
+                                gap: 1rem;
+                                align-items: flex-start;
+                                margin-top: 2rem;
+                                height: 100%;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: flex-end;
+
+                                .left {
+                                    display: flex;
+                                    justify-content: space-between;
+
+                                    flex-basis: 100%;
+
+
+                                    button {
+                                        border-radius: 4px !important;
+                                        padding: 15px 20px;
+                                        max-width: 163px !important;
+                                        width: 163px;
+                                        font-size: 15px;
+                                        font-family: $font-jost;
+                                        letter-spacing: 1px;
+                                        text-transform: capitalize;
+
+                                        @media (max-width:678px) {
+                                            width: 143px;
+                                            padding: 13px 18px;
+                                        }
+
+                                        @media (max-width:420px) {
+                                            width: 113px;
+                                            padding: 12px 17px;
+                                            font-size: 13px;
+                                        }
+                                    }
+                                }
+
+
+                            }
+
+
+                        }
+
+
+
+                    }
+
+                    //                     .buttons_for_gap {
+                    //                         display: flex;
+                    //                         gap: 3rem;
+                    //                         align-items: flex-start;
+                    //                         margin-top: 3rem;
+                    // @media (max-width:1450px) {
+                    //         gap: 1.5rem;
+                    //     }
+                    //         @media (max-width:1300px) {
+                    //         display: none;
+                    //         }
+                    //                         .left {
+                    //                             flex-basis: 65%;
+                    //                             display: flex;
+                    //                             justify-content: space-between;
+                    // @media (max-width:1500px) {
+                    //         flex-basis: 60%;
+                    //     }
+                    //                             @media (max-width:990px) {
+                    //                                 flex-basis: 100%;
+                    //                             }
+
+
+                    //                             button {
+                    //                                 border-radius: 4px !important;
+                    //                                 padding: 15px 20px;
+                    //                                 max-width: 163px !important;
+                    //                                 width: 163px;
+                    //                                 font-size: 15px;
+                    //                                 font-family: $font-jost;
+                    //                                 letter-spacing: 1px;
+                    //                                 text-transform: capitalize;
+
+                    //                                 @media (max-width:678px) {
+                    //                                     width: 143px;
+                    //                                     padding: 13px 18px;
+                    //                                 }
+
+                    //                                 @media (max-width:420px) {
+                    //                                     width: 113px;
+                    //                                     padding: 12px 17px;
+                    //                                     font-size: 13px;
+                    //                                 }
+                    //                             }
+                    //                         }
+
+                    //                         .right {
+                    //                             flex-basis: 35%;
+                    // @media (max-width:1500px) {
+                    //         flex-basis: 40%;
+                    //     }
+                    //                             @media (max-width:990px) {
+                    //                                 display: none;
+                    //                             }
+
+                    //                             .content {
+                    //                                 border: 1px solid rgb(49, 11, 11);
+                    //                                 padding: 20px;
+                    //                                 padding-top: 30px;
+                    //                                 padding-bottom: 20px;
+                    //                                 border: 1px solid $border;
+                    //                                 border-radius: 4px;
+                    //                                 font-size: 15px;
+                    //                                 position: relative;
+
+                    //                                 .acceptedcards {
+                    //                                     display: flex;
+                    //                                     justify-content: center;
+                    //                                     align-items: center;
+
+                    //                                     img {
+                    //                                         width: 100%;
+                    //                                         object-fit: cover;
+                    //                                     }
+                    //                                 }
+                    //                             }
+                    //                         }
+                    //                     }
+                }
+            }
+        }
+
+    }
+}

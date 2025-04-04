@@ -1,0 +1,562 @@
+@import "../../styles/variables";
+@import "../../styles/fonts";
+
+.page {
+    position: relative;
+    margin-left: 0px !important;
+    margin-right: 0px;
+    padding-top: 100px;
+    padding-bottom: 0px !important;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: hidden;
+    width: 100%;
+    flex-grow: 1;
+
+    @media (max-width: 990px) {
+        padding-top: 30px;
+
+    }
+
+    &_section {
+        margin-right: 10px !important;
+        margin-left: 80px !important;
+        flex-grow: 1;
+        display: flex;
+        overflow-x: auto;
+
+        @media (max-width: 990px) {
+            margin-left: 20px !important;
+        }
+
+        @media (max-width: 768px) {
+            margin: 0 25px !important;
+        }
+
+        @media (max-width: 450px) {
+            margin: 0 10px !important;
+        }
+
+        &_container {
+            position: relative;
+            max-width: 100% !important;
+            padding: 0px !important;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            overflow-x: auto;
+
+            @media (max-width:990px) {
+                margin-left: 0px !important;
+            }
+
+            .title_div {
+                padding-bottom: 20px;
+                display: flex;
+                align-items: center;
+
+
+                /* Add background color if needed */
+                @media (max-width:1500px) {
+                    overflow-x: scroll;
+
+                    /* Width */
+                    &::-webkit-scrollbar {
+                        height: 6px;
+                        background-color: darkgrey;
+                        background-color: #cecdcd;
+                    }
+
+                    /* Handle color */
+                    &::-webkit-scrollbar-thumb {
+                        background-color: darkgrey;
+                        border-radius: 10px;
+                    }
+
+                }
+
+                h1 {
+                    font-size: 25px;
+                    font-weight: 500;
+                    font-family: $font-jost;
+                    margin-right: 1.5rem;
+                }
+
+                .searching_area {
+                    display: flex;
+                    gap: 1.5em;
+
+                    .search_input {
+                        i {
+                            padding: 0px 10px;
+                            cursor: pointer;
+                        }
+                    }
+
+                    div {
+                        .search_menu {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: flex-start;
+                            align-items: center;
+                            background-color: $light_3;
+                            border: 1px solid $light_3;
+                            border-radius: 4px;
+                            position: relative;
+
+                            label {
+                                p {
+                                    margin: 0;
+                                    padding: 0 12px;
+                                    font-family: monospace;
+                                    white-space: nowrap;
+                                    font-weight: 500;
+                                    font-size: 16px;
+                                }
+                            }
+
+                            select {
+                                border: none;
+                                border-radius: 4px;
+                                height: 30px;
+
+                                padding-left: 4px;
+
+                                &:focus {
+                                    border: none;
+                                    outline: none;
+                                }
+                            }
+
+                            .input {
+                                border: 0 solid silver;
+                                border-radius: 4px;
+                                height: 30px;
+                                width: 430px;
+                                padding: 0px 10px;
+                                outline: none;
+
+                                &:focus {
+                                    outline: none;
+                                }
+                            }
+
+                            input[type="date"] {
+                                border: 0 solid silver;
+                                border-radius: 4px;
+                                outline: unset;
+                                padding: 2px 8px;
+                                line-height: 10px;
+                                height: 30px;
+                                font-family: monospace;
+                                width: 150px;
+                                font-size: 18px;
+                                -webkit-appearance: none;
+                                -moz-appearance: none;
+
+                            }
+
+
+
+                            /* make the native arrow invisible and stretch it over the whole field so you can click anywhere in the input field to trigger the native datepicker*/
+                            input[type="date"]::-webkit-calendar-picker-indicator {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                width: auto;
+                                height: auto;
+                                color: transparent;
+                                background: transparent;
+                                user-select: none;
+                                z-index: 1;
+                            }
+
+                            /* adjust increase/decrease button */
+                            input[type="date"]::-webkit-inner-spin-button {
+                                z-index: 1;
+                            }
+
+                            /* adjust clear button */
+                            input[type="date"]::-webkit-clear-button {
+                                z-index: 1;
+                            }
+
+                            //iphonelarda 2 aralik 2022 ni ortaliyan budur
+                            input::-webkit-date-and-time-value {
+                                display: flex;
+                                align-items: center;
+                                height: 100%;
+                            }
+
+                            input[type="date"]::-webkit-datetime-edit,
+                            input[type="date"]::-webkit-inner-spin-button,
+                            input[type="date"]::-webkit-clear-button {
+                                position: relative;
+                                left: 0px;
+                                text-align: left;
+                                // height: 100%;
+                                // display: flex;
+                                // align-items: center;
+                                // justify-content: center;
+                            }
+
+                            input[type="date"]::-webkit-datetime-edit-year-field {
+                                //  position: absolute !important;
+                                //  padding: 0px 7px;
+                                //  color: rgba(#130b37, 1);
+                                //  left: 54px;
+                            }
+
+                            input[type="date"]::-webkit-datetime-edit-month-field {
+                                //  position: absolute !important;
+                                //  padding: 0px 7px;
+                                //  color: rgba(#130b37, 1);
+                                //  left: 22px;
+                            }
+
+
+                            input[type="date"]::-webkit-datetime-edit-day-field {
+                                //  position: absolute !important;
+                                //  color: rgba(#130b37, 1);
+                                //  padding: 0px 0px;
+                                //  left: 0px;
+                            }
+
+                            input::-webkit-datetime-edit-day-field:focus,
+                            input::-webkit-datetime-edit-month-field:focus,
+                            input::-webkit-datetime-edit-year-field:focus {
+                                background-color: transparent;
+                                color: black;
+                                //  outline: none;
+                            }
+
+                            .date_picker_icon {
+                                position: absolute;
+                                right: 10px;
+                                top: 9px;
+                            }
+                        }
+                    }
+
+                    .search_input_div {
+
+
+                        label {
+                            cursor: pointer;
+                        }
+
+                        .showfield_search_div {
+                            position: absolute;
+                            background: white;
+                            z-index: 999999999;
+                            top: 32px;
+                            padding: 10px 15px;
+                            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+                            user-select: none;
+
+                            label:not(:last-child) {
+                                margin-bottom: 1rem;
+                            }
+
+                            label {
+                                display: flex;
+                                align-items: center;
+                                gap: 0.75rem;
+
+
+                                .showfield_query_input {
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+
+                        i {
+                            padding: 0px 10px;
+                            font-size: 20px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+
+
+            .tabs_container {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                gap: 1rem;
+                overflow-x: auto;
+
+                @media (max-width:1500px) {
+                    // overflow-x: hidden;
+                    margin-top: 2rem;
+                    overflow-x: scroll;
+
+
+                    /* Width */
+                    &::-webkit-scrollbar {
+                        height: 6px;
+                        background-color: darkgrey;
+                        background-color: #cecdcd;
+                    }
+
+                    /* Handle color */
+                    &::-webkit-scrollbar-thumb {
+                        background-color: darkgrey;
+                        border-radius: 10px;
+                    }
+                }
+
+                @media(max-width:1320px) {
+                    margin-bottom: 2rem;
+                }
+
+                .table {
+                    min-width: 1200px;
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                    overflow-x: auto;
+                }
+            }
+        }
+    }
+}
+
+
+
+.edit_modal {
+    // background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+
+    .edit_modal_container {
+        min-width: 450px;
+        width: 100%;
+        background-color: white;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        padding: 10px 10px;
+        transition: .5s ease-in-out;
+        box-shadow: rgba(50, 50, 93, 0.25) 6px 16px 12px 7px, rgba(0, 0, 0, 0.3) 6px 3px 7px 4px;
+
+        .edit_modal_container_top {
+            background-color: #eaeaea;
+            padding: 5px 8px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .edit_modal_container_top_left {
+                display: flex;
+                gap: 1rem;
+                font-family: $roboto;
+
+                .edit_modal_container_top_left_text {
+                    font-size: 13px;
+                    font-weight: 500;
+                }
+
+                .edit_modal_container_top_left_reservation_text {
+                    font-weight: bold;
+                }
+            }
+
+            .edit_modal_container_top_right {
+                //general icons class
+                display: flex;
+                gap: 1rem;
+
+                .loading_div {
+                    position: relative;
+                }
+
+                .icon {
+                    padding: 3px 8px;
+                    border-radius: 4px;
+                    display: flex;
+                    gap: 0.5rem;
+                    align-items: center;
+                    cursor: pointer;
+                    font-size: 16px;
+                    color: whitesmoke;
+                    position: relative;
+
+                    i {
+                        font-size: 17px;
+                    }
+                }
+
+                .icon_edit {
+                    background-color: rgba(42, 93, 182, 0.802);
+
+                    i {
+                        font-size: 15px;
+                    }
+                }
+
+                .icon_close {
+                    background-color: rgba(242, 66, 66, 0.963);
+                }
+
+                .icon_whatsap {
+                    background-color: green;
+                }
+            }
+        }
+
+        .edit_modal_container_body {
+            margin-top: 1rem;
+            gap: 1rem;
+            display: flex;
+            flex-direction: column;
+
+            .input_div {
+                display: grid;
+                grid-template-columns: 100px 1fr;
+
+                p {
+                    padding-left: 8px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    font-family: $roboto;
+                }
+
+                div {
+                    display: flex;
+                    align-items: center;
+                    gap: .5rem;
+
+                    input {
+                        width: 100%;
+                        padding: 0px 8px;
+                        border: 1px solid #d1cece;
+                        border-radius: 4px;
+                    }
+
+                    select {
+                        border-radius: 4px;
+                        border: 1px solid #d1cece;
+                        width: 100%;
+                        padding: 3px 8px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.show {
+    display: flex;
+}
+
+.hide {
+    display: none;
+}
+
+.edit_booking_modal {
+    background-color: rgba(58, 58, 58, 0.8);
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    left: 65px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+
+    .modal_container {
+        max-width: 1350px;
+        width: 100%;
+
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        color: #000;
+        font-weight: 400;
+        text-align: center;
+        transition: .5s ease-in-out;
+        padding: 10px;
+        background-color: #bfbfbf;
+        height: 80vh;
+
+        .modaltop {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 6px 8px;
+
+            p {
+                font-weight: 500;
+                font-size: 24px;
+            }
+
+            .icon {
+                color: #fff;
+                transition: border-radius .5s ease-in;
+                outline: none;
+                border: 0;
+                border-radius: 2px;
+                display: flex;
+                justify-content: center;
+                cursor: pointer;
+                align-items: center;
+                position: relative;
+                padding: 10px;
+                background-color: $dark-4;
+            }
+        }
+
+        .iframe_div {
+            iframe {
+                width: 100%;
+                height: 100%;
+            }
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1 1;
+            width: 100%;
+        }
+    }
+}
+
+@keyframes zoomout {
+    0% {
+        opacity: 0;
+
+        transform: scale(0);
+
+    }
+
+    10% {
+        opacity: 0;
+        transform: scale(0.5);
+
+
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+
+
+    }
+}

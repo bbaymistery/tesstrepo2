@@ -1,0 +1,184 @@
+.Container {
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (max-width: 650px) {
+        display: none;
+
+    }
+
+    .Containerprogessbar {
+        display: flex;
+        width: 100%;
+        padding-top: 0px;
+        counter-reset: step;
+
+        @media (max-width: 1300px) {
+            padding-top: 0px;
+        }
+
+        li {
+            width: calc(100%/4);
+            text-align: center;
+            counter-increment: step;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #747d8c;
+
+            &:nth-child(1) span {
+                animation: textAnimation 0.5s forwards 0.5s;
+                /* 0.5s after the circle starts */
+            }
+
+            &:nth-child(2) span {
+                animation: textAnimation 0.5s forwards 1.2s;
+                /* adjust accordingly */
+            }
+
+            &:nth-child(3) span {
+                animation: textAnimation 0.5s forwards 1.8s;
+            }
+
+            &:nth-child(4) span {
+                animation: textAnimation 0.5s forwards 2.4s;
+            }
+
+            span {
+                display: inline-block;
+                /* so that animation can apply */
+                opacity: 0;
+                /* set initial opacity */
+                transition: opacity 0.5s;
+                /* transition effect */
+            }
+
+            &:nth-child(1):before {
+                animation-delay: 0.1s;
+            }
+
+            &:nth-child(1):after {
+                animation-delay: 0.3s;
+                /* After the circle animation is almost complete */
+            }
+
+            &:nth-child(2):before {
+                animation-delay: 0.8s;
+                /* Delayed after the first line animation starts */
+            }
+
+            &:nth-child(2):after {
+                animation-delay: 1.2s;
+                /* After the second circle animation is almost complete */
+            }
+
+            &:nth-child(3):before {
+                animation-delay: 1.6s;
+                /* And so on... */
+            }
+
+            &:nth-child(3):after {
+                animation-delay: 1.8s;
+            }
+
+            &:nth-child(4):before {
+                animation-delay: 2s;
+            }
+
+            &:nth-child(4):after {
+                animation-delay: 2.2s;
+            }
+
+            &:before {
+                content: counter(step);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                height: 50px;
+                border-radius: 50%;
+                background-color: white;
+                border: 3px solid #dedede;
+                color: #747d8c;
+                font-weight: bold;
+                margin-bottom: 5px;
+                z-index: 99;
+                animation: beforeAnimation 1.4s forwards;
+                width: 0%;
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            &:after {
+                content: '';
+                height: 3px;
+                background-color: #dedede;
+                position: absolute;
+                left: -50%;
+                top: 23px;
+                z-index: 0;
+                animation: afterAnimation 1s forwards;
+                width: 0%;
+            }
+
+            &:first-child:after {
+                display: none;
+            }
+
+            &.active:before,
+            &.active::after {
+                background-color: #2ed573;
+                color: #fff;
+                border-color: #2ed573;
+            }
+
+            &.false:before,
+            &.false::after {
+                background-color: #EA2027;
+                color: #fff;
+                border-color: #EA2027;
+            }
+
+            &.pending:before,
+            &.pending::after {
+                color: #2ed573;
+                border-color: #2ed573;
+
+            }
+        }
+    }
+}
+
+@keyframes beforeAnimation {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        width: 50px;
+    }
+}
+
+@keyframes afterAnimation {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes textAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

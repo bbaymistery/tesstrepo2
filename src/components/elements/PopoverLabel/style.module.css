@@ -1,0 +1,8 @@
+.cp-popover-label { position: relative; }
+.cp-popover-label:hover > .cp-popover-label-div { display: flex; }
+.cp-popover-label-div { position: absolute;margin-top: 10px;display: none; }
+.cp-popover-label-div > p { background-color: black;color: white;border-radius: 4px;font-size: 16px;margin: 0;padding: 3px 8px;z-index: 1000;position: relative;width: 900; }
+.cp-popover-label-div > div { background-color: black;width: 14px;height: 14px;position: absolute;top: 0;transform: rotate(45deg);top: -5px;border-radius: 4px;z-index: 999; }
+/* top-start */
+.cp-popover-label-top-start > div { right: unset;left: 10px; }
+.cp-popover-label-top-end > div { right: 10px;left: unset; }

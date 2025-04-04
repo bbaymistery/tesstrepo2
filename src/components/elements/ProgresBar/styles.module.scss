@@ -1,0 +1,53 @@
+.progress_bar {
+  margin: auto;
+  width: 450px;
+  max-width: 80%;
+  height: 15px;
+  box-shadow: 0px 0px 4px #ffffffd1;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width:500px) {
+    width: 350px !important;
+    height: 10px !important;
+  }
+
+  @media (max-width:400px) {
+    width: 200px !important;
+    height: 10px !important;
+  }
+}
+
+.progress_bar:before {
+  content: "";
+  width: 200%;
+  height: 100%;
+  position: absolute;
+  animation: progress-anime 5s linear infinite;
+  background: linear-gradient(to right,
+      #24f2f2 0%,
+      #089dbe 50%,
+      #157fe3 50%,
+      #2720ed 100%);
+
+
+}
+
+@keyframes progress-anime {
+  0% {
+    left: -100%;
+  }
+
+  75% {
+    left: -5%;
+  }
+
+  85% {
+    left: -5%;
+  }
+
+  95% {
+    left: 0;
+  }
+}

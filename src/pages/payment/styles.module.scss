@@ -1,0 +1,60 @@
+@import '../../styles/variables';
+
+.page {
+    position: relative;
+    background-color: $light_1;
+    margin-left: 60px;
+
+    @media (max-width: 990px) {
+            padding-top: 30px;
+            margin-left: 0px;
+        }
+    
+        @media (max-width: 550px) {
+            padding-top: 0px;
+        }
+
+    &_section {
+        @media (max-width: 1510px) {
+            margin: 0 20px !important;
+        }   
+  @media (max-width: 1450px) {
+                margin: 0 40px !important;
+  }
+        @media (max-width: 450px) {
+            margin: 0 10px !important;
+        }
+
+        &_container {
+            position: relative;
+            max-width: 1300px !important;
+
+            @media (max-width: 1500px) {
+                padding: 0px !important;
+            }
+
+            .payment_details_section {
+                padding-top: 0px;
+                padding-bottom: 40px;
+                width: 100%;
+                position: relative;
+
+
+                div {
+                    .main_container {
+                        max-width: 1070px;
+                        width: 100%;
+                        background-color: transparent;
+                        position: relative;
+                        gap: 1rem;
+                        margin: 0 auto;
+                        z-index: 1;
+
+                    }
+                }
+
+
+            }
+        }
+    }
+}

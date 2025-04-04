@@ -1,0 +1,272 @@
+@import "../../styles/variables";
+@import "../../styles/fonts";
+
+
+.editprofile {
+    height: 100%;
+    position: relative;
+    padding-top: 2rem;
+padding-bottom:7rem;
+    @media (max-width: 990px) {
+        padding-top: 30px;
+    }
+
+    &_section {
+        @media (max-width: 1450px) {
+            margin: 0 50px !important;
+        }
+
+        @media (max-width: 768px) {
+            margin: 0 25px !important;
+        }
+
+        @media (max-width: 450px) {
+            margin: 0 10px !important;
+        }
+
+        &_container {
+            @media (max-width: 1500px) {
+                padding: 0px !important;
+            }
+
+            .title_div {
+                h1 {
+                    font-weight: 500;
+                    color: black;
+                    font-size: 28px;
+                    margin-bottom: 15px;
+                }
+            }
+
+            .editprofile_content {
+                display: flex;
+                gap: 2.5rem;
+                justify-content: space-between;
+
+                @media(max-width:1100px) {
+                    flex-direction: column;
+                }
+
+                .editprofile_content_left {
+                    flex-basis: 65%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2rem;
+
+                    @media(max-width:1250px) {
+                        flex-basis: 100%;
+                    }
+
+                    .details_div {
+                        border-radius: 4px;
+                        min-height: auto;
+                        padding: 25px 20px;
+                        border: 5px solid darken($border-light, 1%);
+                        background-color: rgb(255, 255, 255);
+
+                        h1 {
+                            font-size: 22px;
+                            margin-bottom: 15px;
+                            font-weight: 500;
+                            color: $darkPrimary;
+                        }
+
+                        .amount_credit_title {
+                            text-transform: capitalize;
+                            font-weight: 500;
+                            font-size: 18px;
+                            margin-bottom: 1rem;
+                        }
+
+
+                        .input_note {
+                            height: 10px !important;
+                            border: 1px solid red;
+                        }
+
+                        .details {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            grid-gap: 1.5rem;
+
+                            @media(max-width:768px) {
+                                display: flex;
+                                flex-direction: column;
+                            }
+
+                            .input_div {
+                                position: relative;
+
+                                //for ReactPhone npm packet ;s label
+                                .phone_title {
+                                    font-weight: 500;
+                                    color: $darkPrimary;
+                                    font-size: 14px;
+                                }
+
+                                //for logo image
+                                .input_image_title {
+                                    font-weight: 500;
+                                    color: $darkPrimary;
+                                    font-size: 14px;
+                                }
+
+                                //for logo image
+                                .input_div_top {
+                                    border: 1px solid $border-light;
+                                    padding: 15px 15px;
+                                    border-radius: 5px;
+
+
+                                    .input_div_top_buttons {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        align-items: center;
+                                        // flex-direction: column;
+                                        // justify-content: space-between;
+                                        // margin-bottom: 1rem;
+
+                                        input[type="file"] {
+                                            display: none;
+                                            /* Hide the default file input button */
+                                        }
+
+                                        .fileLabel,
+                                        button {
+                                            padding: 5px 0px;
+                                            // background-color: $blue-1;
+                                            cursor: pointer;
+                                            font-size: 14px;
+                                            transition: 0.5s ease;
+                                            outline: none;
+                                            border: none;
+
+                                            &:hover {
+                                                margin-left: 5px;
+                                            }
+                                        }
+
+
+
+                                        button {
+                                            background-color: transparent;
+                                        }
+
+                                        .image_content_div {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            padding: 5px;
+                                            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+                                            span {
+                                                border-radius: 5px !important;
+
+
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
+
+
+                            .last_input_item {
+                                grid-column: 1 / span 2;
+
+                                @media(max-width:768px) {
+                                    grid-column: 1;
+                                }
+                            }
+                        }
+
+                        .operation_details {
+                            display: flex;
+                            flex-direction: column;
+                        }
+
+
+                        .the_checkbox_div {
+                            border: 1px solid $border-light;
+                            border-radius: 4px;
+                            padding: 0px 15px 0px 15px;
+                            user-select: none;
+
+                            p {
+                                margin-bottom: 0px;
+                                color: $darkPrimary2;
+                                font-size: 14px;
+                                letter-spacing: 0.4px;
+                                font-weight: 500;
+                                padding-top: 10px;
+                            }
+
+                            .radio_input_content {
+                                display: flex !important;
+                                gap: 1rem;
+                                margin-bottom: 4px;
+
+                                div {
+                                    display: flex;
+                                    gap: 5px;
+                                    color: rgb(87, 87, 87) !important;
+                                    font-weight: 500;
+                                    font-size: 13px;
+
+                                    input,
+                                    label {
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+
+                        .edit_btn_div {
+                            button {
+                                margin-top: 1rem;
+                                background-color: $blue-1 !important;
+                                border: 1px solid $blue-1;
+                                color: white;
+
+                                @media (max-width:768px) {
+                                    width: 100%;
+                                }
+                            }
+                        }
+
+
+                    }
+
+                }
+
+
+                .editprofile_content_registration_right {
+                    border-radius: 4px;
+                    flex-basis: 30%;
+                    position: sticky;
+                    top: 120px;
+                    height: 100%;
+
+                    @media (max-width: 1700px) {
+                        flex-basis: 35%;
+                    }
+
+                    @media(max-width:1250px) {
+                        display: none;
+                    }
+
+                    .image_div {
+                        padding: 30px 20px;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
