@@ -13,8 +13,8 @@ import Recaptcha from '../../components/elements/Recaptcha'
 
 const Login = () => {
     const { loading, isAuthenticated, error } = useSelector((state) => state.authReducer);
-    const [handleInputs, setHandleInputs] = useState({ email: "demo@aplcars.com", pass: "Miranuras20092021", });//1q2w3e
-    // const [handleInputs, setHandleInputs] = useState({ email: "", pass: "", });//1q2w3e
+    // const [handleInputs, setHandleInputs] = useState({ email: "demo@aplcars.com", pass: "Miranuras20092021", });//1q2w3e
+    const [handleInputs, setHandleInputs] = useState({ email: "", pass: "", });//1q2w3e
     // pass: "Miranuras20092021",
     const [alert, setAlert] = useState({ alert: false, message: "", close: false, });
     const [showPass, setshowPass] = useState(false);

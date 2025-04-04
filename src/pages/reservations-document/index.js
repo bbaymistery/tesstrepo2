@@ -63,7 +63,6 @@ const ReservDocuments = (props) => {
     const headers = { "Content-Type": "application/json" }
     const body = JSON.stringify({ reservations: reservations, "user-id": loginUserId, "x-auth-token": loginToken, })
     // const body = JSON.stringify({ reservation: reservations, configurations: { sendConfirmationEmailToPassenger: true } })
-    console.log(body );
 
     // const url = `${env.apiDomain}/api/v1/reservation/`
     const url = `${env.apiDomain}/api/v1/corporate-account/reservation/add`
