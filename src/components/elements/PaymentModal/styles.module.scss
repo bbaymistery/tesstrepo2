@@ -1,0 +1,106 @@
+@import '../../../styles/variables';
+
+.content_modal {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    z-index: 9999;
+    padding: 20px !important;
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+    // animation: zoomout;
+    opacity: 1;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-delay: .18s;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+
+    .confirmation_box {
+        max-width: 450px;
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 3rem;
+        min-height: 180px;
+        border: 1px solid $border;
+        padding: 10px 0px;
+        border-radius: 4px;
+        background-color: white;
+
+        .header,
+        .body,
+        .footer {
+            padding-bottom: 15px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .header {
+            border-bottom: 1px solid lighten($border, 3%);
+            flex-direction: row;
+
+            p {
+                font-weight: 500;
+                font-size: 19px;
+                color: black;
+            }
+
+            i {
+                cursor: pointer;
+                font-size: 19px;
+            }
+        }
+
+        .body {
+            border-bottom: 1px solid lighten($border, 3%);
+
+            p {
+                font-weight: 500;
+            }
+        }
+
+        .footer {
+            padding-bottom: 0px;
+            padding-top: 15px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+
+            button {
+                padding: 7px 15px;
+                border-radius: 6px;
+            }
+        }
+    }
+}
+
+
+@keyframes zoomout {
+    0% {
+        opacity: 0;
+
+        transform: scale(0);
+
+    }
+
+    10% {
+        opacity: 0;
+        transform: scale(0.5);
+
+
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+
+
+    }
+}

@@ -1,0 +1,35 @@
+//!bunnan sonraki projelerde bu sekilde kullanicaz
+@import '../breakpoint';
+$page_margin: 70px;
+
+.page {
+    padding-bottom: 50px;
+    padding-top: 75px;
+    margin-left: 300px;
+    background-color: #fff;
+    min-height: calc(100vh - $page_margin);
+    margin-top: 70px;
+
+
+
+    .page_section {
+        margin: 0 var(--window-margin);
+
+        .page_section_container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+
+            @include breakpoint-down(large) {
+                //1200
+                padding: 0px 0px;
+                max-width: 970px;
+            }
+
+
+
+        }
+
+    }
+}

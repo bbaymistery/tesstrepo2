@@ -1,0 +1,52 @@
+//*Transitions
+$tr-ease: 0.3s ease-in-out;
+$tr-linear: 0.3s linear;
+
+//*colors
+
+$primary: #13357B;
+$primary2: #287dfa;
+$darkPrimary: #0d233e;
+$darkPrimary2: #000033;
+$blue-1: #3554D1;
+
+$dark-1: #051036;
+$dark-2: #0D2857;
+$dark-4: #163C8C;
+
+$yellow1: #F8D448;
+$orange: #ff9f1c;
+// gray**
+$gray: #717172;
+$gray-1: #eee;
+$gray-2: #ccc;
+$gray-3: #5D646D;
+$gray-4: #8a8a8c;
+
+
+// border***
+$border-light: #efefef;
+$border_gray: rgba(128, 137, 150, 0.2);
+$border: #DDDDDD;
+$border_primary: #c6cff2;
+// gradients
+$blue-gradient: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 10%, rgba(0, 212, 255, 1) 100%);
+
+$input_text_color: #62666cd7;
+$label_text_color: rgba(105, 116, 136, 0.579);
+
+// backgrounds
+$light_1: rgb(245, 247, 252);
+$light_2: #F5F5F5;
+$light_3: #efefef;
+$light_4: #697488;
+
+
+
+$green-1: #63ce26;
+
+$bg-1: #d3dae7;
+$bg-2: rgba(53, 84, 209, 0.1);
+$bg-hover-1: rgba(53, 84, 209, 0.05);
+$bg-hover-2: rgba(53, 84, 209, 0.15);
+$disabled: hsla(215, 9%, 55%, 0.15);

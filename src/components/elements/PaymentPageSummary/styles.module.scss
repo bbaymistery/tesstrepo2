@@ -1,0 +1,134 @@
+    @import '../../../styles/variables';
+    @import '../../../styles/fonts';
+
+    .journey_summary_panel {
+        position: relative;
+        font-family: $font-jost;
+
+        .content {
+            background-color: white;
+            padding: 20px;
+            padding-top: 30px;
+            padding-bottom: 20px;
+            border: 3px solid lighten($border, 7%);
+            border-radius: 4px;
+            font-size: 15px;
+            position: sticky;
+            top: 51px;
+
+
+
+
+            .journey_card {
+                display: flex;
+                gap: 2rem;
+
+                @media (max-width: 1300px) {
+                    flex-direction: column;
+                    gap: 0rem;
+                }
+
+                .passsenger_details_div {
+                    padding: 5px 0px;
+                    flex: 1;
+
+                    h5 {
+                        font-weight: 500;
+                        line-height: 1.2;
+                        font-family: $font-jost;
+                        color: $input_text_color;
+                        margin-bottom: 2px;
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 3px;
+                        text-transform: uppercase;
+
+                    }
+
+
+                    .space {
+                        margin-bottom: 5px;
+                    }
+
+
+
+                    li {
+                        text-align: left;
+                    }
+
+                    li {
+                        margin-bottom: 0px;
+                        font-weight: 500;
+                        list-style: none;
+                        border-bottom: 1px solid $border;
+                        margin-bottom: 15px;
+                        font-size: 15px;
+
+                        &:last-child {
+                            margin-bottom: 0px;
+                            border-bottom: 0px;
+
+                            @media (max-width: 1300px) {
+                                border-bottom: 1px solid darken($border, 20%);
+                            }
+                        }
+                    }
+
+                }
+
+                .details_div {
+                    flex: 1;
+                    padding: 5px 10px;
+
+                    @media (max-width: 1300px) {
+                        padding: 5px 0px;
+                    }
+
+                    h5 {
+                        display: flex;
+                        justify-content: space-between;
+                        font-weight: 500;
+                        line-height: 1.2;
+                        font-family: $font-jost;
+                        color: $input_text_color;
+                        margin-bottom: 2px;
+                        text-transform: uppercase;
+                    }
+
+
+                    .space {
+                        margin-bottom: 15px;
+                    }
+
+
+
+                    li {
+                        text-align: left;
+                    }
+
+                    li {
+                        font-size: 14px;
+                        font-weight: 500;
+                        list-style: none;
+                        border-bottom: 1px solid $border;
+
+                        &:last-child {
+                            margin-bottom: 0px;
+                            border-bottom: none;
+                        }
+                    }
+
+                    li span {
+                        @media (max-width: 400px) {
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+
+
+
+
+
+        }
+    }

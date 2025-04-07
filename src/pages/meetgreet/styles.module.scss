@@ -1,0 +1,436 @@
+@import '../../styles/variables';
+@import '../../styles/fonts';
+
+.meetgreet[bggray="true"] {
+    background-color: $light-2;
+}
+
+.meetgreet[bggray="false"] {
+    background-color: white !important;
+}
+
+.meetgreet {
+    height: 100%;
+    position: relative;
+    padding-top: 2rem;
+    border: 1px solid $border;
+
+    @media (max-width: 1300px) {
+        margin-top: 0px;
+    }
+
+    @media (max-width: 990px) {
+        margin-left: 0px;
+    }
+
+    &_section {
+        @media (max-width: 1300px) {
+            margin: 0 25px !important;
+        }
+
+
+        &_container {
+
+            @media (max-width: 990px) {
+                max-width: 990px !important;
+                padding: 0px !important;
+            }
+
+            .form_to_fill {
+                transition: height 0.25s linear;
+                color: white;
+                margin-top: 4rem;
+                position: relative;
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+                border-radius: 4px;
+
+                .form_to_fill_content {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 3.5rem 16px;
+                    gap: 2rem;
+
+
+                    @media (max-width: 1500px) {
+                        flex-direction: column;
+                        padding: 2rem 1rem;
+                    }
+
+
+
+
+                    @media (max-width: 990px) {
+                        padding: 1rem 1rem;
+                    }
+
+                    .left {
+                        color: black;
+                        padding-top: 16px;
+                        flex-basis: 75%;
+
+                        //! step 1
+                        .passengers {
+                            .passengers_title {
+                                margin: 33px 0px;
+                                font-weight: 500;
+                                font-size: 1.25rem;
+                                line-height: 1.6;
+                            }
+
+                            .passengers_details_div {
+                                p {
+                                    margin-bottom: 10px;
+                                    font-size: 16px;
+                                    font-family: $font-jost;
+                                }
+
+                                .passengers_details {
+                                    display: grid;
+                                    grid-template-columns: 1fr 1fr;
+                                    gap: 1.5rem;
+                                    margin-bottom: 10px;
+
+                                    @media (max-width: 768px) {
+                                        grid-template-columns: 1fr;
+                                    }
+                                }
+                            }
+
+                        }
+
+                        //!step 2
+                        .flight_details {
+                            .flight_details_title {
+                                margin-top: 24px;
+                                margin-bottom: 26px;
+                                font-weight: 500;
+                                font-size: 1.25rem;
+                                line-height: 1.6;
+                                font-size: 16px;
+                                font-family: $font-jost;
+                            }
+
+                            .flight_details_inputs_div {
+                                margin-top: 1rem;
+                                display: grid;
+                                grid-template-columns: 1fr 1fr 1fr;
+                                gap: 2rem;
+
+                                @media (max-width: 768px) {
+                                    grid-template-columns: 1fr;
+                                }
+
+                                .hours_minutes {
+                                    display: flex;
+                                    flex-direction: column;
+                                    border: 1px solid $border;
+                                    padding-left: 15px;
+                                    padding-right: 8px;
+                                    border-radius: 4px;
+
+                                    @media (max-width: 768px) {
+                                        width: 200px;
+                                    }
+
+                                    p {
+                                        font-size: 13px;
+                                        color: $label_text_color;
+                                    }
+
+                                    .select_time_div {
+                                        display: flex;
+                                        color: #5d646d;
+                                        // width: 135px;
+                                        color: rgba(#130b37, 1);
+                                        font-weight: 500;
+
+                                        @media(max-width:1400px) {}
+
+
+
+
+                                        //
+                                        @media(max-width:990px) {
+                                            max-width: 100% !important;
+                                        }
+
+                                        height: 28px;
+                                        gap: 16px;
+
+                                        .booking_form_hour_minute_wrapper {
+                                            // max-width: 145px;
+                                            width: 100%;
+                                            position: relative;
+
+                                            @media(max-width:990px) {
+                                                max-width: 100%;
+                                            }
+
+                                            select {
+                                                //   -webkit-appearance: none;
+                                                border: none;
+                                                // border-bottom: 1px solid rgba(93, 100, 109, 0.1);
+                                                width: 100%;
+                                                font-size: 15px;
+                                                background-color: white;
+
+                                                // padding: 7px 10px;
+                                                @media(max-width:990px) {
+                                                    //   -webkit-appearance: menulist;
+                                                }
+
+                                                &:focus {
+                                                    outline: 0px !important;
+                                                }
+                                            }
+
+
+                                        }
+                                    }
+
+
+
+                                }
+                            }
+
+                            .format_date {
+                                font-weight: 500;
+                            }
+
+                            .flight_extras_div {
+                                .flight_extras_div_title {
+                                    margin: 0px;
+                                    font-weight: 500;
+                                    margin-top: 2rem;
+                                }
+
+                                .bugger_selection_div {
+                                    padding: 16px;
+                                    display: flex;
+                                    gap: 1.6rem;
+                                    align-items: center;
+                                    justify-content: center;
+
+                                    @media (max-width: 550px) {
+                                        flex-direction: column;
+                                        margin-top: 1rem;
+                                    }
+
+                                    @media (max-width: 450px) {
+                                        padding-left: 0px;
+                                        padding-right: 0px;
+                                        justify-content: space-between;
+                                        padding-top: 0px;
+                                    }
+
+                                    .bugger_selection_div_column {
+                                        padding: 0px 9px;
+
+
+
+                                        .name {
+                                            margin: 0px;
+                                            font-weight: 500;
+                                            font-size: 18px;
+                                            line-height: 1.57;
+                                            text-align: center;
+
+
+                                        }
+
+                                        .desc {
+                                            margin: 8px 0px;
+                                            font-weight: 400;
+                                            line-height: 1.43;
+                                            color: $light-4;
+                                            font-size: 0.83rem;
+                                            text-align: center;
+
+                                            @media (max-width: 450px) {
+                                                font-size: 0.73rem;
+                                            }
+                                        }
+
+                                        .bugger_selection_div_column_numbers_div[direction="true"] {
+                                            flex-direction: row-reverse;
+                                        }
+
+                                        .bugger_selection_div_column_numbers_div {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            margin-top: 20px;
+
+                                            .number {
+                                                font-size: 20px;
+                                                margin-left: 0.75rem;
+                                                margin-right: 0.75rem;
+                                            }
+
+                                            .disabled {
+                                                color: $disabled !important;
+                                                cursor: default !important;
+                                            }
+
+                                            .left_arrow,
+                                            .right_arrow {
+                                                cursor: pointer;
+                                                color: $primary;
+                                                font-size: 24px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        //!step3
+                        .bookers {
+                            .bookers_title {
+                                margin: 33px 0px;
+                                font-weight: 500;
+                                font-size: 1.25rem;
+                                line-height: 1.6;
+                            }
+
+                            .bookers_details_div {
+                                p {
+                                    margin-bottom: 10px;
+                                }
+
+                                .bookers_details {
+                                    display: grid;
+                                    grid-template-columns: 1fr 1fr;
+                                    gap: 1.5rem;
+                                    margin-bottom: 10px;
+
+                                    @media (max-width: 768px) {
+                                        grid-template-columns: 1fr;
+                                    }
+                                }
+                            }
+
+                        }
+
+                        .back_next_buttons {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-top: 3rem;
+
+                            @media (max-width: 1500px) {
+                                display: none;
+                            }
+
+                            button {
+                                border-radius: 4px;
+                                color: white;
+                                padding: 5px 16px;
+                                background-color: $primary;
+                            }
+                        }
+
+                        .between {
+                            justify-content: space-between;
+                        }
+
+                        .end {
+                            justify-content: flex-end;
+                        }
+                    }
+
+                    .right {
+                        flex-basis: 25%;
+
+                        .right_content {
+                            color: black;
+                            padding: 16px 16px 24px 16px;
+                            border: 1px solid $border;
+                            border-radius: 4px;
+                            text-transform: capitalize;
+
+                            p {
+                                margin: 0px 0px 0.35em;
+                                font-weight: 500;
+                                font-size: 1.25rem;
+                                line-height: 1.6;
+                                text-align: center;
+                            }
+
+                            .border {
+                                border: 1px solid $border;
+                                margin-bottom: 1.2rem;
+                            }
+
+
+
+                            .arrival {
+                                font-weight: 500;
+                            }
+
+                            li {
+                                list-style: none;
+                                padding-bottom: 5px;
+                            }
+
+                            .total {
+                                color: red;
+                                display: flex;
+                                flex-direction: column;
+
+                                p {
+                                    justify-content: space-between;
+                                    display: flex;
+
+                                    span {
+                                        font-weight: 400;
+                                    }
+                                }
+
+                                p.total_price {
+                                    margin-top: 10px;
+
+                                    span {
+
+                                        font-weight: 500;
+                                    }
+                                }
+
+                                span {
+                                    font-size: 16px !important;
+
+                                }
+
+                                span:nth-child(1) {}
+                            }
+
+                            .total {}
+                        }
+
+                        .back_next_buttons {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-top: 3rem;
+
+                            display: none;
+
+                            @media (max-width: 1500px) {
+                                display: flex;
+                            }
+
+                            button {
+                                border-radius: 4px;
+                                color: white;
+                                padding: 5px 16px;
+                                background-color: $primary;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+
+
+        }
+    }
+}

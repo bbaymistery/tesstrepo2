@@ -1,0 +1,345 @@
+@import '../../../styles/variables';
+
+.sidebar {
+    padding: 10px 0 13px 0;
+    width: 310px;
+    z-index: 1001;
+    background: #fff;
+    bottom: 0;
+    margin-top: 0;
+    position: fixed;
+    top: 70px;
+    border-right: 1px solid transparent;
+    -webkit-box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 10%);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+    transition: all 0.4s linear;
+    z-index: 99999;
+
+    .ul_menu {
+        margin: 0px;
+        opacity: 1;
+        visibility: visible;
+        font-family: 'Roboto';
+
+        li {
+            display: block;
+            width: 100%;
+            padding-left: 10px;
+            position: relative;
+
+            a {
+                display: flex;
+                padding: 1rem 1.5rem;
+                color: $gray;
+                position: relative;
+                font-size: .845rem;
+                transition: $tr-linear;
+                font-size: 19px;
+                align-items: center;
+                justify-content: space-between;
+
+
+                i {
+                    transition: $tr-linear;
+
+                    color: $gray;
+                    font-size: 18px;
+                    margin-right: 15px;
+                    transform: translateY(-3px);
+                }
+
+                &:hover {
+                    color: $blue-1;
+
+                    i {
+                        color: $blue-1;
+
+                    }
+                }
+            }
+
+            .arrow {
+                position: absolute;
+                right: 20px;
+                top: 17px;
+                // display: none;
+            }
+
+            &:hover {
+                .arrow {
+                    transition: $tr-linear;
+
+                    color: $blue-1;
+                }
+            }
+
+        }
+
+        .menu_title {
+            padding: 12px 30px !important;
+            font-family: 'Poppins',
+                sans-serif;
+            ;
+            cursor: default;
+            color: $gray;
+            font-weight: 500;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+
+            i {
+                font-size: 22px;
+                display: flex;
+                margin-left: -8px;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+        }
+
+        li.active {
+            a {
+                color: $blue-1;
+
+                i {
+                    color: $blue-1;
+                }
+            }
+
+            .arrow {
+                color: $blue-1;
+            }
+        }
+
+
+    }
+}
+
+.closeHalf {
+    width: 65px;
+
+    @media(max-width:990px) {
+        width: 0px !important;
+    }
+
+    .ul_menu {
+        @media(max-width:990px) {
+            display: none;
+        }
+
+        li {
+            a {
+                padding: 1rem 1rem;
+
+                span:nth-child(1) {
+                    display: none;
+                }
+
+                /* Tooltip container */
+                [data-tooltip] {
+                    position: relative;
+                    cursor: pointer;
+                }
+
+                /* Tooltip text */
+                [data-tooltip]:before {
+                    content: attr(data-tooltip);
+                    position: absolute;
+                    top: -5px;
+                    /* Adjust as necessary */
+                    left: 100%;
+                    /* Adjust as necessary */
+                    white-space: nowrap;
+                    z-index: 10;
+                    padding: 4px 8px;
+                    color: #fff;
+                    background-color: #333;
+                    /* Adjust as necessary */
+                    border-radius: 4px;
+                    opacity: 0;
+                    pointer-events: none;
+                    transform: translateX(10px);
+                    transition: opacity 0s, transform 0.2s;
+                    visibility: hidden;
+                }
+
+                /* Tooltip appears on hover */
+                [data-tooltip]:hover:before {
+                    opacity: 1;
+                    transform: translateX(0);
+                    visibility: visible;
+                }
+            }
+        }
+
+        .menu_title {
+            pointer-events: auto;
+
+            span {
+                display: none;
+            }
+
+        }
+    }
+}
+
+.closeSideBar {
+    width: 0px;
+
+    .ul_menu {
+        opacity: 0;
+        visibility: hidden;
+
+        li {
+
+            // width: 307px !important;
+            padding-left: 10px;
+
+            a {
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+
+                span {
+                    display: none;
+                    opacity: 0;
+                }
+            }
+
+            &:hover {
+                transition: $tr-linear;
+                background-color: $light_3;
+                ;
+            }
+
+
+        }
+
+        .menu_title {
+            padding-left: 18px !important;
+        }
+
+        .for_close_menu {
+            position: absolute;
+            left: 5.5rem;
+            width: 235px;
+            top: 0px;
+            padding: .84rem 1.4rem;
+            font-size: .845rem;
+            transition: $tr-linear;
+            font-size: 19px;
+            color: $primary;
+            background-color: transparent;
+            transition: 0 background-color;
+            background-color: transparent;
+            visibility: hidden;
+            opacity: 0;
+            z-index: 0;
+        }
+
+        li:hover {
+
+            .for_close_menu {
+                display: block;
+                visibility: visible;
+                opacity: 1;
+                transition-delay: .1s;
+
+                background-color: $light_3;
+
+            }
+        }
+    }
+}
+
+.mobileVersion {
+    width: 0px;
+}
+
+// .specialNewBokingpage {
+//     @media(max-width:1600px) {
+//         width: 65px !important;
+//     }
+
+//     .ul_menu {
+//         @media(max-width:1600px) {
+//             display: block !important;
+//             opacity: 1 !important;
+//             visibility: visible !important;
+//         }
+
+//         li {
+
+//             a {
+//                 padding: 1rem 1rem;
+
+//                 span:nth-child(1) {
+//                     @media(max-width:1600px) {
+//                         display: none;
+//                         opacity: 0;
+//                     }
+//                 }
+
+//                 span {
+//                     @media(max-width:1600px) {
+//                         display: block !important;
+//                         opacity: 1 !important;
+//                     }
+
+//                     span {
+//                         @media(max-width:1600px) {
+//                             display: none !important;
+//                             opacity: 0 !important;
+//                         }
+//                     }
+//                 }
+
+//                 /* Tooltip container */
+//                 [data-tooltip] {
+//                     position: relative;
+//                     cursor: pointer;
+//                 }
+
+//                 /* Tooltip text */
+//                 [data-tooltip]:before {
+//                     content: attr(data-tooltip);
+//                     position: absolute;
+//                     top: -5px;
+//                     /* Adjust as necessary */
+//                     left: 100%;
+//                     /* Adjust as necessary */
+//                     white-space: nowrap;
+//                     z-index: 10;
+//                     padding: 4px 8px;
+//                     color: #fff;
+//                     background-color: #333;
+//                     /* Adjust as necessary */
+//                     border-radius: 4px;
+//                     opacity: 0;
+//                     pointer-events: none;
+//                     transform: translateX(10px);
+//                     transition: opacity 0s, transform 0.2s;
+//                     visibility: hidden;
+//                 }
+
+//                 /* Tooltip appears on hover */
+//                 [data-tooltip]:hover:before {
+//                     opacity: 1;
+//                     transform: translateX(0);
+//                     visibility: visible;
+//                 }
+//             }
+//         }
+
+//            .menu_title {
+//                padding: 12px 37px !important;
+//                font-family: 'Poppins',
+//                    sans-serif;
+              
+           
+//                span{
+//                 display: none;
+//                }
+//            }
+//     }
+// }

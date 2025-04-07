@@ -1,0 +1,46 @@
+//Mixins flex-box
+@mixin flex-display($display, $align-items, $justify-content) {
+    display: $display;
+    align-items: $align-items;
+    justify-content: $justify-content;
+}
+
+@mixin center-element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+// bg
+@mixin bgRepPosSize($noRepeat, $center, $cover) {
+    background-repeat: $noRepeat;
+    background-position: $center;
+    background-size: $cover;
+}
+
+
+//hide text
+@mixin hide-text() {
+    position: absolute;
+    top: -11111px;
+    left: -11111px;
+}
+
+.hidden_text {
+    @include hide-text;
+}
+
+//broder radius
+@mixin border-radius($px) {
+    border-radius: $px;
+}
