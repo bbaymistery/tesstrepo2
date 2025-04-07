@@ -1,7 +1,7 @@
 // env.js
 
 const getEnvConfig = (config) => {
-    const isDevelopment = true; // localohst -> true || live -> false
+    const isDevelopment = false; // localohst -> true || live -> false
 
     return {
         websiteDomain: isDevelopment
